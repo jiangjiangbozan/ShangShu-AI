@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ai.api.identity.mapper.SystemUserMapper">
+
+    <!-- 结果映射：snake_case 列名 → camelCase 属性名 -->
+    <resultMap id="SystemUserResultMap" type="com.ai.api.identity.entity.SystemUser">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="email" property="email"/>
+        <result column="password_hash" property="passwordHash"/>
+        <result column="status" property="status"/>
+        <result column="fail_count" property="failCount"/>
+        <result column="lock_until" property="lockUntil"/>
+        <result column="last_login_at" property="lastLoginAt"/>
+        <result column="token_version" property="tokenVersion"/>
+        <result column="creator" property="creator"/>
+        <result column="create_time" property="createTime"/>
+        <result column="updater" property="updater"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
+
+    <!-- 公共列片段（复用） -->
+    <sql id="baseColumns">
+        id, username, email, password_hash, status, fail_count,
+        lock_until, last_login_at, token_version, creator, create_time, updater, update_time, deleted
+    </sql>
+
+    <!-- 按用户名查询未逻辑删除的用户 -->
+    <select id="selectByUsername" resultMap="SystemUserResultMap">
+        SELECT <include refid="baseColumns"/>
+        FROM sys_user
+        WHERE username = #{username}
+          AND deleted = 0
+        LIMIT 1
+    </select>
+
+    <!-- 按邮箱查询未逻辑删除的用户 -->
+    <select id="selectByEmail" resultMap="SystemUserResultMap">
+        SELECT <include refid="baseColumns"/>
+        FROM sys_user
+        WHERE email = #{email}
+          AND deleted = 0
+        LIMIT 1
+    </select>
+
+    <!-- 递增用户令牌版本号：使既有 JWT（access + refresh）因 ver 不匹配立即失效 -->
+    <update id="incrementTokenVersion">
+        UPDATE sys_user
+        SET token_version = token_version + 1
+        WHERE id = #{userId}
+    </update>
+
+</mapper>

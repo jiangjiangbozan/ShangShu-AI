@@ -1,0 +1,48 @@
+/**
+ * 基础重置样式
+ */
+@import './tokens.scss';
+
+page {
+  font-family: $font-sans;
+  font-size: $font-size-base;
+  color: $text-primary;
+  background-color: $bg-page;
+  line-height: $line-height-normal;
+  -webkit-font-smoothing: antialiased;
+}
+
+view,
+text,
+scroll-view,
+swiper {
+  box-sizing: border-box;
+}
+
+image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+  font-size: inherit;
+  color: inherit;
+  line-height: inherit;
+
+  &::after {
+    display: none;
+  }
+}
+
+input,
+textarea {
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: inherit;
+}

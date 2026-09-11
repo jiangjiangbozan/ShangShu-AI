@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ai.api.identity.mapper.SysUserOauthMapper">
+
+    <!-- 结果映射：snake_case 列名 → camelCase 属性名 -->
+    <resultMap id="SysUserOauthResultMap" type="com.ai.api.identity.entity.SysUserOauth">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="provider" property="provider"/>
+        <result column="open_id" property="openId"/>
+        <result column="union_id" property="unionId"/>
+        <result column="nickname" property="nickname"/>
+        <result column="avatar_url" property="avatarUrl"/>
+        <result column="raw_profile" property="rawProfile"/>
+        <result column="creator" property="creator"/>
+        <result column="create_time" property="createTime"/>
+        <result column="updater" property="updater"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
+
+    <sql id="baseColumns">
+        id, user_id, provider, open_id, union_id, nickname, avatar_url, raw_profile,
+        creator, create_time, updater, update_time, deleted
+    </sql>
+
+    <!-- 按平台 + 平台用户唯一标识查询未逻辑删除的绑定记录 -->
+    <select id="selectByProviderAndOpenId" resultMap="SysUserOauthResultMap">
+        SELECT <include refid="baseColumns"/>
+        FROM sys_user_oauth
+        WHERE provider = #{provider}
+          AND open_id = #{openId}
+          AND deleted = 0
+        LIMIT 1
+    </select>
+
+</mapper>

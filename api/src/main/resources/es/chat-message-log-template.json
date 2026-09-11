@@ -1,0 +1,23 @@
+{
+  "index_patterns": ["chat_message_log-*"],
+  "priority": 200,
+  "template": {
+    "settings": {
+      "number_of_shards": 1,
+      "number_of_replicas": 0,
+      "refresh_interval": "30s"
+    },
+    "mappings": {
+      "properties": {
+        "sessionId":    { "type": "long" },
+        "userId":       { "type": "long" },
+        "role":         { "type": "keyword" },
+        "content":      { "type": "text", "analyzer": "standard" },
+        "modelId":      { "type": "keyword" },
+        "totalTokens":  { "type": "integer" },
+        "latencyMs":    { "type": "integer" },
+        "createTime":   { "type": "date" }
+      }
+    }
+  }
+}

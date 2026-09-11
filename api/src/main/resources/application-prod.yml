@@ -1,0 +1,171 @@
+# ====================================================================
+# 生产环境配置（prod profile）
+# 所有敏感信息通过环境变量注入，禁止硬编码
+# ====================================================================
+spring:
+  # 自动配置排除项说明：
+  # - RedisChatMemory：docker-compose 已升级为 redis-stack（含 RediSearch 模块），不再排除。
+  #   ChatMemory 现持久化到 Redis，重启后对话历史保留。
+  # - ElasticsearchVectorStore：docker-compose 已部署 elasticsearch 服务，但 Spring AI 启用
+  #   VectorStore 需注入 EmbeddingModel。当前 OpenAI(DeepSeek) 不提供 embedding，Ollama
+  #   默认 chat 模型 qwen3:8b 也不是 embedding 模型。强行启用会启动失败。
+  #   启用 RAG 步骤：
+  #     1) docker exec -it ai-agent-ollama ollama pull nomic-embed-text
+  #     2) 删除下方 Elasticsearch exclude
+  #     3) 在 spring.ai.ollama 下加 embedding.options.model: nomic-embed-text
+  #     4) 在 spring.ai.openai 下加 embedding.enabled: false（避免 DeepSeek embedding 调用）
+  # - StabilityAiImageAutoConfiguration：未配置 StabilityAI API key 会抛 IllegalArgumentException
+  autoconfigure:
+    exclude:
+      - org.springframework.ai.vectorstore.elasticsearch.autoconfigure.ElasticsearchVectorStoreAutoConfiguration
+      - org.springframework.ai.model.stabilityai.autoconfigure.StabilityAiImageAutoConfiguration
+  # MySQL 数据源
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT:3306}/${MYSQL_DB:ai_agent}?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=false&rewriteBatchedStatements=true
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+    hikari:
+      pool-name: AiAgentHikariCP
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  # Flyway（生产环境启动时自动迁移）
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: false
+    validate-on-migrate: true
+
+  # Redis
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD}
+      database: ${REDIS_DB:0}
+      timeout: 5s
+      lettuce:
+        pool:
+          max-active: 16
+          max-idle: 8
+          min-idle: 2
+
+  # Elasticsearch
+  elasticsearch:
+    uris: ${ES_URIS:http://elasticsearch:9200}
+    connection-timeout: 5s
+    socket-timeout: 30s
+
+  # RabbitMQ
+  rabbitmq:
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USER}
+    password: ${RABBITMQ_PASSWORD}
+    virtual-host: ${RABBITMQ_VHOST:/}
+    listener:
+      simple:
+        acknowledge-mode: manual
+        prefetch: 10
+        retry:
+          enabled: true
+          max-attempts: 3
+          initial-interval: 2000
+
+  # Spring AI
+  ai:
+    openai:
+      api-key: ${DEEPSEEK_API_KEY}
+      base-url: https://api.deepseek.com
+      chat:
+        options:
+          model: deepseek-chat
+          temperature: 0.7
+    ollama:
+      base-url: ${OLLAMA_BASE_URL:http://ollama:11434}
+      chat:
+        options:
+          model: ${OLLAMA_MODEL_ID:qwen3:8b}
+
+  # 邮件（触发 MailSenderAutoConfiguration 创建 JavaMailSender Bean）
+  # Spring Boot 4.x 中 MailSenderAutoConfiguration 受 @ConditionalOnProperty("spring.mail.host") 控制
+  # 业务侧发件人地址仍走 ai.mail.from；此处仅用于 Bean 装配。
+  # 如不配置，MailService 注入 JavaMailSender 失败 → AuthController 装配失败 → 应用启动失败。
+  mail:
+    host: ${SMTP_HOST:smtp.placeholder.local}
+    port: ${SMTP_PORT:587}
+    username: ${SMTP_USERNAME:}
+    password: ${SMTP_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+        debug: false
+
+# ====================================================================
+# 用户认证配置（prod：全部通过环境变量注入）
+# ====================================================================
+ai:
+  auth:
+    enabled: ${AI_AUTH_ENABLED:true}
+    jwt:
+      secret: ${AI_AUTH_JWT_SECRET:?AI_AUTH_JWT_SECRET 必须设置（至少 32 字符）}
+      access-token-ttl: ${AI_AUTH_ACCESS_TTL:PT2H}
+      refresh-token-ttl: ${AI_AUTH_REFRESH_TTL:P7D}
+      issuer: ai-agent-platform
+    login-fail:
+      max-attempts: 5
+      lock-duration: PT15M
+    csrf:
+      cookie-name: csrf-token
+      header-name: X-CSRF-Token
+      cookie-domain: ${CSRF_COOKIE_DOMAIN:}
+      cookie-max-age: PT2H
+      path-whitelist:
+        - /api/v1/auth/register
+        - /api/v1/auth/login
+        - /api/v1/auth/password/forgot
+        - /api/v1/auth/password/reset
+    password-reset:
+      token-ttl: PT30M
+      reset-url: ${PASSWORD_RESET_URL:http://localhost/reset-password?token=}
+  mail:
+    host: ${SMTP_HOST:smtp.placeholder.local}
+    port: ${SMTP_PORT:587}
+    username: ${SMTP_USERNAME:}
+    password: ${SMTP_PASSWORD:}
+    from: ${MAIL_FROM:noreply@ai-agent-platform.com}
+    from-name: AI 开放平台
+  chat:
+    context-window-size: 10
+    stream-timeout: PT5M
+    max-tokens-per-day: 100000
+
+# ====================================================================
+# Jasypt 配置加密（主密钥通过环境变量注入，禁止使用默认值）
+# ====================================================================
+jasypt:
+  encryptor:
+    password: ${JASYPT_ENCRYPTOR_PASSWORD:?JASYPT_ENCRYPTOR_PASSWORD 必须设置}
+
+# Actuator 健康检查：ES 服务已部署，开启健康指示器；
+# SMTP 可能不可达，关闭避免 health 误报 DOWN
+management:
+  health:
+    elasticsearch:
+      enabled: true
+    mail:
+      enabled: false
+
+# 生产环境日志（JSON 格式，由 logback-spring.xml 控制）
+logging:
+  level:
+    root: INFO
+    com.ai.api: INFO
+    org.springframework: WARN

@@ -1,0 +1,232 @@
+# ====================================================================
+# AI 开放平台 - Docker Compose 一键部署
+# 启动：docker compose up -d
+# 查看日志：docker compose logs -f api
+# 停止：docker compose down
+# ====================================================================
+services:
+  # ---------- MySQL ----------
+  mysql:
+    image: mysql:8.0
+    container_name: ai-agent-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root123456}
+      MYSQL_DATABASE: ${MYSQL_DB:-ai_agent}
+      MYSQL_USER: ${MYSQL_USER:-ai_agent}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-ai_agent_123}
+      TZ: Asia/Shanghai
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --default-authentication-plugin=mysql_native_password
+      # add-p3-rag-feedback-ops: binlog 规范 - row 模式 + 7 天保留 + 完整行镜像
+      - --log-bin=ON
+      - --binlog-format=ROW
+      - --binlog-row-image=FULL
+      - --binlog-expire-logs-seconds=604800
+      - --max-binlog-size=512M
+    volumes:
+      - mysql-data:/var/lib/mysql
+      # add-p3-rag-feedback-ops: JSONL 备份目录挂载到宿主机，便于运维取用
+      - ./data/backup/mysql:/data/backup/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p$${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    # 端口映射已注释：用户选择用本地 mysqld，不暴露 docker mysql 到宿主机
+    # 如需切回 docker mysql：取消下面注释，并停掉本地 mysqld（Stop-Service MySQL80）
+    # ports:
+    #   - "3306:3306"
+
+  # ---------- Redis（redis-stack 含 RediSearch/RedisJSON 等模块） ----------
+  # 使用 redis/redis-stack-server:7.4.0-v4 替换原 redis:latest：
+  # - redis:latest 是基础镜像，无 RediSearch 模块（FT._LIST 命令不存在）
+  # - Spring AI RedisChatMemoryRepository 启动时调用 FT._LIST，缺失会抛
+  #   "ERR unknown command 'FT._LIST'" 异常导致应用启动失败
+  # - redis-stack-server 内置 RediSearch + RedisJSON + RedisBloom 等模块
+  # 注意：镜像体积 ~150MB（vs redis:latest ~50MB），第一次拉取较慢。开发环境可接受。
+  # 已知兼容：项目记忆中"plain Redis without RedisSearch module causes FT._LIST errors"
+  redis:
+    image: redis/redis-stack-server:7.4.0-v4
+    container_name: ai-agent-redis
+    restart: unless-stopped
+    # 关键修复（2026-08-20）：
+    # redis-stack-server 镜像的 entrypoint 是 /entrypoint.sh，
+    # 它会忽略 docker-compose 的 command 字段（直接 exec /entrypoint.sh），
+    # 导致 --requirepass 参数不生效，Redis 启动后无密码。
+    # 修复方式：通过 REDIS_ARGS 环境变量传递参数，entrypoint 会读取并展开。
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-Redis@123456}
+      # 将 requirepass / save / loglevel 作为参数传递给 entrypoint 启动的 redis-server
+      REDIS_ARGS: "--requirepass ${REDIS_PASSWORD:-Redis@123456} --save 60 1 --loglevel verbose"
+    volumes:
+      - redis-data:/data
+    # healthcheck 同时验证密码认证与 RediSearch 模块加载（FT._LIST 必须可执行）
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a \"$${REDIS_PASSWORD}\" ping | grep -q PONG && redis-cli -a \"$${REDIS_PASSWORD}\" FT._LIST >/dev/null"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    # 端口映射：与用户的 docker run 命令一致
+    ports:
+      - "6379:6379"
+
+  # ---------- Elasticsearch（Spring AI VectorStore 用） ----------
+  # 镜像版本必须与 Spring Data Elasticsearch 客户端版本对齐：
+  # - Spring Boot 4.1.0 → Spring Data Elasticsearch 6.0 → 内置 ES 9 的 Rest5Client
+  # - 之前用 elasticsearch:8.11.0 导致客户端发 ES 9 协议请求时服务端返回 400
+  #   报错：[es/indices.exists] Expecting a response body, but none was sent
+  # 升级到 9.0.3 后客户端/服务端协议匹配，Spring AI starter 可正常初始化索引。
+  # 开发环境保持 xpack.security.enabled=false（无需重置 elastic 密码，
+  # Spring AI 通过 http://localhost:9200 直连；生产环境必须改为 true 并配 TLS + 凭据）。
+  elasticsearch:
+    image: elasticsearch:9.0.3
+    container_name: ai-agent-elasticsearch
+    restart: unless-stopped
+    environment:
+      discovery.type: single-node
+      xpack.security.enabled: "false"
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+      # add-p3-rag-feedback-ops: 快照仓库路径（需先注册 repository，见 ops/backup 文档）
+      path.repo: '["/usr/share/elasticsearch/backup"]'
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+      # add-p3-rag-feedback-ops: 快照备份目录挂载到宿主机
+      - ./data/backup/es:/usr/share/elasticsearch/backup
+      # IK 中文分词插件目录挂载到宿主机，容器重建后插件不丢失
+      # （chat_message_log 索引 mapping 使用 ik_smart，必须安装 analysis-ik 插件）
+      - ./data/es-plugins:/usr/share/elasticsearch/plugins
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:9200/_cluster/health | grep -E '\"status\":\"(green|yellow)\"' || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 15
+      start_period: 40s
+    # 端口映射：本地 IDE 跑后端时需通过 localhost:9200 访问
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+
+  # ---------- RabbitMQ（聊天/LLM 日志异步消费） ----------
+  # 用户已新增 admin/Admin@123456 用户认证，与默认 ai_agent/rabbit123456 共存。
+  # RABBITMQ_DEFAULT_USER/PASS 仅设置默认用户，已存在的 admin 用户在 mnesia 数据中保留。
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    container_name: ai-agent-rabbitmq
+    restart: unless-stopped
+    environment:
+      # 默认用户（容器首次启动时创建，已存在的不会修改）
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-ai_agent}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:-rabbit123456}
+      # 已通过 rabbitmqctl add_user admin 创建的 admin/Admin@123456 用户
+      # 存储在 mnesia 数据（rabbitmq-data volume）中，重启后仍保留。
+      # 后端连接时用 admin/Admin@123456 即可（已配置在 application-dev.yml 中）。
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+    # 端口映射：5672 是 AMQP 通信端口（本地后端连接），15672 是管理界面
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  # ---------- Ollama（可选：容器化本地大模型，qwen3:8b） ----------
+#  ollama:
+#    image: ollama/ollama:latest
+#    container_name: ai-agent-ollama
+#    restart: unless-stopped
+#    volumes:
+#      - ollama-data:/root/.ollama
+#    healthcheck:
+#      test: ["CMD-SHELL", "ollama list >/dev/null 2>&1 || exit 1"]
+#      interval: 15s
+#      timeout: 10s
+#      retries: 10
+
+  # ---------- 后端 API ----------
+#  api:
+#    build:
+#      context: ./api
+#      dockerfile: Dockerfile
+#    image: ai-agent-api:latest
+#    container_name: ai-agent-api
+#    restart: unless-stopped
+#    depends_on:
+#      mysql:
+#        condition: service_healthy
+#      redis:
+#        condition: service_healthy
+#      rabbitmq:
+#        condition: service_healthy
+#      elasticsearch:
+#        condition: service_healthy
+#    environment:
+#      SPRING_PROFILES_ACTIVE: prod
+#      JAVA_OPTS: ${JAVA_OPTS:--Xms256m -Xmx512m}
+#      # MySQL
+#      MYSQL_HOST: mysql
+#      MYSQL_PORT: "3306"
+#      MYSQL_DB: ${MYSQL_DB:-ai_agent}
+#      MYSQL_USER: ${MYSQL_USER:-ai_agent}
+#      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-ai_agent_123}
+#      # Redis
+#      REDIS_HOST: redis
+#      REDIS_PORT: "6379"
+#      REDIS_PASSWORD: ${REDIS_PASSWORD:-redis123456}
+#      REDIS_DB: "0"
+#      # RabbitMQ
+#      RABBITMQ_HOST: rabbitmq
+#      RABBITMQ_PORT: "5672"
+#      RABBITMQ_USER: ${RABBITMQ_USER:-ai_agent}
+#      RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD:-rabbit123456}
+#      # Elasticsearch
+#      ES_URIS: http://elasticsearch:9200
+#      # Ollama：默认走宿主机本地 Ollama（host.docker.internal 解析到宿主机 IP）
+#      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+#      OLLAMA_MODEL_ID: ${OLLAMA_MODEL_ID:-qwen3:8b}
+#      # DeepSeek（可选，不使用可留空）
+#      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-sk-placeholder}
+#      # 安全相关（必须修改）
+#      AI_AUTH_JWT_SECRET: ${AI_AUTH_JWT_SECRET:?请在 .env 中设置 AI_AUTH_JWT_SECRET（至少 32 字符）}
+#      JASYPT_ENCRYPTOR_PASSWORD: ${JASYPT_ENCRYPTOR_PASSWORD:?请在 .env 中设置 JASYPT_ENCRYPTOR_PASSWORD}
+#      # 邮件（可选）
+#      SMTP_HOST: ${SMTP_HOST:-smtp.placeholder.local}
+#      SMTP_PORT: ${SMTP_PORT:-587}
+#      SMTP_USERNAME: ${SMTP_USERNAME:-}
+#      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+#    extra_hosts:
+#      - "host.docker.internal:host-gateway"
+#    ports:
+#      - "8080:8080"
+#    healthcheck:
+#      test: ["CMD-SHELL", "wget -qO- http://localhost:8080/actuator/health | grep -q UP || exit 1"]
+#      interval: 20s
+#      timeout: 10s
+#      retries: 10
+#      start_period: 60s
+
+  # ---------- 前端 ----------
+#  web:
+#    build:
+#      context: ./ai-agent-web
+#      dockerfile: Dockerfile
+#    image: ai-agent-web:latest
+#    container_name: ai-agent-web
+#    restart: unless-stopped
+#    depends_on:
+#      api:
+#        condition: service_healthy
+#    ports:
+#      - "80:80"
+
+volumes:
+  mysql-data:
+  redis-data:
+  rabbitmq-data:
+#  ollama-data:
+  es-data:

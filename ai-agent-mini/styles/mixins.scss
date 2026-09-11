@@ -1,0 +1,88 @@
+/**
+ * 常用 Mixin
+ *
+ * 封装小程序端的通用样式模式：安全区域、文本省略、Flex 布局等。
+ */
+@import './tokens.scss';
+
+/* 安全区域底部适配（iPhone 底部横条） */
+@mixin safe-area-bottom {
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* 安全区域顶部适配（刘海屏） */
+@mixin safe-area-top {
+  padding-top: constant(safe-area-inset-top);
+  padding-top: env(safe-area-inset-top);
+}
+
+/* 单行文本省略号 */
+@mixin text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 多行文本省略号 */
+@mixin text-ellipsis-lines($lines: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Flex 居中 */
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Flex 垂直居中 */
+@mixin flex-align-center {
+  display: flex;
+  align-items: center;
+}
+
+/* 1px 边框（高清屏适配） */
+@mixin hairline-bottom {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background-color: $border-default;
+    transform: scaleY(0.5);
+  }
+}
+
+/* 点击反馈 */
+@mixin active-scale {
+  &:active {
+    transform: scale(0.98);
+    opacity: 0.85;
+  }
+}
+
+/* 主色按钮 */
+@mixin btn-primary {
+  background-color: $color-primary;
+  color: $text-inverse;
+  border-radius: $radius-lg;
+  font-weight: $font-weight-medium;
+  text-align: center;
+
+  &:active {
+    background-color: $color-primary-600;
+  }
+
+  &[disabled] {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}

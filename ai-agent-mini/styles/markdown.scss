@@ -1,0 +1,131 @@
+/**
+ * Markdown 渲染样式
+ *
+ * 供 rich-text 组件使用，通过 class 属性匹配。
+ * 与 Web 端 MessageBubble.vue 的 Markdown 样式保持视觉一致。
+ */
+@import './tokens.scss';
+
+/* ============ 代码块 ============ */
+.code-block {
+  background: #1e1e2e;
+  border-radius: $radius-md;
+  margin: $space-2 0;
+  overflow: hidden;
+}
+
+.code-lang {
+  display: block;
+  padding: $space-1 $space-3;
+  font-size: $font-size-xs;
+  color: #9ca3af;
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.code-block pre {
+  padding: $space-3;
+  overflow-x: auto;
+  margin: 0;
+}
+
+.code-block code {
+  font-family: $font-mono;
+  font-size: 26rpx;
+  color: #cdd6f4;
+  line-height: $line-height-relaxed;
+}
+
+/* ============ 行内代码 ============ */
+.inline-code {
+  background-color: $bg-subtle;
+  color: $color-primary-700;
+  padding: 2rpx 8rpx;
+  border-radius: $radius-sm;
+  font-family: $font-mono;
+  font-size: 26rpx;
+}
+
+/* ============ 段落 ============ */
+p {
+  margin: 0 0 $space-2;
+  line-height: $line-height-relaxed;
+}
+
+/* ============ 标题 ============ */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: $font-weight-semibold;
+  color: $text-primary;
+  margin: $space-3 0 $space-2;
+}
+
+h1 { font-size: $font-size-2xl; }
+h2 { font-size: $font-size-xl; }
+h3 { font-size: $font-size-lg; }
+h4 { font-size: $font-size-md; }
+h5, h6 { font-size: $font-size-base; }
+
+/* ============ 列表 ============ */
+ul, ol {
+  padding-left: $space-5;
+  margin: $space-2 0;
+}
+
+li {
+  margin-bottom: 4rpx;
+  line-height: $line-height-relaxed;
+}
+
+/* ============ 引用 ============ */
+blockquote {
+  border-left: 6rpx solid $color-primary;
+  padding-left: $space-3;
+  margin: $space-2 0;
+  color: $text-secondary;
+}
+
+/* ============ 表格 ============ */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: $space-2 0;
+}
+
+th, td {
+  border: 2rpx solid $border-default;
+  padding: $space-1 $space-2;
+  font-size: $font-size-sm;
+  text-align: left;
+}
+
+th {
+  background-color: $bg-subtle;
+  font-weight: $font-weight-semibold;
+}
+
+/* ============ 分割线 ============ */
+hr {
+  border: none;
+  border-top: 2rpx solid $border-default;
+  margin: $space-4 0;
+}
+
+/* ============ 链接 ============ */
+a {
+  color: $color-primary;
+  text-decoration: none;
+}
+
+/* ============ 强调 ============ */
+strong {
+  font-weight: $font-weight-bold;
+}
+
+em {
+  font-style: italic;
+}
+
+del {
+  text-decoration: line-through;
+  color: $text-tertiary;
+}

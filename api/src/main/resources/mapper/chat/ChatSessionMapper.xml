@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ai.api.chat.mapper.ChatSessionMapper">
+
+  <resultMap id="BaseResultMap" type="com.ai.api.chat.entity.ChatSession">
+    <id column="id" property="id"/>
+    <result column="user_id" property="userId"/>
+    <result column="title" property="title"/>
+    <result column="model_id" property="modelId"/>
+    <result column="context_size" property="contextSize"/>
+    <result column="message_count" property="messageCount"/>
+    <result column="total_tokens" property="totalTokens"/>
+    <result column="creator" property="creator"/>
+    <result column="create_time" property="createTime"/>
+    <result column="updater" property="updater"/>
+    <result column="update_time" property="updateTime"/>
+    <result column="deleted" property="deleted"/>
+  </resultMap>
+
+  <sql id="baseColumns">
+    id, user_id, title, model_id, context_size, message_count, total_tokens,
+    creator, create_time, updater, update_time, deleted
+  </sql>
+
+  <select id="selectByUserId" resultMap="BaseResultMap">
+    SELECT <include refid="baseColumns"/>
+    FROM chat_session
+    WHERE user_id = #{userId}
+      AND deleted = 0
+    ORDER BY update_time DESC
+  </select>
+
+</mapper>

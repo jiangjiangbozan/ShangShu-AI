@@ -1,0 +1,387 @@
+# ====================================================================
+# 开发环境配置（dev profile）
+# ====================================================================
+spring:
+  # ============ 自动装配 exclude 清单 ============
+  # 说明：OpenAiEmbeddingAutoConfiguration 的排除已上移到共享配置 application.yml（所有环境生效）。
+  # 项目仅用 Ollama embedding（nomic-embed-text）做 RAG 向量化；排除 OpenAI embedding 后
+  # ollamaEmbeddingModel 成为 ElasticsearchVectorStoreAutoConfiguration 的唯一候选。
+  #
+  # 注意：RedisChatMemoryAutoConfiguration 已恢复启用（不再 exclude）：
+  # docker-compose 已切到 redis/redis-stack-server:7.4.0-v4，含 RediSearch 模块，
+  # 满足 RedisChatMemoryRepository.initializeSchema() 对 FT._LIST 命令的依赖。
+  # ChatMemory 默认走 Redis 持久化，跨进程重启仍可保留对话上下文。
+  # RAG 模块已启用：通过 spring-ai-starter-vector-store-elasticsearch 自动装配 ElasticsearchVectorStore。
+  # 不再手动声明 VectorStoreConfig Bean（Spring Data ES 6.0 / Spring Boot 4.1 已移除 NativeElasticsearchClient 类，
+  # starter 内部直接使用 RestClient 自动装配，手动创建会引发 API 不兼容）。
+  # EmbeddingModel 默认走 OllamaEmbeddingModel，需在 Ollama 端提前拉取：ollama pull nomic-embed-text
+  # MySQL 数据源（dev 使用本地实例）
+  datasource:
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    url: jdbc:p6spy:mysql://localhost:3306/ai_agent?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
+    username: ${MYSQL_USER:yunzhi}
+    password: ${MYSQL_PASSWORD:yunzhi}
+    hikari:
+      pool-name: AiAgentHikariCP
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  # Flyway 数据库迁移
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    baseline-version: 0
+    validate-on-migrate: true
+
+  # Redis
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      # 注意：placeholder 默认值不要加双引号，否则双引号会作为密码字面量的一部分
+      # 导致 Redis 返回 WRONGPASS invalid username-password pair
+      password: ${REDIS_PASSWORD:Redis@123456}
+      database: 0
+      timeout: 5s
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 4
+          min-idle: 0
+
+  # 邮件（触发 MailSenderAutoConfiguration 创建 JavaMailSender Bean）
+  # Spring Boot 4.x 中 MailSenderAutoConfiguration 受 @ConditionalOnProperty("spring.mail.host") 控制
+  # 业务侧发件人地址仍走 ai.mail.from；此处仅用于 Bean 装配。
+  #
+  # === 免费 SMTP 服务推荐（按推荐顺序）===
+  # 1) Resend（https://resend.com，注册即送 3000 封/月免费额度，支持任意域名）
+  #    SMTP_HOST=smtp.resend.com  SMTP_PORT=465（SSL）或 587（STARTTLS）
+  #    SMTP_USERNAME=resend       SMTP_PASSWORD=re_xxxx（API Key 即密码）
+  #    ai.mail.from=onboarding@resend.dev 或已验证域名邮箱
+  # 2) Brevo（https://www.brevo.com，300 封/天免费，需验证域名）
+  #    SMTP_HOST=smtp-relay.brevo.com  SMTP_PORT=587
+  #    SMTP_USERNAME=<brevo 登录邮箱>  SMTP_PASSWORD=<brevo SMTP key>
+  # 3) Mailtrap（https://mailtrap.io，仅用于开发环境拦截邮件，不真实投递）
+  #    适合本地调试：邮件不会真正发送到用户邮箱，可在 Mailtrap Inbox 中查看
+  #    SMTP_HOST=smtp.mailtrap.io  SMTP_PORT=2525  SMTP_USERNAME/PASSWORD 见 Mailtrap Inbox
+  # 4) Gmail（需开启两步验证 + 生成"应用专用密码"，受限严格，不推荐生产）
+  #    SMTP_HOST=smtp.gmail.com  SMTP_PORT=587  SMTP_USERNAME=<gmail 地址>
+  #    SMTP_PASSWORD=<应用专用密码 16 位>  ai.mail.from=<gmail 地址>
+  #
+  # 启动方式（PowerShell）：
+  #   $env:SMTP_HOST="smtp.resend.com"; $env:SMTP_PORT="587"
+  #   $env:SMTP_USERNAME="resend"; $env:SMTP_PASSWORD="re_xxxxxxxx"
+  #   $env:AI_MAIL_FROM="onboarding@resend.dev"
+  #   .\mvnw.cmd spring-boot:run
+  mail:
+    host: ${SMTP_HOST:smtp.mailtrap.io}
+    port: ${SMTP_PORT:587}
+    username: ${SMTP_USERNAME:}
+    password: ${SMTP_PASSWORD:}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.internet.address.strict: false
+
+  # Elasticsearch
+  elasticsearch:
+    uris: http://${ES_HOST:localhost}:${ES_PORT:9200}
+    connection-timeout: 5s
+    socket-timeout: 30s
+
+  # RabbitMQ
+  # 本地未安装 RabbitMQ 时，启动会产生 AmqpConnectException 警告但不阻断应用启动。
+  # 对话消息日志（ChatMessageLogProducer.sendLog）已捕获异常，不影响对话主流程。
+  # 快速启动一个本地 RabbitMQ：
+  #   docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.13-management-alpine
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USER:admin}
+    password: ${RABBITMQ_PASSWORD:Admin@123456}
+    virtual-host: /
+    connection-timeout: 5s
+    template:
+      retry:
+        enabled: true
+        initial-interval: 1000
+        max-retries: 3
+    listener:
+      simple:
+        # AUTO ack：监听方法正常返回自动 ack；异常经重试（3 次）耗尽后 RejectAndDontRequeue 进 DLQ。
+        # 进程崩溃未 ack → 消息重投（at-least-once），配合消费幂等（终态跳过 + Redisson 锁 + 快照覆盖）防重复执行
+        acknowledge-mode: auto
+        missing-queues-fatal: false
+        prefetch: 5
+        retry:
+          enabled: true
+          initial-interval: 1000
+          max-retries: 3
+
+  # Spring AI - DeepSeek & Qwen（均走 OpenAI 兼容协议）
+  ai:
+    openai:
+      api-key: ${DEEPSEEK_API_KEY:sk-placeholder}
+      base-url: https://api.deepseek.com
+      chat:
+        model: deepseek-chat
+        temperature: 0.7
+    # Ollama 本地模型（默认启用；模型名可通过环境变量覆盖）
+    ollama:
+      base-url: ${OLLAMA_BASE_URL:http://localhost:11434}
+      chat:
+        model: ${OLLAMA_MODEL_ID:qwen3:8b}
+        temperature: 0.7
+      # RAG 向量化模型：nomic-embed-text（轻量、支持中文）。
+      # 部署步骤：ollama pull nomic-embed-text
+      embedding:
+        model: ${OLLAMA_EMBEDDING_MODEL:nomic-embed-text}
+    # StabilityAI 图像生成（项目当前未使用，但 starter 强制要求 API key）
+    # 占位值仅为通过 StabilityAiImageAutoConfiguration 初始化校验，避免启动崩溃
+    stabilityai:
+      api-key: ${STABILITYAI_API_KEY:sk-stability-placeholder}
+    # RAG 向量存储：spring-ai-starter-vector-store-elasticsearch 自动装配 ElasticsearchVectorStore Bean
+    # （Bean 名 vectorStore，类型 ElasticsearchVectorStore）。
+    # initialize-schema=true 时由 Spring AI 自动创建 ES 索引映射；index-name 区分业务隔离。
+    vectorstore:
+      elasticsearch:
+        index-name: ai_agent_knowledge
+        initialize-schema: true
+        dimensions: 768
+        similarity: cosine
+
+# p6spy SQL 打印（dev 专用，规范 §4.6）
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
+      logging: slf4j
+      log-format: "[%(sql)] [took %(executionTime)ms]"
+      multiline: true
+
+# ====================================================================
+# 用户认证配置（add-user-auth change）
+# ====================================================================
+ai:
+  auth:
+    enabled: true
+    jwt:
+      secret: ${AI_AUTH_JWT_SECRET:dev-only-secret-please-change-in-prod-min-32-chars-xxxxxxxxxx}
+      access-token-ttl: PT2H
+      refresh-token-ttl: P7D
+      issuer: ai-agent-platform
+    login-fail:
+      max-attempts: 5
+      lock-duration: PT15M
+    csrf:
+      cookie-name: csrf-token
+      header-name: X-CSRF-Token
+      cookie-domain: localhost
+      cookie-max-age: PT2H
+      path-whitelist:
+        - /api/v1/auth/register
+        - /api/v1/auth/login
+        - /api/v1/auth/password/forgot
+        - /api/v1/auth/password/reset
+    password-reset:
+      token-ttl: PT30M
+      reset-url: http://localhost:5173/reset-password?token=
+    oauth:
+      frontend-callback-url: http://localhost:5173/auth/oauth/callback
+      state-ttl: PT10M
+      gitee:
+        enabled: ${GITEE_OAUTH_ENABLED:false}
+        client-id: ${GITEE_CLIENT_ID:}
+        client-secret: ${GITEE_CLIENT_SECRET:}
+        authorize-url: https://gitee.com/oauth/authorize
+        token-url: https://gitee.com/oauth/token
+        user-info-url: https://gitee.com/api/v5/user
+        redirect-uri: ${GITEE_REDIRECT_URI:http://localhost:8080/api/v1/auth/oauth/gitee/callback}
+    # 业务侧发件人配置（AuthProperties 前缀为 ai.auth，此处必须位于 auth 之下）
+    mail:
+      from: ${AI_MAIL_FROM:noreply@ai-agent-platform.com}
+      from-name: AI 开放平台
+  chat:
+    context-window-size: 10
+    stream-timeout: PT5M
+    max-tokens-per-day: 100000
+  web-search:
+    enabled: true
+    provider: tavily
+    apiKey: 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
+
+# 日志级别（dev 更详细）
+logging:
+  level:
+    root: INFO
+    com.ai.api: DEBUG
+    org.springframework.web: DEBUG
+    com.baomidou.mybatisplus: DEBUG
+    p6spy: INFO
+
+# ====================================================================
+# 对话模块配置（add-chat-module change）
+# ====================================================================
+
+# ====================================================================
+# Jasypt 配置加密（add-chat-module change）
+# 主密钥通过环境变量 JASYPT_ENCRYPTOR_PASSWORD 注入，不入仓库
+# ====================================================================
+jasypt:
+  encryptor:
+    password: ${JASYPT_ENCRYPTOR_PASSWORD:dev-only-jasypt-key-change-in-prod}
+    algorithm: PBEWITHHMACSHA512ANDAES_256
+    iv-generator-classname: org.jasypt.iv.RandomIvGenerator
+
+# ====================================================================
+# Redisson 分布式锁配置（add-p2-cache-search-rewrite）
+# 单 server 模式；生产环境演进到集群时切换到 clusterServersConfig
+# ====================================================================
+redisson:
+  config: |
+    singleServerConfig:
+      address: "redis://${REDIS_HOST:localhost}:${REDIS_PORT:6379}"
+      password: "${REDIS_PASSWORD:Redis@123456}"
+      database: 0
+      connectionMinimumIdleSize: 8
+      connectionPoolSize: 32
+
+# ====================================================================
+# 业务缓存配置（add-p2-cache-search-rewrite）
+# - chat.history-ttl: 会话历史缓存 TTL
+# - rag.hits-ttl: RAG 检索结果缓存 TTL
+# - rag.hits-max-size: 单 kb 缓存条目上限（LRU 驱逐由调用方保证，此处仅做容量保护）
+# ====================================================================
+cache:
+  chat:
+    history-ttl: 1h
+  rag:
+    hits-ttl: 5m
+    hits-max-size: 1000
+
+# ====================================================================
+# ES 索引配置（add-p2-cache-search-rewrite）
+# ====================================================================
+elasticsearch:
+  indices:
+    chat-message-log: chat_message_log
+
+# ====================================================================
+# RAG Query 重写配置（add-p2-cache-search-rewrite）
+# ====================================================================
+rag:
+  query-rewrite:
+    enabled: true
+    model: deepseek
+    fallback-model: ollama-qwen25
+    timeout-ms: 3000
+    max-tokens: 200
+    min-query-length: 6
+    rrf-k: 60
+    top-k-per-query: 5
+    # 多检索器混合召回（add-multi-retriever）：逗号分隔，对齐 Dify RetrievalMethod.hybrid_search
+    # semantic = 向量路（dense_vector kNN，擅长语义/口语化）
+    # fulltext = BM25 关键词路（content 字段 match，擅长专有名词/精确编号）
+    # parent = 父文档召回（命中片段回溯所属文档，拼接相邻分片补充上下文，add-3rd-4th-retrieval）
+    # knowledge-graph = 知识图谱召回（实体匹配 + 多跳关系扩展，擅长关系型问句，add-3rd-4th-retrieval）
+    retrieval-methods: semantic,fulltext,parent,knowledge-graph
+  # 混合检索精排（add-3rd-4th-retrieval，对齐 Dify rerank_model 配置化思路）
+  # 基于 HTTP 兼容 /rerank 接口（SiliconFlow / Jina / Cohere 协议），关闭或未配置时降级返回 RRF 原序
+  rerank:
+    enabled: ${RAG_RERANK_ENABLED:false}
+    base-url: ${RAG_RERANK_BASE_URL:}
+    api-key: ${RAG_RERANK_API_KEY:}
+    model: ${RAG_RERANK_MODEL:bge-reranker-v2-m3}
+    top-n: 5
+    candidate-n: 10
+    timeout-ms: 3000
+  # 父文档召回配置（add-3rd-4th-retrieval）
+  parent-doc:
+    enabled: true
+    # 命中片段前后各扩展 window-size 个相邻分片拼接为父级上下文
+    window-size: 1
+  # 知识图谱配置（add-3rd-4th-retrieval）
+  knowledge-graph:
+    enabled: true
+    # 图谱召回：实体多跳扩展层数
+    max-hops: 2
+    # 图谱召回：单知识库实体扫描上限（实体全量匹配，控制内存）
+    entity-scan-limit: 2000
+    # 图谱抽取：单文档最多抽取前 N 个分片（控制 LLM 成本）
+    extract-chunk-limit: 8
+    # 图谱抽取：单分片送入 LLM 的文本长度上限
+    extract-chunk-chars: 1200
+  feedback:
+    low-hit-threshold: 0
+    low-hit-scan-limit: 200
+    low-hit-cron: "0 30 3 * * ?"
+
+# ====================================================================
+# ES 索引性能与容量优化（add-p3-rag-feedback-ops）
+# ====================================================================
+es:
+  index:
+    tune:
+      shard-size-gb: 30
+
+# ====================================================================
+# 数据备份与容灾（add-p3-rag-feedback-ops）
+# ====================================================================
+backup:
+  mysql:
+    path: ./data/backup/mysql/
+    retention-days: 7
+    cron: "0 0 3 * * ?"
+  es:
+    repository: kb_backup_repo
+    index-pattern: "kb_*"
+    retention-snapshots: 4
+    cron: "0 30 2 * * SUN"
+    # ES 容器内快照目录（path.repo 白名单内，见 docker-compose.yml）
+    location: /usr/share/elasticsearch/backup
+
+# ====================================================================
+# Agent Runtime 模块（add-agent-runtime）
+# ====================================================================
+agent:
+  # 心跳超时阈值（秒），超时后 running 任务被扫描转 failed
+  heartbeat-ttl: 300
+  # 心跳扫描间隔（毫秒），默认 60s
+  heartbeat-scan-interval: 60000
+  # ReAct 引擎配置
+  react:
+    max-iterations: 10
+    # 单次 Skill 调用超时（秒），超时返回 {"error":"skill timeout"} 观察结果，
+    # 引擎停止继续调工具，基于已有 observation 收尾回答（add-skill-timeout-guard）
+    skill-timeout: 30
+  # 短期记忆配置
+  memory:
+    window-size: 10
+    token-threshold: 4096
+  # 工作流配置
+  workflow:
+    node-timeout: 60
+  # Docker 沙箱配置（code_executor Skill）
+  sandbox:
+    image: python:3.11-slim
+    timeout: 10
+    enabled: true
+
+# ====================================================================
+# 智能客服模块（add-customer-service）
+# ====================================================================
+cs:
+  # 意图识别置信度阈值，低于此值触发澄清或兜底
+  intent-confidence-threshold: 0.6
+  # KB 命中阈值，top1 score 高于此值跳过 LLM 直接返回
+  kb-hit-threshold: 0.85
+  # 单次会话最大澄清轮数，超出强制 fallback
+  clarify-max-rounds: 3
+  # 默认兜底意图
+  fallback-intent: small_talk
+
+

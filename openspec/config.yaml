@@ -1,0 +1,104 @@
+schema: spec-driven
+
+# 项目上下文：展示给 AI 用于创建工件时的背景
+# 包含技术栈、约定、规范、领域知识等
+context: |
+  # 智能助手 AI 开放平台 - 项目上下文
+
+  ## 项目概述
+  基于 SDD（Software Design Document）开发模式构建的智能助手 AI 开放平台。
+  核心能力：对话聊天、知识库 RAG、智能客服、任务型 Agent、数据分析助手。
+
+  ## 技术栈
+  ### 后端（Spring Boot 4.x，已存在 d:\ai\api）
+  - 语言：Java 21（LTS）
+  - 框架：Spring Boot 4.1.0 + Spring AI 2.0.0（已配置 pom.xml）
+  - 已引入依赖：spring-boot-starter-amqp/data-elasticsearch/data-redis/validation/webmvc
+  - 已引入 Spring AI：chat-memory-repository-redis、stability-ai、vector-store-elasticsearch、advisor
+  - 数据存储：MySQL 8.0、Redis 7.x、Elasticsearch 8.x（含向量检索）
+  - 消息队列：RabbitMQ 3.13
+  - 构建：Maven（现状单模块，需演进为多模块）
+  - 部署：Docker + Docker Compose + Nginx
+  - 监控：Prometheus + Grafana + Loki
+  - 现状包名：com.ai.api（多模块演进时保留此根包）
+
+  ### 前端（Vue3）
+  - 框架：Vue 3.5 + TypeScript + Vite
+  - UI：Element Plus 2.x
+  - 状态：Pinia
+  - 路由：Vue Router 5
+  - HTTP：axios + @microsoft/fetch-event-source（SSE）
+  - Markdown 渲染：marked
+  - 规范：ESLint + oxlint + Prettier（已配置）
+
+  ### 模型层
+  - 接入方式：Spring AI 统一抽象
+  - 支持模型：DeepSeek、通义千问、Ollama + Qwen2.5（本地）
+  - 向量模型：bge-m3（多语言）+ 模型自带 embedding
+
+  ## 项目目录结构
+  - d:\ai\ai-agent-web/     前端 Vue3（已存在）
+  - d:\ai\api/              后端 Spring Boot 4.1 + Spring AI 2.0（已存在，包名 com.ai.api）
+  - d:\ai\docs/             项目文档（开发计划、规范、模板）
+  - d:\ai\openspec\         OpenSpec 规范（config.yaml、changes/、specs/）
+  - d:\ai\.trae\            Trae 配置（skills、commands）
+
+  ## 命名约定
+  - Change 名称：kebab-case，动词短语（如 add-chat-module、implement-rag-search）
+  - 后端包名：保留现状 com.ai.api 作为根包；多模块演进时使用 com.ai.api.<module>
+    （如 com.ai.api.chat、com.ai.api.rag）
+  - 前端组件：PascalCase 组件名 + kebab-case 文件名
+  - 数据库表名：snake_case，模块前缀（如 chat_session、kb_document、agent_task）
+  - REST API：/api/v1/<module>/<resource>，复数资源名
+
+  ## 分层架构
+  接入层（Nginx + Controller）→ 业务应用层（对话/RAG/Agent/客服/系统/数据分析）
+  → 模型能力层（Spring AI 统一封装：多模型路由、Prompt 管理、Function Calling）
+  → 数据层（MySQL / Redis / ES / RabbitMQ）
+
+  ## 文档标准
+  - 工件语言：中文为主，技术术语保留英文
+  - spec.md：使用 SHALL/MUST/SHOULD 规范级别，附 Scenario 验收点
+  - design.md：包含架构图（ASCII/Mermaid）、关键决策、权衡说明
+  - tasks.md：任务粒度 ≤ 4 小时，每任务可独立验证
+  - 提交规范：Conventional Commits（feat/fix/docs/refactor/test/chore）
+
+  ## Agent 关键约定
+  - ReAct 推理引擎统一封装为 ReactEngine
+  - 工具注册使用 ToolRegistry 注解式发现
+  - Agent 任务规划采用 Plan-and-Execute 与 ReAct 混合模式
+  - 所有工具调用必须记录 trace（用于可观测性与回放）
+
+# 每工件规则（可选）
+rules:
+  proposal:
+    - 必须包含"非目标"小节，明确范围边界
+    - 必须标注依赖的前序 changes（如 "依赖 change: bootstrap"）
+    - 验收标准至少 3 条，可测试
+  specs:
+    - 每个需求至少包含 2 个 Scenario（正常 + 异常）
+    - Scenario 使用 WHEN/THEN/AND 三段式
+    - 涉及流式输出必须标注 SSE 协议行为
+    - 涉及 LLM 必须说明 Prompt 模板与 Token 控制
+  design:
+    - 必须包含模块依赖图（Mermaid）
+    - 必须列出对外暴露接口（Controller 层）
+    - 必须说明与现有模块的集成点
+    - 涉及数据层必须给出表/索引/队列结构
+  tasks:
+    - 任务粒度 ≤ 4 小时
+    - 任务顺序遵循依赖关系（数据层 → 能力层 → 业务层 → 接入层）
+    - 每个任务标注验证方式（单测/接口测/手测）
+    - 必须包含文档更新任务（README/API 文档）
+
+# 每操作指导（可选）
+operations:
+  apply:
+    guidance:
+      - 实施时优先编写测试，再写实现（TDD 鼓励但不强制）
+      - 每完成一个 change 必须更新对应模块的 README
+      - 涉及数据库变更必须提供 Flyway 迁移脚本
+  archive:
+    guidance:
+      - 归档前必须确认所有 tasks.md 任务已勾选
+      - 归档摘要需列出本 change 交付的关键文件路径

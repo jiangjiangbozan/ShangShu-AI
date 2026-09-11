@@ -1,0 +1,87 @@
+{
+  "pages": [
+    {
+      "path": "pages/chat/index",
+      "style": {
+        "navigationBarTitleText": "对话",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/chat/conversation",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/login/index",
+      "style": {
+        "navigationBarTitleText": "登录",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/profile/index",
+      "style": {
+        "navigationBarTitleText": "我的",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/knowledge/index",
+      "style": {
+        "navigationBarTitleText": "知识库 RAG",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/agent/index",
+      "style": {
+        "navigationBarTitleText": "Agent 任务编排",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/customer-service/index",
+      "style": {
+        "navigationBarTitleText": "客服工作台",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/data-analysis/index",
+      "style": {
+        "navigationBarTitleText": "数据分析",
+        "navigationStyle": "custom"
+      }
+    }
+  ],
+  "tabBar": {
+    "color": "#9ca3af",
+    "selectedColor": "#6366f1",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/chat/index",
+        "text": "对话",
+        "iconPath": "static/tab-icons/chat.png",
+        "selectedIconPath": "static/tab-icons/chat-active.png"
+      },
+      {
+        "pagePath": "pages/profile/index",
+        "text": "我的",
+        "iconPath": "static/tab-icons/profile.png",
+        "selectedIconPath": "static/tab-icons/profile-active.png"
+      }
+    ]
+  },
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "AI 助手",
+    "navigationBarBackgroundColor": "#ffffff",
+    "backgroundColor": "#f9fafb",
+    "backgroundTextStyle": "dark"
+  }
+}
