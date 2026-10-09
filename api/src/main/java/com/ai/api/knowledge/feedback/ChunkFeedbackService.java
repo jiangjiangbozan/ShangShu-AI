@@ -4,6 +4,7 @@ import com.ai.api.knowledge.entity.ChunkFeedbackLog;
 import com.ai.api.knowledge.mapper.ChunkFeedbackLogMapper;
 import com.ai.api.knowledge.mapper.KnowledgeChunkMapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.scheduling.annotation.Async;
@@ -43,6 +44,35 @@ public class ChunkFeedbackService {
     } catch (Exception e) {
       log.warn(
           "[ChunkFeedbackService][命中计数失败（不影响主流程）: chunkId={}, error={}]", chunkId, e.getMessage());
+    }
+  }
+
+  /**
+   * 命中计数批量 +1（异步，主流程不阻塞）。
+   *
+   * <p>入参为检索结果的 {@code vectorId}（ES 文档 id），按 {@code vector_id} 批量累加， 一次 SQL 完成，且规避"UUID
+   * 无法解析为数值主键"的问题。
+   *
+   * <p>由 {@code RagRetrievalService} 跨 Bean 调用，{@code @Async} 才会真正生效。
+   *
+   * @param vectorIds ES 文档 id（入库时生成的 vectorId）
+   */
+  @Async
+  public void incrHitsByVectorIds(List<String> vectorIds) {
+    if (vectorIds == null || vectorIds.isEmpty()) {
+      return;
+    }
+    try {
+      int updated = chunkMapper.incrementHitCountByVectorIds(vectorIds);
+      log.debug(
+          "[ChunkFeedbackService][批量命中计数 +1: candidates={}, updated={}]",
+          vectorIds.size(),
+          updated);
+    } catch (Exception e) {
+      log.warn(
+          "[ChunkFeedbackService][批量命中计数失败（不影响主流程）: size={}, error={}]",
+          vectorIds.size(),
+          e.getMessage());
     }
   }
 

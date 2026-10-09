@@ -1,8 +1,8 @@
 package com.ai.api.knowledge.service;
 
 import com.ai.api.knowledge.cache.RagHitsCacheService;
+import com.ai.api.knowledge.feedback.ChunkFeedbackService;
 import com.ai.api.knowledge.filter.RetrievalFilter;
-import com.ai.api.knowledge.mapper.KnowledgeChunkMapper;
 import com.ai.api.knowledge.mapper.KnowledgeDocumentMapper;
 import java.util.*;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +11,6 @@ import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 /**
@@ -62,8 +61,8 @@ public class RagRetrievalService {
   private final QueryRewriteService queryRewriteService;
   // RAG检索结果缓存服务，缓存5分钟
   private final RagHitsCacheService ragHitsCacheService;
-  // 知识库chunk Mapper，用于统计片段被命中次数
-  private final KnowledgeChunkMapper knowledgeChunkMapper;
+  // 检索反馈服务（命中计数 +1）：独立 Bean，跨 Bean 调用 @Async 才会生效
+  private final ChunkFeedbackService chunkFeedbackService;
   // BM25 关键词检索服务
   private final KeywordRetrievalService keywordRetrievalService;
   // 父文档召回服务（add-3rd-4th-retrieval）
@@ -94,7 +93,7 @@ public class RagRetrievalService {
       @Qualifier("vectorStore") VectorStore vectorStore,
       QueryRewriteService queryRewriteService,
       RagHitsCacheService ragHitsCacheService,
-      KnowledgeChunkMapper knowledgeChunkMapper,
+      ChunkFeedbackService chunkFeedbackService,
       KeywordRetrievalService keywordRetrievalService,
       ParentDocumentRetrievalService parentDocumentRetrievalService,
       KnowledgeGraphRetrievalService knowledgeGraphRetrievalService,
@@ -103,7 +102,7 @@ public class RagRetrievalService {
     this.vectorStore = vectorStore;
     this.queryRewriteService = queryRewriteService;
     this.ragHitsCacheService = ragHitsCacheService;
-    this.knowledgeChunkMapper = knowledgeChunkMapper;
+    this.chunkFeedbackService = chunkFeedbackService;
     this.keywordRetrievalService = keywordRetrievalService;
     this.parentDocumentRetrievalService = parentDocumentRetrievalService;
     this.knowledgeGraphRetrievalService = knowledgeGraphRetrievalService;
@@ -152,56 +151,22 @@ public class RagRetrievalService {
       result = doRetrieveWithRrf(filter, rawQuery, topK);
     }
 
-    // 异步统计文档命中次数；异常不阻塞主检索流程
+    // 异步统计文档命中次数：调用独立 Bean ChunkFeedbackService（跨 Bean 调用 @Async 才生效），
+    // 按 vectorId（即 ES 文档 id）批量回写，规避"UUID 无法解析为数值主键"的缺陷；异常不阻塞主检索流程
     try {
-      recordHitCountAsync(result);
+      List<String> vectorIds =
+          result.stream()
+              .map(Document::getId)
+              .filter(id -> id != null && !id.isBlank())
+              // 跳过 parent:{docId} / kg:{id} 等合成 id，它们不是 vector_id
+              .filter(id -> id.indexOf(':') < 0)
+              .distinct()
+              .toList();
+      chunkFeedbackService.incrHitsByVectorIds(vectorIds);
     } catch (Exception e) {
       log.debug("[RagRetrievalService][反馈计数失败（忽略）: error={}]", e.getMessage());
     }
     return result;
-  }
-
-  /**
-   * 异步任务：统计知识库片段被命中次数 @Async 会另起线程执行，不阻塞检索主链路
-   *
-   * @param docs RRF融合之后返回的文档列表
-   */
-  @Async
-  public void recordHitCountAsync(List<Document> docs) {
-    if (docs == null || docs.isEmpty()) {
-      return;
-    }
-    for (Document doc : docs) {
-      // Document的id对应数据库knowledge_chunk表的vector_id，存储chunk主键字符串
-      // 父文档上下文 id（parent:{docId}）解析失败自动跳过
-      String vectorId = doc.getId();
-      if (vectorId == null || vectorId.isBlank()) {
-        continue;
-      }
-      try {
-        Long chunkId = parseChunkId(vectorId);
-        if (chunkId != null) {
-          // mysql 执行 +1，记录该片段被检索命中
-          knowledgeChunkMapper.incrementHitCount(chunkId);
-        }
-      } catch (Exception e) {
-        log.debug("[RagRetrievalService][命中计数 +1 失败: vectorId={}]", vectorId);
-      }
-    }
-  }
-
-  /**
-   * 将字符串vectorId转回数据库chunk主键Long
-   *
-   * @param vectorId 文档id（chunkId转字符串存入向量库）
-   * @return chunk主键id；解析失败返回null
-   */
-  private Long parseChunkId(String vectorId) {
-    try {
-      return Long.parseLong(vectorId);
-    } catch (NumberFormatException e) {
-      return null;
-    }
   }
 
   /** 兼容旧接口：不传入知识库id，不启用缓存 */
