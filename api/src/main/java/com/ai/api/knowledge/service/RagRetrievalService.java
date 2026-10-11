@@ -253,10 +253,15 @@ public class RagRetrievalService {
   private List<Document> retrieveByMethod(String method, String query, RetrievalFilter filter) {
     try {
       return switch (method) {
+        case METHOD_SEMANTIC -> retrieveSemantic(query, filter);
         case METHOD_FULLTEXT -> retrieveFulltext(query, filter);
         case METHOD_PARENT -> parentDocumentRetrievalService.search(query, topKPerQuery, filter);
         case METHOD_KG -> knowledgeGraphRetrievalService.search(query, topKPerQuery, filter);
-        default -> retrieveSemantic(query, filter);
+        default -> {
+          // 未知方法不再静默退化，先告警再兜底，避免配置写错却无感知（如 knowledge-graph vs knowledge_graph）
+          log.warn("[RagRetrievalService][未知检索方法({})，按向量路兜底]", method);
+          yield retrieveSemantic(query, filter);
+        }
       };
     } catch (Exception e) {
       // 某一路查询报错，只跳过这一路，不中断整体检索
@@ -357,6 +362,8 @@ public class RagRetrievalService {
     return Arrays.stream(retrievalMethods.split(","))
         .map(String::trim)
         .filter(m -> !m.isEmpty())
+        // 归一化：统一小写 + 连字符转下划线，兼容 knowledge-graph 与 knowledge_graph 两种写法
+        .map(m -> m.toLowerCase(Locale.ROOT).replace('-', '_'))
         .distinct()
         .toList();
   }

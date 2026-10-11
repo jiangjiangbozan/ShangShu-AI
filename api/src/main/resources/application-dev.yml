@@ -205,10 +205,6 @@ ai:
     mail:
       from: ${AI_MAIL_FROM:noreply@ai-agent-platform.com}
       from-name: AI 开放平台
-  chat:
-    context-window-size: 10
-    stream-timeout: PT5M
-    max-tokens-per-day: 100000
   web-search:
     enabled: true
     provider: tavily
@@ -236,19 +232,6 @@ jasypt:
     password: ${JASYPT_ENCRYPTOR_PASSWORD:dev-only-jasypt-key-change-in-prod}
     algorithm: PBEWITHHMACSHA512ANDAES_256
     iv-generator-classname: org.jasypt.iv.RandomIvGenerator
-
-# ====================================================================
-# Redisson 分布式锁配置（add-p2-cache-search-rewrite）
-# 单 server 模式；生产环境演进到集群时切换到 clusterServersConfig
-# ====================================================================
-redisson:
-  config: |
-    singleServerConfig:
-      address: "redis://${REDIS_HOST:localhost}:${REDIS_PORT:6379}"
-      password: "${REDIS_PASSWORD:Redis@123456}"
-      database: 0
-      connectionMinimumIdleSize: 8
-      connectionPoolSize: 32
 
 # ====================================================================
 # 业务缓存配置（add-p2-cache-search-rewrite）
@@ -287,8 +270,9 @@ rag:
     # semantic = 向量路（dense_vector kNN，擅长语义/口语化）
     # fulltext = BM25 关键词路（content 字段 match，擅长专有名词/精确编号）
     # parent = 父文档召回（命中片段回溯所属文档，拼接相邻分片补充上下文，add-3rd-4th-retrieval）
-    # knowledge-graph = 知识图谱召回（实体匹配 + 多跳关系扩展，擅长关系型问句，add-3rd-4th-retrieval）
-    retrieval-methods: semantic,fulltext,parent,knowledge-graph
+    # knowledge_graph = 知识图谱召回（实体匹配 + 多跳关系扩展，擅长关系型问句，add-3rd-4th-retrieval）
+    # 注：解析时会把连字符归一化为下划线，knowledge-graph 与 knowledge_graph 等价
+    retrieval-methods: semantic,fulltext,parent,knowledge_graph
   # 混合检索精排（add-3rd-4th-retrieval，对齐 Dify rerank_model 配置化思路）
   # 基于 HTTP 兼容 /rerank 接口（SiliconFlow / Jina / Cohere 协议），关闭或未配置时降级返回 RRF 原序
   rerank:
@@ -358,13 +342,9 @@ agent:
     # 单次 Skill 调用超时（秒），超时返回 {"error":"skill timeout"} 观察结果，
     # 引擎停止继续调工具，基于已有 observation 收尾回答（add-skill-timeout-guard）
     skill-timeout: 30
-  # 短期记忆配置
+  # 上下文滑动窗口配置
   memory:
     window-size: 10
-    token-threshold: 4096
-  # 工作流配置
-  workflow:
-    node-timeout: 60
   # Docker 沙箱配置（code_executor Skill）
   sandbox:
     image: python:3.11-slim

@@ -16,6 +16,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 import org.springframework.ai.document.Document;
 
 /**
@@ -48,7 +49,8 @@ class KbFallbackServiceTest {
   void nullQuery_returnNull() {
     String result = service.tryFallback(1L, null, null);
     assertThat(result).isNull();
-    verify(ragRetrievalService, never()).retrieveWithRrf(any(), any(), anyInt());
+    verify(ragRetrievalService, never())
+        .retrieveWithRrf(ArgumentMatchers.<Long>any(), any(), anyInt());
   }
 
   @Test
@@ -56,13 +58,15 @@ class KbFallbackServiceTest {
   void emptyQuery_returnNull() {
     String result = service.tryFallback(1L, "  ", null);
     assertThat(result).isNull();
-    verify(ragRetrievalService, never()).retrieveWithRrf(any(), any(), anyInt());
+    verify(ragRetrievalService, never())
+        .retrieveWithRrf(ArgumentMatchers.<Long>any(), any(), anyInt());
   }
 
   @Test
   @DisplayName("检索结果为空 → 返回 null，记录未命中日志")
   void emptyDocs_returnNull() {
-    when(ragRetrievalService.retrieveWithRrf(any(), any(), anyInt())).thenReturn(List.of());
+    when(ragRetrievalService.retrieveWithRrf(ArgumentMatchers.<Long>any(), any(), anyInt()))
+        .thenReturn(List.of());
     String result = service.tryFallback(1L, "测试", null);
     assertThat(result).isNull();
     verify(kbHitLogRecorder).record(1L, "测试", null, null, java.math.BigDecimal.ZERO, false);
@@ -71,7 +75,7 @@ class KbFallbackServiceTest {
   @Test
   @DisplayName("检索异常 → 返回 null，不记录日志")
   void retrieveException_returnNull() {
-    when(ragRetrievalService.retrieveWithRrf(any(), any(), anyInt()))
+    when(ragRetrievalService.retrieveWithRrf(ArgumentMatchers.<Long>any(), any(), anyInt()))
         .thenThrow(new RuntimeException("ES 不可用"));
     String result = service.tryFallback(1L, "测试", null);
     assertThat(result).isNull();
@@ -83,7 +87,8 @@ class KbFallbackServiceTest {
   @DisplayName("检索命中 + score=1.0 >= threshold=0.85 → 返回文档文本")
   void hitReturnDocText() {
     Document doc = new Document("answer content");
-    when(ragRetrievalService.retrieveWithRrf(any(), any(), anyInt())).thenReturn(List.of(doc));
+    when(ragRetrievalService.retrieveWithRrf(ArgumentMatchers.<Long>any(), any(), anyInt()))
+        .thenReturn(List.of(doc));
     String result = service.tryFallback(1L, "测试", null);
     assertThat(result).isEqualTo("answer content");
   }

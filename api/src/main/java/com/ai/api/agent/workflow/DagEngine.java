@@ -1,6 +1,5 @@
 package com.ai.api.agent.workflow;
 
-import com.ai.api.agent.config.AgentProperties;
 import com.ai.api.agent.entity.WorkflowDefinition;
 import com.ai.api.agent.mapper.WorkflowDefinitionMapper;
 import com.ai.api.agent.skill.SkillRegistry;
@@ -24,7 +23,6 @@ import tools.jackson.databind.ObjectMapper;
  * <ul>
  *   <li>变量插值：节点 input 中 {@code ${nodeId.field}} 引用上游节点输出
  *   <li>条件分支：节点带 {@code condition} 字段时，先求值（简化版 JS 表达式，本 change 阶段仅支持 {@code "nodeId.field > N"} 形式）
- *   <li>节点级超时：{@code agent.workflow.node-timeout}
  * </ul>
  *
  * @author add-agent-runtime
@@ -40,7 +38,6 @@ public class DagEngine {
 
   private final WorkflowDefinitionMapper workflowDefinitionMapper;
   private final SkillRegistry skillRegistry;
-  private final AgentProperties agentProperties;
   private final ObjectMapper objectMapper;
 
   /**

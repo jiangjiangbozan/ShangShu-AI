@@ -4,7 +4,6 @@ import com.ai.api.cs.config.CustomerServiceProperties;
 import com.ai.api.knowledge.service.RagRetrievalService;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.document.Document;
@@ -84,14 +83,5 @@ public class KbFallbackService {
   public Long resolveKbId(String intent) {
     // M5 简化实现：所有意图走默认 KB（kbId=null，检索全部）
     return null;
-  }
-
-  /** 内部：从 Document metadata 提取 score（Spring AI 6 在 metadata.score 字段）。 */
-  @SuppressWarnings("unused")
-  private BigDecimal extractScore(Document doc) {
-    Map<String, Object> meta = doc.getMetadata();
-    Object score = meta == null ? null : meta.get("score");
-    if (score instanceof Number n) return BigDecimal.valueOf(n.doubleValue());
-    return BigDecimal.ONE;
   }
 }

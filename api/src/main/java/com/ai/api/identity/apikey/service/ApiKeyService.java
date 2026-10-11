@@ -7,7 +7,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
-import java.time.LocalDateTime;
 import java.util.HexFormat;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -60,18 +59,6 @@ public class ApiKeyService {
   /** 删除 */
   public void delete(Long id) {
     apiKeyMapper.deleteById(id);
-  }
-
-  /** 验证 API 密钥（通过明文密钥查找） */
-  public ApiKey validate(String plainKey) {
-    String hash = sha256(plainKey);
-    ApiKey entity =
-        apiKeyMapper.selectOne(new QueryWrapper<ApiKey>().eq("key_hash", hash).eq("enabled", 1));
-    if (entity != null) {
-      entity.setLastUsedAt(LocalDateTime.now());
-      apiKeyMapper.updateById(entity);
-    }
-    return entity;
   }
 
   private static String sha256(String input) {

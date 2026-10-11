@@ -4,7 +4,6 @@
  *
  * - AgentRuntimeController: runtime 生命周期管理
  * - SkillController: Skill 查询与调用
- * - WorkflowController: 工作流查询与执行
  * - TraceController: Trace 回放与性能聚合
  */
 import { get, post } from '@/utils/request'
@@ -41,20 +40,6 @@ export interface SkillDefinitionResp {
   enabled: number
   inputSchema: string | null
   outputSchema: string | null
-  createTime: string
-  updateTime: string
-}
-
-/** Workflow 定义响应 */
-export interface WorkflowDefinitionResp {
-  id: number
-  workflowId: string
-  name: string
-  version: string
-  triggerType: string
-  owner: string
-  enabled: number
-  dag: string // JSON
   createTime: string
   updateTime: string
 }
@@ -129,39 +114,9 @@ export function listSkills() {
   return get<SkillDefinitionResp[]>('/agent/skills')
 }
 
-/** 查询 Skill 最新版本 */
-export function getSkill(name: string) {
-  return get<SkillDefinitionResp>(`/agent/skills/${name}`)
-}
-
 /** 调用 Skill（调试用） */
 export function invokeSkill(name: string, version: string, input: Record<string, unknown>) {
   return post<Record<string, unknown>>(`/agent/skills/${name}/invoke`, input, {
-    params: { version },
-  })
-}
-
-/** Skill 健康检查 */
-export function skillHealth() {
-  return get<Record<string, unknown>>('/agent/skills/health')
-}
-
-/** ============ Workflow ============ */
-
-/** 查询工作流详情 */
-export function getWorkflow(workflowId: string, version = 'latest') {
-  return get<WorkflowDefinitionResp>(`/agent/workflows/${workflowId}`, {
-    params: { version },
-  })
-}
-
-/** 执行工作流 */
-export function executeWorkflow(
-  workflowId: string,
-  input: Record<string, unknown>,
-  version = 'latest',
-) {
-  return post<Record<string, unknown>>(`/agent/workflows/${workflowId}/execute`, input, {
     params: { version },
   })
 }
@@ -176,11 +131,6 @@ export function replayTrace(runtimeId: number) {
 /** 性能聚合指标 */
 export function traceMetrics(runtimeId: number) {
   return get<TraceMetricsResp>(`/agent/trace/${runtimeId}/metrics`)
-}
-
-/** 查询子任务 trace */
-export function listChildTraces(parentStepId: number) {
-  return get<AgentTraceResp[]>(`/agent/trace/parent/${parentStepId}`)
 }
 
 /** ============ 实时执行 SSE（SSE 协议 v2） ============ */

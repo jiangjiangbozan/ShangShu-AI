@@ -142,10 +142,6 @@ ai:
     password: ${SMTP_PASSWORD:}
     from: ${MAIL_FROM:noreply@ai-agent-platform.com}
     from-name: AI 开放平台
-  chat:
-    context-window-size: 10
-    stream-timeout: PT5M
-    max-tokens-per-day: 100000
 
 # ====================================================================
 # Jasypt 配置加密（主密钥通过环境变量注入，禁止使用默认值）

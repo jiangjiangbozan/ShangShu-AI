@@ -119,11 +119,6 @@ export function runWorkflowSSE(
   return controller
 }
 
-/** 单节点调试 */
-export function debugNode(data: { nodeType: string; data: Record<string, unknown>; inputs: Record<string, unknown> }) {
-  return post<Record<string, unknown>>('/workflows/debug/node', data)
-}
-
 /** 运行历史 */
 export function listWorkflowRuns(workflowId: string) {
   return get<WorkflowRun[]>(`/workflows/${workflowId}/runs`)

@@ -2,7 +2,6 @@ package com.ai.api.model.service;
 
 import com.ai.api.common.exception.BusinessException;
 import com.ai.api.common.exception.ErrorCode;
-import com.ai.api.model.config.ModelConfig;
 import jakarta.annotation.Resource;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
@@ -46,8 +45,6 @@ public class ModelPingService {
   /** Provider 名称 → ChatClient Bean 名称的映射 */
   @Resource(name = "chatClientRegistry")
   private Map<String, String> chatClientRegistry;
-
-  @Resource private ModelConfig modelConfig;
 
   /**
    * 测试模型连通性。

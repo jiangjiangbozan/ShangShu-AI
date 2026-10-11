@@ -17,14 +17,6 @@ import org.apache.ibatis.annotations.Update;
 public interface KnowledgeChunkMapper extends BaseMapper<KnowledgeChunk> {
 
   /**
-   * 命中计数 +1（add-p3-rag-feedback-ops）。
-   *
-   * <p>使用 UPDATE...WHERE 直接累加，避免读-改-写的并发冲突。
-   */
-  @Update("UPDATE knowledge_chunk SET hit_count = hit_count + 1 WHERE id = #{id} AND deleted = 0")
-  int incrementHitCount(@Param("id") Long id);
-
-  /**
    * 命中计数批量 +1（按 vector_id 匹配，供检索链路回写命中统计）。
    *
    * <p>检索结果 {@code Document.id} 即入库时写入 ES 的 {@code vector_id}（UUID）， 直接按 {@code vector_id}

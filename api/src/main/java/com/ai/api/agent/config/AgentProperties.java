@@ -28,9 +28,6 @@ public class AgentProperties {
   /** 短期记忆配置。 */
   private Memory memory = new Memory();
 
-  /** 工作流配置。 */
-  private Workflow workflow = new Workflow();
-
   /** MQ 队列名配置。 */
   private Mq mq = new Mq();
 
@@ -49,15 +46,6 @@ public class AgentProperties {
   public static class Memory {
     /** 滑动窗口大小（保留最近 N 轮原文）。 */
     private int windowSize = 10;
-
-    /** Token 阈值，超出触发压缩。 */
-    private int tokenThreshold = 4096;
-  }
-
-  @Data
-  public static class Workflow {
-    /** 单节点执行超时（秒）。 */
-    private int nodeTimeout = 60;
   }
 
   @Data

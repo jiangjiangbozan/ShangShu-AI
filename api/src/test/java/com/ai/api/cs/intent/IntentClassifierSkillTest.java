@@ -6,6 +6,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.ai.api.cs.config.CustomerServiceProperties;
+import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -24,6 +25,7 @@ class IntentClassifierSkillTest {
 
   private CustomerServiceProperties properties;
   private ChatClient chatClient;
+  private IntentRuleCacheService ruleCacheService;
   private IntentClassifierSkill skill;
 
   @BeforeEach
@@ -32,7 +34,32 @@ class IntentClassifierSkillTest {
     properties.setIntentConfidenceThreshold(0.6);
     chatClient = mock(ChatClient.class);
     Map<String, ChatClient> chatClientRegistry = Map.of("ollamaChatClient", chatClient);
-    skill = new IntentClassifierSkill(chatClientRegistry, properties);
+    ruleCacheService = mock(IntentRuleCacheService.class);
+    when(ruleCacheService.getAllEnabled()).thenReturn(builtinRules());
+    skill = new IntentClassifierSkill(chatClientRegistry, properties, ruleCacheService);
+  }
+
+  /** 内置 5 类意图规则（关键词已归一化），模拟 cs_intent 表启用数据。 */
+  private static List<IntentRuleCacheService.IntentRule> builtinRules() {
+    return List.of(
+        new IntentRuleCacheService.IntentRule(
+            "sales_query", "销量查询", List.of("销量"), "{\"region\":{\"required\":true}}", "small_talk"),
+        new IntentRuleCacheService.IntentRule(
+            "small_talk", "闲聊", List.of("你好"), null, "small_talk"),
+        new IntentRuleCacheService.IntentRule(
+            "product_compare", "产品对比", List.of("对比", "vs"), null, "small_talk"),
+        new IntentRuleCacheService.IntentRule(
+            "fault_diagnosis",
+            "故障诊断",
+            List.of("故障"),
+            "{\"device\":{\"required\":true}}",
+            "small_talk"),
+        new IntentRuleCacheService.IntentRule(
+            "reimbursement_standard",
+            "报销标准",
+            List.of("报销"),
+            "{\"amount\":{\"required\":true}}",
+            "small_talk"));
   }
 
   @Test
