@@ -14,6 +14,7 @@
       </marker>
     </defs>
   </svg>
+  <BaseEdge :path="path" :style="{ strokeWidth: 8, stroke: 'transparent' }" />
   <BaseEdge :path="path" :style="edgeStyle" :marker-end="`url(#${markerId})`" />
   <circle
     v-if="data?.animated || animated"
@@ -53,17 +54,17 @@ const path = computed(() => {
 const edgeStyle = computed(() => {
   const base = {
     strokeWidth: 2,
-    stroke: '#6366f1',
+    stroke: '#b6bce0',
   }
   // 运行中高亮
   if (props.data?._runningStatus === 'running') {
-    return { ...base, stroke: '#e6a23c', strokeWidth: 2.5 }
+    return { ...base, stroke: '#f59e0b', strokeWidth: 2.5 }
   }
   if (props.data?._runningStatus === 'succeeded') {
-    return { ...base, stroke: '#67c23a' }
+    return { ...base, stroke: '#10b981' }
   }
   if (props.data?._runningStatus === 'failed') {
-    return { ...base, stroke: '#f56c6c' }
+    return { ...base, stroke: '#ef4444' }
   }
   return base
 })

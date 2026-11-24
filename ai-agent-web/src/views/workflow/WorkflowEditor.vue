@@ -21,58 +21,83 @@
         @pane-click="onPaneClick"
         @connect="onConnect"
         @nodes-change="onNodesChange"
+        @viewport-change="onViewportChange"
       >
-        <Background :gap="16" :size="1.5" pattern-color="#d0d5dd" />
+        <Background :gap="16" :size="1.6" pattern-color="#d4d9ec" />
         <MiniMap position="bottom-left" :pannable="true" :zoomable="true" />
       </VueFlow>
 
-      <!-- 顶部工具栏（放在 VueFlow 外部，覆盖在画布上方） -->
-      <div class="wf-toolbar">
-        <div class="wf-toolbar__left">
-          <el-button text size="small" @click="goBack" class="wf-toolbar__back">
-            <el-icon><ArrowLeft /></el-icon>
-          </el-button>
-          <div class="wf-toolbar__name-wrap">
-            <input
-              v-model="store.workflowName"
-              class="wf-toolbar__name-input"
-              @change="store.dirty = true"
-            />
-            <el-tag v-if="store.dirty" size="small" type="warning" effect="dark" round class="wf-toolbar__dirty">未保存</el-tag>
-          </div>
+      <!-- 顶部左侧：返回 + 名称（悬浮玻璃卡片） -->
+      <div class="wf-toolbar wf-toolbar--left">
+        <el-tooltip content="返回列表" placement="bottom">
+          <button class="wf-toolbar__icon-btn" @click="goBack">
+            <el-icon :size="16"><ArrowLeft /></el-icon>
+          </button>
+        </el-tooltip>
+        <div class="wf-toolbar__divider" />
+        <div class="wf-toolbar__name-wrap">
+          <input
+            v-model="store.workflowName"
+            class="wf-toolbar__name-input"
+            placeholder="未命名工作流"
+            @change="store.dirty = true"
+          />
+          <span v-if="store.dirty" class="wf-toolbar__dirty">
+            <span class="wf-toolbar__dirty-dot" />未保存
+          </span>
         </div>
-        <div class="wf-toolbar__actions">
-          <el-button size="small" @click="handleUndo" :disabled="!canUndo" title="撤销">
-            <el-icon><RefreshLeft /></el-icon>
+      </div>
+
+      <!-- 顶部右侧：操作区（悬浮玻璃卡片） -->
+      <div class="wf-toolbar wf-toolbar--right">
+        <div class="wf-toolbar__group">
+          <el-tooltip content="撤销" placement="bottom">
+            <button class="wf-toolbar__icon-btn" :disabled="!canUndo" @click="handleUndo">
+              <el-icon :size="16"><RefreshLeft /></el-icon>
+            </button>
+          </el-tooltip>
+          <el-tooltip content="重做" placement="bottom">
+            <button class="wf-toolbar__icon-btn" :disabled="!canRedo" @click="handleRedo">
+              <el-icon :size="16"><RefreshRight /></el-icon>
+            </button>
+          </el-tooltip>
+        </div>
+        <div class="wf-toolbar__divider" />
+        <div class="wf-toolbar__group">
+          <el-tooltip content="运行历史" placement="bottom">
+            <button class="wf-toolbar__icon-btn" @click="showRunHistory">
+              <el-icon :size="16"><Clock /></el-icon>
+            </button>
+          </el-tooltip>
+        </div>
+        <div class="wf-toolbar__divider" />
+        <div class="wf-toolbar__group wf-toolbar__group--actions">
+          <el-button class="wf-toolbar__btn" @click="handleSave" :loading="saving">
+            <el-icon v-if="!saving"><Check /></el-icon>保存
           </el-button>
-          <el-button size="small" @click="handleRedo" :disabled="!canRedo" title="重做">
-            <el-icon><RefreshRight /></el-icon>
+          <el-button class="wf-toolbar__btn wf-toolbar__btn--publish" @click="handlePublish" :loading="publishing">
+            <el-icon v-if="!publishing"><Upload /></el-icon>发布
           </el-button>
-          <el-divider direction="vertical" />
-          <el-button size="small" @click="handleSave" :loading="saving">
-            <el-icon><Check /></el-icon>保存
-          </el-button>
-          <el-button size="small" type="primary" @click="handleRun" :loading="store.running" class="wf-toolbar__run-btn">
-            <el-icon><VideoPlay /></el-icon>
-            <span>{{ store.running ? '运行中...' : '运行' }}</span>
-          </el-button>
-          <el-button size="small" @click="showRunHistory" title="运行历史">
-            <el-icon><Clock /></el-icon>
-          </el-button>
-          <el-divider direction="vertical" />
-          <el-button size="small" type="warning" @click="handlePublish" :loading="publishing">
-            <el-icon><Upload /></el-icon>发布
+          <el-button class="wf-toolbar__btn wf-toolbar__btn--run" @click="handleRun" :loading="store.running">
+            <el-icon v-if="!store.running"><VideoPlay /></el-icon>
+            <span>{{ store.running ? '运行中' : '运行' }}</span>
           </el-button>
         </div>
       </div>
 
-      <!-- 缩放控制（右下角） -->
+      <!-- 缩放控制（右下角胶囊） -->
       <div class="wf-editor__zoom-controls">
-        <el-button-group>
-          <el-button size="small" @click="zoomIn" title="放大"><el-icon><ZoomIn /></el-icon></el-button>
-          <el-button size="small" @click="zoomOut" title="缩小"><el-icon><ZoomOut /></el-icon></el-button>
-          <el-button size="small" @click="fitView" title="适应画布"><el-icon><FullScreen /></el-icon></el-button>
-        </el-button-group>
+        <button class="wf-zoom__btn" @click="zoomOut" title="缩小">
+          <el-icon :size="15"><ZoomOut /></el-icon>
+        </button>
+        <button class="wf-zoom__percent" @click="fitView" title="适应画布">{{ zoomPercent }}%</button>
+        <button class="wf-zoom__btn" @click="zoomIn" title="放大">
+          <el-icon :size="15"><ZoomIn /></el-icon>
+        </button>
+        <div class="wf-toolbar__divider" />
+        <button class="wf-zoom__btn" @click="fitView" title="适应画布">
+          <el-icon :size="15"><FullScreen /></el-icon>
+        </button>
       </div>
     </div>
 
@@ -85,7 +110,10 @@
       class="wf-run-dialog"
       :close-on-click-modal="false"
     >
-      <div class="wf-run-dialog__desc">以下变量将作为工作流运行的输入参数</div>
+      <div class="wf-run-dialog__desc">
+        <el-icon><InfoFilled /></el-icon>
+        以下变量将作为工作流运行的输入参数
+      </div>
       <el-form label-position="top" class="wf-run-dialog__form">
         <template v-if="runInputVars.length">
           <el-form-item
@@ -104,8 +132,8 @@
       </el-form>
       <template #footer>
         <el-button @click="runInputVisible = false">取消</el-button>
-        <el-button type="primary" @click="confirmRun" :loading="store.running">
-          <el-icon><VideoPlay /></el-icon>开始运行
+        <el-button type="primary" class="wf-run-dialog__submit" @click="confirmRun" :loading="store.running">
+          <el-icon v-if="!store.running"><VideoPlay /></el-icon>开始运行
         </el-button>
       </template>
     </el-dialog>
@@ -124,17 +152,23 @@
         <div class="wf-run-panel__header">
           <div class="wf-run-panel__header-left">
             <span class="wf-run-panel__title">运行日志</span>
-            <el-tag v-if="store.running" size="small" type="warning" effect="light" round>运行中</el-tag>
-            <el-tag v-else-if="lastEventIsSuccess" size="small" type="success" effect="light" round>完成</el-tag>
-            <el-tag v-else-if="lastEventIsFailed" size="small" type="danger" effect="light" round>失败</el-tag>
+            <span v-if="store.running" class="wf-run-panel__chip is-running">
+              <span class="wf-run-panel__chip-dot" />运行中
+            </span>
+            <span v-else-if="lastEventIsSuccess" class="wf-run-panel__chip is-success">
+              <el-icon :size="11"><Check /></el-icon>完成
+            </span>
+            <span v-else-if="lastEventIsFailed" class="wf-run-panel__chip is-failed">
+              <el-icon :size="11"><CloseBold /></el-icon>失败
+            </span>
           </div>
           <div class="wf-run-panel__header-right">
-            <el-button size="small" text @click="store.runEvents = []">
-              <el-icon><Delete /></el-icon>清除
-            </el-button>
-            <el-button size="small" text @click="runPanelCollapsed = !runPanelCollapsed">
-              <el-icon><component :is="runPanelCollapsed ? 'ArrowUp' : 'ArrowDown'" /></el-icon>
-            </el-button>
+            <button class="wf-run-panel__icon-btn" @click="store.runEvents = []" title="清除日志">
+              <el-icon :size="14"><Delete /></el-icon>
+            </button>
+            <button class="wf-run-panel__icon-btn" @click="runPanelCollapsed = !runPanelCollapsed" :title="runPanelCollapsed ? '展开' : '折叠'">
+              <el-icon :size="14"><component :is="runPanelCollapsed ? ArrowUp : ArrowDown" /></el-icon>
+            </button>
           </div>
         </div>
         <div v-show="!runPanelCollapsed" class="wf-run-panel__body">
@@ -142,12 +176,12 @@
             v-for="(evt, i) in store.runEvents"
             :key="i"
             class="wf-run-panel__event"
-            :class="'wf-run-panel__event--' + evt.eventType"
+            :class="'is-' + evt.eventType"
           >
             <span class="wf-run-panel__dot" />
-            <span class="wf-run-panel__node-type">{{ evt.nodeType || '' }}</span>
+            <span v-if="evt.nodeType" class="wf-run-panel__node-type">{{ evt.nodeType }}</span>
             <span class="wf-run-panel__event-title">{{ evt.title || evt.eventType }}</span>
-            <span v-if="evt.data?.error" class="wf-run-panel__error">{{ evt.data.error }}</span>
+            <span v-if="evt.data?.error" class="wf-run-panel__error" :title="String(evt.data.error)">{{ evt.data.error }}</span>
             <span v-if="evt.data?.elapsedMs" class="wf-run-panel__elapsed">{{ (evt.data.elapsedMs as number / 1000).toFixed(1) }}s</span>
           </div>
           <div v-if="store.running" class="wf-run-panel__running">
@@ -174,6 +208,7 @@ import '@vue-flow/minimap/dist/style.css'
 import {
   ArrowLeft, RefreshLeft, RefreshRight, Check, VideoPlay, Clock, Upload,
   ZoomIn, ZoomOut, FullScreen, Delete, ArrowUp, ArrowDown, Loading,
+  InfoFilled, CloseBold,
 } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import { NodeType, type CommonNodeData, type StartNodeData, type VarDefinition, type WorkflowNode, type WorkflowEdge, type WorkflowDSL, type WorkflowNodeData } from './types'
@@ -292,6 +327,13 @@ const defaultEdgeOptions = {
 // 运行面板折叠
 const runPanelCollapsed = ref(false)
 
+// 画布缩放百分比显示
+const zoomPercent = ref(100)
+
+function onViewportChange(vp: { zoom: number }) {
+  zoomPercent.value = Math.round(vp.zoom * 100)
+}
+
 // 运行状态标签
 const lastEventIsSuccess = computed(() => {
   if (!store.runEvents.length) return false
@@ -360,9 +402,9 @@ function onDrop(event: DragEvent) {
 }
 
 // 缩放控制
-function zoomIn() { vfZoomIn() }
-function zoomOut() { vfZoomOut() }
-function fitView() { vfFitView({ padding: 0.2 }) }
+function zoomIn() { vfZoomIn({ duration: 200 }) }
+function zoomOut() { vfZoomOut({ duration: 200 }) }
+function fitView() { vfFitView({ padding: 0.2, duration: 300 }) }
 
 // 工具栏操作
 const saving = ref(false)
@@ -581,84 +623,230 @@ onMounted(async () => {
 /* ============ 编辑器容器 ============ */
 .wf-editor {
   display: flex;
-  height: calc(100vh - 60px);
+  /* 布局：顶栏 --header-height + 内容区上下各 --space-6 内边距，刚好填满不出现页面滚动条 */
+  height: calc(100vh - var(--header-height) - var(--space-6) * 2);
   overflow: hidden;
-  background: #f9fafb;
+  background: #f4f5fb;
 }
 
 /* ============ 画布 ============ */
 .wf-editor__canvas {
   flex: 1;
   position: relative;
-  background: #f2f4f7;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(99, 102, 241, 0.04) 0%, transparent 40%),
+    radial-gradient(circle at 85% 80%, rgba(139, 92, 246, 0.04) 0%, transparent 40%),
+    #f4f5fb;
 }
 
-/* ============ 顶部工具栏 ============ */
+/* ============ 顶部悬浮工具栏（公共） ============ */
 .wf-toolbar {
   position: absolute;
-  top: 12px;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 16px;
   z-index: 10;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 6px 16px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.1), 0 1px 2px rgba(16, 24, 40, 0.06);
-  min-width: 520px;
+  gap: 10px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 14px;
+  box-shadow: 0 4px 16px -2px rgba(17, 24, 39, 0.08), 0 1px 3px rgba(17, 24, 39, 0.05);
 }
-.wf-toolbar__left {
+.wf-toolbar--left {
+  left: 16px;
+  min-width: 280px;
+}
+.wf-toolbar--right {
+  right: 16px;
+}
+.wf-toolbar__divider {
+  width: 1px;
+  height: 18px;
+  background: #e5e7eb;
+  flex-shrink: 0;
+}
+.wf-toolbar__group {
   display: flex;
   align-items: center;
+  gap: 2px;
+}
+.wf-toolbar__group--actions {
   gap: 8px;
 }
-.wf-toolbar__back {
-  padding: 4px;
+
+/* 图标按钮（幽灵样式） */
+.wf-toolbar__icon-btn {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  color: #4b5563;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
 }
+.wf-toolbar__icon-btn:hover:not(:disabled) {
+  background: #eef0f7;
+  color: #111827;
+}
+.wf-toolbar__icon-btn:disabled {
+  color: #d1d5db;
+  cursor: not-allowed;
+}
+
+/* 名称区 */
 .wf-toolbar__name-wrap {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 .wf-toolbar__name-input {
-  border: none;
+  border: 1px solid transparent;
   outline: none;
   font-size: 14px;
   font-weight: 600;
-  color: #1d1d1f;
+  color: #111827;
   background: transparent;
-  width: 160px;
-  padding: 2px 4px;
-  border-radius: 4px;
-  transition: background 0.15s;
+  width: 180px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: border-color 0.15s, background 0.15s;
+}
+.wf-toolbar__name-input::placeholder {
+  color: #c0c6d4;
+  font-weight: 500;
+}
+.wf-toolbar__name-input:hover {
+  border-color: #e5e7eb;
 }
 .wf-toolbar__name-input:focus {
-  background: #f2f4f7;
+  border-color: #a5b4fc;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
 }
 .wf-toolbar__dirty {
-  font-size: 10px;
-  height: 18px;
-  line-height: 18px;
-  padding: 0 6px;
-}
-.wf-toolbar__actions {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #d97706;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  padding: 1px 8px;
+  border-radius: 999px;
+  flex-shrink: 0;
 }
-.wf-toolbar__run-btn {
-  min-width: 80px;
+.wf-toolbar__dirty-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #f59e0b;
+  animation: wf-pulse 1.6s ease-in-out infinite;
+}
+@keyframes wf-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(0.8); }
 }
 
-/* ============ 缩放控制 ============ */
+/* 文字按钮（保存 / 发布 / 运行） */
+.wf-toolbar__btn {
+  height: 32px;
+  border-radius: 9px;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 0 14px;
+}
+.wf-toolbar__btn :deep(.el-icon) {
+  margin-right: 4px;
+}
+
+/* 发布按钮：白底 + 绿色强调 */
+.wf-toolbar__btn--publish {
+  border: 1px solid #d1d5db;
+  color: #111827;
+  transition: border-color 0.15s, color 0.15s, box-shadow 0.15s;
+}
+.wf-toolbar__btn--publish:hover:not(:disabled) {
+  border-color: #10b981;
+  color: #059669;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
+}
+
+/* 运行按钮：品牌渐变 */
+.wf-toolbar__btn--run {
+  border: none;
+  color: #fff;
+  background: linear-gradient(135deg, #6366f1 0%, #7c3aed 100%);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  min-width: 88px;
+  transition: box-shadow 0.2s, transform 0.15s, filter 0.15s;
+}
+.wf-toolbar__btn--run:hover:not(:disabled) {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+.wf-toolbar__btn--run:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* ============ 缩放控制（右下角胶囊） ============ */
 .wf-editor__zoom-controls {
   position: absolute;
-  bottom: 16px;
-  right: 16px;
+  bottom: 20px;
+  right: 20px;
   z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px -2px rgba(17, 24, 39, 0.1), 0 1px 3px rgba(17, 24, 39, 0.05);
+}
+.wf-zoom__btn {
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  color: #4b5563;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.wf-zoom__btn:hover {
+  background: #eef0f7;
+  color: #111827;
+}
+.wf-zoom__percent {
+  min-width: 46px;
+  height: 30px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #4b5563;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.wf-zoom__percent:hover {
+  background: #eef0f7;
+  color: #4f46e5;
 }
 
 /* ============ 运行结果面板 ============ */
@@ -667,10 +855,12 @@ onMounted(async () => {
   bottom: 0;
   left: 0;
   right: 0;
-  max-height: 280px;
-  background: #fff;
-  border-top: 1px solid #eaecf0;
-  box-shadow: 0 -4px 8px -2px rgba(16, 24, 40, 0.08);
+  max-height: 300px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid #e8eaf2;
+  box-shadow: 0 -6px 20px -4px rgba(17, 24, 39, 0.08);
   z-index: 20;
   display: flex;
   flex-direction: column;
@@ -681,13 +871,13 @@ onMounted(async () => {
   align-items: center;
   justify-content: space-between;
   padding: 10px 16px;
-  border-bottom: 1px solid #f0f2f5;
+  border-bottom: 1px solid #f0f1f7;
   flex-shrink: 0;
 }
 .wf-run-panel__header-left {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 .wf-run-panel__header-right {
   display: flex;
@@ -696,43 +886,99 @@ onMounted(async () => {
 }
 .wf-run-panel__title {
   font-size: 13px;
-  font-weight: 600;
-  color: #303133;
+  font-weight: 700;
+  color: #111827;
+}
+.wf-run-panel__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 9px;
+  border-radius: 999px;
+  line-height: 18px;
+}
+.wf-run-panel__chip.is-running {
+  color: #d97706;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+}
+.wf-run-panel__chip.is-success {
+  color: #059669;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+}
+.wf-run-panel__chip.is-failed {
+  color: #dc2626;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+}
+.wf-run-panel__chip.is-running .wf-run-panel__chip-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #f59e0b;
+  animation: wf-pulse 1.6s ease-in-out infinite;
+}
+.wf-run-panel__icon-btn {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  border-radius: 7px;
+  color: #9ca3af;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.wf-run-panel__icon-btn:hover {
+  background: #f0f1f7;
+  color: #374151;
 }
 .wf-run-panel__body {
   flex: 1;
   overflow-y: auto;
-  padding: 8px 16px;
+  padding: 8px 16px 12px;
 }
 .wf-run-panel__event {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 5px 0;
+  padding: 5px 8px;
   font-size: 12px;
-  color: #606266;
-  border-bottom: 1px solid #fafafa;
+  color: #4b5563;
+  border-radius: 6px;
+  transition: background 0.1s;
+}
+.wf-run-panel__event:hover {
+  background: #f7f8fc;
 }
 .wf-run-panel__dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
   flex-shrink: 0;
-  background: #909399;
+  background: #c4c9d8;
 }
-.wf-run-panel__event--node_started .wf-run-panel__dot { background: #F79009; }
-.wf-run-panel__event--node_succeeded .wf-run-panel__dot { background: #12B76A; }
-.wf-run-panel__event--node_failed .wf-run-panel__dot { background: #F04438; }
-.wf-run-panel__event--workflow_succeeded .wf-run-panel__dot { background: #12B76A; }
-.wf-run-panel__event--workflow_failed .wf-run-panel__dot { background: #F04438; }
+.wf-run-panel__event.is-node_started .wf-run-panel__dot { background: #f59e0b; }
+.wf-run-panel__event.is-node_succeeded .wf-run-panel__dot { background: #10b981; }
+.wf-run-panel__event.is-node_failed .wf-run-panel__dot { background: #ef4444; }
+.wf-run-panel__event.is-workflow_succeeded .wf-run-panel__dot { background: #10b981; }
+.wf-run-panel__event.is-workflow_failed .wf-run-panel__dot { background: #ef4444; }
 
 .wf-run-panel__node-type {
   font-size: 10px;
-  padding: 1px 5px;
-  border-radius: 3px;
-  background: #f0f2f5;
-  color: #909399;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: #eef0f7;
+  color: #6b7280;
   flex-shrink: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
 }
 .wf-run-panel__event-title {
   flex: 1;
@@ -741,38 +987,51 @@ onMounted(async () => {
   white-space: nowrap;
 }
 .wf-run-panel__error {
-  color: #F04438;
+  color: #dc2626;
   font-size: 11px;
-  max-width: 160px;
+  max-width: 200px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 .wf-run-panel__elapsed {
   font-size: 11px;
-  color: #909399;
+  color: #9ca3af;
+  font-variant-numeric: tabular-nums;
   flex-shrink: 0;
 }
 .wf-run-panel__running {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 0;
-  color: #F79009;
+  padding: 8px;
+  color: #d97706;
   font-size: 12px;
 }
 
 /* ============ 运行对话框 ============ */
 .wf-run-dialog__desc {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-size: 13px;
-  color: #909399;
+  color: #6b7280;
   margin-bottom: 16px;
+  padding: 10px 12px;
+  background: #eef2ff;
+  border-radius: 8px;
+}
+.wf-run-dialog__desc .el-icon {
+  color: #6366f1;
+}
+.wf-run-dialog__submit {
+  font-weight: 600;
 }
 
 /* ============ 过渡动画 ============ */
 .slide-up-enter-active,
 .slide-up-leave-active {
-  transition: transform 0.25s ease, opacity 0.25s ease;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
 }
 .slide-up-enter-from,
 .slide-up-leave-to {
@@ -782,11 +1041,23 @@ onMounted(async () => {
 
 .slide-right-enter-active,
 .slide-right-leave-active {
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
 }
 .slide-right-enter-from,
 .slide-right-leave-to {
   transform: translateX(100%);
   opacity: 0;
+}
+
+/* ============ VueFlow 细节覆盖 ============ */
+.wf-editor__canvas :deep(.vue-flow__minimap) {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px -2px rgba(17, 24, 39, 0.1);
+  border: 1px solid #e8eaf2;
+  margin: 0 0 12px 12px;
+}
+.wf-editor__canvas :deep(.vue-flow__handle) {
+  transition: width 0.15s, height 0.15s, border-color 0.15s, background 0.15s;
 }
 </style>

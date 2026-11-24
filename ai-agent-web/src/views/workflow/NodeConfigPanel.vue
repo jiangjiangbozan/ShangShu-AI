@@ -601,11 +601,12 @@ function onAuthChange() {
 
 <style scoped>
 .node-config-panel {
-  width: 360px;
-  min-width: 360px;
+  width: 380px;
+  min-width: 380px;
   height: 100%;
   background: #fff;
-  border-left: 1px solid #e8eaed;
+  border-left: 1px solid #e8eaf2;
+  box-shadow: -4px 0 16px -4px rgba(17, 24, 39, 0.06);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -615,15 +616,16 @@ function onAuthChange() {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 16px 16px 14px;
-  border-bottom: 1px solid #f0f2f5;
+  padding: 14px 16px;
+  border-bottom: 1px solid #f0f1f7;
   flex-shrink: 0;
+  background: linear-gradient(180deg, #fbfbfe 0%, #ffffff 100%);
 }
 
 .node-config-panel__header-icon {
-  width: 30px;
-  height: 30px;
-  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -633,9 +635,10 @@ function onAuthChange() {
 
 .node-config-panel__title {
   flex: 1;
-  font-size: 15px;
-  font-weight: 600;
-  color: #101828;
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+  letter-spacing: -0.2px;
 }
 
 .node-config-panel__close {
@@ -643,18 +646,18 @@ function onAuthChange() {
   height: 28px;
   border: none;
   background: transparent;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #98a2b3;
+  color: #9ca3af;
   transition: background 0.15s, color 0.15s;
 }
 
 .node-config-panel__close:hover {
-  background: #f2f4f7;
-  color: #344054;
+  background: #f0f1f7;
+  color: #374151;
 }
 
 .node-config-panel__body {
@@ -663,31 +666,53 @@ function onAuthChange() {
   padding: 16px;
 }
 
+.node-config-panel__body::-webkit-scrollbar {
+  width: 5px;
+}
+.node-config-panel__body::-webkit-scrollbar-thumb {
+  background: #d9dce8;
+  border-radius: 999px;
+}
+.node-config-panel__body::-webkit-scrollbar-thumb:hover {
+  background: #c2c6d8;
+}
+.node-config-panel__body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
 .config-panel__form {
   padding: 0;
 }
 
 .config-panel__form :deep(.el-form-item__label) {
-  font-size: 13px;
-  font-weight: 500;
-  color: #344054;
+  font-size: 12px;
+  font-weight: 600;
+  color: #4b5563;
   padding-bottom: 4px;
 }
 
 .config-panel__form :deep(.el-divider__text) {
-  font-size: 12px;
-  font-weight: 600;
-  color: #667085;
-  letter-spacing: 0.3px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #6366f1;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  background: #fff;
 }
 
 .config-panel__form :deep(.el-divider) {
-  margin: 20px 0 12px;
+  margin: 22px 0 14px;
+  border-top-color: #eef0f7;
 }
 
 .config-panel__form :deep(.el-input__wrapper),
 .config-panel__form :deep(.el-textarea__inner) {
   border-radius: 8px;
+}
+
+.config-panel__form :deep(.el-input__wrapper.is-focus),
+.config-panel__form :deep(.el-textarea__inner:focus) {
+  box-shadow: 0 0 0 1px #6366f1 inset, 0 0 0 3px rgba(99, 102, 241, 0.12);
 }
 
 .config-panel__form :deep(.el-form-item) {
@@ -701,17 +726,23 @@ function onAuthChange() {
   gap: 6px;
   margin-bottom: 8px;
   padding: 8px 10px;
-  background: #f9fafb;
-  border-radius: 8px;
-  border: 1px solid #f0f2f5;
+  background: #f9fafc;
+  border-radius: 10px;
+  border: 1px solid #eef0f7;
+  transition: border-color 0.15s;
+}
+
+.var-row:hover,
+.cond-row:hover {
+  border-color: #dde1f0;
 }
 
 .end-hint {
-  color: #98a2b3;
+  color: #9ca3af;
   font-size: 12px;
-  padding: 10px 12px;
-  background: #f9fafb;
-  border-radius: 8px;
-  border: 1px dashed #e4e7ed;
+  padding: 12px 14px;
+  background: #f9fafc;
+  border-radius: 10px;
+  border: 1px dashed #dde1f0;
 }
 </style>

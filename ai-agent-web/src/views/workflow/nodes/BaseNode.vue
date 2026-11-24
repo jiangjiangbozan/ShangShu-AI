@@ -15,25 +15,33 @@
     <Handle type="target" :position="Position.Left" class="wf-node__handle wf-node__handle--target" />
     <Handle type="source" :position="Position.Right" class="wf-node__handle wf-node__handle--source" />
 
-    <!-- 头部 -->
-    <div class="wf-node__header" :style="{ background: headerBg }">
-      <span class="wf-node__icon">{{ nodeIcon }}</span>
+    <!-- 头部：图标芯片 + 标题 + 状态 + 菜单 -->
+    <div class="wf-node__header">
+      <span class="wf-node__icon" :style="{ background: iconSoftBg, color: iconColor }">{{ nodeIcon }}</span>
       <span class="wf-node__title">{{ data.title }}</span>
       <!-- 运行状态图标 -->
       <span v-if="data._runningStatus === 'running'" class="wf-node__status-icon wf-node__status-icon--running">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#e6a23c" stroke-width="1.5" stroke-dasharray="3 2"><animateTransform attributeName="transform" type="rotate" from="0 7 7" to="360 7 7" dur="1s" repeatCount="indefinite"/></circle></svg>
+        <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="2" stroke-dasharray="4 3" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" from="0 7 7" to="360 7 7" dur="1s" repeatCount="indefinite"/></circle></svg>
       </span>
-      <span v-else-if="data._runningStatus === 'succeeded'" class="wf-node__status-icon wf-node__status-icon--succeeded">✓</span>
-      <span v-else-if="data._runningStatus === 'failed'" class="wf-node__status-icon wf-node__status-icon--failed">✕</span>
+      <span v-else-if="data._runningStatus === 'succeeded'" class="wf-node__status-icon wf-node__status-icon--succeeded">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2 5 8.7l4.5-5.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span v-else-if="data._runningStatus === 'failed'" class="wf-node__status-icon wf-node__status-icon--failed">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </span>
       <!-- 操作菜单 -->
       <el-dropdown v-if="!readonly" trigger="click" @command="onCommand" class="wf-node__menu" @click.stop>
-        <span class="wf-node__menu-trigger">
+        <span class="wf-node__menu-trigger" @click.stop>
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="3" cy="7" r="1.2" fill="currentColor"/><circle cx="7" cy="7" r="1.2" fill="currentColor"/><circle cx="11" cy="7" r="1.2" fill="currentColor"/></svg>
         </span>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item command="copy">复制节点</el-dropdown-item>
-            <el-dropdown-item command="delete" style="color: #f56c6c">删除</el-dropdown-item>
+            <el-dropdown-item command="copy">
+              <el-icon><CopyDocument /></el-icon>复制节点
+            </el-dropdown-item>
+            <el-dropdown-item command="delete" class="wf-node__danger-item">
+              <el-icon><Delete /></el-icon>删除
+            </el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -50,6 +58,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { Handle, Position, useVueFlow } from '@vue-flow/core'
+import { CopyDocument, Delete } from '@element-plus/icons-vue'
 import { NODE_TYPE_COLORS, NODE_TYPE_ICONS, type CommonNodeData, type NodeType } from '../types'
 import { useWorkflowStore } from '../store'
 
@@ -63,9 +72,11 @@ const store = useWorkflowStore()
 const { removeNodes, addNodes } = useVueFlow({ id: 'workflow-canvas' })
 const readonly = computed(() => store.readonly)
 
-const headerBg = computed(() => {
-  const color = NODE_TYPE_COLORS[props.data.type as NodeType] ?? '#909399'
-  return color
+const iconColor = computed(() => {
+  return NODE_TYPE_COLORS[props.data.type as NodeType] ?? '#909399'
+})
+const iconSoftBg = computed(() => {
+  return iconColor.value + '1A'
 })
 const nodeIcon = computed(() => NODE_TYPE_ICONS[props.data.type as NodeType] ?? '◻')
 
@@ -89,60 +100,67 @@ function onCommand(cmd: string) {
 .wf-node {
   border-radius: 12px;
   background: #fff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 2px rgba(17, 24, 39, 0.05), 0 1px 6px rgba(17, 24, 39, 0.04);
   min-width: 220px;
   max-width: 280px;
-  border: 2px solid transparent;
-  transition: border-color 0.2s, box-shadow 0.2s, transform 0.1s;
+  border: 1.5px solid #e5e8f2;
+  transition: border-color 0.2s, box-shadow 0.2s;
   position: relative;
   cursor: grab;
 }
 
 .wf-node:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.06);
+  border-color: #c7cdf0;
+  box-shadow: 0 4px 14px -2px rgba(17, 24, 39, 0.1), 0 1px 3px rgba(17, 24, 39, 0.05);
 }
 
 .wf-node--selected {
-  border-color: #155eef;
-  box-shadow: 0 0 0 2px rgba(21, 94, 239, 0.2), 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.14), 0 4px 14px -2px rgba(17, 24, 39, 0.1);
 }
 
 .wf-node--running {
-  border-color: #e6a23c;
-  box-shadow: 0 0 0 2px rgba(230, 162, 60, 0.2);
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15), 0 4px 14px -2px rgba(17, 24, 39, 0.1);
+  animation: wf-node-running-glow 1.6s ease-in-out infinite;
+}
+@keyframes wf-node-running-glow {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15), 0 4px 14px -2px rgba(17, 24, 39, 0.1); }
+  50% { box-shadow: 0 0 0 5px rgba(245, 158, 11, 0.22), 0 4px 14px -2px rgba(17, 24, 39, 0.1); }
 }
 
 .wf-node--succeeded {
-  border-color: #67c23a;
-  box-shadow: 0 0 0 2px rgba(103, 194, 58, 0.2);
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.14), 0 4px 14px -2px rgba(17, 24, 39, 0.1);
 }
 
 .wf-node--failed {
-  border-color: #f56c6c;
-  box-shadow: 0 0 0 2px rgba(245, 108, 108, 0.2);
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.14), 0 4px 14px -2px rgba(17, 24, 39, 0.1);
 }
 
 /* ============ Handles ============ */
 .wf-node__handle {
-  width: 12px !important;
-  height: 12px !important;
-  border: 2px solid #d0d5dd !important;
+  width: 10px !important;
+  height: 10px !important;
+  border: 2px solid #c7cdf0 !important;
   background: #fff !important;
   border-radius: 50% !important;
-  transition: border-color 0.15s, background 0.15s;
+  transition: border-color 0.15s, background 0.15s, transform 0.15s;
 }
 
 .wf-node__handle:hover {
   border-color: #6366f1 !important;
   background: #6366f1 !important;
+  transform: scale(1.25);
 }
 
 .wf-node__handle--target {
-  left: -7px !important;
+  left: -6px !important;
 }
 
 .wf-node__handle--source {
-  right: -7px !important;
+  right: -6px !important;
 }
 
 /* Start 节点隐藏 target handle */
@@ -161,20 +179,22 @@ function onCommand(cmd: string) {
 .wf-node__header {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 12px;
-  border-radius: 10px 10px 0 0;
-  color: #fff;
-  font-size: 13px;
-  font-weight: 600;
+  gap: 8px;
+  padding: 10px 12px 0;
   line-height: 1;
 }
 
 .wf-node__icon {
-  font-size: 14px;
+  font-size: 12px;
+  font-weight: 700;
   flex-shrink: 0;
-  width: 18px;
-  text-align: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: -0.5px;
 }
 
 .wf-node__title {
@@ -183,33 +203,33 @@ function onCommand(cmd: string) {
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 13px;
+  font-weight: 600;
+  color: #111827;
 }
 
 .wf-node__status-icon {
   flex-shrink: 0;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 11px;
-  font-weight: 700;
   border-radius: 50%;
 }
 
 .wf-node__status-icon--running {
-  color: #e6a23c;
-  background: rgba(230, 162, 60, 0.15);
+  color: #f59e0b;
+  background: rgba(245, 158, 11, 0.12);
 }
 
 .wf-node__status-icon--succeeded {
-  color: #67c23a;
-  background: rgba(103, 194, 58, 0.15);
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.12);
 }
 
 .wf-node__status-icon--failed {
-  color: #f56c6c;
-  background: rgba(245, 108, 108, 0.15);
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.12);
 }
 
 /* ============ 菜单 ============ */
@@ -217,41 +237,37 @@ function onCommand(cmd: string) {
   cursor: pointer;
   opacity: 0;
   transition: opacity 0.15s;
+  flex-shrink: 0;
 }
 
 .wf-node:hover .wf-node__menu {
-  opacity: 0.8;
-}
-
-.wf-node__menu:hover {
-  opacity: 1 !important;
+  opacity: 1;
 }
 
 .wf-node__menu-trigger {
   display: flex;
   align-items: center;
-  color: rgba(255, 255, 255, 0.7);
-  padding: 2px;
-  border-radius: 3px;
-  transition: background 0.15s;
+  color: #9ca3af;
+  padding: 3px;
+  border-radius: 5px;
+  transition: background 0.15s, color 0.15s;
 }
 
 .wf-node__menu-trigger:hover {
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
+  background: #f0f1f7;
+  color: #374151;
 }
 
 /* ============ 内容区 ============ */
 .wf-node__body {
-  padding: 10px 12px;
+  padding: 8px 12px 12px;
   font-size: 12px;
-  color: #606266;
-  border-radius: 0 0 10px 10px;
+  color: #4b5563;
 }
 
 .wf-node__desc {
   margin-top: 4px;
-  color: #909399;
+  color: #9ca3af;
   font-size: 11px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -259,33 +275,27 @@ function onCommand(cmd: string) {
 }
 
 /* ============ Start/End 特殊样式 ============ */
-.wf-node--start {
-  border-radius: 20px;
-  min-width: 100px;
-}
-
-.wf-node--start .wf-node__header {
-  border-radius: 18px 18px 0 0;
-  justify-content: center;
-}
-
-.wf-node--start .wf-node__body {
-  border-radius: 0 0 18px 18px;
-  text-align: center;
-}
-
+.wf-node--start,
 .wf-node--end {
-  border-radius: 20px;
-  min-width: 100px;
+  border-radius: 16px;
+  min-width: 110px;
+  border-width: 1.5px;
 }
 
+.wf-node--start .wf-node__header,
 .wf-node--end .wf-node__header {
-  border-radius: 18px 18px 0 0;
   justify-content: center;
+  padding-top: 12px;
 }
 
+.wf-node--start .wf-node__body,
 .wf-node--end .wf-node__body {
-  border-radius: 0 0 18px 18px;
   text-align: center;
+  padding-bottom: 12px;
+}
+
+/* ============ 下拉危险项 ============ */
+.wf-node__danger-item {
+  color: #ef4444;
 }
 </style>

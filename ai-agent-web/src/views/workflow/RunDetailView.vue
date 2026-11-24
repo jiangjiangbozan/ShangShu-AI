@@ -2,19 +2,24 @@
   <div class="run-detail">
     <!-- 顶部信息栏 -->
     <div class="run-detail__top">
-      <el-button :icon="ArrowLeft" circle @click="goBack" />
-      <div class="run-detail__meta">
-        <div class="run-detail__runid">Run ID: <code>{{ runId }}</code></div>
-        <div class="run-detail__sub">
-          <el-tag :type="statusTagType(run?.status || '')" effect="dark" round>
-            {{ statusLabel(run?.status || '') }}
-          </el-tag>
-          <span v-if="run?.elapsedMs">耗时 {{ run.elapsedMs }} ms</span>
-          <span v-if="run?.totalTokens">Token {{ run.totalTokens }}</span>
-          <span v-if="run?.createdAt">开始 {{ run.createdAt }}</span>
+      <div class="run-detail__top-left">
+        <button class="run-detail__back" @click="goBack">
+          <el-icon :size="16"><ArrowLeft /></el-icon>
+        </button>
+        <div class="run-detail__meta">
+          <div class="run-detail__runid">执行记录 <code>{{ runId }}</code></div>
+          <div class="run-detail__sub">
+            <span class="run-detail__chip" :class="'is-' + (run?.status || '').toLowerCase()">
+              <span class="run-detail__chip-dot" />
+              {{ statusLabel(run?.status || '') }}
+            </span>
+            <span v-if="run?.elapsedMs" class="run-detail__sub-item">耗时 {{ (run.elapsedMs / 1000).toFixed(1) }}s</span>
+            <span v-if="run?.totalTokens" class="run-detail__sub-item">Token {{ run.totalTokens }}</span>
+            <span v-if="run?.createdAt" class="run-detail__sub-item">开始 {{ run.createdAt }}</span>
+          </div>
         </div>
       </div>
-      <el-button type="primary" :icon="Refresh" @click="loadData" :loading="loading">刷新</el-button>
+      <el-button :icon="Refresh" @click="loadData" :loading="loading">刷新</el-button>
     </div>
 
     <div class="run-detail__body">
@@ -50,9 +55,10 @@
             <el-descriptions-item label="节点类型">{{ selectedNode.nodeType }}</el-descriptions-item>
             <el-descriptions-item label="标题">{{ selectedNode.title || '-' }}</el-descriptions-item>
             <el-descriptions-item label="状态">
-              <el-tag :type="statusTagType(selectedNode.status)" effect="dark" round>
+              <span class="run-detail__chip" :class="'is-' + (selectedNode.status || '').toLowerCase()">
+                <span class="run-detail__chip-dot" />
                 {{ statusLabel(selectedNode.status) }}
-              </el-tag>
+              </span>
             </el-descriptions-item>
             <el-descriptions-item label="耗时">
               {{ selectedNode.elapsedMs != null ? selectedNode.elapsedMs + ' ms' : '-' }}
@@ -226,16 +232,6 @@ function nodeColors(status: string) {
   }
 }
 
-function statusTagType(status: string) {
-  switch (status?.toUpperCase()) {
-    case 'SUCCEEDED': return 'success'
-    case 'FAILED': return 'danger'
-    case 'RUNNING': return 'warning'
-    case 'SKIPPED': return 'info'
-    default: return 'info'
-  }
-}
-
 function statusLabel(status: string) {
   switch (status?.toUpperCase()) {
     case 'SUCCEEDED': return '成功'
@@ -308,63 +304,134 @@ onMounted(loadData)
 .run-detail {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 120px);
+  /* 布局：顶栏 --header-height + 内容区上下各 --space-6 内边距 */
+  height: calc(100vh - var(--header-height) - var(--space-6) * 2);
+  background: #f7f8fc;
 }
 .run-detail__top {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 16px;
-  padding: 12px 16px;
-  background: #f8fafc;
-  border-bottom: 1px solid #e2e8f0;
+  padding: 14px 24px;
+  background: #fff;
+  border-bottom: 1px solid #eef0f4;
+  flex-shrink: 0;
+}
+.run-detail__top-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.run-detail__back {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  border-radius: 10px;
+  color: #4b5563;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+.run-detail__back:hover {
+  border-color: #c7d2fe;
+  color: #4f46e5;
+  background: #eef2ff;
 }
 .run-detail__meta {
   flex: 1;
 }
 .run-detail__runid {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
+  color: #111827;
 }
 .run-detail__runid code {
-  background: #e2e8f0;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 13px;
+  background: #f4f5fb;
+  border: 1px solid #eef0f4;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #4f46e5;
+  font-family: var(--font-mono);
 }
 .run-detail__sub {
   display: flex;
-  gap: 16px;
-  margin-top: 4px;
-  font-size: 13px;
-  color: #64748b;
+  align-items: center;
+  gap: 14px;
+  margin-top: 6px;
+  font-size: 12px;
+  color: #6b7280;
+}
+.run-detail__sub-item {
+  font-variant-numeric: tabular-nums;
+}
+.run-detail__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 9px;
+  border-radius: 999px;
+  line-height: 18px;
+}
+.run-detail__chip-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.run-detail__chip.is-succeeded { color: #059669; background: #ecfdf5; }
+.run-detail__chip.is-failed { color: #dc2626; background: #fef2f2; }
+.run-detail__chip.is-running { color: #d97706; background: #fffbeb; }
+.run-detail__chip.is-paused { color: #6b7280; background: #f3f4f6; }
+.run-detail__chip:not(.is-succeeded):not(.is-failed):not(.is-running):not(.is-paused) {
+  color: #6b7280;
+  background: #f3f4f6;
 }
 .run-detail__body {
   flex: 1;
   position: relative;
+  padding: 16px;
 }
 .run-detail__canvas {
   width: 100%;
   height: 100%;
+  background: #fff;
+  border: 1px solid #eef0f4;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(17, 24, 39, 0.04);
+}
+.run-detail__canvas :deep(.vue-flow__minimap) {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px -2px rgba(17, 24, 39, 0.1);
+  border: 1px solid #e8eaf2;
 }
 .run-detail__section {
   margin-top: 16px;
 }
 .run-detail__section-title {
-  font-weight: 600;
-  font-size: 14px;
+  font-weight: 700;
+  font-size: 13px;
   margin-bottom: 6px;
-  color: #334155;
+  color: #374151;
 }
 .run-detail__section-title.run-detail__error {
   color: #dc2626;
 }
 .run-detail__code {
-  background: #1e293b;
-  color: #e2e8f0;
-  padding: 12px;
-  border-radius: 6px;
+  background: #111827;
+  color: #e5e7eb;
+  padding: 12px 14px;
+  border-radius: 10px;
   font-size: 12px;
-  line-height: 1.5;
+  line-height: 1.6;
   max-height: 200px;
   overflow: auto;
   margin: 0;

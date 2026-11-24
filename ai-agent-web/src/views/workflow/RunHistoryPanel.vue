@@ -3,7 +3,7 @@
     v-model="visible"
     title="运行历史"
     direction="rtl"
-    size="380px"
+    size="400px"
     destroy-on-close
   >
     <div v-if="loading" class="run-panel__loading">
@@ -11,21 +11,24 @@
       <span>加载中...</span>
     </div>
     <div v-else-if="!runs.length" class="run-panel__empty">
-      <el-empty description="暂无运行记录" />
+      <el-empty description="暂无运行记录" :image-size="88" />
     </div>
     <div v-else class="run-panel__list">
-      <el-card v-for="run in runs" :key="run.runId" class="run-panel__card" shadow="never">
+      <div v-for="run in runs" :key="run.runId" class="run-panel__card">
         <div class="run-panel__header">
-          <el-tag :type="statusType(run.status)" size="small">{{ statusLabel(run.status) }}</el-tag>
+          <span class="run-panel__chip" :class="'is-' + run.status">
+            <span class="run-panel__chip-dot" />
+            {{ statusLabel(run.status) }}
+          </span>
           <span class="run-panel__time">{{ formatTime(run.createdAt) }}</span>
         </div>
         <div class="run-panel__meta">
-          <span>版本 v{{ run.version }}</span>
-          <span v-if="run.elapsedMs">{{ (run.elapsedMs / 1000).toFixed(1) }}s</span>
-          <span v-if="run.totalTokens">{{ run.totalTokens }} tokens</span>
+          <span v-if="run.version !== undefined" class="run-panel__meta-item">v{{ run.version }}</span>
+          <span v-if="run.elapsedMs" class="run-panel__meta-item">{{ (run.elapsedMs / 1000).toFixed(1) }}s</span>
+          <span v-if="run.totalTokens" class="run-panel__meta-item">{{ run.totalTokens }} tokens</span>
         </div>
         <div v-if="run.errorMessage" class="run-panel__error">{{ run.errorMessage }}</div>
-      </el-card>
+      </div>
     </div>
   </el-drawer>
 </template>
@@ -52,13 +55,6 @@ watch(visible, async (v) => {
   }
 })
 
-function statusType(s: string) {
-  if (s === 'succeeded') return 'success'
-  if (s === 'failed') return 'danger'
-  if (s === 'running') return 'warning'
-  return 'info'
-}
-
 function statusLabel(s: string) {
   const map: Record<string, string> = { running: '运行中', succeeded: '成功', failed: '失败', stopped: '已停止' }
   return map[s] ?? s
@@ -79,7 +75,7 @@ defineExpose({ visible })
   align-items: center;
   justify-content: center;
   padding: 48px;
-  color: #909399;
+  color: #9ca3af;
   gap: 8px;
 }
 .run-panel__list {
@@ -87,29 +83,80 @@ defineExpose({ visible })
   flex-direction: column;
   gap: 10px;
 }
-.run-panel__card :deep(.el-card__body) {
-  padding: 12px;
+.run-panel__card {
+  padding: 12px 14px;
+  border: 1px solid #eef0f7;
+  border-radius: 12px;
+  background: #fff;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.run-panel__card:hover {
+  border-color: #dde1f0;
+  box-shadow: 0 2px 8px rgba(17, 24, 39, 0.05);
 }
 .run-panel__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+}
+.run-panel__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 9px;
+  border-radius: 999px;
+  line-height: 18px;
+}
+.run-panel__chip-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.run-panel__chip.is-succeeded {
+  color: #059669;
+  background: #ecfdf5;
+}
+.run-panel__chip.is-failed {
+  color: #dc2626;
+  background: #fef2f2;
+}
+.run-panel__chip.is-running {
+  color: #d97706;
+  background: #fffbeb;
+}
+.run-panel__chip.is-stopped,
+.run-panel__chip:not(.is-succeeded):not(.is-failed):not(.is-running) {
+  color: #6b7280;
+  background: #f3f4f6;
 }
 .run-panel__time {
   font-size: 12px;
-  color: #909399;
+  color: #9ca3af;
 }
 .run-panel__meta {
   display: flex;
-  gap: 12px;
-  font-size: 12px;
-  color: #606266;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.run-panel__meta-item {
+  font-size: 11px;
+  color: #6b7280;
+  background: #f4f5fb;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-variant-numeric: tabular-nums;
 }
 .run-panel__error {
-  margin-top: 6px;
+  margin-top: 8px;
   font-size: 12px;
-  color: #f56c6c;
+  color: #dc2626;
+  background: #fef2f2;
+  border-radius: 8px;
+  padding: 6px 10px;
   word-break: break-all;
 }
 </style>

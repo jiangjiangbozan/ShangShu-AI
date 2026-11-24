@@ -1,5 +1,10 @@
 <template>
   <div class="wf-node-panel">
+    <!-- 面板标题 -->
+    <div class="wf-node-panel__header">
+      <span class="wf-node-panel__title">节点库</span>
+    </div>
+
     <!-- 搜索 -->
     <div class="wf-node-panel__search">
       <el-input
@@ -7,7 +12,6 @@
         placeholder="搜索节点..."
         :prefix-icon="Search"
         clearable
-        size="default"
       />
     </div>
 
@@ -24,21 +28,35 @@
               draggable="true"
               @dragstart="onDragStart($event, item.type)"
             >
-              <span class="wf-node-panel__item-icon" :style="{ background: item.color + '18' }">
-                <span :style="{ color: item.color }">{{ item.icon }}</span>
+              <span class="wf-node-panel__item-icon" :style="{ background: item.color + '1A', color: item.color }">
+                {{ item.icon }}
               </span>
               <span class="wf-node-panel__item-label">{{ item.label }}</span>
+              <svg class="wf-node-panel__item-drag" width="8" height="12" viewBox="0 0 8 12" fill="currentColor">
+                <circle cx="2" cy="2" r="1.2"/><circle cx="6" cy="2" r="1.2"/>
+                <circle cx="2" cy="6" r="1.2"/><circle cx="6" cy="6" r="1.2"/>
+                <circle cx="2" cy="10" r="1.2"/><circle cx="6" cy="10" r="1.2"/>
+              </svg>
             </div>
           </div>
         </div>
       </template>
+      <div v-if="!filteredGroups.some((g) => g.items.length)" class="wf-node-panel__no-result">
+        未找到匹配的节点
+      </div>
+    </div>
+
+    <!-- 底部提示 -->
+    <div class="wf-node-panel__footer">
+      <el-icon :size="12"><InfoFilled /></el-icon>
+      拖拽节点到画布中添加
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { Search } from '@element-plus/icons-vue'
+import { Search, InfoFilled } from '@element-plus/icons-vue'
 import { NodeType, NODE_TYPE_LABELS, NODE_TYPE_ICONS, NODE_TYPE_COLORS } from './types'
 
 interface NodeGroup {
@@ -115,38 +133,62 @@ function onDragStart(event: DragEvent, type: NodeType) {
 
 <style scoped>
 .wf-node-panel {
-  width: 240px;
-  min-width: 240px;
-  padding: 12px;
-  border-right: 1px solid #e8eaed;
-  background: #fff;
-  overflow-y: auto;
+  width: 248px;
+  min-width: 248px;
   height: 100%;
+  background: #fff;
+  border-right: 1px solid #e8eaf2;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  overflow: hidden;
+}
+
+.wf-node-panel__header {
+  padding: 16px 16px 0;
+  flex-shrink: 0;
+}
+.wf-node-panel__title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+  letter-spacing: -0.2px;
 }
 
 .wf-node-panel__search {
+  padding: 12px 16px;
   flex-shrink: 0;
+}
+.wf-node-panel__search :deep(.el-input__wrapper) {
+  border-radius: 10px;
+  background: #f4f5fb;
+  box-shadow: none;
+  transition: background 0.15s, box-shadow 0.15s;
+}
+.wf-node-panel__search :deep(.el-input__wrapper:hover) {
+  background: #eef0f8;
+}
+.wf-node-panel__search :deep(.el-input__wrapper.is-focus) {
+  background: #fff;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3) inset;
 }
 
 .wf-node-panel__groups {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
   flex: 1;
   overflow-y: auto;
+  padding: 0 12px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .wf-node-panel__group-label {
   font-size: 11px;
   font-weight: 600;
-  color: #98a2b3;
+  color: #9ca3af;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 4px;
-  padding: 0 4px;
+  letter-spacing: 0.8px;
+  margin-bottom: 6px;
+  padding: 0 6px;
 }
 
 .wf-node-panel__items {
@@ -159,26 +201,27 @@ function onDragStart(event: DragEvent, type: NodeType) {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 8px 10px;
-  border-radius: 8px;
+  padding: 7px 8px;
+  border-radius: 10px;
   cursor: grab;
-  transition: background 0.12s;
+  transition: background 0.12s, transform 0.12s;
   user-select: none;
+  border: 1px solid transparent;
 }
-
 .wf-node-panel__item:hover {
-  background: #f5f6f8;
+  background: #f4f5fb;
+  border-color: #e8eaf2;
 }
-
 .wf-node-panel__item:active {
   cursor: grabbing;
-  background: #edeef1;
+  background: #eef0f8;
+  transform: scale(0.98);
 }
 
 .wf-node-panel__item-icon {
   width: 30px;
   height: 30px;
-  border-radius: 8px;
+  border-radius: 9px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -189,8 +232,56 @@ function onDragStart(event: DragEvent, type: NodeType) {
 }
 
 .wf-node-panel__item-label {
+  flex: 1;
   font-size: 13px;
-  color: #344054;
+  color: #374151;
   font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wf-node-panel__item-drag {
+  color: #d1d5db;
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity 0.15s, color 0.15s;
+}
+.wf-node-panel__item:hover .wf-node-panel__item-drag {
+  opacity: 1;
+}
+
+.wf-node-panel__no-result {
+  padding: 24px 0;
+  text-align: center;
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.wf-node-panel__footer {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border-top: 1px solid #f0f1f7;
+  font-size: 11px;
+  color: #9ca3af;
+  background: #fafbfe;
+}
+
+/* 细滚动条 */
+.wf-node-panel__groups::-webkit-scrollbar {
+  width: 5px;
+}
+.wf-node-panel__groups::-webkit-scrollbar-thumb {
+  background: #d9dce8;
+  border-radius: 999px;
+}
+.wf-node-panel__groups::-webkit-scrollbar-thumb:hover {
+  background: #c2c6d8;
+}
+.wf-node-panel__groups::-webkit-scrollbar-track {
+  background: transparent;
 }
 </style>
