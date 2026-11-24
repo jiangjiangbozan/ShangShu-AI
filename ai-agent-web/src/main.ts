@@ -1,5 +1,7 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import ElementPlus from 'element-plus'
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
 
 // Element Plus 全局样式（必须在 App.vue 之前引入，否则组件无视觉样式）
 import 'element-plus/dist/index.css'
@@ -18,6 +20,10 @@ const app = createApp(App)
 const pinia = createPinia()
 app.use(pinia)
 app.use(router)
+
+// 注册 Element Plus 组件库（此前缺失导致模板中的 <el-*> 均渲染为
+// 未注册的自定义元素：按钮失去外观、图标失去尺寸约束、输入框不可见）
+app.use(ElementPlus, { locale: zhCn })
 
 // 安装路由守卫（必须在 pinia 与 router 注册之后，守卫内会调用 useAuthStore）
 setupRouterGuards(router)
