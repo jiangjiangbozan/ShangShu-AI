@@ -4,10 +4,19 @@ import DefaultLayout from '@/layouts/DefaultLayout.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    // ============ 公开落地页（未登录访客首次访问） ============
+    // 必须注册在 DefaultLayout 分组之前：vue-router 匹配同路径记录时按注册顺序取先命中者，
+    // 这样 '/' 命中落地页，而 '/dashboard' 等子路径仍走 DefaultLayout 控制台布局。
+    {
+      path: '/',
+      name: 'welcome',
+      component: () => import('@/views/landing/WelcomeView.vue'),
+      alias: '/welcome',
+      meta: { public: true, title: '尚枢 AI · 自托管 AI 应用平台' },
+    },
     {
       path: '/',
       component: DefaultLayout,
-      redirect: '/dashboard',
       children: [
         {
           path: 'dashboard',

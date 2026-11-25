@@ -62,7 +62,7 @@ onMounted(async () => {
     authStore.setTokens(accessToken, refreshToken, csrfToken)
     await authStore.fetchCurrentUser()
     ElMessage.success('登录成功')
-    router.replace('/')
+    router.replace('/dashboard')
   } catch {
     authStore.clearTokens()
     ElMessage.error('登录状态初始化失败，请重试')

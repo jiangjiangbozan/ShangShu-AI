@@ -141,7 +141,7 @@ async function handleSubmit() {
       password: form.password,
     })
     ElMessage.success('注册成功，已自动登录')
-    router.replace('/')
+    router.replace('/dashboard')
   } catch {
     // 错误提示已由 utils/request.ts 响应拦截器统一弹窗，此处不再重复
   }

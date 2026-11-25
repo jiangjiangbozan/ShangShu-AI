@@ -1,4 +1,4 @@
- <script setup lang="ts">
+<script setup lang="ts">
 /**
  * 登录页
  *
@@ -65,7 +65,7 @@ async function handleSubmit() {
     })
     ElMessage.success('登录成功')
     const redirect = route.query.redirect
-    const target = typeof redirect === 'string' && redirect ? redirect : '/'
+    const target = typeof redirect === 'string' && redirect ? redirect : '/dashboard'
     router.replace(target)
   } catch {
     // 错误提示已由 utils/request.ts 响应拦截器统一弹窗，此处不再重复 ElMessage.error
@@ -159,11 +159,7 @@ async function handleGiteeLogin() {
           <span class="divider-text">第三方登录</span>
           <span class="divider-line"></span>
         </div>
-        <el-button
-          class="gitee-btn"
-          :loading="oauthLoading"
-          @click="handleGiteeLogin"
-        >
+        <el-button class="gitee-btn" :loading="oauthLoading" @click="handleGiteeLogin">
           使用 Gitee 登录
         </el-button>
       </div>
