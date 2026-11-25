@@ -66,6 +66,8 @@ const props = defineProps<{
   id: string
   data: CommonNodeData
   selected?: boolean
+  /** 节点在画布中的坐标（VueFlow 注入），用于放置复制出的副本 */
+  position?: { x: number; y: number }
 }>()
 
 const store = useWorkflowStore()
@@ -86,10 +88,11 @@ function onCommand(cmd: string) {
     store.selectNode(null)
     store.dirty = true
   } else if (cmd === 'copy') {
-    const position = { x: (props as any).position?.x ?? 0 + 30, y: (props as any).position?.y ?? 0 + 30 }
-    const newId = store.genNodeId(props.data.type as NodeType)
+    // 副本放在原节点右下方 48px 处，避免与原节点完全重叠
+    const position = { x: (props.position?.x ?? 0) + 48, y: (props.position?.y ?? 0) + 48 }
+    const newId = store.genNodeId(props.data.type)
     const newData = { ...props.data, title: `${props.data.title} (复制)`, _runningStatus: undefined }
-    addNodes([{ id: newId, type: props.data.type as NodeType, position, data: newData }])
+    addNodes([{ id: newId, type: props.data.type, position, data: newData }])
     store.dirty = true
   }
 }
