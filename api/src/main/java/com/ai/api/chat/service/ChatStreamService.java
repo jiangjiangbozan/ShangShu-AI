@@ -21,6 +21,7 @@ import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.stereotype.Service;
@@ -47,6 +48,7 @@ public class ChatStreamService {
   private final ChatMessageLogProducer messageLogProducer;
   private final ChatSessionService sessionService;
   private final KnowledgeBaseService knowledgeBaseService;
+  // 可选注入：prod 未配置 EmbeddingModel 时 VectorStore 不存在，置 null 后 RAG 引用降级为普通对话
   private final VectorStore vectorStore;
   private final WebSearchService webSearchService;
   private final TokenLimitService tokenLimitService;
@@ -61,7 +63,7 @@ public class ChatStreamService {
       ChatMessageLogProducer messageLogProducer,
       ChatSessionService sessionService,
       KnowledgeBaseService knowledgeBaseService,
-      @Qualifier("vectorStore") VectorStore vectorStore,
+      @Qualifier("vectorStore") ObjectProvider<VectorStore> vectorStoreProvider,
       WebSearchService webSearchService,
       TokenLimitService tokenLimitService,
       ModelRouteService modelRouteService,
@@ -73,7 +75,7 @@ public class ChatStreamService {
     this.messageLogProducer = messageLogProducer;
     this.sessionService = sessionService;
     this.knowledgeBaseService = knowledgeBaseService;
-    this.vectorStore = vectorStore;
+    this.vectorStore = vectorStoreProvider.getIfAvailable();
     this.webSearchService = webSearchService;
     this.tokenLimitService = tokenLimitService;
     this.modelRouteService = modelRouteService;

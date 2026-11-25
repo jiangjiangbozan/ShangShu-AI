@@ -23,6 +23,7 @@ import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.vectorstore.VectorStore;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -47,6 +48,7 @@ public class KnowledgeBaseService {
   private final KnowledgeChunkMapper chunkMapper;
   private final DocumentParser documentParser;
   private final ChunkSplitter chunkSplitter;
+  // 可选注入：prod 未配置 EmbeddingModel 时 VectorStore 不存在（置 null），文档写入/检索按降级路径处理
   private final VectorStore vectorStore;
   private final DistributedLockService distributedLockService;
   private final RagHitsCacheService ragHitsCacheService;
@@ -66,7 +68,7 @@ public class KnowledgeBaseService {
       KnowledgeChunkMapper chunkMapper,
       DocumentParser documentParser,
       ChunkSplitter chunkSplitter,
-      @Qualifier("vectorStore") VectorStore vectorStore,
+      @Qualifier("vectorStore") ObjectProvider<VectorStore> vectorStoreProvider,
       DistributedLockService distributedLockService,
       RagHitsCacheService ragHitsCacheService,
       EsIndexTuneService esIndexTuneService,
@@ -76,7 +78,7 @@ public class KnowledgeBaseService {
     this.chunkMapper = chunkMapper;
     this.documentParser = documentParser;
     this.chunkSplitter = chunkSplitter;
-    this.vectorStore = vectorStore;
+    this.vectorStore = vectorStoreProvider.getIfAvailable();
     this.distributedLockService = distributedLockService;
     this.ragHitsCacheService = ragHitsCacheService;
     this.esIndexTuneService = esIndexTuneService;
@@ -149,6 +151,12 @@ public class KnowledgeBaseService {
     doc.setStatus("parsing");
     documentMapper.insert(doc);
 
+    // VectorStore 未装配（如 prod 未配置 EmbeddingModel）时无法向量化，提前明确报错，
+    // 避免 ES 写入处 NPE；@Transactional 回滚 DB 记录，孤儿文件由失败路径一致性处理
+    if (vectorStore == null) {
+      throw new IllegalArgumentException("向量存储未启用（环境未配置 EmbeddingModel），无法处理文档");
+    }
+
     try (FileInputStream fis = new FileInputStream(target.toFile())) {
       String text = documentParser.parse(fis);
       doc.setStatus("vectorizing");
@@ -216,6 +224,11 @@ public class KnowledgeBaseService {
 
   /** 基础相似检索：供 Service 调试 / API 直接返回上下文。 集成到生成阶段通过 QuestionAnswerAdvisor 在 ChatClient 层完成。 */
   public List<Document> searchRelevant(String query, int topK) {
+    // VectorStore 未装配时返回空结果（功能降级），不抛异常阻断调用方
+    if (vectorStore == null) {
+      log.warn("[searchRelevant][VectorStore 未装配，返回空结果: query={}]", query);
+      return List.of();
+    }
     return vectorStore.similaritySearch(
         org.springframework.ai.vectorstore.SearchRequest.builder()
             .query(query)
@@ -296,7 +309,7 @@ public class KnowledgeBaseService {
 
     // 1. 删除旧 ES 向量文档（尽力执行，失败不影响 DB 更新，ES 可通过重处理补偿）
     try {
-      if (chunk.getVectorId() != null) {
+      if (chunk.getVectorId() != null && vectorStore != null) {
         vectorStore.delete(java.util.List.of(chunk.getVectorId()));
       }
     } catch (Exception e) {
@@ -316,7 +329,9 @@ public class KnowledgeBaseService {
                     "documentId", String.valueOf(chunk.getDocumentId())))
             .build();
     try {
-      vectorStore.add(java.util.List.of(vectorDoc));
+      if (vectorStore != null) {
+        vectorStore.add(java.util.List.of(vectorDoc));
+      }
     } catch (Exception e) {
       log.warn(
           "[updateChunkContent][chunkId({}) ES add failed({}), DB update still applied]",

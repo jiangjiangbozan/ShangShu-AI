@@ -78,6 +78,20 @@ public class RerankService {
   }
 
   /**
+   * 精排结果与观测信息（phase5 可观测增强）。
+   *
+   * <p>status 取值：{@code success}（正常精排）/ {@code disabled}（开关关闭或未配置服务地址，走 RRF 原序）/ {@code
+   * degraded}（调用或解析失败，降级 RRF 原序）；{@code reason} 为降级或关闭的人类可读原因，供评测脚本与 retrieve-test 接口透出，避免"静默退化"。
+   */
+  public record RerankOutcome(
+      List<Document> documents, String status, String reason, long elapsedMs) {
+
+    public static final String STATUS_SUCCESS = "success";
+    public static final String STATUS_DISABLED = "disabled";
+    public static final String STATUS_DEGRADED = "degraded";
+  }
+
+  /**
    * 对融合后的候选精排。
    *
    * @param query 用户原始问句
@@ -85,11 +99,29 @@ public class RerankService {
    * @return 精排后取前 N 条的文档列表；任何降级场景返回候选原序
    */
   public List<Document> rerank(String query, List<Document> candidates, int targetTopN) {
-    if (!enabled || baseUrl == null || baseUrl.isBlank()) {
-      return candidates;
+    return rerankWithStatus(query, candidates, targetTopN).documents();
+  }
+
+  /**
+   * 对融合后的候选精排，并返回调用状态与耗时（供链路追踪与评测采集）。
+   *
+   * @param query 用户原始问句
+   * @param candidates RRF 融合后的候选（已按 RRF 分降序）
+   * @param targetTopN 目标返回条数
+   * @return 含精排结果、status（success/disabled/degraded）、降级原因与耗时的结果对象
+   */
+  public RerankOutcome rerankWithStatus(String query, List<Document> candidates, int targetTopN) {
+    long start = System.currentTimeMillis();
+    if (!enabled) {
+      return new RerankOutcome(
+          candidates, RerankOutcome.STATUS_DISABLED, "rag.rerank.enabled=false", 0);
+    }
+    if (baseUrl == null || baseUrl.isBlank()) {
+      return new RerankOutcome(
+          candidates, RerankOutcome.STATUS_DISABLED, "rag.rerank.base-url 未配置", 0);
     }
     if (query == null || query.isBlank() || candidates == null || candidates.isEmpty()) {
-      return candidates;
+      return new RerankOutcome(candidates, RerankOutcome.STATUS_DISABLED, "query 或候选为空", 0);
     }
     // 1. 候选裁剪：RRF 前 candidate-n 条
     int cap = Math.max(1, Math.min(candidateN, candidates.size()));
@@ -121,11 +153,16 @@ public class RerankService {
           subset.size(),
           result.size(),
           model);
-      return result;
+      return new RerankOutcome(
+          result, RerankOutcome.STATUS_SUCCESS, null, System.currentTimeMillis() - start);
     } catch (Exception e) {
       // 3. 降级：调用/解析失败返回候选原序
       log.warn("[RerankService][精排失败，降级返回 RRF 原序: query={}, error={}]", query, e.getMessage());
-      return candidates;
+      return new RerankOutcome(
+          candidates,
+          RerankOutcome.STATUS_DEGRADED,
+          "rerank 调用失败: " + e.getMessage(),
+          System.currentTimeMillis() - start);
     }
   }
 

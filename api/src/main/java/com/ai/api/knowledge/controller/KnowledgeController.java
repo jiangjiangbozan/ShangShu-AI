@@ -145,14 +145,17 @@ public class KnowledgeController {
   @PostMapping("/{kbId}/retrieve-test")
   public Result<Map<String, Object>> retrieveTest(
       @PathVariable Long kbId, @RequestBody RetrieveTestReq req) {
-    Map<String, Object> trace = ragRetrievalService.retrieveWithTrace(kbId, req.query, req.topK);
+    Map<String, Object> trace =
+        ragRetrievalService.retrieveWithTrace(kbId, req.query, req.topK, req.rrfK);
     return Result.success(trace);
   }
 
+  /** 请求体：query 必填；topK 返回条数；rrfK 为可选 RRF 融合参数覆盖（评测对比用，null 走配置默认）。 */
   @Data
   static class RetrieveTestReq {
     String query;
     int topK = 5;
+    Integer rrfK;
   }
 
   // ============ 文档管理（P0-5） ============

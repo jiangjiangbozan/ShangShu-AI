@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -55,7 +55,8 @@ public class RagRetrievalService {
   /** 结构化过滤生效时，单路召回数量放大倍数（过滤后裁剪回 topKPerQuery）。 */
   private static final int FILTER_MARGIN = 3;
 
-  // 向量数据库
+  // 向量数据库。prod 等未配置 EmbeddingModel 的环境下 VectorStore Bean 不存在，
+  // 通过 ObjectProvider 可选注入避免启动失败：此时语义路返回空，RAG 降级为关键词检索
   private final VectorStore vectorStore;
   // 查询改写服务：把1个用户问题生成多个扩展问句
   private final QueryRewriteService queryRewriteService;
@@ -90,7 +91,7 @@ public class RagRetrievalService {
   private String retrievalMethods;
 
   public RagRetrievalService(
-      @Qualifier("vectorStore") VectorStore vectorStore,
+      ObjectProvider<VectorStore> vectorStoreProvider,
       QueryRewriteService queryRewriteService,
       RagHitsCacheService ragHitsCacheService,
       ChunkFeedbackService chunkFeedbackService,
@@ -99,7 +100,7 @@ public class RagRetrievalService {
       KnowledgeGraphRetrievalService knowledgeGraphRetrievalService,
       RerankService rerankService,
       KnowledgeDocumentMapper knowledgeDocumentMapper) {
-    this.vectorStore = vectorStore;
+    this.vectorStore = vectorStoreProvider.getIfAvailable();
     this.queryRewriteService = queryRewriteService;
     this.ragHitsCacheService = ragHitsCacheService;
     this.chunkFeedbackService = chunkFeedbackService;
@@ -276,6 +277,11 @@ public class RagRetrievalService {
 
   /** 向量路：无结构化约束时直接 topKPerQuery；有约束时放大召回再过滤裁剪。 */
   private List<Document> retrieveSemantic(String query, RetrievalFilter filter) {
+    // VectorStore 未装配（如 prod 未配置 EmbeddingModel）时语义路返回空，交由其余检索路兜底
+    if (vectorStore == null) {
+      log.warn("[RagRetrievalService][VectorStore 未装配，语义路跳过: query={}]", query);
+      return List.of();
+    }
     boolean needFilter =
         filter != null && (filter.kbId() != null || filter.hasDocumentConstraint());
     int top = needFilter ? topKPerQuery * FILTER_MARGIN : topKPerQuery;
@@ -416,8 +422,20 @@ public class RagRetrievalService {
    *     finalDocuments 每步耗时和结果
    */
   public Map<String, Object> retrieveWithTrace(Long kbId, String rawQuery, int topK) {
+    return retrieveWithTrace(kbId, rawQuery, topK, null);
+  }
+
+  /**
+   * 完整检索链路追踪（可覆盖 RRF 融合参数 k，供评测脚本做参数对比）。
+   *
+   * @param rrfKOverride RRF 融合参数 k 覆盖值；null 时使用配置 {@code rag.query-rewrite.rrf-k} 默认 60
+   */
+  public Map<String, Object> retrieveWithTrace(
+      Long kbId, String rawQuery, int topK, Integer rrfKOverride) {
+    final int activeRrfK = rrfKOverride != null && rrfKOverride > 0 ? rrfKOverride : rrfK;
     Map<String, Object> trace = new LinkedHashMap<>();
     trace.put("originalQuery", rawQuery);
+    trace.put("rrfK", activeRrfK);
 
     // 1. QueryRewrite
     long t0 = System.currentTimeMillis();
@@ -472,7 +490,7 @@ public class RagRetrievalService {
       for (int i = 0; i < lane.size(); i++) {
         Document doc = lane.get(i);
         docById.putIfAbsent(doc.getId(), doc);
-        rrfScore.merge(doc.getId(), 1.0 / (rrfK + i + 1), Double::sum);
+        rrfScore.merge(doc.getId(), 1.0 / (activeRrfK + i + 1), Double::sum);
       }
     }
     List<Map.Entry<String, Double>> sorted = new ArrayList<>(rrfScore.entrySet());
@@ -493,10 +511,14 @@ public class RagRetrievalService {
     trace.put("rrfMerged", rrfMerged);
     trace.put("rrfMergedTookMs", System.currentTimeMillis() - t3);
 
-    // 4. Rerank 精排
+    // 4. Rerank 精排（带状态观测：success/disabled/degraded + 降级原因，供评测与 retrieve-test 透出）
+    List<Document> reranked;
     long t4 = System.currentTimeMillis();
-    List<Document> reranked =
-        rerankService.rerank(rawQuery, new ArrayList<>(docById.values()), topK);
+    RerankService.RerankOutcome rerankOutcome =
+        rerankService.rerankWithStatus(rawQuery, new ArrayList<>(docById.values()), topK);
+    reranked = rerankOutcome.documents();
+    trace.put("rerankStatus", rerankOutcome.status());
+    trace.put("rerankReason", rerankOutcome.reason());
     trace.put(
         "reranked",
         reranked.stream()
