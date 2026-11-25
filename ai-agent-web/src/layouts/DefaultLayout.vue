@@ -61,6 +61,9 @@ import {
   InfoFilled,
   EditPen,
   Share,
+  Grid,
+  Files,
+  Promotion,
 } from '@element-plus/icons-vue'
 import { useAuthStore } from '@/stores/auth'
 import { useTheme } from '@/composables/useTheme'
@@ -139,10 +142,14 @@ const menuGroups = shallowRef<MenuGroup[]>([
     title: 'AI 应用',
     icon: markRaw(ChatLineSquare),
     children: [
+      { index: '/app-list', title: '应用列表', icon: markRaw(Grid) },
+      { index: '/app-templates', title: '应用模板', icon: markRaw(Files) },
+      { index: '/app-playground', title: '应用调试', icon: markRaw(Promotion) },
       { index: '/chat', title: '对话聊天', icon: markRaw(ChatLineSquare) },
       { index: '/agent', title: '任务 Agent', icon: markRaw(Cpu) },
       { index: '/course', title: '课程问答', icon: markRaw(ChatDotRound) },
       { index: '/customer-service', title: '智能客服', icon: markRaw(ChatDotRound) },
+      { index: '/data-analysis', title: '数据分析', icon: markRaw(DataAnalysis) },
     ],
   },
   {

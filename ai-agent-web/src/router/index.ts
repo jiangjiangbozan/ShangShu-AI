@@ -22,6 +22,24 @@ const router = createRouter({
           meta: { title: '模型测试' },
         },
         {
+          path: 'app-list',
+          name: 'app-list',
+          component: () => import('@/views/app/AppList.vue'),
+          meta: { title: '应用列表' },
+        },
+        {
+          path: 'app-templates',
+          name: 'app-templates',
+          component: () => import('@/views/app/AppTemplates.vue'),
+          meta: { title: '应用模板' },
+        },
+        {
+          path: 'app-playground',
+          name: 'app-playground',
+          component: () => import('@/views/app/AppPlayground.vue'),
+          meta: { title: '应用调试' },
+        },
+        {
           path: 'chat',
           name: 'chat',
           component: () => import('@/views/chat/ChatView.vue'),
