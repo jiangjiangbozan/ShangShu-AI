@@ -18,7 +18,10 @@ spring:
   # MySQL 数据源（dev 使用本地实例）
   datasource:
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
-    url: jdbc:p6spy:mysql://localhost:3306/ai_agent?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
+    # MYSQL_PORT 默认 3306；docker mysql 使用 MYSQL_HOST_PORT=3307 映射时同步设 MYSQL_PORT=3307
+    url: jdbc:p6spy:mysql://localhost:${MYSQL_PORT:3306}/ai_agent?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
+    # 默认值与 docker-compose.yml 的 mysql 服务保持一致（ai_agent/ai_agent_123），
+    # 陌生开发者按 README 用 compose 起中间件后无需修改任何配置即可连接
     username: ${MYSQL_USER:yunzhi}
     password: ${MYSQL_PASSWORD:yunzhi}
     hikari:

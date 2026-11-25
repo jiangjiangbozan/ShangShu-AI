@@ -10,6 +10,8 @@ WORKDIR /build
 
 # 先复制 pom.xml 预下载依赖，利用 Docker 层缓存加速后续构建
 COPY pom.xml .
+# 注入阿里云 Maven 镜像：官方 maven 镜像直连 Central，国内网络下依赖下载易超时
+COPY .mvn/settings-docker.xml /root/.m2/settings.xml
 RUN mvn -B dependency:go-offline -Dspotless.check.skip=true || true
 
 # 复制源码并打包（跳过测试与 Spotless 格式检查）
