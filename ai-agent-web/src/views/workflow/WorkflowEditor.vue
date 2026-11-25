@@ -195,7 +195,7 @@
 </template>
 
 <script setup lang="ts">
-import { markRaw, ref, computed, onMounted, nextTick } from 'vue'
+import { markRaw, ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { VueFlow, useVueFlow, type Connection, type NodeTypesObject, type EdgeTypesObject } from '@vue-flow/core'
 import { Background } from '@vue-flow/background'
@@ -244,7 +244,7 @@ const router = useRouter()
 const store = useWorkflowStore()
 
 const {
-  addNodes, addEdges, findNode, setViewport, getViewport, project,
+  addNodes, addEdges, setViewport, getViewport, project,
   zoomIn: vfZoomIn, zoomOut: vfZoomOut, fitView: vfFitView,
 } = useVueFlow({ id: 'workflow-canvas' })
 
@@ -354,8 +354,7 @@ function onPaneClick() {
   store.selectNode(null)
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function onNodesChange(_changes: any[]) {
+function onNodesChange() {
   pushSnapshot()
   store.dirty = true
 }
@@ -459,7 +458,7 @@ async function handleSave() {
     const dsl = toDSL()
     await store.saveWorkflow(JSON.stringify(dsl))
     ElMessage.success('保存成功')
-  } catch (e: any) {
+  } catch (e) {
     console.error('[Workflow] Save failed:', e)
     ElMessage.error('保存失败')
   } finally {
@@ -523,7 +522,7 @@ function watchRunEvents() {
         const status = evt.eventType === 'node_started' ? 'running'
           : evt.eventType === 'node_succeeded' ? 'succeeded'
           : evt.eventType === 'node_failed' ? 'failed' : null
-        if (status) syncNodeRunningStatus(evt.nodeId, status as any)
+        if (status) syncNodeRunningStatus(evt.nodeId, status)
       }
     }
     if (!store.running) {
@@ -563,7 +562,7 @@ async function handlePublish() {
     await publishWorkflow(store.workflowId)
     ElMessage.success('发布成功')
     await store.loadList()
-  } catch (e: any) {
+  } catch (e) {
     console.error('[Workflow] Publish failed:', e)
     ElMessage.error('发布失败')
   } finally {

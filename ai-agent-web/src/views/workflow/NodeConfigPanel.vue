@@ -423,6 +423,9 @@ import {
   type StartNodeData,
   type LLMNodeData,
   type IfElseNodeData,
+  type VariableAssignerNodeData,
+  type QuestionClassifierNodeData,
+  type HumanInputNodeData,
   type ComparisonOperator,
   type HttpRequestNodeData,
 } from './types'
@@ -546,7 +549,8 @@ function removeCondition(index: number) {
 }
 
 function addAssignment() {
-  const d = nodeData.value as any
+  const d = nodeData.value as VariableAssignerNodeData | null
+  if (!d) return
   if (!d.assignments) d.assignments = []
   d.assignments.push({
     id: `assign_${Date.now()}`,
@@ -558,7 +562,8 @@ function addAssignment() {
 
 // QuestionClassifier 分类操作
 function addCategory() {
-  const d = nodeData.value as any
+  const d = nodeData.value as QuestionClassifierNodeData | null
+  if (!d) return
   if (!d.categories) d.categories = []
   d.categories.push({
     id: `cat_${Date.now()}`,
@@ -570,7 +575,8 @@ function addCategory() {
 
 // HumanInput 字段操作
 function addHumanInputField() {
-  const d = nodeData.value as any
+  const d = nodeData.value as HumanInputNodeData | null
+  if (!d) return
   if (!d.inputForm) d.inputForm = []
   d.inputForm.push({
     id: `field_${Date.now()}`,

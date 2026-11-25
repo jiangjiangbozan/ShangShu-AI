@@ -106,8 +106,8 @@ async function loadData() {
     const res = await listAllWorkflowRuns(pageNum.value, pageSize.value, filterStatus.value)
     records.value = res.records
     total.value = res.total
-  } catch (err: any) {
-    ElMessage.error('加载执行记录失败: ' + (err?.message || err))
+  } catch (err) {
+    ElMessage.error('加载执行记录失败: ' + (err instanceof Error ? err.message : String(err)))
   } finally {
     loading.value = false
   }
