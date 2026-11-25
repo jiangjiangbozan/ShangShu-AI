@@ -75,20 +75,35 @@ def ndcg_at_k(ranked, relevant, k=TOP_K):
     return dcg / idcg if idcg > 0 else 0.0
 
 
-def evaluate(token, csrf, kb_id, items, top_k):
-    """逐题评测，返回 (逐题结果列表, 阶段聚合指标)。"""
+def percentile(values, p):
+    """线性插值分位数（p 取 0.50/0.95）。"""
+    if not values:
+        return 0
+    ordered = sorted(values)
+    idx = (len(ordered) - 1) * p
+    lo, hi = int(idx), min(int(idx) + 1, len(ordered) - 1)
+    frac = idx - lo
+    return ordered[lo] + (ordered[hi] - ordered[lo]) * frac
+
+
+def evaluate(token, csrf, kb_id, items, top_k, rrf_k=None):
+    """逐题评测，返回 (逐题结果列表, 阶段聚合指标, 耗时列表, rerank 状态分布)。"""
     per_query = []
     stage_metrics = {name: {"recall": [], "mrr": [], "ndcg": [], "hit": 0} for name, _ in STAGES}
     latencies = []
+    rerank_status = {"success": 0, "disabled": 0, "degraded": 0, "missing": 0}
 
     for idx, item in enumerate(items, 1):
         question = item["question"]
         relevant = [str(c) for c in item.get("relevantChunkIds", [])]
+        body = {"query": question, "topK": top_k}
+        if rrf_k:
+            body["rrfK"] = rrf_k
         try:
             trace, wall_ms = eval_common.timed(
                 lambda: eval_common.api(
                     "POST", f"/api/v1/knowledge/{kb_id}/retrieve-test",
-                    token=token, csrf=csrf, body={"query": question, "topK": top_k})
+                    token=token, csrf=csrf, body=body)
             )
         except RuntimeError as e:
             print(f"[{idx}/{len(items)}] 失败: {e}")
@@ -96,9 +111,13 @@ def evaluate(token, csrf, kb_id, items, top_k):
 
         server_ms = sum(as_int(trace.get(field, 0)) for field in STEP_FIELDS)
         latencies.append({"serverMs": server_ms, "wallMs": wall_ms})
+        status = trace.get("rerankStatus") or ("missing" if trace.get("rerankTookMs") is None else "missing")
+        rerank_status[status if status in rerank_status else "missing"] += 1
 
         row = {"id": item["id"], "question": question, "relevant": relevant,
-               "serverMs": server_ms, "wallMs": wall_ms}  # 耗时入结果，报告可离线重渲染
+               "serverMs": server_ms, "wallMs": wall_ms,
+               "rerankStatus": status,
+               "rrfK": trace.get("rrfK") or rrf_k}  # 耗时/rerank 状态入结果，报告可离线重渲染
         for name, field in STAGES:
             ranked = chunk_ids(trace, field)
             r = recall_at_k(ranked, relevant)
@@ -123,7 +142,7 @@ def evaluate(token, csrf, kb_id, items, top_k):
             "ndcg@k": sum(metrics["ndcg"]) / count,
             "hitRate": metrics["hit"] / count,
         }
-    return per_query, summary, latencies
+    return per_query, summary, latencies, rerank_status
 
 
 def text_bar(value, width=30):
@@ -163,16 +182,21 @@ def render_chart(summary, report_dir):
         return None
 
 
-def render_report(args, items, summary, latencies, eval_count):
+def render_report(args, items, summary, latencies, eval_count, rerank_status):
     """生成 Markdown 报告。"""
     avg_server = sum(item["serverMs"] for item in latencies) / max(len(latencies), 1)
     avg_wall = sum(item["wallMs"] for item in latencies) / max(len(latencies), 1)
+    p50_server = percentile([i["serverMs"] for i in latencies], 0.50)
+    p95_server = percentile([i["serverMs"] for i in latencies], 0.95)
+    p50_wall = percentile([i["wallMs"] for i in latencies], 0.50)
+    p95_wall = percentile([i["wallMs"] for i in latencies], 0.95)
     now = datetime.now(SHANGHAI).strftime("%Y-%m-%d %H:%M")
     lines = [
         "# RAG 检索链路评测报告",
         "",
         f"> 生成时间：{now}（Asia/Shanghai）  ",
         f"> 知识库：`{args.kb_id}` · 数据集：`{eval_count}/{len(items)}` 题 · topK：{args.top_k} · "
+        f"RRF k：{args.rrf_k or '默认(60)'} · "
         f"接口：`POST /api/v1/knowledge/{{kbId}}/retrieve-test`（不走缓存）",
         "",
         "## 指标总览",
@@ -189,6 +213,22 @@ def render_report(args, items, summary, latencies, eval_count):
         "",
         f"平均服务端链路耗时 **{avg_server:.0f} ms**（QueryRewrite+双路召回+RRF+Rerank 各步之和），"
         f"客户端整体耗时 **{avg_wall:.0f} ms**。",
+        "",
+        "## 延迟分布",
+        "",
+        "| 指标 | P50 | P95 | 平均 |",
+        "|---|---|---|---|",
+        f"| 服务端链路 (ms) | {p50_server:.0f} | {p95_server:.0f} | {avg_server:.0f} |",
+        f"| 客户端整体 (ms) | {p50_wall:.0f} | {p95_wall:.0f} | {avg_wall:.0f} |",
+        "",
+        "## Rerank 调用状态",
+        "",
+        f"`success` {rerank_status['success']} 次 · `disabled` {rerank_status['disabled']} 次 · "
+        f"`degraded` {rerank_status['degraded']} 次 · `missing` {rerank_status['missing']} 次",
+        "",
+        "> `disabled`：`rag.rerank.enabled=false` 或未配置 `rag.rerank.base-url`（RRF 原序直出）；"
+        "`degraded`：rerank 服务调用/解析失败自动降级。status 与降级原因由 retrieve-test trace 的"
+        " `rerankStatus`/`rerankReason` 字段透出。",
         "",
         "## 柱状图",
         "",
@@ -246,6 +286,8 @@ def main():
     parser.add_argument("--kb-id", required=True, help="知识库 ID")
     parser.add_argument("--dataset", default="dataset.jsonl", help="数据集文件")
     parser.add_argument("--top-k", type=int, default=5, help="topK（默认 5）")
+    parser.add_argument("--rrf-k", type=int, default=None,
+                        help="RRF 融合参数 k 覆盖（评测对比用，默认走服务端配置 60）")
     parser.add_argument("--output", default="results.json", help="逐题结果输出")
     parser.add_argument("--report", default="../../docs/rag-eval-report.md", help="报告输出路径")
     args = parser.parse_args()
@@ -257,16 +299,24 @@ def main():
     print(f"数据集 {len(items)} 题，开始评测")
 
     token, csrf = eval_common.login()
-    per_query, summary, latencies = evaluate(token, csrf, args.kb_id, items, args.top_k)
+    per_query, summary, latencies, rerank_status = evaluate(
+        token, csrf, args.kb_id, items, args.top_k, args.rrf_k)
 
     Path(args.output).write_text(
-        json.dumps({"summary": summary, "perQuery": per_query}, ensure_ascii=False, indent=2),
+        json.dumps({"summary": summary, "perQuery": per_query,
+                    "rerankStatus": rerank_status,
+                    "latency": {"p50ServerMs": percentile([i["serverMs"] for i in latencies], 0.50),
+                                "p95ServerMs": percentile([i["serverMs"] for i in latencies], 0.95),
+                                "p50WallMs": percentile([i["wallMs"] for i in latencies], 0.50),
+                                "p95WallMs": percentile([i["wallMs"] for i in latencies], 0.95)}},
+                   ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
     report_path = Path(args.report).resolve()
     report_path.parent.mkdir(parents=True, exist_ok=True)
-    report_path.write_text(render_report(args, items, summary, latencies, len(per_query)),
-                           encoding="utf-8")
+    report_path.write_text(
+        render_report(args, items, summary, latencies, len(per_query), rerank_status),
+        encoding="utf-8")
     print(f"完成：{args.output} + {report_path}")
 
 
