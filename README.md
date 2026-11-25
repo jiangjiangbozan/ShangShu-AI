@@ -4,7 +4,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com">Java 21</a> ·
+  <a href="README_EN.md">English</a> ·
+  <a href="https://www.oracle.com/java/technologies/downloads/#java21">Java 21</a> ·
   <a href="https://spring.io/projects/spring-boot">Spring Boot 4.1</a> ·
   <a href="https://spring.io/projects/spring-ai">Spring AI</a> ·
   <a href="https://element-plus.org">Element Plus</a> ·
@@ -12,6 +13,8 @@
 </p>
 
 ---
+
+> 首次访问 Web 端会先展示**公开落地页**（平台介绍、能力清单与开源仓库入口），无需注册即可浏览；登录后再进入控制台。
 
 尚枢 AI（ShangShu AI）是一个**纯 Java 技术栈**的自托管 AI 应用平台。基于 Spring AI 构建，将多模型接入、企业知识库 RAG、可视化 Agent 工作流、运行观测与安全治理整合到一套可部署、可扩展、可运营的系统中。
 
@@ -24,17 +27,17 @@
 
 ## 功能特性
 
-| 模块 | 能力 |
-| --- | --- |
-| **多模型管理** | DeepSeek / 通义 / Ollama 等统一接入，动态加载，连通性测试，路由与降级 |
-| **知识库 RAG** | 文档解析切片、多路召回、RRF、Rerank、反馈闭环、Redis 命中缓存 |
-| **Agent** | ReAct / Function Calling 双策略引擎，工具注册与调用，执行轨迹追踪 |
-| **可视化工作流** | 20 种节点，Dify 风格编排器，节点画布 / 小地图 / 自定义边，SSE 运行时推送 |
-| **智能客服** | 意图识别、槽位填充、澄清模板、状态机对话管理、知识库兜底 |
-| **课程知识问答** | RAG 问答场景，QueryRewrite + 多路检索 + 引用来源 |
-| **平台安全** | JWT 双 Token、CSRF Double-Submit、XSS Filter、RBAC 权限、Jasypt 加密 |
-| **可观测** | TraceId 全链路、对话日志、LLM 调用统计、Prometheus 指标、Actuator 健康检查 |
-| **多端** | Vue 3 管理台、Android、uni-app 小程序 |
+| 模块             | 能力                                                                       |
+| ---------------- | -------------------------------------------------------------------------- |
+| **多模型管理**   | DeepSeek / 通义 / Ollama 等统一接入，动态加载，连通性测试，路由与降级      |
+| **知识库 RAG**   | 文档解析切片、多路召回、RRF、Rerank、反馈闭环、Redis 命中缓存              |
+| **Agent**        | ReAct / Function Calling 双策略引擎，工具注册与调用，执行轨迹追踪          |
+| **可视化工作流** | 20 种节点，Dify 风格编排器，节点画布 / 小地图 / 自定义边，SSE 运行时推送   |
+| **智能客服**     | 意图识别、槽位填充、澄清模板、状态机对话管理、知识库兜底                   |
+| **课程知识问答** | RAG 问答场景，QueryRewrite + 多路检索 + 引用来源                           |
+| **平台安全**     | JWT 双 Token、CSRF Double-Submit、XSS Filter、RBAC 权限、Jasypt 加密       |
+| **可观测**       | TraceId 全链路、对话日志、LLM 调用统计、Prometheus 指标、Actuator 健康检查 |
+| **多端**         | Vue 3 管理台、Android、uni-app 小程序                                      |
 
 ### 工作流节点一览（20 种）
 
@@ -44,15 +47,27 @@ Start · End · LLM · IfElse · Loop · Iteration · KnowledgeRetrieval · Ques
 
 ## 技术栈
 
-| 层 | 技术 |
-| --- | --- |
-| 后端 | Java 21 · Spring Boot 4.1 · Spring AI · Spring Security 7 · MyBatis-Plus 3.5 · Flyway · Redisson 4 |
-| 中间件 | MySQL 8 · Redis 7 Stack（含 RediSearch） · Elasticsearch 9 · RabbitMQ 3.13 |
-| Web | Vue 3 · TypeScript · Vite · Element Plus · Pinia · Vue Flow · ECharts |
-| 移动端 | Kotlin · Jetpack Compose · Retrofit |
-| 基础设施 | Docker Compose · Nginx · p6spy · Spotless · Checkstyle |
+| 层       | 技术                                                                                               |
+| -------- | -------------------------------------------------------------------------------------------------- |
+| 后端     | Java 21 · Spring Boot 4.1 · Spring AI · Spring Security 7 · MyBatis-Plus 3.5 · Flyway · Redisson 4 |
+| 中间件   | MySQL 8 · Redis 7 Stack（含 RediSearch） · Elasticsearch 9 · RabbitMQ 3.13                         |
+| Web      | Vue 3 · TypeScript · Vite · Element Plus · Pinia · Vue Flow · ECharts                              |
+| 移动端   | Kotlin · Jetpack Compose · Retrofit                                                                |
+| 基础设施 | Docker Compose · Nginx · p6spy · Spotless · Checkstyle                                             |
 
 > **版本说明**：Spring Boot 4.1 / Spring AI 当前使用里程碑版；ES 9 与 Spring Data Elasticsearch 6.0 客户端协议对齐；Redis Stack 含 RediSearch 模块（`FT._LIST` 命令是 Spring AI ChatMemory 的依赖）。
+
+---
+
+## 界面截图
+
+### 平台仪表盘
+
+![平台仪表盘](docs/screenshots/dashboard.png)
+
+### 知识库 RAG
+
+![知识库 RAG](docs/screenshots/knowledge-base-rag.png)
 
 ---
 
@@ -108,6 +123,7 @@ npm run dev
 ```
 
 > **说明**：
+>
 > - 本地开发**无需复制 .env**。开发默认值（MySQL `ai_agent/ai_agent_123`、Redis、RabbitMQ 等）已与 docker-compose.yml 对齐；`mvn spring-boot:run` 不会自动读取 `.env`，需要覆盖配置时请通过 IDE 环境变量或启动参数注入
 > - 若宿主机 3306 已被本地 MySQL 占用，两种解法任选：
 >   ① 停掉本地服务（如 `Stop-Service MySQL80`）再 `docker compose up -d`；
@@ -136,6 +152,7 @@ docker compose --profile full up -d --build
 ```
 
 > **生产部署前**务必：
+>
 > - 修改 `AI_AUTH_JWT_SECRET` 为至少 32 字符的随机字符串
 > - 修改 `JASYPT_ENCRYPTOR_PASSWORD` 为强密码
 > - 修改 `MYSQL_ROOT_PASSWORD`、`MYSQL_PASSWORD` 和 `REDIS_PASSWORD`
@@ -144,10 +161,10 @@ docker compose --profile full up -d --build
 
 ### Docker Compose Profile 说明
 
-| 命令 | 启动的服务 |
-| --- | --- |
-| `docker compose up -d` | MySQL · Redis Stack · Elasticsearch · RabbitMQ（中间件 only） |
-| `docker compose --profile full up -d --build` | 上述中间件 + API + Web（完整部署） |
+| 命令                                          | 启动的服务                                                    |
+| --------------------------------------------- | ------------------------------------------------------------- |
+| `docker compose up -d`                        | MySQL · Redis Stack · Elasticsearch · RabbitMQ（中间件 only） |
+| `docker compose --profile full up -d --build` | 上述中间件 + API + Web（完整部署）                            |
 
 > Ollama 不在 Compose 中编排（Compose 服务定义已注释保留）：RAG Embedding 默认连接宿主机 Ollama（`localhost:11434`），Windows/macOS 桌面版或本机服务均可，无需容器化。
 
@@ -162,18 +179,18 @@ docker compose --profile full up -d --build
 
 ## 文档
 
-| 文档 | 路径 |
-| --- | --- |
-| 架构说明 | `docs/platform/architecture.md` |
-| 开发日志 | `docs/dev-log/` |
-| RAG 检索评测报告 | `docs/rag-eval-report.md` |
-| 工作流节点扩展指南 | `docs/workflow-node-spi.md` |
-| 工作流节点使用文档（20 种） | `docs/workflow-nodes.md` |
-| 官方工作流模板 | `docs/workflow-templates/` |
-| 技术文章 | `docs/articles/` |
-| 后端开发约定 | `api/AGENTS.md` |
-| 前端开发约定 | `ai-agent-web/AGENTS.md` |
-| 通用开发原则 | `AGENTS.md` |
+| 文档                        | 路径                            |
+| --------------------------- | ------------------------------- |
+| 架构说明                    | `docs/platform/architecture.md` |
+| 开发日志                    | `docs/dev-log/`                 |
+| RAG 检索评测报告            | `docs/rag-eval-report.md`       |
+| 工作流节点扩展指南          | `docs/workflow-node-spi.md`     |
+| 工作流节点使用文档（20 种） | `docs/workflow-nodes.md`        |
+| 官方工作流模板              | `docs/workflow-templates/`      |
+| 技术文章                    | `docs/articles/`                |
+| 后端开发约定                | `api/AGENTS.md`                 |
+| 前端开发约定                | `ai-agent-web/AGENTS.md`        |
+| 通用开发原则                | `AGENTS.md`                     |
 
 ## 社区
 
@@ -204,7 +221,7 @@ Apache License 2.0
 - [x] Prompt 版本管理
 - [x] 工作流版本控制 + 节点级重试 + 并行分支
 - [x] RAG 检索评测数据集与对比报告（50 题数据集 + Recall/MRR/nDCG）
-- [ ] 工作流节点使用文档（[Good First Issue](docs/good-first-issues.md) GFI-2）
+- [x] 工作流节点使用文档（[docs/workflow-nodes.md](docs/workflow-nodes.md)，GFI-2）
 - [ ] Web 管理台深色模式（GFI-3）
-- [ ] 示例工作流模板库（GFI-4）
-- [ ] 英文版 README（GFI-5）
+- [x] 示例工作流模板库（[docs/workflow-templates/](docs/workflow-templates/)，GFI-4）
+- [x] 英文版 README（[README_EN.md](README_EN.md)，GFI-5）

@@ -87,12 +87,12 @@
 
 ## 认领与进度
 
-| 编号 | 任务 | 难度 | 状态 |
-| --- | --- | --- | --- |
-| GFI-1 | 检索测试页面 UI 优化 | ⭐ | 待认领（[#1](https://github.com/jiangjiangbozan/ShangShu-AI/issues/1)） |
-| GFI-2 | 工作流 20 种节点使用文档 | ⭐ | ✅ 已完成 → [docs/workflow-nodes.md](workflow-nodes.md) |
-| GFI-3 | Web 管理台深色模式 | ⭐⭐ | 待认领（[#2](https://github.com/jiangjiangbozan/ShangShu-AI/issues/2)） |
-| GFI-4 | 示例工作流模板库 | ⭐⭐ | ✅ 已完成 → [docs/workflow-templates/](workflow-templates/)（对话/知识问答/意图分流/批量任务 4 个可导入模板） |
-| GFI-5 | 英文版 README | ⭐ | 待认领（[#3](https://github.com/jiangjiangbozan/ShangShu-AI/issues/3)） |
+| 编号  | 任务                     | 难度 | 状态                                                                                                          |
+| ----- | ------------------------ | ---- | ------------------------------------------------------------------------------------------------------------- |
+| GFI-1 | 检索测试页面 UI 优化     | ⭐   | 待认领（[#1](https://github.com/jiangjiangbozan/ShangShu-AI/issues/1)）                                       |
+| GFI-2 | 工作流 20 种节点使用文档 | ⭐   | ✅ 已完成 → [docs/workflow-nodes.md](workflow-nodes.md)                                                       |
+| GFI-3 | Web 管理台深色模式       | ⭐⭐ | 待认领（[#2](https://github.com/jiangjiangbozan/ShangShu-AI/issues/2)）                                       |
+| GFI-4 | 示例工作流模板库         | ⭐⭐ | ✅ 已完成 → [docs/workflow-templates/](workflow-templates/)（对话/知识问答/意图分流/批量任务 4 个可导入模板） |
+| GFI-5 | 英文版 README            | ⭐   | ✅ 已完成 → [README_EN.md](../README_EN.md)                                                                   |
 
 完成 PR 合并后此表会同步更新。遇到问题欢迎到 [Discussions](https://github.com/jiangjiangbozan/ShangShu-AI/discussions) 提问。
