@@ -1,4 +1,8 @@
 <p align="center">
+  <img src="docs/logo.png" alt="尚枢 AI Logo" width="120" />
+</p>
+
+<p align="center">
   <h1 align="center">尚枢 AI · ShangShu AI</h1>
   <p align="center">面向 Java / Spring Boot 团队的自托管 AI 应用平台</p>
 </p>

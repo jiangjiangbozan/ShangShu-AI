@@ -1,4 +1,8 @@
 <p align="center">
+  <img src="docs/logo.png" alt="ShangShu AI Logo" width="120" />
+</p>
+
+<p align="center">
   <h1 align="center">ShangShu AI · 尚枢 AI</h1>
   <p align="center">A self-hosted AI application platform for Java / Spring Boot teams</p>
 </p>
