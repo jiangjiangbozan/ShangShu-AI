@@ -1,0 +1,92 @@
+{
+  "name": "智能意图分流",
+  "description": "Start → QuestionClassifier → IfElse → 分支 LLM → Answer：先用 LLM 对问题分类，再按 class_name 走不同分支 Prompt。导入后按业务修改 categories 类别清单与各分支 Prompt。",
+  "graph": {
+    "version": "1.0",
+    "viewport": { "x": 0, "y": 0, "zoom": 1 },
+    "nodes": [
+      {
+        "id": "start",
+        "type": "start",
+        "position": { "x": 80, "y": 220 },
+        "data": {
+          "variables": [{ "variable": "question", "default": "帮我查一下订单 20260101 的物流状态" }]
+        }
+      },
+      {
+        "id": "classifier-1",
+        "type": "question-classifier",
+        "position": { "x": 360, "y": 220 },
+        "data": {
+          "model": "deepseek-chat",
+          "query": { "nodeId": "start", "outputKey": "question" },
+          "categories": [{ "id": 1, "name": "售前咨询" }, { "id": 2, "name": "售后与订单" }]
+        }
+      },
+      {
+        "id": "router-1",
+        "type": "if-else",
+        "position": { "x": 640, "y": 220 },
+        "data": {
+          "conditions": [
+            {
+              "variableSelector": { "nodeId": "classifier-1", "outputKey": "class_name" },
+              "comparisonOperator": "contains",
+              "value": "售后"
+            }
+          ]
+        }
+      },
+      {
+        "id": "llm-pre",
+        "type": "llm",
+        "position": { "x": 920, "y": 120 },
+        "data": {
+          "model": "deepseek-chat",
+          "promptTemplate": "你是售前顾问。\n\n用户问题：${start.question}\n\n介绍产品能力并给出建议。",
+          "temperature": 0.7,
+          "maxTokens": 2048
+        }
+      },
+      {
+        "id": "llm-post",
+        "type": "llm",
+        "position": { "x": 920, "y": 340 },
+        "data": {
+          "model": "deepseek-chat",
+          "promptTemplate": "你是售后专员。\n\n用户问题：${start.question}\n\n安抚用户情绪，并给出处理步骤。",
+          "temperature": 0.5,
+          "maxTokens": 2048
+        }
+      },
+      {
+        "id": "aggregate-1",
+        "type": "variable-aggregator",
+        "position": { "x": 1180, "y": 220 },
+        "data": {
+          "variables": [
+            { "nodeId": "llm-pre", "outputKey": "text" },
+            { "nodeId": "llm-post", "outputKey": "text" }
+          ]
+        }
+      },
+      {
+        "id": "answer-1",
+        "type": "answer",
+        "position": { "x": 1420, "y": 220 },
+        "data": { "answer": { "nodeId": "aggregate-1", "outputKey": "items" } }
+      },
+      { "id": "end", "type": "end", "position": { "x": 1640, "y": 220 }, "data": {} }
+    ],
+    "edges": [
+      { "source": "start", "target": "classifier-1" },
+      { "source": "classifier-1", "target": "router-1" },
+      { "source": "router-1", "target": "llm-post", "sourceHandle": "if" },
+      { "source": "router-1", "target": "llm-pre", "sourceHandle": "else" },
+      { "source": "llm-pre", "target": "aggregate-1" },
+      { "source": "llm-post", "target": "aggregate-1" },
+      { "source": "aggregate-1", "target": "answer-1" },
+      { "source": "answer-1", "target": "end" }
+    ]
+  }
+}

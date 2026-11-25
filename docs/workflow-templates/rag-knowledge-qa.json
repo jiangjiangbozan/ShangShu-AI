@@ -1,0 +1,53 @@
+{
+  "name": "企业知识问答",
+  "description": "Start → KnowledgeRetrieval → LLM → Answer：检索增强问答模板。导入后把 knowledgeBaseId 改成你的知识库 ID，发布后即可通过 AI 应用（workflow 类型）对外提供知识问答。",
+  "graph": {
+    "version": "1.0",
+    "viewport": { "x": 0, "y": 0, "zoom": 1 },
+    "nodes": [
+      {
+        "id": "start",
+        "type": "start",
+        "position": { "x": 80, "y": 200 },
+        "data": {
+          "variables": [{ "variable": "question", "default": "如何配置模型路由？" }]
+        }
+      },
+      {
+        "id": "retrieval-1",
+        "type": "knowledge-retrieval",
+        "position": { "x": 360, "y": 200 },
+        "data": {
+          "knowledgeBaseId": "",
+          "query": { "nodeId": "start", "outputKey": "question" },
+          "topK": 5,
+          "scoreThreshold": 0.5
+        }
+      },
+      {
+        "id": "llm-1",
+        "type": "llm",
+        "position": { "x": 660, "y": 200 },
+        "data": {
+          "model": "deepseek-chat",
+          "promptTemplate": "你是企业知识助手。请仅根据以下检索到的资料回答问题，资料中没有的内容明确说明未知。\n\n【检索资料】\n${retrieval-1.results}\n\n【用户问题】\n${start.question}",
+          "temperature": 0.3,
+          "maxTokens": 2048
+        }
+      },
+      {
+        "id": "answer-1",
+        "type": "answer",
+        "position": { "x": 960, "y": 200 },
+        "data": { "answer": { "nodeId": "llm-1", "outputKey": "text" } }
+      },
+      { "id": "end", "type": "end", "position": { "x": 1180, "y": 200 }, "data": {} }
+    ],
+    "edges": [
+      { "source": "start", "target": "retrieval-1" },
+      { "source": "retrieval-1", "target": "llm-1" },
+      { "source": "llm-1", "target": "answer-1" },
+      { "source": "answer-1", "target": "end" }
+    ]
+  }
+}

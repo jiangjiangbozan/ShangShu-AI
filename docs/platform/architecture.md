@@ -1,7 +1,7 @@
-# 架构设计文档 - 智能助手 AI 开放平台
+# 架构设计文档 - 尚枢 AI · ShangShu AI
 
-> **版本**：v1.1（新增 Sa-Token/Redisson/Knife4j/XXL-Job/MinIO/SkyWalking/Sentry，分阶段技术采纳与延迟引入清单）
-> **更新日期**：2026-08-21
+> **版本**：v1.2（对齐 v0.1.0：Spring Boot 4.1 / Spring AI 2.0 GA、工作流版本化与执行记录、AI 应用四类型发布、RAG 评测链路）
+> **更新日期**：2026-11-20
 > **关联**：[development-plan.md](./development-plan.md)、[coding-standards.md](../standards/coding-standards.md)
 
 ---
@@ -71,7 +71,7 @@
 
 ## 2. 技术栈
 
-### 2.1 后端（基于 `d:\ai\api` 现状）
+### 2.1 后端（基于 `api/` 现状）
 
 | 类别 | 选型 | 版本 | 说明 |
 |------|------|------|------|
@@ -100,7 +100,7 @@
 | 待引入 | XXL-Job | 2.4+ | 分布式定时任务调度（M0 部署，M2 业务接入） |
 | 待引入 | MinIO SDK | 8.x | 对象存储客户端，文档/报告/头像存储（M0） |
 
-### 2.2 前端（已存在于 `d:\ai\ai-agent-web`）
+### 2.2 前端（已存在于 `ai-agent-web/`）
 
 | 类别 | 选型 | 说明 |
 |------|------|------|
@@ -638,7 +638,7 @@ flowchart TB
 
 > **核心策略**：初期优先采用 Maven 多模块单体打包方式，这是 AI 平台开发中避免关键陷阱的重要策略。
 
-**M0-M2**：单模块 `d:\ai\api`，按子包组织（见 [coding-standards.md](../standards/coding-standards.md) §3.1）。
+**M0-M2**：单模块 `api/`，按子包组织（见 [coding-standards.md](../standards/coding-standards.md) §3.1）。
 
 **M3 起按需拆分 Maven 子模块**（编译期模块化，运行期仍单体 fat-jar 部署）：
 - 触发条件：编译变慢、模块边界稳定、团队规模扩大
@@ -692,6 +692,6 @@ flowchart TB
 - [changes-roadmap.md](./changes-roadmap.md)
 - [deployment.md](./deployment.md)
 - [training-plan.md](./training-plan.md)
-- 现有后端项目：[d:\ai\api](file:///d:/ai/api)
-- 现有前端项目：[d:\ai\ai-agent-web](file:///d:/ai/ai-agent-web)
-- OpenSpec 配置：[d:\ai\openspec\config.yaml](file:///d:/ai/openspec/config.yaml)
+- 现有后端项目：[api/](file:///d:/ai/api)
+- 现有前端项目：[ai-agent-web/](file:///d:/ai/ai-agent-web)
+- OpenSpec 配置：[openspec/config.yaml](file:///d:/ai/openspec/config.yaml)

@@ -74,38 +74,43 @@
 
 ## 3. Docker 镜像构建
 
-### 3.1 后端镜像（`d:\ai\api\Dockerfile`）
+### 3.1 后端镜像（`api/Dockerfile`）
 
 ```dockerfile
-# 多阶段构建
-FROM eclipse-temurin:21-jdk AS builder
+# 多阶段构建：maven 官方镜像编译，JRE 镜像运行
+FROM maven:3.9-eclipse-temurin-21 AS builder
 WORKDIR /build
-COPY mvnw pom.xml ./
-COPY .mvn .mvn
-COPY src src
-RUN chmod +x mvnw && ./mvnw package -DskipTests -B
+COPY pom.xml .
+# 注入阿里云 Maven 镜像（.mvn/settings-docker.xml）：国内网络直连 Central 易超时
+COPY .mvn/settings-docker.xml /root/.m2/settings.xml
+COPY src ./src
+RUN mvn -B clean package -DskipTests -Dspotless.check.skip=true
 
 FROM eclipse-temurin:21-jre
 WORKDIR /app
-COPY --from=builder /build/target/api-*.jar app.jar
+RUN useradd -r -u 1001 -g root spring
+RUN mkdir -p /app/logs && chown -R 1001:0 /app/logs && chmod -R u+rw /app/logs
+COPY --from=builder /build/target/*.jar app.jar
+USER 1001
 EXPOSE 8080
-ENV JAVA_OPTS="-Xms512m -Xmx2g -XX:+UseG1GC -XX:MaxRAMPercentage=75"
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar app.jar"]
 ```
+
+> JVM 参数通过 `JAVA_OPTS` 环境变量注入（如 `-Xms512m -Xmx2g -XX:+UseG1GC`）。
 
 ### 3.2 前端构建
 
 前端构建为静态资源，由 Nginx 容器托管：
 
 ```bash
-cd d:\ai\ai-agent-web
+cd ai-agent-web/
 npm ci
 npm run build-only   # 产物在 dist/
 ```
 
 ### 3.3 Nginx 镜像
 
-`d:\ai\nginx\Dockerfile`：
+`nginx/Dockerfile`：
 ```dockerfile
 FROM nginx:1.27-alpine
 COPY nginx.conf /etc/nginx/nginx.conf
@@ -117,7 +122,7 @@ COPY ../ai-agent-web/dist /usr/share/nginx/html
 
 ## 4. Docker Compose 编排
 
-文件：`d:\ai\docker-compose.yml`
+文件：`docker-compose.yml`
 
 ```yaml
 version: '3.9'
@@ -352,7 +357,7 @@ GRAFANA_PASSWORD=<change-me>
 
 ## 5. Nginx 配置
 
-文件：`d:\ai\nginx\nginx.conf`
+文件：`nginx/nginx.conf`
 
 ```nginx
 worker_processes auto;
@@ -592,7 +597,7 @@ groups:
 
 ```bash
 # 1. 准备配置
-cd d:\ai
+cd <仓库根目录>
 cp .env.example .env
 # 编辑 .env 填入密钥
 
@@ -761,13 +766,13 @@ thread_pool.search.queue_size: 1000
 
 | 文件 | 位置 |
 |------|------|
-| Docker Compose | `d:\ai\docker-compose.yml`（M7 创建） |
-| 后端 Dockerfile | `d:\ai\api\Dockerfile`（M7 创建） |
-| Nginx 配置 | `d:\ai\nginx\nginx.conf`（M7 创建） |
-| Prometheus 配置 | `d:\ai\monitoring\prometheus.yml`（M7 创建） |
-| Grafana 仪表盘 | `d:\ai\monitoring\grafana\`（M7 创建） |
-| 告警规则 | `d:\ai\monitoring\alerts.yml`（M7 创建） |
-| 运维手册 | `d:\ai\docs\runbooks\`（M7 创建） |
-| 环境变量模板 | `d:\ai\.env.example`（M7 创建） |
+| Docker Compose | `docker-compose.yml`（M7 创建） |
+| 后端 Dockerfile | `api/\Dockerfile`（M7 创建） |
+| Nginx 配置 | `nginx/nginx.conf`（M7 创建） |
+| Prometheus 配置 | `./monitoring\prometheus.yml`（M7 创建） |
+| Grafana 仪表盘 | `./monitoring\grafana\`（M7 创建） |
+| 告警规则 | `./monitoring\alerts.yml`（M7 创建） |
+| 运维手册 | `./docs\runbooks\`（M7 创建） |
+| 环境变量模板 | `./.env.example`（M7 创建） |
 
 > M7 阶段由 OpenSpec change `prepare-deployment` 落地所有文件。

@@ -94,28 +94,39 @@ ai/
 # 1. 启动中间件（MySQL / Redis / ES / RabbitMQ）
 docker compose up -d
 
-# 2. 配置环境变量
-cp .env.example .env
-# 编辑 .env，至少修改 AI_AUTH_JWT_SECRET 和 JASYPT_ENCRYPTOR_PASSWORD
-
-# 3. 启动后端
+# 2. 启动后端（零配置：application-dev.yml 默认值已与 Compose 对齐）
 cd api
 mvn spring-boot:run -Dspring-boot.run.profiles=dev
 # Swagger:  http://localhost:8080/swagger-ui.html
 # 健康检查: http://localhost:8080/actuator/health
 
-# 4. 启动 Web 端
+# 3. 启动 Web 端
 cd ai-agent-web
 npm install
 npm run dev
 # 访问: http://localhost:5173
 ```
 
+> **说明**：
+> - 本地开发**无需复制 .env**。开发默认值（MySQL `ai_agent/ai_agent_123`、Redis、RabbitMQ 等）已与 docker-compose.yml 对齐；`mvn spring-boot:run` 不会自动读取 `.env`，需要覆盖配置时请通过 IDE 环境变量或启动参数注入
+> - 若宿主机 3306 已被本地 MySQL 占用，两种解法任选：
+>   ① 停掉本地服务（如 `Stop-Service MySQL80`）再 `docker compose up -d`；
+>   ② 切换端口：`MYSQL_HOST_PORT=3307 docker compose up -d`，启动后端时加 `MYSQL_PORT=3307`
+
+> **RAG 功能额外依赖**：向量默认走 Ollama `nomic-embed-text`，需要本机安装 Ollama 并拉取模型：
+>
+> ```bash
+> ollama pull nomic-embed-text
+> ```
+>
+> 只测试 Chat / Agent / Workflow 功能不需要这一步；RAG 检索与知识库向量化必须先有 Embedding 模型（或在 `.env` / 环境变量中改配其他 Embedding 方案）。
+
 ### 模式 B：Docker 完整部署
 
 ```bash
 cp .env.example .env
-# 编辑 .env 修改所有敏感值
+# .env 中已是开箱可用的开发默认值；完整部署至少需要其中的
+# AI_AUTH_JWT_SECRET 与 JASYPT_ENCRYPTOR_PASSWORD 两项（api 服务强制校验）
 
 # 一键启动（中间件 + API + Web）
 docker compose --profile full up -d --build
@@ -127,7 +138,8 @@ docker compose --profile full up -d --build
 > **生产部署前**务必：
 > - 修改 `AI_AUTH_JWT_SECRET` 为至少 32 字符的随机字符串
 > - 修改 `JASYPT_ENCRYPTOR_PASSWORD` 为强密码
-> - 修改 `MYSQL_ROOT_PASSWORD` 和 `REDIS_PASSWORD`
+> - 修改 `MYSQL_ROOT_PASSWORD`、`MYSQL_PASSWORD` 和 `REDIS_PASSWORD`
+> - 修改 `RABBITMQ_PASSWORD`（默认 Admin@123456，需与 api 服务一致）
 > - 设置至少一个可用的模型 API Key（`DEEPSEEK_API_KEY` / `QWEN_API_KEY` 等）
 
 ### Docker Compose Profile 说明
@@ -136,7 +148,8 @@ docker compose --profile full up -d --build
 | --- | --- |
 | `docker compose up -d` | MySQL · Redis Stack · Elasticsearch · RabbitMQ（中间件 only） |
 | `docker compose --profile full up -d --build` | 上述中间件 + API + Web（完整部署） |
-| `docker compose up -d mysql redis elasticsearch rabbitmq ollama` | 中间件 + 本地 Ollama |
+
+> Ollama 不在 Compose 中编排（Compose 服务定义已注释保留）：RAG Embedding 默认连接宿主机 Ollama（`localhost:11434`），Windows/macOS 桌面版或本机服务均可，无需容器化。
 
 ---
 
@@ -155,6 +168,8 @@ docker compose --profile full up -d --build
 | 开发日志 | `docs/dev-log/` |
 | RAG 检索评测报告 | `docs/rag-eval-report.md` |
 | 工作流节点扩展指南 | `docs/workflow-node-spi.md` |
+| 工作流节点使用文档（20 种） | `docs/workflow-nodes.md` |
+| 官方工作流模板 | `docs/workflow-templates/` |
 | 技术文章 | `docs/articles/` |
 | 后端开发约定 | `api/AGENTS.md` |
 | 前端开发约定 | `ai-agent-web/AGENTS.md` |

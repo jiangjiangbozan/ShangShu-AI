@@ -1,0 +1,59 @@
+{
+  "name": "批量任务处理",
+  "description": "Start → Code（构造任务清单）→ Iteration（展开列表）→ LLM（逐项处理说明模板）→ Answer：批处理骨架。导入后把 Code 节点的 items 换成你的真实数据源（如上游 HTTP 返回），并调整 LLM 逐项处理逻辑。",
+  "graph": {
+    "version": "1.0",
+    "viewport": { "x": 0, "y": 0, "zoom": 1 },
+    "nodes": [
+      {
+        "id": "start",
+        "type": "start",
+        "position": { "x": 80, "y": 200 },
+        "data": {
+          "variables": [{ "variable": "batchTopic", "default": "员工入职材料清单" }]
+        }
+      },
+      {
+        "id": "code-1",
+        "type": "code",
+        "position": { "x": 360, "y": 200 },
+        "data": {
+          "codeLanguage": "javascript",
+          "code": "// 示例：构造待处理清单（可替换为从上游变量取数）\nreturn { items: ['第一步：提交申请表', '第二步：办理工牌', '第三步：开通系统账号'], source: global.batchTopic };",
+          "inputs": { "batchTopic": "${start.batchTopic}" }
+        }
+      },
+      {
+        "id": "iteration-1",
+        "type": "iteration",
+        "position": { "x": 640, "y": 200 },
+        "data": { "iterator": { "nodeId": "code-1", "outputKey": "items" } }
+      },
+      {
+        "id": "llm-1",
+        "type": "llm",
+        "position": { "x": 920, "y": 200 },
+        "data": {
+          "model": "deepseek-chat",
+          "promptTemplate": "对以下待办项给出 1-2 句执行建议（中文）：\n${iteration-1.items}",
+          "temperature": 0.5,
+          "maxTokens": 1024
+        }
+      },
+      {
+        "id": "answer-1",
+        "type": "answer",
+        "position": { "x": 1180, "y": 200 },
+        "data": { "answer": { "nodeId": "llm-1", "outputKey": "text" } }
+      },
+      { "id": "end", "type": "end", "position": { "x": 1400, "y": 200 }, "data": {} }
+    ],
+    "edges": [
+      { "source": "start", "target": "code-1" },
+      { "source": "code-1", "target": "iteration-1" },
+      { "source": "iteration-1", "target": "llm-1" },
+      { "source": "llm-1", "target": "answer-1" },
+      { "source": "answer-1", "target": "end" }
+    ]
+  }
+}

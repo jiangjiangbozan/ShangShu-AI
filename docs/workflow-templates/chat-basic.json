@@ -1,0 +1,41 @@
+{
+  "name": "普通 AI 对话",
+  "description": "Start → LLM → Answer：最小可运行对话模板，用户输入直接进 Prompt 并返回生成文本。导入后在工作流列表「编辑」中调整 model 与 promptTemplate，发布后可被 AI 应用（workflow 类型）调用。",
+  "graph": {
+    "version": "1.0",
+    "viewport": { "x": 0, "y": 0, "zoom": 1 },
+    "nodes": [
+      {
+        "id": "start",
+        "type": "start",
+        "position": { "x": 80, "y": 200 },
+        "data": {
+          "variables": [{ "variable": "question", "default": "你好，请介绍一下你自己" }]
+        }
+      },
+      {
+        "id": "llm-1",
+        "type": "llm",
+        "position": { "x": 380, "y": 200 },
+        "data": {
+          "model": "deepseek-chat",
+          "promptTemplate": "你是企业智能助手。\n\n用户问题：${start.question}\n\n请用中文简洁回答。",
+          "temperature": 0.7,
+          "maxTokens": 2048
+        }
+      },
+      {
+        "id": "answer-1",
+        "type": "answer",
+        "position": { "x": 680, "y": 200 },
+        "data": { "answer": { "nodeId": "llm-1", "outputKey": "text" } }
+      },
+      { "id": "end", "type": "end", "position": { "x": 900, "y": 200 }, "data": {} }
+    ],
+    "edges": [
+      { "source": "start", "target": "llm-1" },
+      { "source": "llm-1", "target": "answer-1" },
+      { "source": "answer-1", "target": "end" }
+    ]
+  }
+}
