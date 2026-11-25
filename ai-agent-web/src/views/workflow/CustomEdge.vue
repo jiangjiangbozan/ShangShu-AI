@@ -16,17 +16,8 @@
   </svg>
   <BaseEdge :path="path" :style="{ strokeWidth: 8, stroke: 'transparent' }" />
   <BaseEdge :path="path" :style="edgeStyle" :marker-end="`url(#${markerId})`" />
-  <circle
-    v-if="data?.animated || animated"
-    :r="3"
-    fill="#6366f1"
-    opacity="0.8"
-  >
-    <animateMotion
-      :path="path"
-      dur="1.5s"
-      repeatCount="indefinite"
-    />
+  <circle v-if="data?.animated || animated" :r="3" fill="#6366f1" opacity="0.8">
+    <animateMotion :path="path" dur="1.5s" repeatCount="indefinite" />
   </circle>
 </template>
 

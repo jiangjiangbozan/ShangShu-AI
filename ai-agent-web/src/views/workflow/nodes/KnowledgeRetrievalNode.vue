@@ -26,8 +26,21 @@ const kbData = computed(() => props.data as KnowledgeRetrievalNodeData)
 </script>
 
 <style scoped>
-.kb-node__info { display: flex; flex-direction: column; gap: 4px; }
-.kb-node__id { font-size: 11px; color: #303133; }
-.kb-node__topk { font-size: 10px; color: #909399; }
-.kb-node__empty { color: #c0c4cc; font-style: italic; }
+.kb-node__info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.kb-node__id {
+  font-size: 11px;
+  color: #303133;
+}
+.kb-node__topk {
+  font-size: 10px;
+  color: #909399;
+}
+.kb-node__empty {
+  color: #c0c4cc;
+  font-style: italic;
+}
 </style>

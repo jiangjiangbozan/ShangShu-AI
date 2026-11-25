@@ -4,14 +4,11 @@
  * 管理工作流元数据、选中状态、DSL 转换。
  * VueFlow 节点/边操作由编辑器组件通过 VueFlow composable 管理。
  */
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import {
   type CommonNodeData,
   type WorkflowDSL,
-  type WorkflowNode,
-  type WorkflowEdge,
-  type WorkflowVariable,
   createDefaultNodeData,
   NodeType,
   NODE_TYPE_LABELS,
@@ -67,7 +64,10 @@ export const useWorkflowStore = defineStore('workflow', () => {
 
   /** 创建节点默认 data */
   function createNodeData(type: NodeType, title?: string): CommonNodeData {
-    return { ...createDefaultNodeData(type), title: title ?? NODE_TYPE_LABELS[type] } as CommonNodeData
+    return {
+      ...createDefaultNodeData(type),
+      title: title ?? NODE_TYPE_LABELS[type],
+    } as CommonNodeData
   }
 
   /** 创建默认空白工作流 DSL（含 Start + End 节点） */

@@ -7,7 +7,9 @@
         <span class="param-node__value">{{ paramData.model }}</span>
       </div>
       <div v-if="paramData.parameters?.length" class="param-node__params">
-        <span v-for="p in paramData.parameters" :key="p.variable" class="param-node__param-tag">{{ p.variable }}</span>
+        <span v-for="p in paramData.parameters" :key="p.variable" class="param-node__param-tag">{{
+          p.variable
+        }}</span>
       </div>
       <div v-if="!paramData.model" class="param-node__empty">点击配置参数提取</div>
     </div>

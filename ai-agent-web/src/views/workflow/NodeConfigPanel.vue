@@ -6,7 +6,14 @@
       </div>
       <span class="node-config-panel__title">{{ panelTitle }}</span>
       <button class="node-config-panel__close" @click="store.selectNode(null)">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path
+            d="M12 4L4 12M4 4l8 8"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+          />
+        </svg>
       </button>
     </div>
     <div class="node-config-panel__body">
@@ -24,8 +31,19 @@
           <template v-if="nodeData.type === NodeType.Start">
             <el-divider content-position="left">输入变量</el-divider>
             <div v-for="(v, i) in (nodeData as StartNodeData).variables" :key="i" class="var-row">
-              <el-input v-model="v.variable" placeholder="变量名" size="small" @change="onDataChange" />
-              <el-select v-model="v.type" placeholder="类型" size="small" style="width: 120px" @change="onDataChange">
+              <el-input
+                v-model="v.variable"
+                placeholder="变量名"
+                size="small"
+                @change="onDataChange"
+              />
+              <el-select
+                v-model="v.type"
+                placeholder="类型"
+                size="small"
+                style="width: 120px"
+                @change="onDataChange"
+              >
                 <el-option v-for="t in varTypes" :key="t" :label="t" :value="t" />
               </el-select>
               <el-input v-model="v.label" placeholder="标签" size="small" @change="onDataChange" />
@@ -40,7 +58,11 @@
           <template v-if="nodeData.type === NodeType.LLM">
             <el-divider content-position="left">LLM 配置</el-divider>
             <el-form-item label="模型">
-              <el-input v-model="(nodeData as LLMNodeData).model" placeholder="如 gpt-4o" @change="onDataChange" />
+              <el-input
+                v-model="(nodeData as LLMNodeData).model"
+                placeholder="如 gpt-4o"
+                @change="onDataChange"
+              />
             </el-form-item>
             <el-form-item label="提示词模板">
               <el-input
@@ -75,9 +97,24 @@
           <!-- IfElse 节点 -->
           <template v-if="nodeData.type === NodeType.IfElse">
             <el-divider content-position="left">条件配置</el-divider>
-            <div v-for="(cond, i) in (nodeData as IfElseNodeData).conditions" :key="cond.id" class="cond-row">
-              <el-input v-model="cond.variableSelector.outputKey" placeholder="变量" size="small" @change="onDataChange" />
-              <el-select v-model="cond.comparisonOperator" placeholder="比较" size="small" style="width: 110px" @change="onDataChange">
+            <div
+              v-for="(cond, i) in (nodeData as IfElseNodeData).conditions"
+              :key="cond.id"
+              class="cond-row"
+            >
+              <el-input
+                v-model="cond.variableSelector.outputKey"
+                placeholder="变量"
+                size="small"
+                @change="onDataChange"
+              />
+              <el-select
+                v-model="cond.comparisonOperator"
+                placeholder="比较"
+                size="small"
+                style="width: 110px"
+                @change="onDataChange"
+              >
                 <el-option v-for="op in comparisonOperators" :key="op" :label="op" :value="op" />
               </el-select>
               <el-input v-model="cond.value" placeholder="值" size="small" @change="onDataChange" />
@@ -98,14 +135,24 @@
           <template v-if="nodeData.type === NodeType.Code">
             <el-divider content-position="left">代码配置</el-divider>
             <el-form-item label="语言">
-              <el-select v-model="(nodeData as any).codeLanguage" size="small" @change="onDataChange">
+              <el-select
+                v-model="(nodeData as any).codeLanguage"
+                size="small"
+                @change="onDataChange"
+              >
                 <el-option label="JavaScript" value="javascript" />
                 <el-option label="Python" value="python" />
                 <el-option label="Jinja2" value="jinja2" />
               </el-select>
             </el-form-item>
             <el-form-item label="代码">
-              <el-input v-model="(nodeData as any).code" type="textarea" :rows="8" placeholder="// result.xxx = ..." @change="onDataChange" />
+              <el-input
+                v-model="(nodeData as any).code"
+                type="textarea"
+                :rows="8"
+                placeholder="// result.xxx = ..."
+                @change="onDataChange"
+              />
             </el-form-item>
           </template>
 
@@ -114,17 +161,39 @@
             <el-divider content-position="left">HTTP 请求配置</el-divider>
             <el-form-item label="方法">
               <el-select v-model="(nodeData as any).method" size="small" @change="onDataChange">
-                <el-option v-for="m in ['GET','POST','PUT','DELETE','PATCH']" :key="m" :label="m" :value="m" />
+                <el-option
+                  v-for="m in ['GET', 'POST', 'PUT', 'DELETE', 'PATCH']"
+                  :key="m"
+                  :label="m"
+                  :value="m"
+                />
               </el-select>
             </el-form-item>
             <el-form-item label="URL">
-              <el-input v-model="(nodeData as any).url" placeholder="https://api.example.com/data" @change="onDataChange" />
+              <el-input
+                v-model="(nodeData as any).url"
+                placeholder="https://api.example.com/data"
+                @change="onDataChange"
+              />
             </el-form-item>
             <el-form-item label="超时(ms)">
-              <el-input-number v-model="(nodeData as any).timeout" :min="1000" :max="120000" :step="5000" size="small" @change="onDataChange" />
+              <el-input-number
+                v-model="(nodeData as any).timeout"
+                :min="1000"
+                :max="120000"
+                :step="5000"
+                size="small"
+                @change="onDataChange"
+              />
             </el-form-item>
             <el-form-item label="请求体">
-              <el-input v-model="(nodeData as any).body" type="textarea" :rows="4" placeholder='{"key":"value"}' @change="onDataChange" />
+              <el-input
+                v-model="(nodeData as any).body"
+                type="textarea"
+                :rows="4"
+                placeholder='{"key":"value"}'
+                @change="onDataChange"
+              />
             </el-form-item>
             <el-divider content-position="left">鉴权</el-divider>
             <el-form-item label="鉴权类型">
@@ -139,7 +208,11 @@
                 <el-input v-model="authHeaderName" placeholder="X-API-Key" @change="onAuthChange" />
               </el-form-item>
               <el-form-item label="Header Value">
-                <el-input v-model="authHeaderValue" placeholder="your-api-key" @change="onAuthChange" />
+                <el-input
+                  v-model="authHeaderValue"
+                  placeholder="your-api-key"
+                  @change="onAuthChange"
+                />
               </el-form-item>
             </template>
             <template v-if="authType === 'bearer'">
@@ -153,13 +226,30 @@
           <template v-if="nodeData.type === NodeType.KnowledgeRetrieval">
             <el-divider content-position="left">知识检索配置</el-divider>
             <el-form-item label="知识库 ID">
-              <el-input v-model="(nodeData as any).knowledgeBaseId" placeholder="输入知识库 ID" @change="onDataChange" />
+              <el-input
+                v-model="(nodeData as any).knowledgeBaseId"
+                placeholder="输入知识库 ID"
+                @change="onDataChange"
+              />
             </el-form-item>
             <el-form-item label="Top K">
-              <el-input-number v-model="(nodeData as any).topK" :min="1" :max="50" size="small" @change="onDataChange" />
+              <el-input-number
+                v-model="(nodeData as any).topK"
+                :min="1"
+                :max="50"
+                size="small"
+                @change="onDataChange"
+              />
             </el-form-item>
             <el-form-item label="分数阈值">
-              <el-slider v-model="(nodeData as any).scoreThreshold" :min="0" :max="1" :step="0.05" show-input @change="onDataChange" />
+              <el-slider
+                v-model="(nodeData as any).scoreThreshold"
+                :min="0"
+                :max="1"
+                :step="0.05"
+                show-input
+                @change="onDataChange"
+              />
             </el-form-item>
           </template>
 
@@ -167,10 +257,28 @@
           <template v-if="nodeData.type === NodeType.VariableAssigner">
             <el-divider content-position="left">变量赋值</el-divider>
             <div v-for="(a, i) in (nodeData as any).assignments" :key="a.id" class="var-row">
-              <el-input v-model="a.variable" placeholder="变量名" size="small" @change="onDataChange" />
-              <span style="color:#98a2b3;margin:0 4px">&larr;</span>
-              <el-input v-model="a.valueSelector.outputKey" placeholder="来源字段" size="small" @change="onDataChange" />
-              <el-button type="danger" size="small" circle @click="(nodeData as any).assignments.splice(i, 1); onDataChange()">
+              <el-input
+                v-model="a.variable"
+                placeholder="变量名"
+                size="small"
+                @change="onDataChange"
+              />
+              <span style="color: #98a2b3; margin: 0 4px">&larr;</span>
+              <el-input
+                v-model="a.valueSelector.outputKey"
+                placeholder="来源字段"
+                size="small"
+                @change="onDataChange"
+              />
+              <el-button
+                type="danger"
+                size="small"
+                circle
+                @click="
+                  ;(nodeData as any).assignments.splice(i, 1)
+                  onDataChange()
+                "
+              >
                 <el-icon><Delete /></el-icon>
               </el-button>
             </div>
@@ -181,15 +289,40 @@
           <template v-if="nodeData.type === NodeType.VariableAggregator">
             <el-divider content-position="left">变量聚合</el-divider>
             <div v-for="(v, i) in (nodeData as any).variables" :key="i" class="var-row">
-              <el-input v-model="v.nodeId" placeholder="节点ID" size="small" @change="onDataChange" />
-              <span style="color:#98a2b3">.</span>
-              <el-input v-model="v.outputKey" placeholder="字段" size="small" @change="onDataChange" />
-              <el-button type="danger" size="small" circle @click="(nodeData as any).variables.splice(i, 1); onDataChange()">
+              <el-input
+                v-model="v.nodeId"
+                placeholder="节点ID"
+                size="small"
+                @change="onDataChange"
+              />
+              <span style="color: #98a2b3">.</span>
+              <el-input
+                v-model="v.outputKey"
+                placeholder="字段"
+                size="small"
+                @change="onDataChange"
+              />
+              <el-button
+                type="danger"
+                size="small"
+                circle
+                @click="
+                  ;(nodeData as any).variables.splice(i, 1)
+                  onDataChange()
+                "
+              >
                 <el-icon><Delete /></el-icon>
               </el-button>
             </div>
-            <el-button size="small" @click="(nodeData as any).variables.push({nodeId:'',outputKey:''}); onDataChange()">+ 添加变量</el-button>
-            <el-form-item label="输出类型" style="margin-top:12px">
+            <el-button
+              size="small"
+              @click="
+                ;(nodeData as any).variables.push({ nodeId: '', outputKey: '' })
+                onDataChange()
+              "
+              >+ 添加变量</el-button
+            >
+            <el-form-item label="输出类型" style="margin-top: 12px">
               <el-select v-model="(nodeData as any).outputType" size="small" @change="onDataChange">
                 <el-option v-for="t in varTypes" :key="t" :label="t" :value="t" />
               </el-select>
@@ -200,8 +333,12 @@
           <template v-if="nodeData.type === NodeType.Answer">
             <el-divider content-position="left">回复配置</el-divider>
             <div class="end-hint">选择上游节点的输出作为最终回复</div>
-            <el-form-item label="来源节点字段" style="margin-top:8px">
-              <el-input v-model="(nodeData as any).answer.outputKey" placeholder="如 text" @change="onDataChange" />
+            <el-form-item label="来源节点字段" style="margin-top: 8px">
+              <el-input
+                v-model="(nodeData as any).answer.outputKey"
+                placeholder="如 text"
+                @change="onDataChange"
+              />
             </el-form-item>
           </template>
 
@@ -209,7 +346,13 @@
           <template v-if="nodeData.type === NodeType.TemplateTransform">
             <el-divider content-position="left">模板配置</el-divider>
             <el-form-item label="模板内容">
-              <el-input v-model="(nodeData as any).template" type="textarea" :rows="6" placeholder="使用 ${nodeId.key} 引用变量" @change="onDataChange" />
+              <el-input
+                v-model="(nodeData as any).template"
+                type="textarea"
+                :rows="6"
+                placeholder="使用 ${nodeId.key} 引用变量"
+                @change="onDataChange"
+              />
             </el-form-item>
           </template>
 
@@ -217,10 +360,18 @@
           <template v-if="nodeData.type === NodeType.Iteration">
             <el-divider content-position="left">迭代配置</el-divider>
             <el-form-item label="迭代变量 - 节点ID">
-              <el-input v-model="(nodeData as any).iterator.nodeId" placeholder="节点ID" @change="onDataChange" />
+              <el-input
+                v-model="(nodeData as any).iterator.nodeId"
+                placeholder="节点ID"
+                @change="onDataChange"
+              />
             </el-form-item>
             <el-form-item label="迭代变量 - 字段">
-              <el-input v-model="(nodeData as any).iterator.outputKey" placeholder="输出字段" @change="onDataChange" />
+              <el-input
+                v-model="(nodeData as any).iterator.outputKey"
+                placeholder="输出字段"
+                @change="onDataChange"
+              />
             </el-form-item>
             <el-form-item label="输出类型">
               <el-select v-model="(nodeData as any).outputType" size="small" @change="onDataChange">
@@ -233,47 +384,121 @@
           <template v-if="nodeData.type === NodeType.ParameterExtractor">
             <el-divider content-position="left">参数提取配置</el-divider>
             <el-form-item label="模型">
-              <el-input v-model="(nodeData as any).model" placeholder="如 gpt-4o" @change="onDataChange" />
+              <el-input
+                v-model="(nodeData as any).model"
+                placeholder="如 gpt-4o"
+                @change="onDataChange"
+              />
             </el-form-item>
             <el-form-item label="查询 - 节点ID">
-              <el-input v-model="(nodeData as any).query.nodeId" placeholder="节点ID" @change="onDataChange" />
+              <el-input
+                v-model="(nodeData as any).query.nodeId"
+                placeholder="节点ID"
+                @change="onDataChange"
+              />
             </el-form-item>
             <el-form-item label="查询 - 字段">
-              <el-input v-model="(nodeData as any).query.outputKey" placeholder="输出字段" @change="onDataChange" />
+              <el-input
+                v-model="(nodeData as any).query.outputKey"
+                placeholder="输出字段"
+                @change="onDataChange"
+              />
             </el-form-item>
             <el-form-item label="指令">
-              <el-input v-model="(nodeData as any).instruction" type="textarea" :rows="3" placeholder="提取参数的指令..." @change="onDataChange" />
+              <el-input
+                v-model="(nodeData as any).instruction"
+                type="textarea"
+                :rows="3"
+                placeholder="提取参数的指令..."
+                @change="onDataChange"
+              />
             </el-form-item>
             <el-divider content-position="left">提取参数</el-divider>
             <div v-for="(p, i) in (nodeData as any).parameters" :key="i" class="var-row">
-              <el-input v-model="p.variable" placeholder="参数名" size="small" @change="onDataChange" />
-              <el-select v-model="p.type" placeholder="类型" size="small" style="width: 100px" @change="onDataChange">
+              <el-input
+                v-model="p.variable"
+                placeholder="参数名"
+                size="small"
+                @change="onDataChange"
+              />
+              <el-select
+                v-model="p.type"
+                placeholder="类型"
+                size="small"
+                style="width: 100px"
+                @change="onDataChange"
+              >
                 <el-option v-for="t in varTypes" :key="t" :label="t" :value="t" />
               </el-select>
-              <el-button type="danger" size="small" circle @click="(nodeData as any).parameters.splice(i, 1); onDataChange()">
+              <el-button
+                type="danger"
+                size="small"
+                circle
+                @click="
+                  ;(nodeData as any).parameters.splice(i, 1)
+                  onDataChange()
+                "
+              >
                 <el-icon><Delete /></el-icon>
               </el-button>
             </div>
-            <el-button size="small" @click="(nodeData as any).parameters.push({variable:'',type:'string'}); onDataChange()">+ 添加参数</el-button>
+            <el-button
+              size="small"
+              @click="
+                ;(nodeData as any).parameters.push({ variable: '', type: 'string' })
+                onDataChange()
+              "
+              >+ 添加参数</el-button
+            >
           </template>
 
           <!-- Question Classifier 节点 -->
           <template v-if="nodeData.type === NodeType.QuestionClassifier">
             <el-divider content-position="left">问题分类配置</el-divider>
             <el-form-item label="模型">
-              <el-input v-model="(nodeData as any).model" placeholder="如 gpt-4o" @change="onDataChange" />
+              <el-input
+                v-model="(nodeData as any).model"
+                placeholder="如 gpt-4o"
+                @change="onDataChange"
+              />
             </el-form-item>
             <el-form-item label="查询 - 节点ID">
-              <el-input v-model="(nodeData as any).query.nodeId" placeholder="节点ID" @change="onDataChange" />
+              <el-input
+                v-model="(nodeData as any).query.nodeId"
+                placeholder="节点ID"
+                @change="onDataChange"
+              />
             </el-form-item>
             <el-form-item label="查询 - 字段">
-              <el-input v-model="(nodeData as any).query.outputKey" placeholder="输出字段" @change="onDataChange" />
+              <el-input
+                v-model="(nodeData as any).query.outputKey"
+                placeholder="输出字段"
+                @change="onDataChange"
+              />
             </el-form-item>
             <el-divider content-position="left">分类</el-divider>
             <div v-for="(cat, i) in (nodeData as any).categories" :key="cat.id" class="cond-row">
-              <el-input v-model="cat.name" placeholder="分类名" size="small" @change="onDataChange" />
-              <el-input v-model="cat.description" placeholder="描述" size="small" @change="onDataChange" />
-              <el-button type="danger" size="small" circle @click="(nodeData as any).categories.splice(i, 1); onDataChange()">
+              <el-input
+                v-model="cat.name"
+                placeholder="分类名"
+                size="small"
+                @change="onDataChange"
+              />
+              <el-input
+                v-model="cat.description"
+                placeholder="描述"
+                size="small"
+                @change="onDataChange"
+              />
+              <el-button
+                type="danger"
+                size="small"
+                circle
+                @click="
+                  ;(nodeData as any).categories.splice(i, 1)
+                  onDataChange()
+                "
+              >
                 <el-icon><Delete /></el-icon>
               </el-button>
             </div>
@@ -284,13 +509,25 @@
           <template v-if="nodeData.type === NodeType.Tool">
             <el-divider content-position="left">工具配置</el-divider>
             <el-form-item label="工具 ID">
-              <el-input v-model="(nodeData as any).toolId" placeholder="工具唯一标识" @change="onDataChange" />
+              <el-input
+                v-model="(nodeData as any).toolId"
+                placeholder="工具唯一标识"
+                @change="onDataChange"
+              />
             </el-form-item>
             <el-form-item label="工具名称">
-              <el-input v-model="(nodeData as any).toolName" placeholder="工具显示名称" @change="onDataChange" />
+              <el-input
+                v-model="(nodeData as any).toolName"
+                placeholder="工具显示名称"
+                @change="onDataChange"
+              />
             </el-form-item>
             <el-form-item label="提供者">
-              <el-input v-model="(nodeData as any).providerName" placeholder="如 openai、google" @change="onDataChange" />
+              <el-input
+                v-model="(nodeData as any).providerName"
+                placeholder="如 openai、google"
+                @change="onDataChange"
+              />
             </el-form-item>
           </template>
 
@@ -298,10 +535,18 @@
           <template v-if="nodeData.type === NodeType.DocExtractor">
             <el-divider content-position="left">文档提取配置</el-divider>
             <el-form-item label="输入 - 节点ID">
-              <el-input v-model="(nodeData as any).input.nodeId" placeholder="节点ID" @change="onDataChange" />
+              <el-input
+                v-model="(nodeData as any).input.nodeId"
+                placeholder="节点ID"
+                @change="onDataChange"
+              />
             </el-form-item>
             <el-form-item label="输入 - 字段">
-              <el-input v-model="(nodeData as any).input.outputKey" placeholder="输出字段" @change="onDataChange" />
+              <el-input
+                v-model="(nodeData as any).input.outputKey"
+                placeholder="输出字段"
+                @change="onDataChange"
+              />
             </el-form-item>
             <el-form-item label="输出格式">
               <el-select v-model="(nodeData as any).outputType" size="small" @change="onDataChange">
@@ -315,21 +560,41 @@
           <template v-if="nodeData.type === NodeType.ListFilter">
             <el-divider content-position="left">列表过滤配置</el-divider>
             <el-form-item label="输入 - 节点ID">
-              <el-input v-model="(nodeData as any).input.nodeId" placeholder="节点ID" @change="onDataChange" />
+              <el-input
+                v-model="(nodeData as any).input.nodeId"
+                placeholder="节点ID"
+                @change="onDataChange"
+              />
             </el-form-item>
             <el-form-item label="输入 - 字段">
-              <el-input v-model="(nodeData as any).input.outputKey" placeholder="输出字段" @change="onDataChange" />
+              <el-input
+                v-model="(nodeData as any).input.outputKey"
+                placeholder="输出字段"
+                @change="onDataChange"
+              />
             </el-form-item>
             <el-form-item label="过滤字段">
-              <el-input v-model="(nodeData as any).filterCondition.key" placeholder="过滤的 key" @change="onDataChange" />
+              <el-input
+                v-model="(nodeData as any).filterCondition.key"
+                placeholder="过滤的 key"
+                @change="onDataChange"
+              />
             </el-form-item>
             <el-form-item label="比较运算符">
-              <el-select v-model="(nodeData as any).filterCondition.comparisonOperator" size="small" @change="onDataChange">
+              <el-select
+                v-model="(nodeData as any).filterCondition.comparisonOperator"
+                size="small"
+                @change="onDataChange"
+              >
                 <el-option v-for="op in comparisonOperators" :key="op" :label="op" :value="op" />
               </el-select>
             </el-form-item>
             <el-form-item label="值">
-              <el-input v-model="(nodeData as any).filterCondition.value" placeholder="比较值" @change="onDataChange" />
+              <el-input
+                v-model="(nodeData as any).filterCondition.value"
+                placeholder="比较值"
+                @change="onDataChange"
+              />
             </el-form-item>
             <el-form-item label="输出类型">
               <el-select v-model="(nodeData as any).outputType" size="small" @change="onDataChange">
@@ -342,43 +607,106 @@
           <template v-if="nodeData.type === NodeType.Agent">
             <el-divider content-position="left">Agent 配置</el-divider>
             <el-form-item label="模型">
-              <el-input v-model="(nodeData as any).model" placeholder="如 gpt-4o" @change="onDataChange" />
+              <el-input
+                v-model="(nodeData as any).model"
+                placeholder="如 gpt-4o"
+                @change="onDataChange"
+              />
             </el-form-item>
             <el-form-item label="系统提示词">
-              <el-input v-model="(nodeData as any).promptTemplate" type="textarea" :rows="4" placeholder="Agent 的指令..." @change="onDataChange" />
+              <el-input
+                v-model="(nodeData as any).promptTemplate"
+                type="textarea"
+                :rows="4"
+                placeholder="Agent 的指令..."
+                @change="onDataChange"
+              />
             </el-form-item>
             <el-form-item label="最大迭代次数">
-              <el-input-number v-model="(nodeData as any).maxIterations" :min="1" :max="50" size="small" @change="onDataChange" />
+              <el-input-number
+                v-model="(nodeData as any).maxIterations"
+                :min="1"
+                :max="50"
+                size="small"
+                @change="onDataChange"
+              />
             </el-form-item>
             <el-divider content-position="left">可用工具</el-divider>
             <div v-for="(tool, i) in (nodeData as any).tools" :key="i" class="var-row">
-              <el-input :model-value="tool" placeholder="工具ID" size="small" @update:model-value="(v: string) => { (nodeData as any).tools[i] = v; onDataChange() }" />
-              <el-button type="danger" size="small" circle @click="(nodeData as any).tools.splice(i, 1); onDataChange()">
+              <el-input
+                :model-value="tool"
+                placeholder="工具ID"
+                size="small"
+                @update:model-value="
+                  (v: string) => {
+                    ;(nodeData as any).tools[i] = v
+                    onDataChange()
+                  }
+                "
+              />
+              <el-button
+                type="danger"
+                size="small"
+                circle
+                @click="
+                  ;(nodeData as any).tools.splice(i, 1)
+                  onDataChange()
+                "
+              >
                 <el-icon><Delete /></el-icon>
               </el-button>
             </div>
-            <el-button size="small" @click="(nodeData as any).tools.push(''); onDataChange()">+ 添加工具</el-button>
+            <el-button
+              size="small"
+              @click="
+                ;(nodeData as any).tools.push('')
+                onDataChange()
+              "
+              >+ 添加工具</el-button
+            >
           </template>
 
           <!-- Loop 节点 -->
           <template v-if="nodeData.type === NodeType.Loop">
             <el-divider content-position="left">循环配置</el-divider>
             <el-form-item label="条件变量 - 节点ID">
-              <el-input v-model="(nodeData as any).loopCondition.variableSelector.nodeId" placeholder="节点ID" @change="onDataChange" />
+              <el-input
+                v-model="(nodeData as any).loopCondition.variableSelector.nodeId"
+                placeholder="节点ID"
+                @change="onDataChange"
+              />
             </el-form-item>
             <el-form-item label="条件变量 - 字段">
-              <el-input v-model="(nodeData as any).loopCondition.variableSelector.outputKey" placeholder="字段" @change="onDataChange" />
+              <el-input
+                v-model="(nodeData as any).loopCondition.variableSelector.outputKey"
+                placeholder="字段"
+                @change="onDataChange"
+              />
             </el-form-item>
             <el-form-item label="比较运算符">
-              <el-select v-model="(nodeData as any).loopCondition.comparisonOperator" size="small" @change="onDataChange">
+              <el-select
+                v-model="(nodeData as any).loopCondition.comparisonOperator"
+                size="small"
+                @change="onDataChange"
+              >
                 <el-option v-for="op in comparisonOperators" :key="op" :label="op" :value="op" />
               </el-select>
             </el-form-item>
             <el-form-item label="值">
-              <el-input v-model="(nodeData as any).loopCondition.value" placeholder="比较值" @change="onDataChange" />
+              <el-input
+                v-model="(nodeData as any).loopCondition.value"
+                placeholder="比较值"
+                @change="onDataChange"
+              />
             </el-form-item>
             <el-form-item label="最大迭代次数">
-              <el-input-number v-model="(nodeData as any).maxIterations" :min="1" :max="10000" size="small" @change="onDataChange" />
+              <el-input-number
+                v-model="(nodeData as any).maxIterations"
+                :min="1"
+                :max="10000"
+                size="small"
+                @change="onDataChange"
+              />
             </el-form-item>
           </template>
 
@@ -386,19 +714,54 @@
           <template v-if="nodeData.type === NodeType.HumanInput">
             <el-divider content-position="left">人工介入配置</el-divider>
             <el-form-item label="超时(秒)">
-              <el-input-number v-model="(nodeData as any).timeout" :min="60" :max="86400" size="small" @change="onDataChange" />
+              <el-input-number
+                v-model="(nodeData as any).timeout"
+                :min="60"
+                :max="86400"
+                size="small"
+                @change="onDataChange"
+              />
             </el-form-item>
             <el-divider content-position="left">表单字段</el-divider>
-            <div v-for="(field, i) in (nodeData as any).inputForm" :key="field.id" class="cond-row" style="flex-wrap:wrap">
-              <el-input v-model="field.variable" placeholder="变量名" size="small" style="width:100px" @change="onDataChange" />
-              <el-select v-model="field.type" size="small" style="width:90px" @change="onDataChange">
+            <div
+              v-for="(field, i) in (nodeData as any).inputForm"
+              :key="field.id"
+              class="cond-row"
+              style="flex-wrap: wrap"
+            >
+              <el-input
+                v-model="field.variable"
+                placeholder="变量名"
+                size="small"
+                style="width: 100px"
+                @change="onDataChange"
+              />
+              <el-select
+                v-model="field.type"
+                size="small"
+                style="width: 90px"
+                @change="onDataChange"
+              >
                 <el-option label="文本" value="text" />
                 <el-option label="数字" value="number" />
                 <el-option label="选择" value="select" />
                 <el-option label="布尔" value="boolean" />
               </el-select>
-              <el-input v-model="field.label" placeholder="标签" size="small" @change="onDataChange" />
-              <el-button type="danger" size="small" circle @click="(nodeData as any).inputForm.splice(i, 1); onDataChange()">
+              <el-input
+                v-model="field.label"
+                placeholder="标签"
+                size="small"
+                @change="onDataChange"
+              />
+              <el-button
+                type="danger"
+                size="small"
+                circle
+                @click="
+                  ;(nodeData as any).inputForm.splice(i, 1)
+                  onDataChange()
+                "
+              >
                 <el-icon><Delete /></el-icon>
               </el-button>
             </div>
@@ -441,9 +804,20 @@ const nodeData = ref<CommonNodeData | null>(null)
 const varTypes = Object.values(VarType)
 
 const comparisonOperators: ComparisonOperator[] = [
-  'contains', 'not contains', 'start with', 'end with',
-  'is', 'is not', 'empty', 'not empty',
-  '=', '!=', '>', '<', '>=', '<=',
+  'contains',
+  'not contains',
+  'start with',
+  'end with',
+  'is',
+  'is not',
+  'empty',
+  'not empty',
+  '=',
+  '!=',
+  '>',
+  '<',
+  '>=',
+  '<=',
 ]
 
 /** HTTP 授权辅助状态 */
@@ -597,7 +971,11 @@ function onAuthChange() {
   if (authType.value === 'no-auth') {
     d.authorization = undefined
   } else if (authType.value === 'api-key') {
-    d.authorization = { type: 'api-key', headerName: authHeaderName.value, headerValue: authHeaderValue.value }
+    d.authorization = {
+      type: 'api-key',
+      headerName: authHeaderName.value,
+      headerValue: authHeaderValue.value,
+    }
   } else if (authType.value === 'bearer') {
     d.authorization = { type: 'bearer', token: authToken.value }
   }
@@ -658,7 +1036,9 @@ function onAuthChange() {
   align-items: center;
   justify-content: center;
   color: #9ca3af;
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
 }
 
 .node-config-panel__close:hover {
@@ -718,7 +1098,9 @@ function onAuthChange() {
 
 .config-panel__form :deep(.el-input__wrapper.is-focus),
 .config-panel__form :deep(.el-textarea__inner:focus) {
-  box-shadow: 0 0 0 1px #6366f1 inset, 0 0 0 3px rgba(99, 102, 241, 0.12);
+  box-shadow:
+    0 0 0 1px #6366f1 inset,
+    0 0 0 3px rgba(99, 102, 241, 0.12);
 }
 
 .config-panel__form :deep(.el-form-item) {

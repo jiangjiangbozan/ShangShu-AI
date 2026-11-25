@@ -7,14 +7,20 @@
           <el-icon :size="16"><ArrowLeft /></el-icon>
         </button>
         <div class="run-detail__meta">
-          <div class="run-detail__runid">执行记录 <code>{{ runId }}</code></div>
+          <div class="run-detail__runid">
+            执行记录 <code>{{ runId }}</code>
+          </div>
           <div class="run-detail__sub">
             <span class="run-detail__chip" :class="'is-' + (run?.status || '').toLowerCase()">
               <span class="run-detail__chip-dot" />
               {{ statusLabel(run?.status || '') }}
             </span>
-            <span v-if="run?.elapsedMs" class="run-detail__sub-item">耗时 {{ (run.elapsedMs / 1000).toFixed(1) }}s</span>
-            <span v-if="run?.totalTokens" class="run-detail__sub-item">Token {{ run.totalTokens }}</span>
+            <span v-if="run?.elapsedMs" class="run-detail__sub-item"
+              >耗时 {{ (run.elapsedMs / 1000).toFixed(1) }}s</span
+            >
+            <span v-if="run?.totalTokens" class="run-detail__sub-item"
+              >Token {{ run.totalTokens }}</span
+            >
             <span v-if="run?.createdAt" class="run-detail__sub-item">开始 {{ run.createdAt }}</span>
           </div>
         </div>
@@ -43,19 +49,21 @@
       </div>
 
       <!-- 右侧节点详情面板 -->
-      <el-drawer
-        v-model="drawerVisible"
-        title="节点详情"
-        direction="rtl"
-        size="420px"
-      >
+      <el-drawer v-model="drawerVisible" title="节点详情" direction="rtl" size="420px">
         <template v-if="selectedNode">
           <el-descriptions :column="1" border>
             <el-descriptions-item label="节点 ID">{{ selectedNode.nodeId }}</el-descriptions-item>
-            <el-descriptions-item label="节点类型">{{ selectedNode.nodeType }}</el-descriptions-item>
-            <el-descriptions-item label="标题">{{ selectedNode.title || '-' }}</el-descriptions-item>
+            <el-descriptions-item label="节点类型">{{
+              selectedNode.nodeType
+            }}</el-descriptions-item>
+            <el-descriptions-item label="标题">{{
+              selectedNode.title || '-'
+            }}</el-descriptions-item>
             <el-descriptions-item label="状态">
-              <span class="run-detail__chip" :class="'is-' + (selectedNode.status || '').toLowerCase()">
+              <span
+                class="run-detail__chip"
+                :class="'is-' + (selectedNode.status || '').toLowerCase()"
+              >
                 <span class="run-detail__chip-dot" />
                 {{ statusLabel(selectedNode.status) }}
               </span>
@@ -80,7 +88,9 @@
 
           <div v-if="selectedNode.errorMessage" class="run-detail__section">
             <div class="run-detail__section-title run-detail__error">错误信息</div>
-            <pre class="run-detail__code run-detail__error-code">{{ selectedNode.errorMessage }}</pre>
+            <pre class="run-detail__code run-detail__error-code">{{
+              selectedNode.errorMessage
+            }}</pre>
           </div>
         </template>
       </el-drawer>
@@ -224,21 +234,31 @@ const flowEdges = computed<FlowEdge[]>(() => {
 
 function nodeColors(status: string) {
   switch (status?.toUpperCase()) {
-    case 'SUCCEEDED': return { border: '#22c55e', bg: '#f0fdf4' }
-    case 'FAILED': return { border: '#ef4444', bg: '#fef2f2' }
-    case 'RUNNING': return { border: '#f59e0b', bg: '#fffbeb' }
-    case 'SKIPPED': return { border: '#cbd5e1', bg: '#f8fafc' }
-    default: return { border: '#94a3b8', bg: '#f8fafc' }
+    case 'SUCCEEDED':
+      return { border: '#22c55e', bg: '#f0fdf4' }
+    case 'FAILED':
+      return { border: '#ef4444', bg: '#fef2f2' }
+    case 'RUNNING':
+      return { border: '#f59e0b', bg: '#fffbeb' }
+    case 'SKIPPED':
+      return { border: '#cbd5e1', bg: '#f8fafc' }
+    default:
+      return { border: '#94a3b8', bg: '#f8fafc' }
   }
 }
 
 function statusLabel(status: string) {
   switch (status?.toUpperCase()) {
-    case 'SUCCEEDED': return '成功'
-    case 'FAILED': return '失败'
-    case 'RUNNING': return '运行中'
-    case 'SKIPPED': return '已跳过'
-    default: return status || '未执行'
+    case 'SUCCEEDED':
+      return '成功'
+    case 'FAILED':
+      return '失败'
+    case 'RUNNING':
+      return '运行中'
+    case 'SKIPPED':
+      return '已跳过'
+    default:
+      return status || '未执行'
   }
 }
 
@@ -334,7 +354,10 @@ onMounted(loadData)
   border-radius: 10px;
   color: #4b5563;
   cursor: pointer;
-  transition: border-color 0.15s, color 0.15s, background 0.15s;
+  transition:
+    border-color 0.15s,
+    color 0.15s,
+    background 0.15s;
 }
 .run-detail__back:hover {
   border-color: #c7d2fe;
@@ -385,10 +408,22 @@ onMounted(loadData)
   border-radius: 50%;
   background: currentColor;
 }
-.run-detail__chip.is-succeeded { color: #059669; background: #ecfdf5; }
-.run-detail__chip.is-failed { color: #dc2626; background: #fef2f2; }
-.run-detail__chip.is-running { color: #d97706; background: #fffbeb; }
-.run-detail__chip.is-paused { color: #6b7280; background: #f3f4f6; }
+.run-detail__chip.is-succeeded {
+  color: #059669;
+  background: #ecfdf5;
+}
+.run-detail__chip.is-failed {
+  color: #dc2626;
+  background: #fef2f2;
+}
+.run-detail__chip.is-running {
+  color: #d97706;
+  background: #fffbeb;
+}
+.run-detail__chip.is-paused {
+  color: #6b7280;
+  background: #f3f4f6;
+}
 .run-detail__chip:not(.is-succeeded):not(.is-failed):not(.is-running):not(.is-paused) {
   color: #6b7280;
   background: #f3f4f6;

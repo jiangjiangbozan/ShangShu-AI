@@ -4,7 +4,9 @@
     <div class="docex-node__info">
       <div v-if="docexData.input?.outputKey" class="docex-node__item">
         <span class="docex-node__label">输入</span>
-        <span class="docex-node__value">{{ docexData.input.nodeId }}.{{ docexData.input.outputKey }}</span>
+        <span class="docex-node__value"
+          >{{ docexData.input.nodeId }}.{{ docexData.input.outputKey }}</span
+        >
       </div>
       <div class="docex-node__item">
         <span class="docex-node__label">输出格式</span>

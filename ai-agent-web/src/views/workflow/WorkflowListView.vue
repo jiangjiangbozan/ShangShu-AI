@@ -17,7 +17,12 @@
           clearable
           class="wf-list__search"
         />
-        <el-button type="primary" class="wf-list__create-btn" @click="handleCreate" :loading="creating">
+        <el-button
+          type="primary"
+          class="wf-list__create-btn"
+          @click="handleCreate"
+          :loading="creating"
+        >
           <el-icon class="wf-list__create-icon"><Plus /></el-icon>
           <span>新建工作流</span>
         </el-button>
@@ -33,18 +38,51 @@
     <!-- 空态 -->
     <div v-else-if="!filteredList.length" class="wf-list__empty">
       <div class="wf-list__empty-icon">
-        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="8" y="8" width="56" height="56" rx="16" fill="url(#wf-empty-grad)" opacity="0.12"/>
-          <rect x="20" y="24" width="14" height="10" rx="3" fill="#6366f1" opacity="0.55"/>
-          <rect x="40" y="24" width="14" height="10" rx="3" fill="#8b5cf6" opacity="0.55"/>
-          <path d="M34 29h6" stroke="#94a3b8" stroke-width="1.6" stroke-linecap="round"/>
-          <path d="M27 34v10a3 3 0 0 0 3 3h5" stroke="#94a3b8" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="3 3"/>
-          <path d="M47 34v10a3 3 0 0 1-3 3h-5" stroke="#94a3b8" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="3 3"/>
-          <rect x="30" y="44" width="14" height="10" rx="3" fill="#10b981" opacity="0.5"/>
+        <svg
+          width="72"
+          height="72"
+          viewBox="0 0 72 72"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect
+            x="8"
+            y="8"
+            width="56"
+            height="56"
+            rx="16"
+            fill="url(#wf-empty-grad)"
+            opacity="0.12"
+          />
+          <rect x="20" y="24" width="14" height="10" rx="3" fill="#6366f1" opacity="0.55" />
+          <rect x="40" y="24" width="14" height="10" rx="3" fill="#8b5cf6" opacity="0.55" />
+          <path d="M34 29h6" stroke="#94a3b8" stroke-width="1.6" stroke-linecap="round" />
+          <path
+            d="M27 34v10a3 3 0 0 0 3 3h5"
+            stroke="#94a3b8"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-dasharray="3 3"
+          />
+          <path
+            d="M47 34v10a3 3 0 0 1-3 3h-5"
+            stroke="#94a3b8"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-dasharray="3 3"
+          />
+          <rect x="30" y="44" width="14" height="10" rx="3" fill="#10b981" opacity="0.5" />
           <defs>
-            <linearGradient id="wf-empty-grad" x1="8" y1="8" x2="64" y2="64" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#6366f1"/>
-              <stop offset="1" stop-color="#8b5cf6"/>
+            <linearGradient
+              id="wf-empty-grad"
+              x1="8"
+              y1="8"
+              x2="64"
+              y2="64"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stop-color="#6366f1" />
+              <stop offset="1" stop-color="#8b5cf6" />
             </linearGradient>
           </defs>
         </svg>
@@ -78,18 +116,48 @@
       >
         <!-- 封面区域：抽象流程图 -->
         <div class="wf-card__cover" :style="{ background: getCoverGradient(wf.workflowId) }">
-          <svg class="wf-card__cover-svg" viewBox="0 0 280 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="44" y="44" width="32" height="32" rx="9" fill="#6366f1" opacity="0.9"/>
-            <path d="M76 60H112" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3 3"/>
-            <circle cx="128" cy="60" r="16" fill="#8b5cf6" opacity="0.85"/>
-            <path d="M144 60H180" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3 3"/>
-            <rect x="196" y="44" width="32" height="32" rx="9" fill="#10b981" opacity="0.85"/>
-            <path d="M52 52l8 8-8 8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
-            <path d="M204 52h16M204 60h12M204 68h8" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.95"/>
-            <circle cx="96" cy="36" r="3" fill="#c7d2fe"/>
-            <circle cx="168" cy="84" r="3" fill="#c7d2fe"/>
-            <circle cx="112" cy="88" r="2" fill="#ddd6fe"/>
-            <circle cx="228" cy="28" r="2.5" fill="#a5f3fc"/>
+          <svg
+            class="wf-card__cover-svg"
+            viewBox="0 0 280 120"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect x="44" y="44" width="32" height="32" rx="9" fill="#6366f1" opacity="0.9" />
+            <path
+              d="M76 60H112"
+              stroke="#94a3b8"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-dasharray="3 3"
+            />
+            <circle cx="128" cy="60" r="16" fill="#8b5cf6" opacity="0.85" />
+            <path
+              d="M144 60H180"
+              stroke="#94a3b8"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-dasharray="3 3"
+            />
+            <rect x="196" y="44" width="32" height="32" rx="9" fill="#10b981" opacity="0.85" />
+            <path
+              d="M52 52l8 8-8 8"
+              stroke="white"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              opacity="0.95"
+            />
+            <path
+              d="M204 52h16M204 60h12M204 68h8"
+              stroke="white"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              opacity="0.95"
+            />
+            <circle cx="96" cy="36" r="3" fill="#c7d2fe" />
+            <circle cx="168" cy="84" r="3" fill="#c7d2fe" />
+            <circle cx="112" cy="88" r="2" fill="#ddd6fe" />
+            <circle cx="228" cy="28" r="2.5" fill="#a5f3fc" />
           </svg>
         </div>
 
@@ -97,7 +165,11 @@
         <div class="wf-card__body">
           <div class="wf-card__name-row">
             <span class="wf-card__name" :title="wf.name">{{ wf.name }}</span>
-            <el-dropdown trigger="click" @command="(cmd: string) => handleCommand(cmd, wf.workflowId)" @click.stop>
+            <el-dropdown
+              trigger="click"
+              @command="(cmd: string) => handleCommand(cmd, wf.workflowId)"
+              @click.stop
+            >
               <span class="wf-card__more" @click.stop>
                 <el-icon :size="16"><MoreFilled /></el-icon>
               </span>
@@ -136,7 +208,15 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { Loading, Plus, MoreFilled, EditPen, CopyDocument, Delete, Search } from '@element-plus/icons-vue'
+import {
+  Loading,
+  Plus,
+  MoreFilled,
+  EditPen,
+  CopyDocument,
+  Delete,
+  Search,
+} from '@element-plus/icons-vue'
 import { useWorkflowStore } from './store'
 import { updateWorkflow } from '@/api/workflow'
 
@@ -165,7 +245,7 @@ function getCoverGradient(id: string): string {
   ]
   let hash = 0
   for (let i = 0; i < id.length; i++) {
-    hash = ((hash << 5) - hash) + id.charCodeAt(i)
+    hash = (hash << 5) - hash + id.charCodeAt(i)
     hash |= 0
   }
   return gradients[Math.abs(hash) % gradients.length] ?? gradients[0]!
@@ -246,7 +326,12 @@ async function handleCommand(cmd: string, id: string) {
   width: 420px;
   height: 420px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, rgba(139, 92, 246, 0.04) 45%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(99, 102, 241, 0.08) 0%,
+    rgba(139, 92, 246, 0.04) 45%,
+    transparent 70%
+  );
   pointer-events: none;
 }
 
@@ -301,7 +386,9 @@ async function handleCommand(cmd: string, id: string) {
   box-shadow: 0 0 0 1px #c7d2fe inset;
 }
 .wf-list__search :deep(.el-input__wrapper.is-focus) {
-  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.35) inset, 0 0 0 3px rgba(99, 102, 241, 0.12);
+  box-shadow:
+    0 0 0 2px rgba(99, 102, 241, 0.35) inset,
+    0 0 0 3px rgba(99, 102, 241, 0.12);
 }
 .wf-list__create-btn {
   white-space: nowrap;
@@ -310,12 +397,18 @@ async function handleCommand(cmd: string, id: string) {
   padding: 10px 18px;
   font-weight: 600;
   background: linear-gradient(135deg, #6366f1 0%, #7c3aed 100%);
-  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.18);
-  transition: box-shadow 0.2s, transform 0.15s;
+  box-shadow:
+    0 2px 8px rgba(99, 102, 241, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  transition:
+    box-shadow 0.2s,
+    transform 0.15s;
 }
 .wf-list__create-btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  box-shadow:
+    0 4px 14px rgba(99, 102, 241, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
 .wf-list__create-btn:active {
   transform: translateY(0);
@@ -364,11 +457,16 @@ async function handleCommand(cmd: string, id: string) {
   border-radius: 14px;
   border: 1px solid #eef0f4;
   cursor: pointer;
-  transition: transform 0.22s cubic-bezier(0.34, 1.4, 0.64, 1), box-shadow 0.22s ease, border-color 0.22s ease;
+  transition:
+    transform 0.22s cubic-bezier(0.34, 1.4, 0.64, 1),
+    box-shadow 0.22s ease,
+    border-color 0.22s ease;
   overflow: hidden;
 }
 .wf-card:hover {
-  box-shadow: 0 12px 28px -6px rgba(17, 24, 39, 0.12), 0 4px 10px -2px rgba(17, 24, 39, 0.06);
+  box-shadow:
+    0 12px 28px -6px rgba(17, 24, 39, 0.12),
+    0 4px 10px -2px rgba(17, 24, 39, 0.06);
   border-color: #e0e7ff;
   transform: translateY(-3px);
 }
@@ -382,7 +480,11 @@ async function handleCommand(cmd: string, id: string) {
   justify-content: center;
   min-height: 200px;
   border-radius: 14px;
-  transition: border-color 0.2s, background 0.2s, transform 0.22s cubic-bezier(0.34, 1.4, 0.64, 1), box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    background 0.2s,
+    transform 0.22s cubic-bezier(0.34, 1.4, 0.64, 1),
+    box-shadow 0.2s;
 }
 .wf-card--create:hover {
   border-color: #6366f1;
@@ -466,7 +568,9 @@ async function handleCommand(cmd: string, id: string) {
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
 }
 .wf-card__more:hover {
   background: #f3f4f6;

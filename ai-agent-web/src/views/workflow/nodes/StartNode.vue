@@ -15,7 +15,7 @@
 import { computed } from 'vue'
 import { Position, Handle } from '@vue-flow/core'
 import BaseNode from './BaseNode.vue'
-import { type CommonNodeData, type StartNodeData, NodeType } from '../types'
+import { type CommonNodeData, type StartNodeData } from '../types'
 
 const props = defineProps<{
   id: string

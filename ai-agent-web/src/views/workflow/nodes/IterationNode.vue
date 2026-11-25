@@ -4,7 +4,9 @@
     <div class="iteration-node__info">
       <div v-if="iterData.iterator?.outputKey" class="iteration-node__item">
         <span class="iteration-node__label">迭代对象</span>
-        <span class="iteration-node__value">{{ iterData.iterator.nodeId }}.{{ iterData.iterator.outputKey }}</span>
+        <span class="iteration-node__value"
+          >{{ iterData.iterator.nodeId }}.{{ iterData.iterator.outputKey }}</span
+        >
       </div>
       <div v-if="iterData.outputType" class="iteration-node__item">
         <span class="iteration-node__label">输出类型</span>

@@ -7,9 +7,13 @@
         <span class="qclassifier-node__value">{{ qcData.model }}</span>
       </div>
       <div v-if="qcData.categories?.length" class="qclassifier-node__categories">
-        <span v-for="cat in qcData.categories" :key="cat.id" class="qclassifier-node__cat-tag">{{ cat.name }}</span>
+        <span v-for="cat in qcData.categories" :key="cat.id" class="qclassifier-node__cat-tag">{{
+          cat.name
+        }}</span>
       </div>
-      <div v-if="!qcData.model && !qcData.categories?.length" class="qclassifier-node__empty">点击配置问题分类</div>
+      <div v-if="!qcData.model && !qcData.categories?.length" class="qclassifier-node__empty">
+        点击配置问题分类
+      </div>
     </div>
   </BaseNode>
   <Handle type="source" :position="Position.Right" />

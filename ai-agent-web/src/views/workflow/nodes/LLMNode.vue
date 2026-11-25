@@ -7,9 +7,12 @@
         <span class="llm-node__value">{{ llmData.model }}</span>
       </div>
       <div v-if="llmData.promptTemplate" class="llm-node__prompt">
-        {{ llmData.promptTemplate.slice(0, 60) }}{{ llmData.promptTemplate.length > 60 ? '...' : '' }}
+        {{ llmData.promptTemplate.slice(0, 60)
+        }}{{ llmData.promptTemplate.length > 60 ? '...' : '' }}
       </div>
-      <div v-if="!llmData.model && !llmData.promptTemplate" class="llm-node__empty">点击配置 LLM</div>
+      <div v-if="!llmData.model && !llmData.promptTemplate" class="llm-node__empty">
+        点击配置 LLM
+      </div>
     </div>
   </BaseNode>
   <Handle type="source" :position="Position.Right" />

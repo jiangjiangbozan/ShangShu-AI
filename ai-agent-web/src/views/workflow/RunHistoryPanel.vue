@@ -1,11 +1,5 @@
 <template>
-  <el-drawer
-    v-model="visible"
-    title="运行历史"
-    direction="rtl"
-    size="400px"
-    destroy-on-close
-  >
+  <el-drawer v-model="visible" title="运行历史" direction="rtl" size="400px" destroy-on-close>
     <div v-if="loading" class="run-panel__loading">
       <el-icon class="is-loading"><Loading /></el-icon>
       <span>加载中...</span>
@@ -23,9 +17,15 @@
           <span class="run-panel__time">{{ formatTime(run.createdAt) }}</span>
         </div>
         <div class="run-panel__meta">
-          <span v-if="run.version !== undefined" class="run-panel__meta-item">v{{ run.version }}</span>
-          <span v-if="run.elapsedMs" class="run-panel__meta-item">{{ (run.elapsedMs / 1000).toFixed(1) }}s</span>
-          <span v-if="run.totalTokens" class="run-panel__meta-item">{{ run.totalTokens }} tokens</span>
+          <span v-if="run.version !== undefined" class="run-panel__meta-item"
+            >v{{ run.version }}</span
+          >
+          <span v-if="run.elapsedMs" class="run-panel__meta-item"
+            >{{ (run.elapsedMs / 1000).toFixed(1) }}s</span
+          >
+          <span v-if="run.totalTokens" class="run-panel__meta-item"
+            >{{ run.totalTokens }} tokens</span
+          >
         </div>
         <div v-if="run.errorMessage" class="run-panel__error">{{ run.errorMessage }}</div>
       </div>
@@ -56,7 +56,12 @@ watch(visible, async (v) => {
 })
 
 function statusLabel(s: string) {
-  const map: Record<string, string> = { running: '运行中', succeeded: '成功', failed: '失败', stopped: '已停止' }
+  const map: Record<string, string> = {
+    running: '运行中',
+    succeeded: '成功',
+    failed: '失败',
+    stopped: '已停止',
+  }
   return map[s] ?? s
 }
 
@@ -88,7 +93,9 @@ defineExpose({ visible })
   border: 1px solid #eef0f7;
   border-radius: 12px;
   background: #fff;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
 }
 .run-panel__card:hover {
   border-color: #dde1f0;

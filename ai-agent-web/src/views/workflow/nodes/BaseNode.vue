@@ -12,27 +12,90 @@
     ]"
   >
     <!-- VueFlow Handles -->
-    <Handle type="target" :position="Position.Left" class="wf-node__handle wf-node__handle--target" />
-    <Handle type="source" :position="Position.Right" class="wf-node__handle wf-node__handle--source" />
+    <Handle
+      type="target"
+      :position="Position.Left"
+      class="wf-node__handle wf-node__handle--target"
+    />
+    <Handle
+      type="source"
+      :position="Position.Right"
+      class="wf-node__handle wf-node__handle--source"
+    />
 
     <!-- 头部：图标芯片 + 标题 + 状态 + 菜单 -->
     <div class="wf-node__header">
-      <span class="wf-node__icon" :style="{ background: iconSoftBg, color: iconColor }">{{ nodeIcon }}</span>
+      <span class="wf-node__icon" :style="{ background: iconSoftBg, color: iconColor }">{{
+        nodeIcon
+      }}</span>
       <span class="wf-node__title">{{ data.title }}</span>
       <!-- 运行状态图标 -->
-      <span v-if="data._runningStatus === 'running'" class="wf-node__status-icon wf-node__status-icon--running">
-        <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="2" stroke-dasharray="4 3" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" from="0 7 7" to="360 7 7" dur="1s" repeatCount="indefinite"/></circle></svg>
+      <span
+        v-if="data._runningStatus === 'running'"
+        class="wf-node__status-icon wf-node__status-icon--running"
+      >
+        <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+          <circle
+            cx="7"
+            cy="7"
+            r="5.5"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-dasharray="4 3"
+            stroke-linecap="round"
+          >
+            <animateTransform
+              attributeName="transform"
+              type="rotate"
+              from="0 7 7"
+              to="360 7 7"
+              dur="1s"
+              repeatCount="indefinite"
+            />
+          </circle>
+        </svg>
       </span>
-      <span v-else-if="data._runningStatus === 'succeeded'" class="wf-node__status-icon wf-node__status-icon--succeeded">
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2 5 8.7l4.5-5.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span
+        v-else-if="data._runningStatus === 'succeeded'"
+        class="wf-node__status-icon wf-node__status-icon--succeeded"
+      >
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path
+            d="M2.5 6.2 5 8.7l4.5-5.4"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
       </span>
-      <span v-else-if="data._runningStatus === 'failed'" class="wf-node__status-icon wf-node__status-icon--failed">
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span
+        v-else-if="data._runningStatus === 'failed'"
+        class="wf-node__status-icon wf-node__status-icon--failed"
+      >
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path
+            d="M3 3l6 6M9 3l-6 6"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+          />
+        </svg>
       </span>
       <!-- 操作菜单 -->
-      <el-dropdown v-if="!readonly" trigger="click" @command="onCommand" class="wf-node__menu" @click.stop>
+      <el-dropdown
+        v-if="!readonly"
+        trigger="click"
+        @command="onCommand"
+        class="wf-node__menu"
+        @click.stop
+      >
         <span class="wf-node__menu-trigger" @click.stop>
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="3" cy="7" r="1.2" fill="currentColor"/><circle cx="7" cy="7" r="1.2" fill="currentColor"/><circle cx="11" cy="7" r="1.2" fill="currentColor"/></svg>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <circle cx="3" cy="7" r="1.2" fill="currentColor" />
+            <circle cx="7" cy="7" r="1.2" fill="currentColor" />
+            <circle cx="11" cy="7" r="1.2" fill="currentColor" />
+          </svg>
         </span>
         <template #dropdown>
           <el-dropdown-menu>
@@ -91,7 +154,11 @@ function onCommand(cmd: string) {
     // 副本放在原节点右下方 48px 处，避免与原节点完全重叠
     const position = { x: (props.position?.x ?? 0) + 48, y: (props.position?.y ?? 0) + 48 }
     const newId = store.genNodeId(props.data.type)
-    const newData = { ...props.data, title: `${props.data.title} (复制)`, _runningStatus: undefined }
+    const newData = {
+      ...props.data,
+      title: `${props.data.title} (复制)`,
+      _runningStatus: undefined,
+    }
     addNodes([{ id: newId, type: props.data.type, position, data: newData }])
     store.dirty = true
   }
@@ -103,43 +170,66 @@ function onCommand(cmd: string) {
 .wf-node {
   border-radius: 12px;
   background: #fff;
-  box-shadow: 0 1px 2px rgba(17, 24, 39, 0.05), 0 1px 6px rgba(17, 24, 39, 0.04);
+  box-shadow:
+    0 1px 2px rgba(17, 24, 39, 0.05),
+    0 1px 6px rgba(17, 24, 39, 0.04);
   min-width: 220px;
   max-width: 280px;
   border: 1.5px solid #e5e8f2;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
   position: relative;
   cursor: grab;
 }
 
 .wf-node:hover {
   border-color: #c7cdf0;
-  box-shadow: 0 4px 14px -2px rgba(17, 24, 39, 0.1), 0 1px 3px rgba(17, 24, 39, 0.05);
+  box-shadow:
+    0 4px 14px -2px rgba(17, 24, 39, 0.1),
+    0 1px 3px rgba(17, 24, 39, 0.05);
 }
 
 .wf-node--selected {
   border-color: #6366f1;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.14), 0 4px 14px -2px rgba(17, 24, 39, 0.1);
+  box-shadow:
+    0 0 0 3px rgba(99, 102, 241, 0.14),
+    0 4px 14px -2px rgba(17, 24, 39, 0.1);
 }
 
 .wf-node--running {
   border-color: #f59e0b;
-  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15), 0 4px 14px -2px rgba(17, 24, 39, 0.1);
+  box-shadow:
+    0 0 0 3px rgba(245, 158, 11, 0.15),
+    0 4px 14px -2px rgba(17, 24, 39, 0.1);
   animation: wf-node-running-glow 1.6s ease-in-out infinite;
 }
 @keyframes wf-node-running-glow {
-  0%, 100% { box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15), 0 4px 14px -2px rgba(17, 24, 39, 0.1); }
-  50% { box-shadow: 0 0 0 5px rgba(245, 158, 11, 0.22), 0 4px 14px -2px rgba(17, 24, 39, 0.1); }
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 3px rgba(245, 158, 11, 0.15),
+      0 4px 14px -2px rgba(17, 24, 39, 0.1);
+  }
+  50% {
+    box-shadow:
+      0 0 0 5px rgba(245, 158, 11, 0.22),
+      0 4px 14px -2px rgba(17, 24, 39, 0.1);
+  }
 }
 
 .wf-node--succeeded {
   border-color: #10b981;
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.14), 0 4px 14px -2px rgba(17, 24, 39, 0.1);
+  box-shadow:
+    0 0 0 3px rgba(16, 185, 129, 0.14),
+    0 4px 14px -2px rgba(17, 24, 39, 0.1);
 }
 
 .wf-node--failed {
   border-color: #ef4444;
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.14), 0 4px 14px -2px rgba(17, 24, 39, 0.1);
+  box-shadow:
+    0 0 0 3px rgba(239, 68, 68, 0.14),
+    0 4px 14px -2px rgba(17, 24, 39, 0.1);
 }
 
 /* ============ Handles ============ */
@@ -149,7 +239,10 @@ function onCommand(cmd: string) {
   border: 2px solid #c7cdf0 !important;
   background: #fff !important;
   border-radius: 50% !important;
-  transition: border-color 0.15s, background 0.15s, transform 0.15s;
+  transition:
+    border-color 0.15s,
+    background 0.15s,
+    transform 0.15s;
 }
 
 .wf-node__handle:hover {
@@ -253,7 +346,9 @@ function onCommand(cmd: string) {
   color: #9ca3af;
   padding: 3px;
   border-radius: 5px;
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
 }
 
 .wf-node__menu-trigger:hover {

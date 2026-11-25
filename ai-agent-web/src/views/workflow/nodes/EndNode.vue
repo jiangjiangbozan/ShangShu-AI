@@ -5,7 +5,9 @@
       <div v-for="(_, key) in endData.outputs" :key="key" class="end-node__output">
         <span class="end-node__output-key">{{ key }}</span>
       </div>
-      <div v-if="!Object.keys(endData.outputs || {}).length" class="end-node__empty">点击配置输出</div>
+      <div v-if="!Object.keys(endData.outputs || {}).length" class="end-node__empty">
+        点击配置输出
+      </div>
     </div>
   </BaseNode>
 </template>

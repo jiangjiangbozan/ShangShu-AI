@@ -4,11 +4,16 @@
     <div class="listfilter-node__info">
       <div v-if="lfData.input?.outputKey" class="listfilter-node__item">
         <span class="listfilter-node__label">输入</span>
-        <span class="listfilter-node__value">{{ lfData.input.nodeId }}.{{ lfData.input.outputKey }}</span>
+        <span class="listfilter-node__value"
+          >{{ lfData.input.nodeId }}.{{ lfData.input.outputKey }}</span
+        >
       </div>
       <div v-if="lfData.filterCondition?.key" class="listfilter-node__item">
         <span class="listfilter-node__label">条件</span>
-        <span class="listfilter-node__value">{{ lfData.filterCondition.key }} {{ lfData.filterCondition.comparisonOperator }} {{ lfData.filterCondition.value }}</span>
+        <span class="listfilter-node__value"
+          >{{ lfData.filterCondition.key }} {{ lfData.filterCondition.comparisonOperator }}
+          {{ lfData.filterCondition.value }}</span
+        >
       </div>
       <div v-if="!lfData.input?.outputKey" class="listfilter-node__empty">点击配置列表过滤</div>
     </div>

@@ -11,7 +11,8 @@
         <span class="agent-node__value">{{ agentData.tools.length }} 个</span>
       </div>
       <div v-if="agentData.promptTemplate" class="agent-node__prompt">
-        {{ agentData.promptTemplate.slice(0, 50) }}{{ agentData.promptTemplate.length > 50 ? '...' : '' }}
+        {{ agentData.promptTemplate.slice(0, 50)
+        }}{{ agentData.promptTemplate.length > 50 ? '...' : '' }}
       </div>
       <div v-if="!agentData.model" class="agent-node__empty">点击配置 Agent</div>
     </div>

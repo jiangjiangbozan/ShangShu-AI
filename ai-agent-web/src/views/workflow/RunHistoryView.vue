@@ -28,14 +28,24 @@
         :data="records"
         v-loading="loading"
         class="run-history__table"
-        :header-cell-style="{ background: '#f9fafc', color: '#6b7280', fontWeight: 600, fontSize: '12px' }"
+        :header-cell-style="{
+          background: '#f9fafc',
+          color: '#6b7280',
+          fontWeight: 600,
+          fontSize: '12px',
+        }"
       >
         <el-table-column prop="runId" label="Run ID" min-width="200" show-overflow-tooltip>
           <template #default="{ row }">
             <code class="run-history__code">{{ row.runId }}</code>
           </template>
         </el-table-column>
-        <el-table-column prop="workflowId" label="工作流 ID" min-width="180" show-overflow-tooltip />
+        <el-table-column
+          prop="workflowId"
+          label="工作流 ID"
+          min-width="180"
+          show-overflow-tooltip
+        />
         <el-table-column label="状态" width="110">
           <template #default="{ row }">
             <span class="run-history__chip" :class="'is-' + (row.status || '').toLowerCase()">
@@ -46,13 +56,17 @@
         </el-table-column>
         <el-table-column label="耗时" width="100" align="right">
           <template #default="{ row }">
-            <span v-if="row.elapsedMs != null" class="run-history__mono">{{ (row.elapsedMs / 1000).toFixed(1) }}s</span>
+            <span v-if="row.elapsedMs != null" class="run-history__mono"
+              >{{ (row.elapsedMs / 1000).toFixed(1) }}s</span
+            >
             <span v-else>-</span>
           </template>
         </el-table-column>
         <el-table-column label="Token" width="100" align="right">
           <template #default="{ row }">
-            <span v-if="row.totalTokens != null" class="run-history__mono">{{ row.totalTokens }}</span>
+            <span v-if="row.totalTokens != null" class="run-history__mono">{{
+              row.totalTokens
+            }}</span>
             <span v-else>-</span>
           </template>
         </el-table-column>
@@ -123,11 +137,16 @@ function onViewDetail(row: WorkflowRunItem) {
 
 function statusLabel(status: string) {
   switch (status) {
-    case 'SUCCEEDED': return '成功'
-    case 'FAILED': return '失败'
-    case 'RUNNING': return '运行中'
-    case 'PAUSED': return '暂停'
-    default: return status
+    case 'SUCCEEDED':
+      return '成功'
+    case 'FAILED':
+      return '失败'
+    case 'RUNNING':
+      return '运行中'
+    case 'PAUSED':
+      return '暂停'
+    default:
+      return status
   }
 }
 
@@ -211,10 +230,22 @@ onMounted(loadData)
   border-radius: 50%;
   background: currentColor;
 }
-.run-history__chip.is-succeeded { color: #059669; background: #ecfdf5; }
-.run-history__chip.is-failed { color: #dc2626; background: #fef2f2; }
-.run-history__chip.is-running { color: #d97706; background: #fffbeb; }
-.run-history__chip.is-paused { color: #6b7280; background: #f3f4f6; }
+.run-history__chip.is-succeeded {
+  color: #059669;
+  background: #ecfdf5;
+}
+.run-history__chip.is-failed {
+  color: #dc2626;
+  background: #fef2f2;
+}
+.run-history__chip.is-running {
+  color: #d97706;
+  background: #fffbeb;
+}
+.run-history__chip.is-paused {
+  color: #6b7280;
+  background: #f3f4f6;
+}
 .run-history__mono {
   font-variant-numeric: tabular-nums;
   font-size: 13px;

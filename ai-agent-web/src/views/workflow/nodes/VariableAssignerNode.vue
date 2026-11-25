@@ -29,10 +29,29 @@ const varData = computed(() => props.data as VariableAssignerNodeData)
 </script>
 
 <style scoped>
-.var-node__info { display: flex; flex-direction: column; gap: 4px; }
-.var-node__item { display: flex; align-items: center; gap: 4px; font-size: 11px; }
-.var-node__name { color: #303133; font-weight: 600; }
-.var-node__arrow { color: #909399; }
-.var-node__src { color: #6366f1; }
-.var-node__empty { color: #c0c4cc; font-style: italic; }
+.var-node__info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.var-node__item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+}
+.var-node__name {
+  color: #303133;
+  font-weight: 600;
+}
+.var-node__arrow {
+  color: #909399;
+}
+.var-node__src {
+  color: #6366f1;
+}
+.var-node__empty {
+  color: #c0c4cc;
+  font-style: italic;
+}
 </style>

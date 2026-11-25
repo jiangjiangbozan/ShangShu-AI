@@ -26,8 +26,29 @@ const httpData = computed(() => props.data as HttpRequestNodeData)
 </script>
 
 <style scoped>
-.http-node__info { display: flex; align-items: center; gap: 8px; }
-.http-node__method { font-size: 10px; padding: 1px 6px; border-radius: 3px; background: #67C23A; color: #fff; font-weight: 700; }
-.http-node__url { font-size: 11px; color: #606266; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 180px; }
-.http-node__empty { color: #c0c4cc; font-style: italic; }
+.http-node__info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.http-node__method {
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: #67c23a;
+  color: #fff;
+  font-weight: 700;
+}
+.http-node__url {
+  font-size: 11px;
+  color: #606266;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 180px;
+}
+.http-node__empty {
+  color: #c0c4cc;
+  font-style: italic;
+}
 </style>

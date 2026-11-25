@@ -424,15 +424,39 @@ export function createDefaultNodeData(type: NodeType, title?: string): WorkflowN
     case NodeType.End:
       return { type, title: label, desc: '', outputs: {} }
     case NodeType.LLM:
-      return { type, title: label, desc: '', model: '', promptTemplate: '', temperature: 0.7, maxTokens: 2048 }
+      return {
+        type,
+        title: label,
+        desc: '',
+        model: '',
+        promptTemplate: '',
+        temperature: 0.7,
+        maxTokens: 2048,
+      }
     case NodeType.IfElse:
       return { type, title: label, desc: '', conditions: [] }
     case NodeType.Code:
-      return { type, title: label, desc: '', codeLanguage: 'javascript', code: '', inputs: {}, outputs: [] }
+      return {
+        type,
+        title: label,
+        desc: '',
+        codeLanguage: 'javascript',
+        code: '',
+        inputs: {},
+        outputs: [],
+      }
     case NodeType.HttpRequest:
       return { type, title: label, desc: '', method: 'GET', url: '', headers: {}, timeout: 30000 }
     case NodeType.KnowledgeRetrieval:
-      return { type, title: label, desc: '', knowledgeBaseId: '', query: { nodeId: '', outputKey: '' }, topK: 5, scoreThreshold: 0.5 }
+      return {
+        type,
+        title: label,
+        desc: '',
+        knowledgeBaseId: '',
+        query: { nodeId: '', outputKey: '' },
+        topK: 5,
+        scoreThreshold: 0.5,
+      }
     case NodeType.VariableAssigner:
       return { type, title: label, desc: '', assignments: [] }
     case NodeType.VariableAggregator:
@@ -442,21 +466,73 @@ export function createDefaultNodeData(type: NodeType, title?: string): WorkflowN
     case NodeType.TemplateTransform:
       return { type, title: label, desc: '', template: '', variables: {} }
     case NodeType.Iteration:
-      return { type, title: label, desc: '', iterator: { nodeId: '', outputKey: '' }, outputType: VarType.ArrayString }
+      return {
+        type,
+        title: label,
+        desc: '',
+        iterator: { nodeId: '', outputKey: '' },
+        outputType: VarType.ArrayString,
+      }
     case NodeType.ParameterExtractor:
-      return { type, title: label, desc: '', model: '', query: { nodeId: '', outputKey: '' }, parameters: [], instruction: '' }
+      return {
+        type,
+        title: label,
+        desc: '',
+        model: '',
+        query: { nodeId: '', outputKey: '' },
+        parameters: [],
+        instruction: '',
+      }
     case NodeType.QuestionClassifier:
-      return { type, title: label, desc: '', model: '', query: { nodeId: '', outputKey: '' }, categories: [] }
+      return {
+        type,
+        title: label,
+        desc: '',
+        model: '',
+        query: { nodeId: '', outputKey: '' },
+        categories: [],
+      }
     case NodeType.Tool:
       return { type, title: label, desc: '', toolId: '', toolName: '', inputs: {} }
     case NodeType.DocExtractor:
-      return { type, title: label, desc: '', input: { nodeId: '', outputKey: '' }, outputType: 'text' }
+      return {
+        type,
+        title: label,
+        desc: '',
+        input: { nodeId: '', outputKey: '' },
+        outputType: 'text',
+      }
     case NodeType.ListFilter:
-      return { type, title: label, desc: '', input: { nodeId: '', outputKey: '' }, filterCondition: { key: '', comparisonOperator: 'contains', value: '' }, outputType: VarType.ArrayObject }
+      return {
+        type,
+        title: label,
+        desc: '',
+        input: { nodeId: '', outputKey: '' },
+        filterCondition: { key: '', comparisonOperator: 'contains', value: '' },
+        outputType: VarType.ArrayObject,
+      }
     case NodeType.Agent:
-      return { type, title: label, desc: '', model: '', promptTemplate: '', tools: [], maxIterations: 5 }
+      return {
+        type,
+        title: label,
+        desc: '',
+        model: '',
+        promptTemplate: '',
+        tools: [],
+        maxIterations: 5,
+      }
     case NodeType.Loop:
-      return { type, title: label, desc: '', loopCondition: { variableSelector: { nodeId: '', outputKey: '' }, comparisonOperator: 'contains', value: '' }, maxIterations: 100 }
+      return {
+        type,
+        title: label,
+        desc: '',
+        loopCondition: {
+          variableSelector: { nodeId: '', outputKey: '' },
+          comparisonOperator: 'contains',
+          value: '',
+        },
+        maxIterations: 100,
+      }
     case NodeType.HumanInput:
       return { type, title: label, desc: '', inputForm: [], timeout: 3600 }
   }

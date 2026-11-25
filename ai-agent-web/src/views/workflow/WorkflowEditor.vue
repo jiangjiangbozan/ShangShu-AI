@@ -75,10 +75,18 @@
           <el-button class="wf-toolbar__btn" @click="handleSave" :loading="saving">
             <el-icon v-if="!saving"><Check /></el-icon>保存
           </el-button>
-          <el-button class="wf-toolbar__btn wf-toolbar__btn--publish" @click="handlePublish" :loading="publishing">
+          <el-button
+            class="wf-toolbar__btn wf-toolbar__btn--publish"
+            @click="handlePublish"
+            :loading="publishing"
+          >
             <el-icon v-if="!publishing"><Upload /></el-icon>发布
           </el-button>
-          <el-button class="wf-toolbar__btn wf-toolbar__btn--run" @click="handleRun" :loading="store.running">
+          <el-button
+            class="wf-toolbar__btn wf-toolbar__btn--run"
+            @click="handleRun"
+            :loading="store.running"
+          >
             <el-icon v-if="!store.running"><VideoPlay /></el-icon>
             <span>{{ store.running ? '运行中' : '运行' }}</span>
           </el-button>
@@ -90,7 +98,9 @@
         <button class="wf-zoom__btn" @click="zoomOut" title="缩小">
           <el-icon :size="15"><ZoomOut /></el-icon>
         </button>
-        <button class="wf-zoom__percent" @click="fitView" title="适应画布">{{ zoomPercent }}%</button>
+        <button class="wf-zoom__percent" @click="fitView" title="适应画布">
+          {{ zoomPercent }}%
+        </button>
         <button class="wf-zoom__btn" @click="zoomIn" title="放大">
           <el-icon :size="15"><ZoomIn /></el-icon>
         </button>
@@ -128,11 +138,21 @@
             />
           </el-form-item>
         </template>
-        <el-alert v-else type="info" :closable="false" description="该工作流无输入变量，可直接运行" />
+        <el-alert
+          v-else
+          type="info"
+          :closable="false"
+          description="该工作流无输入变量，可直接运行"
+        />
       </el-form>
       <template #footer>
         <el-button @click="runInputVisible = false">取消</el-button>
-        <el-button type="primary" class="wf-run-dialog__submit" @click="confirmRun" :loading="store.running">
+        <el-button
+          type="primary"
+          class="wf-run-dialog__submit"
+          @click="confirmRun"
+          :loading="store.running"
+        >
           <el-icon v-if="!store.running"><VideoPlay /></el-icon>开始运行
         </el-button>
       </template>
@@ -166,8 +186,14 @@
             <button class="wf-run-panel__icon-btn" @click="store.runEvents = []" title="清除日志">
               <el-icon :size="14"><Delete /></el-icon>
             </button>
-            <button class="wf-run-panel__icon-btn" @click="runPanelCollapsed = !runPanelCollapsed" :title="runPanelCollapsed ? '展开' : '折叠'">
-              <el-icon :size="14"><component :is="runPanelCollapsed ? ArrowUp : ArrowDown" /></el-icon>
+            <button
+              class="wf-run-panel__icon-btn"
+              @click="runPanelCollapsed = !runPanelCollapsed"
+              :title="runPanelCollapsed ? '展开' : '折叠'"
+            >
+              <el-icon :size="14"
+                ><component :is="runPanelCollapsed ? ArrowUp : ArrowDown"
+              /></el-icon>
             </button>
           </div>
         </div>
@@ -181,8 +207,15 @@
             <span class="wf-run-panel__dot" />
             <span v-if="evt.nodeType" class="wf-run-panel__node-type">{{ evt.nodeType }}</span>
             <span class="wf-run-panel__event-title">{{ evt.title || evt.eventType }}</span>
-            <span v-if="evt.data?.error" class="wf-run-panel__error" :title="String(evt.data.error)">{{ evt.data.error }}</span>
-            <span v-if="evt.data?.elapsedMs" class="wf-run-panel__elapsed">{{ (evt.data.elapsedMs as number / 1000).toFixed(1) }}s</span>
+            <span
+              v-if="evt.data?.error"
+              class="wf-run-panel__error"
+              :title="String(evt.data.error)"
+              >{{ evt.data.error }}</span
+            >
+            <span v-if="evt.data?.elapsedMs" class="wf-run-panel__elapsed"
+              >{{ ((evt.data.elapsedMs as number) / 1000).toFixed(1) }}s</span
+            >
           </div>
           <div v-if="store.running" class="wf-run-panel__running">
             <el-icon class="is-loading"><Loading /></el-icon>
@@ -197,7 +230,13 @@
 <script setup lang="ts">
 import { markRaw, ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { VueFlow, useVueFlow, type Connection, type NodeTypesObject, type EdgeTypesObject } from '@vue-flow/core'
+import {
+  VueFlow,
+  useVueFlow,
+  type Connection,
+  type NodeTypesObject,
+  type EdgeTypesObject,
+} from '@vue-flow/core'
 import { Background } from '@vue-flow/background'
 import { MiniMap } from '@vue-flow/minimap'
 import '@vue-flow/core/dist/style.css'
@@ -206,12 +245,34 @@ import '@vue-flow/controls/dist/style.css'
 import '@vue-flow/minimap/dist/style.css'
 
 import {
-  ArrowLeft, RefreshLeft, RefreshRight, Check, VideoPlay, Clock, Upload,
-  ZoomIn, ZoomOut, FullScreen, Delete, ArrowUp, ArrowDown, Loading,
-  InfoFilled, CloseBold,
+  ArrowLeft,
+  RefreshLeft,
+  RefreshRight,
+  Check,
+  VideoPlay,
+  Clock,
+  Upload,
+  ZoomIn,
+  ZoomOut,
+  FullScreen,
+  Delete,
+  ArrowUp,
+  ArrowDown,
+  Loading,
+  InfoFilled,
+  CloseBold,
 } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
-import { NodeType, type CommonNodeData, type StartNodeData, type VarDefinition, type WorkflowNode, type WorkflowEdge, type WorkflowDSL, type WorkflowNodeData } from './types'
+import {
+  NodeType,
+  type CommonNodeData,
+  type StartNodeData,
+  type VarDefinition,
+  type WorkflowNode,
+  type WorkflowEdge,
+  type WorkflowDSL,
+  type WorkflowNodeData,
+} from './types'
 import { useWorkflowStore } from './store'
 import { publishWorkflow } from '@/api/workflow'
 import NodePanel from './NodePanel.vue'
@@ -244,8 +305,14 @@ const router = useRouter()
 const store = useWorkflowStore()
 
 const {
-  addNodes, addEdges, setViewport, getViewport, project,
-  zoomIn: vfZoomIn, zoomOut: vfZoomOut, fitView: vfFitView,
+  addNodes,
+  addEdges,
+  setViewport,
+  getViewport,
+  project,
+  zoomIn: vfZoomIn,
+  zoomOut: vfZoomOut,
+  fitView: vfFitView,
 } = useVueFlow({ id: 'workflow-canvas' })
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -360,15 +427,17 @@ function onNodesChange() {
 }
 
 function onConnect(params: Connection) {
-  addEdges([{
-    id: `e_${params.source}-${params.target}`,
-    source: params.source,
-    target: params.target,
-    sourceHandle: params.sourceHandle,
-    targetHandle: params.targetHandle,
-    type: 'custom',
-    animated: true,
-  }])
+  addEdges([
+    {
+      id: `e_${params.source}-${params.target}`,
+      source: params.source,
+      target: params.target,
+      sourceHandle: params.sourceHandle,
+      targetHandle: params.targetHandle,
+      type: 'custom',
+      animated: true,
+    },
+  ])
   pushSnapshot()
   store.dirty = true
 }
@@ -389,21 +458,29 @@ function onDrop(event: DragEvent) {
   const id = store.genNodeId(type)
   const data = store.createNodeData(type)
 
-  addNodes([{
-    id,
-    type,
-    position,
-    data,
-  }])
+  addNodes([
+    {
+      id,
+      type,
+      position,
+      data,
+    },
+  ])
   pushSnapshot()
   store.dirty = true
   store.selectNode(id)
 }
 
 // 缩放控制
-function zoomIn() { vfZoomIn({ duration: 200 }) }
-function zoomOut() { vfZoomOut({ duration: 200 }) }
-function fitView() { vfFitView({ padding: 0.2, duration: 300 }) }
+function zoomIn() {
+  vfZoomIn({ duration: 200 })
+}
+function zoomOut() {
+  vfZoomOut({ duration: 200 })
+}
+function fitView() {
+  vfFitView({ padding: 0.2, duration: 300 })
+}
 
 // 工具栏操作
 const saving = ref(false)
@@ -431,7 +508,7 @@ function toDSL(): WorkflowDSL {
     id: n.id as string,
     type: (n.data as CommonNodeData).type as NodeType,
     position: n.position as { x: number; y: number },
-    data: (n.data as CommonNodeData) as unknown as WorkflowNodeData,
+    data: n.data as CommonNodeData as unknown as WorkflowNodeData,
   }))
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const dslEdges: WorkflowEdge[] = edges.value.map((e: any) => ({
@@ -519,9 +596,14 @@ function watchRunEvents() {
   const unwatch = setInterval(() => {
     for (const evt of store.runEvents) {
       if (evt.nodeId) {
-        const status = evt.eventType === 'node_started' ? 'running'
-          : evt.eventType === 'node_succeeded' ? 'succeeded'
-          : evt.eventType === 'node_failed' ? 'failed' : null
+        const status =
+          evt.eventType === 'node_started'
+            ? 'running'
+            : evt.eventType === 'node_succeeded'
+              ? 'succeeded'
+              : evt.eventType === 'node_failed'
+                ? 'failed'
+                : null
         if (status) syncNodeRunningStatus(evt.nodeId, status)
       }
     }
@@ -614,8 +696,6 @@ onMounted(async () => {
     applyDSL(store.createBlankDSL())
   }
 })
-
-
 </script>
 
 <style scoped>
@@ -634,8 +714,7 @@ onMounted(async () => {
   position: relative;
   background:
     radial-gradient(circle at 20% 10%, rgba(99, 102, 241, 0.04) 0%, transparent 40%),
-    radial-gradient(circle at 85% 80%, rgba(139, 92, 246, 0.04) 0%, transparent 40%),
-    #f4f5fb;
+    radial-gradient(circle at 85% 80%, rgba(139, 92, 246, 0.04) 0%, transparent 40%), #f4f5fb;
 }
 
 /* ============ 顶部悬浮工具栏（公共） ============ */
@@ -652,7 +731,9 @@ onMounted(async () => {
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: 14px;
-  box-shadow: 0 4px 16px -2px rgba(17, 24, 39, 0.08), 0 1px 3px rgba(17, 24, 39, 0.05);
+  box-shadow:
+    0 4px 16px -2px rgba(17, 24, 39, 0.08),
+    0 1px 3px rgba(17, 24, 39, 0.05);
 }
 .wf-toolbar--left {
   left: 16px;
@@ -688,7 +769,9 @@ onMounted(async () => {
   border-radius: 8px;
   color: #4b5563;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
 }
 .wf-toolbar__icon-btn:hover:not(:disabled) {
   background: #eef0f7;
@@ -715,7 +798,9 @@ onMounted(async () => {
   width: 180px;
   padding: 4px 8px;
   border-radius: 8px;
-  transition: border-color 0.15s, background 0.15s;
+  transition:
+    border-color 0.15s,
+    background 0.15s;
 }
 .wf-toolbar__name-input::placeholder {
   color: #c0c6d4;
@@ -750,8 +835,15 @@ onMounted(async () => {
   animation: wf-pulse 1.6s ease-in-out infinite;
 }
 @keyframes wf-pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.45; transform: scale(0.8); }
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.8);
+  }
 }
 
 /* 文字按钮（保存 / 发布 / 运行） */
@@ -770,7 +862,10 @@ onMounted(async () => {
 .wf-toolbar__btn--publish {
   border: 1px solid #d1d5db;
   color: #111827;
-  transition: border-color 0.15s, color 0.15s, box-shadow 0.15s;
+  transition:
+    border-color 0.15s,
+    color 0.15s,
+    box-shadow 0.15s;
 }
 .wf-toolbar__btn--publish:hover:not(:disabled) {
   border-color: #10b981;
@@ -783,14 +878,21 @@ onMounted(async () => {
   border: none;
   color: #fff;
   background: linear-gradient(135deg, #6366f1 0%, #7c3aed 100%);
-  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 2px 8px rgba(99, 102, 241, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
   min-width: 88px;
-  transition: box-shadow 0.2s, transform 0.15s, filter 0.15s;
+  transition:
+    box-shadow 0.2s,
+    transform 0.15s,
+    filter 0.15s;
 }
 .wf-toolbar__btn--run:hover:not(:disabled) {
   filter: brightness(1.06);
   transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 4px 14px rgba(99, 102, 241, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 .wf-toolbar__btn--run:active:not(:disabled) {
   transform: translateY(0);
@@ -811,7 +913,9 @@ onMounted(async () => {
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: 12px;
-  box-shadow: 0 4px 16px -2px rgba(17, 24, 39, 0.1), 0 1px 3px rgba(17, 24, 39, 0.05);
+  box-shadow:
+    0 4px 16px -2px rgba(17, 24, 39, 0.1),
+    0 1px 3px rgba(17, 24, 39, 0.05);
 }
 .wf-zoom__btn {
   width: 30px;
@@ -824,7 +928,9 @@ onMounted(async () => {
   border-radius: 8px;
   color: #4b5563;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
 }
 .wf-zoom__btn:hover {
   background: #eef0f7;
@@ -841,7 +947,9 @@ onMounted(async () => {
   color: #4b5563;
   font-variant-numeric: tabular-nums;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
 }
 .wf-zoom__percent:hover {
   background: #eef0f7;
@@ -931,7 +1039,9 @@ onMounted(async () => {
   border-radius: 7px;
   color: #9ca3af;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
 }
 .wf-run-panel__icon-btn:hover {
   background: #f0f1f7;
@@ -962,11 +1072,21 @@ onMounted(async () => {
   flex-shrink: 0;
   background: #c4c9d8;
 }
-.wf-run-panel__event.is-node_started .wf-run-panel__dot { background: #f59e0b; }
-.wf-run-panel__event.is-node_succeeded .wf-run-panel__dot { background: #10b981; }
-.wf-run-panel__event.is-node_failed .wf-run-panel__dot { background: #ef4444; }
-.wf-run-panel__event.is-workflow_succeeded .wf-run-panel__dot { background: #10b981; }
-.wf-run-panel__event.is-workflow_failed .wf-run-panel__dot { background: #ef4444; }
+.wf-run-panel__event.is-node_started .wf-run-panel__dot {
+  background: #f59e0b;
+}
+.wf-run-panel__event.is-node_succeeded .wf-run-panel__dot {
+  background: #10b981;
+}
+.wf-run-panel__event.is-node_failed .wf-run-panel__dot {
+  background: #ef4444;
+}
+.wf-run-panel__event.is-workflow_succeeded .wf-run-panel__dot {
+  background: #10b981;
+}
+.wf-run-panel__event.is-workflow_failed .wf-run-panel__dot {
+  background: #ef4444;
+}
 
 .wf-run-panel__node-type {
   font-size: 10px;
@@ -1030,7 +1150,9 @@ onMounted(async () => {
 /* ============ 过渡动画 ============ */
 .slide-up-enter-active,
 .slide-up-leave-active {
-  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
+  transition:
+    transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.25s ease;
 }
 .slide-up-enter-from,
 .slide-up-leave-to {
@@ -1040,7 +1162,9 @@ onMounted(async () => {
 
 .slide-right-enter-active,
 .slide-right-leave-active {
-  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+  transition:
+    transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.2s ease;
 }
 .slide-right-enter-from,
 .slide-right-leave-to {
@@ -1057,6 +1181,10 @@ onMounted(async () => {
   margin: 0 0 12px 12px;
 }
 .wf-editor__canvas :deep(.vue-flow__handle) {
-  transition: width 0.15s, height 0.15s, border-color 0.15s, background 0.15s;
+  transition:
+    width 0.15s,
+    height 0.15s,
+    border-color 0.15s,
+    background 0.15s;
 }
 </style>

@@ -4,7 +4,10 @@
     <div class="ifelse-node__conditions">
       <div v-for="(cond, i) in ifElseData.conditions" :key="cond.id" class="ifelse-node__cond">
         <span class="ifelse-node__branch-label">{{ i === 0 ? 'IF' : 'ELIF' }}</span>
-        <span class="ifelse-node__cond-text">{{ cond.variableSelector?.outputKey || '?' }} {{ cond.comparisonOperator }} {{ cond.value || '?' }}</span>
+        <span class="ifelse-node__cond-text"
+          >{{ cond.variableSelector?.outputKey || '?' }} {{ cond.comparisonOperator }}
+          {{ cond.value || '?' }}</span
+        >
       </div>
       <div v-if="!ifElseData.conditions?.length" class="ifelse-node__empty">点击配置条件</div>
       <div class="ifelse-node__else">

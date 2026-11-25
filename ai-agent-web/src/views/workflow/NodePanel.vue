@@ -7,12 +7,7 @@
 
     <!-- 搜索 -->
     <div class="wf-node-panel__search">
-      <el-input
-        v-model="searchQuery"
-        placeholder="搜索节点..."
-        :prefix-icon="Search"
-        clearable
-      />
+      <el-input v-model="searchQuery" placeholder="搜索节点..." :prefix-icon="Search" clearable />
     </div>
 
     <!-- 节点分组 -->
@@ -28,14 +23,26 @@
               draggable="true"
               @dragstart="onDragStart($event, item.type)"
             >
-              <span class="wf-node-panel__item-icon" :style="{ background: item.color + '1A', color: item.color }">
+              <span
+                class="wf-node-panel__item-icon"
+                :style="{ background: item.color + '1A', color: item.color }"
+              >
                 {{ item.icon }}
               </span>
               <span class="wf-node-panel__item-label">{{ item.label }}</span>
-              <svg class="wf-node-panel__item-drag" width="8" height="12" viewBox="0 0 8 12" fill="currentColor">
-                <circle cx="2" cy="2" r="1.2"/><circle cx="6" cy="2" r="1.2"/>
-                <circle cx="2" cy="6" r="1.2"/><circle cx="6" cy="6" r="1.2"/>
-                <circle cx="2" cy="10" r="1.2"/><circle cx="6" cy="10" r="1.2"/>
+              <svg
+                class="wf-node-panel__item-drag"
+                width="8"
+                height="12"
+                viewBox="0 0 8 12"
+                fill="currentColor"
+              >
+                <circle cx="2" cy="2" r="1.2" />
+                <circle cx="6" cy="2" r="1.2" />
+                <circle cx="2" cy="6" r="1.2" />
+                <circle cx="6" cy="6" r="1.2" />
+                <circle cx="2" cy="10" r="1.2" />
+                <circle cx="6" cy="10" r="1.2" />
               </svg>
             </div>
           </div>
@@ -68,46 +75,146 @@ const groups: NodeGroup[] = [
   {
     label: '基础',
     items: [
-      { type: NodeType.Start, label: NODE_TYPE_LABELS[NodeType.Start], icon: NODE_TYPE_ICONS[NodeType.Start], color: NODE_TYPE_COLORS[NodeType.Start] },
-      { type: NodeType.End, label: NODE_TYPE_LABELS[NodeType.End], icon: NODE_TYPE_ICONS[NodeType.End], color: NODE_TYPE_COLORS[NodeType.End] },
-      { type: NodeType.Answer, label: NODE_TYPE_LABELS[NodeType.Answer], icon: NODE_TYPE_ICONS[NodeType.Answer], color: NODE_TYPE_COLORS[NodeType.Answer] },
+      {
+        type: NodeType.Start,
+        label: NODE_TYPE_LABELS[NodeType.Start],
+        icon: NODE_TYPE_ICONS[NodeType.Start],
+        color: NODE_TYPE_COLORS[NodeType.Start],
+      },
+      {
+        type: NodeType.End,
+        label: NODE_TYPE_LABELS[NodeType.End],
+        icon: NODE_TYPE_ICONS[NodeType.End],
+        color: NODE_TYPE_COLORS[NodeType.End],
+      },
+      {
+        type: NodeType.Answer,
+        label: NODE_TYPE_LABELS[NodeType.Answer],
+        icon: NODE_TYPE_ICONS[NodeType.Answer],
+        color: NODE_TYPE_COLORS[NodeType.Answer],
+      },
     ],
   },
   {
     label: 'AI',
     items: [
-      { type: NodeType.LLM, label: NODE_TYPE_LABELS[NodeType.LLM], icon: NODE_TYPE_ICONS[NodeType.LLM], color: NODE_TYPE_COLORS[NodeType.LLM] },
-      { type: NodeType.KnowledgeRetrieval, label: NODE_TYPE_LABELS[NodeType.KnowledgeRetrieval], icon: NODE_TYPE_ICONS[NodeType.KnowledgeRetrieval], color: NODE_TYPE_COLORS[NodeType.KnowledgeRetrieval] },
-      { type: NodeType.ParameterExtractor, label: NODE_TYPE_LABELS[NodeType.ParameterExtractor], icon: NODE_TYPE_ICONS[NodeType.ParameterExtractor], color: NODE_TYPE_COLORS[NodeType.ParameterExtractor] },
-      { type: NodeType.QuestionClassifier, label: NODE_TYPE_LABELS[NodeType.QuestionClassifier], icon: NODE_TYPE_ICONS[NodeType.QuestionClassifier], color: NODE_TYPE_COLORS[NodeType.QuestionClassifier] },
-      { type: NodeType.Agent, label: NODE_TYPE_LABELS[NodeType.Agent], icon: NODE_TYPE_ICONS[NodeType.Agent], color: NODE_TYPE_COLORS[NodeType.Agent] },
+      {
+        type: NodeType.LLM,
+        label: NODE_TYPE_LABELS[NodeType.LLM],
+        icon: NODE_TYPE_ICONS[NodeType.LLM],
+        color: NODE_TYPE_COLORS[NodeType.LLM],
+      },
+      {
+        type: NodeType.KnowledgeRetrieval,
+        label: NODE_TYPE_LABELS[NodeType.KnowledgeRetrieval],
+        icon: NODE_TYPE_ICONS[NodeType.KnowledgeRetrieval],
+        color: NODE_TYPE_COLORS[NodeType.KnowledgeRetrieval],
+      },
+      {
+        type: NodeType.ParameterExtractor,
+        label: NODE_TYPE_LABELS[NodeType.ParameterExtractor],
+        icon: NODE_TYPE_ICONS[NodeType.ParameterExtractor],
+        color: NODE_TYPE_COLORS[NodeType.ParameterExtractor],
+      },
+      {
+        type: NodeType.QuestionClassifier,
+        label: NODE_TYPE_LABELS[NodeType.QuestionClassifier],
+        icon: NODE_TYPE_ICONS[NodeType.QuestionClassifier],
+        color: NODE_TYPE_COLORS[NodeType.QuestionClassifier],
+      },
+      {
+        type: NodeType.Agent,
+        label: NODE_TYPE_LABELS[NodeType.Agent],
+        icon: NODE_TYPE_ICONS[NodeType.Agent],
+        color: NODE_TYPE_COLORS[NodeType.Agent],
+      },
     ],
   },
   {
     label: '逻辑',
     items: [
-      { type: NodeType.IfElse, label: NODE_TYPE_LABELS[NodeType.IfElse], icon: NODE_TYPE_ICONS[NodeType.IfElse], color: NODE_TYPE_COLORS[NodeType.IfElse] },
-      { type: NodeType.Iteration, label: NODE_TYPE_LABELS[NodeType.Iteration], icon: NODE_TYPE_ICONS[NodeType.Iteration], color: NODE_TYPE_COLORS[NodeType.Iteration] },
-      { type: NodeType.Loop, label: NODE_TYPE_LABELS[NodeType.Loop], icon: NODE_TYPE_ICONS[NodeType.Loop], color: NODE_TYPE_COLORS[NodeType.Loop] },
-      { type: NodeType.HumanInput, label: NODE_TYPE_LABELS[NodeType.HumanInput], icon: NODE_TYPE_ICONS[NodeType.HumanInput], color: NODE_TYPE_COLORS[NodeType.HumanInput] },
+      {
+        type: NodeType.IfElse,
+        label: NODE_TYPE_LABELS[NodeType.IfElse],
+        icon: NODE_TYPE_ICONS[NodeType.IfElse],
+        color: NODE_TYPE_COLORS[NodeType.IfElse],
+      },
+      {
+        type: NodeType.Iteration,
+        label: NODE_TYPE_LABELS[NodeType.Iteration],
+        icon: NODE_TYPE_ICONS[NodeType.Iteration],
+        color: NODE_TYPE_COLORS[NodeType.Iteration],
+      },
+      {
+        type: NodeType.Loop,
+        label: NODE_TYPE_LABELS[NodeType.Loop],
+        icon: NODE_TYPE_ICONS[NodeType.Loop],
+        color: NODE_TYPE_COLORS[NodeType.Loop],
+      },
+      {
+        type: NodeType.HumanInput,
+        label: NODE_TYPE_LABELS[NodeType.HumanInput],
+        icon: NODE_TYPE_ICONS[NodeType.HumanInput],
+        color: NODE_TYPE_COLORS[NodeType.HumanInput],
+      },
     ],
   },
   {
     label: '工具',
     items: [
-      { type: NodeType.Code, label: NODE_TYPE_LABELS[NodeType.Code], icon: NODE_TYPE_ICONS[NodeType.Code], color: NODE_TYPE_COLORS[NodeType.Code] },
-      { type: NodeType.HttpRequest, label: NODE_TYPE_LABELS[NodeType.HttpRequest], icon: NODE_TYPE_ICONS[NodeType.HttpRequest], color: NODE_TYPE_COLORS[NodeType.HttpRequest] },
-      { type: NodeType.TemplateTransform, label: NODE_TYPE_LABELS[NodeType.TemplateTransform], icon: NODE_TYPE_ICONS[NodeType.TemplateTransform], color: NODE_TYPE_COLORS[NodeType.TemplateTransform] },
-      { type: NodeType.Tool, label: NODE_TYPE_LABELS[NodeType.Tool], icon: NODE_TYPE_ICONS[NodeType.Tool], color: NODE_TYPE_COLORS[NodeType.Tool] },
-      { type: NodeType.DocExtractor, label: NODE_TYPE_LABELS[NodeType.DocExtractor], icon: NODE_TYPE_ICONS[NodeType.DocExtractor], color: NODE_TYPE_COLORS[NodeType.DocExtractor] },
+      {
+        type: NodeType.Code,
+        label: NODE_TYPE_LABELS[NodeType.Code],
+        icon: NODE_TYPE_ICONS[NodeType.Code],
+        color: NODE_TYPE_COLORS[NodeType.Code],
+      },
+      {
+        type: NodeType.HttpRequest,
+        label: NODE_TYPE_LABELS[NodeType.HttpRequest],
+        icon: NODE_TYPE_ICONS[NodeType.HttpRequest],
+        color: NODE_TYPE_COLORS[NodeType.HttpRequest],
+      },
+      {
+        type: NodeType.TemplateTransform,
+        label: NODE_TYPE_LABELS[NodeType.TemplateTransform],
+        icon: NODE_TYPE_ICONS[NodeType.TemplateTransform],
+        color: NODE_TYPE_COLORS[NodeType.TemplateTransform],
+      },
+      {
+        type: NodeType.Tool,
+        label: NODE_TYPE_LABELS[NodeType.Tool],
+        icon: NODE_TYPE_ICONS[NodeType.Tool],
+        color: NODE_TYPE_COLORS[NodeType.Tool],
+      },
+      {
+        type: NodeType.DocExtractor,
+        label: NODE_TYPE_LABELS[NodeType.DocExtractor],
+        icon: NODE_TYPE_ICONS[NodeType.DocExtractor],
+        color: NODE_TYPE_COLORS[NodeType.DocExtractor],
+      },
     ],
   },
   {
     label: '数据',
     items: [
-      { type: NodeType.VariableAssigner, label: NODE_TYPE_LABELS[NodeType.VariableAssigner], icon: NODE_TYPE_ICONS[NodeType.VariableAssigner], color: NODE_TYPE_COLORS[NodeType.VariableAssigner] },
-      { type: NodeType.VariableAggregator, label: NODE_TYPE_LABELS[NodeType.VariableAggregator], icon: NODE_TYPE_ICONS[NodeType.VariableAggregator], color: NODE_TYPE_COLORS[NodeType.VariableAggregator] },
-      { type: NodeType.ListFilter, label: NODE_TYPE_LABELS[NodeType.ListFilter], icon: NODE_TYPE_ICONS[NodeType.ListFilter], color: NODE_TYPE_COLORS[NodeType.ListFilter] },
+      {
+        type: NodeType.VariableAssigner,
+        label: NODE_TYPE_LABELS[NodeType.VariableAssigner],
+        icon: NODE_TYPE_ICONS[NodeType.VariableAssigner],
+        color: NODE_TYPE_COLORS[NodeType.VariableAssigner],
+      },
+      {
+        type: NodeType.VariableAggregator,
+        label: NODE_TYPE_LABELS[NodeType.VariableAggregator],
+        icon: NODE_TYPE_ICONS[NodeType.VariableAggregator],
+        color: NODE_TYPE_COLORS[NodeType.VariableAggregator],
+      },
+      {
+        type: NodeType.ListFilter,
+        label: NODE_TYPE_LABELS[NodeType.ListFilter],
+        icon: NODE_TYPE_ICONS[NodeType.ListFilter],
+        color: NODE_TYPE_COLORS[NodeType.ListFilter],
+      },
     ],
   },
 ]
@@ -120,7 +227,9 @@ const filteredGroups = computed(() => {
   return groups
     .map((g) => ({
       ...g,
-      items: g.items.filter((i) => i.label.toLowerCase().includes(q) || i.type.toLowerCase().includes(q)),
+      items: g.items.filter(
+        (i) => i.label.toLowerCase().includes(q) || i.type.toLowerCase().includes(q),
+      ),
     }))
     .filter((g) => g.items.length > 0)
 })
@@ -162,7 +271,9 @@ function onDragStart(event: DragEvent, type: NodeType) {
   border-radius: 10px;
   background: #f4f5fb;
   box-shadow: none;
-  transition: background 0.15s, box-shadow 0.15s;
+  transition:
+    background 0.15s,
+    box-shadow 0.15s;
 }
 .wf-node-panel__search :deep(.el-input__wrapper:hover) {
   background: #eef0f8;
@@ -204,7 +315,9 @@ function onDragStart(event: DragEvent, type: NodeType) {
   padding: 7px 8px;
   border-radius: 10px;
   cursor: grab;
-  transition: background 0.12s, transform 0.12s;
+  transition:
+    background 0.12s,
+    transform 0.12s;
   user-select: none;
   border: 1px solid transparent;
 }
@@ -245,7 +358,9 @@ function onDragStart(event: DragEvent, type: NodeType) {
   color: #d1d5db;
   flex-shrink: 0;
   opacity: 0;
-  transition: opacity 0.15s, color 0.15s;
+  transition:
+    opacity 0.15s,
+    color 0.15s;
 }
 .wf-node-panel__item:hover .wf-node-panel__item-drag {
   opacity: 1;

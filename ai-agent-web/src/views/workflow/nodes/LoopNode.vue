@@ -14,7 +14,9 @@
         <span class="loop-node__label">最大次数</span>
         <span class="loop-node__value">{{ loopData.maxIterations }}</span>
       </div>
-      <div v-if="!loopData.loopCondition?.variableSelector?.outputKey" class="loop-node__empty">点击配置循环</div>
+      <div v-if="!loopData.loopCondition?.variableSelector?.outputKey" class="loop-node__empty">
+        点击配置循环
+      </div>
     </div>
   </BaseNode>
   <Handle type="source" :position="Position.Right" />
