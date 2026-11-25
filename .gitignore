@@ -21,6 +21,9 @@
 /docs/kb/
 /docs/openspec/
 /docs/todo.md
+/docs/todo2.md
+/docs/refactor-branch-analysis.md
+/docs/登录认证与权限数据流说明.md
 /docs/README.md
 /docs/platform/*
 !/docs/platform/architecture.md
