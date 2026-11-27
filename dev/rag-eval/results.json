@@ -19,10 +19,10 @@
       "hitRate": 0.78
     },
     "+Rerank": {
-      "recall@k": 0.48,
-      "mrr": 0.35,
-      "ndcg@k": 0.38293863275151063,
-      "hitRate": 0.48
+      "recall@k": 0.82,
+      "mrr": 0.745,
+      "ndcg@k": 0.7643251015900429,
+      "hitRate": 0.82
     }
   },
   "perQuery": [
@@ -32,8 +32,10 @@
       "relevant": [
         "7ea0bc21-9591-48b5-82e3-fafde9eaa680"
       ],
-      "serverMs": 30669,
-      "wallMs": 30676,
+      "serverMs": 29151,
+      "wallMs": 29213,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "15760d57-468c-4f45-82b2-2b87749c548f",
@@ -72,15 +74,15 @@
       },
       "reranked": {
         "ranked": [
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "50032380-978a-48c3-8e31-988f4b5058c5",
+          "e134d01e-940a-4441-aab9-e60d729367a1",
           "15760d57-468c-4f45-82b2-2b87749c548f",
-          "e8ba6fd5-caca-4eff-8039-c120d1d8d7ab",
-          "5f0e2bbd-a8fa-45a0-8c7e-8b90bc685ac5",
-          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
-          "889d7fb0-c750-4bfa-969e-f712e7f65004"
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e"
         ],
-        "recall": 0.0,
-        "mrr": 0.0,
-        "ndcg": 0.0
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
       }
     },
     {
@@ -89,8 +91,10 @@
       "relevant": [
         "9db85b9a-a415-4e5a-b30d-df591f52f860"
       ],
-      "serverMs": 15538,
-      "wallMs": 15566,
+      "serverMs": 22339,
+      "wallMs": 22354,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "85ae9c35-01d0-47ba-a727-d6fd04a2cfd0",
@@ -129,15 +133,15 @@
       },
       "reranked": {
         "ranked": [
-          "85ae9c35-01d0-47ba-a727-d6fd04a2cfd0",
-          "e8ba6fd5-caca-4eff-8039-c120d1d8d7ab",
-          "29e8bf17-a5af-4d80-827d-0064a34ebef3",
           "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "85ae9c35-01d0-47ba-a727-d6fd04a2cfd0",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
           "6c0fb065-c911-4951-92b9-230f054d5c52"
         ],
         "recall": 1.0,
-        "mrr": 0.25,
-        "ndcg": 0.4307
+        "mrr": 1.0,
+        "ndcg": 1.0
       }
     },
     {
@@ -146,8 +150,10 @@
       "relevant": [
         "85ae9c35-01d0-47ba-a727-d6fd04a2cfd0"
       ],
-      "serverMs": 10401,
-      "wallMs": 10408,
+      "serverMs": 17647,
+      "wallMs": 17669,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "881a4912-e7b1-4ddd-a4d8-99842cf52319",
@@ -186,11 +192,11 @@
       },
       "reranked": {
         "ranked": [
-          "881a4912-e7b1-4ddd-a4d8-99842cf52319",
-          "85ae9c35-01d0-47ba-a727-d6fd04a2cfd0",
-          "f1c4b63f-0e35-4373-b6be-650dec8617d5",
           "9db85b9a-a415-4e5a-b30d-df591f52f860",
-          "5f0e2bbd-a8fa-45a0-8c7e-8b90bc685ac5"
+          "85ae9c35-01d0-47ba-a727-d6fd04a2cfd0",
+          "881a4912-e7b1-4ddd-a4d8-99842cf52319",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e"
         ],
         "recall": 1.0,
         "mrr": 0.5,
@@ -203,8 +209,10 @@
       "relevant": [
         "881a4912-e7b1-4ddd-a4d8-99842cf52319"
       ],
-      "serverMs": 11451,
-      "wallMs": 11457,
+      "serverMs": 12963,
+      "wallMs": 12984,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "881a4912-e7b1-4ddd-a4d8-99842cf52319",
@@ -244,10 +252,10 @@
       "reranked": {
         "ranked": [
           "881a4912-e7b1-4ddd-a4d8-99842cf52319",
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
           "85ae9c35-01d0-47ba-a727-d6fd04a2cfd0",
           "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
-          "9db85b9a-a415-4e5a-b30d-df591f52f860",
-          "2f10cbbe-2d3e-49be-bac3-2b944b7364ed"
+          "cdcb6579-2568-4a03-8e6d-4064c4cf56d7"
         ],
         "recall": 1.0,
         "mrr": 1.0,
@@ -260,8 +268,10 @@
       "relevant": [
         "d7467b34-4fd3-4331-b837-5cf8004d0d06"
       ],
-      "serverMs": 14306,
-      "wallMs": 14332,
+      "serverMs": 12949,
+      "wallMs": 12964,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "e134d01e-940a-4441-aab9-e60d729367a1",
@@ -300,11 +310,11 @@
       },
       "reranked": {
         "ranked": [
-          "e134d01e-940a-4441-aab9-e60d729367a1",
-          "d7467b34-4fd3-4331-b837-5cf8004d0d06",
-          "3d989a70-4e89-4837-ac33-dabef418303c",
           "50032380-978a-48c3-8e31-988f4b5058c5",
-          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e"
+          "d7467b34-4fd3-4331-b837-5cf8004d0d06",
+          "e134d01e-940a-4441-aab9-e60d729367a1",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
+          "3d989a70-4e89-4837-ac33-dabef418303c"
         ],
         "recall": 1.0,
         "mrr": 0.5,
@@ -317,8 +327,10 @@
       "relevant": [
         "50032380-978a-48c3-8e31-988f4b5058c5"
       ],
-      "serverMs": 13748,
-      "wallMs": 13772,
+      "serverMs": 14938,
+      "wallMs": 14952,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "6c0fb065-c911-4951-92b9-230f054d5c52",
@@ -357,15 +369,15 @@
       },
       "reranked": {
         "ranked": [
-          "6c0fb065-c911-4951-92b9-230f054d5c52",
-          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
-          "f5a12fd4-e96c-4aee-ad2b-ef0cb20cedd0",
-          "c441cd07-6826-4651-96bc-5ae6e54f32eb",
-          "29e8bf17-a5af-4d80-827d-0064a34ebef3"
+          "50032380-978a-48c3-8e31-988f4b5058c5",
+          "e91e8d78-8836-4d71-8699-e80530d49aab",
+          "e134d01e-940a-4441-aab9-e60d729367a1",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c"
         ],
-        "recall": 0.0,
-        "mrr": 0.0,
-        "ndcg": 0.0
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
       }
     },
     {
@@ -374,8 +386,10 @@
       "relevant": [
         "e91e8d78-8836-4d71-8699-e80530d49aab"
       ],
-      "serverMs": 13453,
-      "wallMs": 13474,
+      "serverMs": 15455,
+      "wallMs": 15466,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "6c0fb065-c911-4951-92b9-230f054d5c52",
@@ -414,15 +428,15 @@
       },
       "reranked": {
         "ranked": [
-          "6c0fb065-c911-4951-92b9-230f054d5c52",
-          "f5a12fd4-e96c-4aee-ad2b-ef0cb20cedd0",
-          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
-          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
-          "29e8bf17-a5af-4d80-827d-0064a34ebef3"
+          "50032380-978a-48c3-8e31-988f4b5058c5",
+          "e91e8d78-8836-4d71-8699-e80530d49aab",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c"
         ],
-        "recall": 0.0,
-        "mrr": 0.0,
-        "ndcg": 0.0
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
       }
     },
     {
@@ -431,8 +445,10 @@
       "relevant": [
         "b0a33406-8cd8-4691-88f5-a878be38bd16"
       ],
-      "serverMs": 14224,
-      "wallMs": 14230,
+      "serverMs": 16598,
+      "wallMs": 16631,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "6123160c-0691-4b26-92f8-a05791b9321e",
@@ -471,15 +487,15 @@
       },
       "reranked": {
         "ranked": [
-          "6123160c-0691-4b26-92f8-a05791b9321e",
-          "e8ba6fd5-caca-4eff-8039-c120d1d8d7ab",
-          "f5a12fd4-e96c-4aee-ad2b-ef0cb20cedd0",
-          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
-          "6c0fb065-c911-4951-92b9-230f054d5c52"
+          "b0a33406-8cd8-4691-88f5-a878be38bd16",
+          "cc88b64a-8df8-4c9d-96c4-529d267d33ae",
+          "e134d01e-940a-4441-aab9-e60d729367a1",
+          "e91e8d78-8836-4d71-8699-e80530d49aab",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c"
         ],
-        "recall": 0.0,
-        "mrr": 0.0,
-        "ndcg": 0.0
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
       }
     },
     {
@@ -488,8 +504,10 @@
       "relevant": [
         "cc88b64a-8df8-4c9d-96c4-529d267d33ae"
       ],
-      "serverMs": 13683,
-      "wallMs": 13692,
+      "serverMs": 11523,
+      "wallMs": 11535,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "6c0fb065-c911-4951-92b9-230f054d5c52",
@@ -528,15 +546,15 @@
       },
       "reranked": {
         "ranked": [
-          "6c0fb065-c911-4951-92b9-230f054d5c52",
-          "f5a12fd4-e96c-4aee-ad2b-ef0cb20cedd0",
-          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
-          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
-          "e8ba6fd5-caca-4eff-8039-c120d1d8d7ab"
+          "cc88b64a-8df8-4c9d-96c4-529d267d33ae",
+          "e134d01e-940a-4441-aab9-e60d729367a1",
+          "85ae9c35-01d0-47ba-a727-d6fd04a2cfd0",
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "50032380-978a-48c3-8e31-988f4b5058c5"
         ],
-        "recall": 0.0,
-        "mrr": 0.0,
-        "ndcg": 0.0
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
       }
     },
     {
@@ -545,8 +563,10 @@
       "relevant": [
         "e134d01e-940a-4441-aab9-e60d729367a1"
       ],
-      "serverMs": 10014,
-      "wallMs": 10020,
+      "serverMs": 13781,
+      "wallMs": 13791,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "6c0fb065-c911-4951-92b9-230f054d5c52",
@@ -585,15 +605,15 @@
       },
       "reranked": {
         "ranked": [
-          "6c0fb065-c911-4951-92b9-230f054d5c52",
-          "f5a12fd4-e96c-4aee-ad2b-ef0cb20cedd0",
+          "e134d01e-940a-4441-aab9-e60d729367a1",
+          "cc88b64a-8df8-4c9d-96c4-529d267d33ae",
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
           "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
-          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
-          "5f0e2bbd-a8fa-45a0-8c7e-8b90bc685ac5"
+          "6c0fb065-c911-4951-92b9-230f054d5c52"
         ],
-        "recall": 0.0,
-        "mrr": 0.0,
-        "ndcg": 0.0
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
       }
     },
     {
@@ -602,8 +622,10 @@
       "relevant": [
         "081453b5-a6c9-4136-a585-d348982cb75f"
       ],
-      "serverMs": 9964,
-      "wallMs": 9970,
+      "serverMs": 21027,
+      "wallMs": 21060,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
@@ -643,10 +665,10 @@
       "reranked": {
         "ranked": [
           "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
-          "6c0fb065-c911-4951-92b9-230f054d5c52",
+          "2f9f4d50-5c01-473a-9588-d2b265346a84",
           "3d989a70-4e89-4837-ac33-dabef418303c",
-          "5cce6c92-9e45-461a-8e1e-94b910368c47",
-          "2f9f4d50-5c01-473a-9588-d2b265346a84"
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680"
         ],
         "recall": 0.0,
         "mrr": 0.0,
@@ -659,8 +681,10 @@
       "relevant": [
         "031f3432-5055-4ff7-9b87-06559b979a8b"
       ],
-      "serverMs": 7017,
-      "wallMs": 7023,
+      "serverMs": 10580,
+      "wallMs": 10612,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "eebacf29-db8c-43a5-8c60-89765c631f72",
@@ -699,11 +723,11 @@
       },
       "reranked": {
         "ranked": [
-          "eebacf29-db8c-43a5-8c60-89765c631f72",
+          "081453b5-a6c9-4136-a585-d348982cb75f",
           "fb0334b5-f338-4167-8840-6ef1890a853d",
           "9db85b9a-a415-4e5a-b30d-df591f52f860",
-          "081453b5-a6c9-4136-a585-d348982cb75f",
-          "844a79a1-e5f2-4dc1-8d34-eeaf1371422e"
+          "6c0fb065-c911-4951-92b9-230f054d5c52",
+          "fa5e7370-fe1f-4450-9dd9-56a8054de209"
         ],
         "recall": 0.0,
         "mrr": 0.0,
@@ -716,8 +740,10 @@
       "relevant": [
         "067c6946-3e53-4b58-a044-52a878d3e79b"
       ],
-      "serverMs": 11581,
-      "wallMs": 11589,
+      "serverMs": 10350,
+      "wallMs": 10390,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "7c8bdcb2-6675-4f9f-a7a7-95665f96a402",
@@ -756,11 +782,11 @@
       },
       "reranked": {
         "ranked": [
-          "7c8bdcb2-6675-4f9f-a7a7-95665f96a402",
-          "844a79a1-e5f2-4dc1-8d34-eeaf1371422e",
-          "5f0e2bbd-a8fa-45a0-8c7e-8b90bc685ac5",
-          "15760d57-468c-4f45-82b2-2b87749c548f",
-          "29e8bf17-a5af-4d80-827d-0064a34ebef3"
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "85ae9c35-01d0-47ba-a727-d6fd04a2cfd0",
+          "50032380-978a-48c3-8e31-988f4b5058c5",
+          "d7467b34-4fd3-4331-b837-5cf8004d0d06",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c"
         ],
         "recall": 0.0,
         "mrr": 0.0,
@@ -773,8 +799,10 @@
       "relevant": [
         "578f060a-d655-4614-bf3c-53feb10b27a5"
       ],
-      "serverMs": 11271,
-      "wallMs": 11314,
+      "serverMs": 12972,
+      "wallMs": 12985,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "081453b5-a6c9-4136-a585-d348982cb75f",
@@ -813,15 +841,15 @@
       },
       "reranked": {
         "ranked": [
-          "081453b5-a6c9-4136-a585-d348982cb75f",
-          "b0a33406-8cd8-4691-88f5-a878be38bd16",
-          "e134d01e-940a-4441-aab9-e60d729367a1",
           "578f060a-d655-4614-bf3c-53feb10b27a5",
-          "38cb7d7e-c906-4984-9ca1-1af30b45181b"
+          "081453b5-a6c9-4136-a585-d348982cb75f",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
+          "b0a33406-8cd8-4691-88f5-a878be38bd16"
         ],
         "recall": 1.0,
-        "mrr": 0.25,
-        "ndcg": 0.4307
+        "mrr": 1.0,
+        "ndcg": 1.0
       }
     },
     {
@@ -830,8 +858,10 @@
       "relevant": [
         "82e565cc-3b52-4589-8968-a19d57f67208"
       ],
-      "serverMs": 11356,
-      "wallMs": 11386,
+      "serverMs": 11933,
+      "wallMs": 11957,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "f5a12fd4-e96c-4aee-ad2b-ef0cb20cedd0",
@@ -870,11 +900,11 @@
       },
       "reranked": {
         "ranked": [
-          "f5a12fd4-e96c-4aee-ad2b-ef0cb20cedd0",
-          "9db85b9a-a415-4e5a-b30d-df591f52f860",
           "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
-          "32956d54-04e8-4a46-b21d-32ac919877a4",
-          "1934bf37-9c18-4bdd-b166-a9da41c8b9ca"
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "1934bf37-9c18-4bdd-b166-a9da41c8b9ca",
+          "a917a1e2-81d8-43ef-945c-fb4bb817dd35",
+          "ea40260b-afe8-481c-a199-a0ce31892984"
         ],
         "recall": 0.0,
         "mrr": 0.0,
@@ -887,8 +917,10 @@
       "relevant": [
         "ecada256-d521-4284-a261-c3b8088368c9"
       ],
-      "serverMs": 10634,
-      "wallMs": 10640,
+      "serverMs": 10253,
+      "wallMs": 10268,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "15760d57-468c-4f45-82b2-2b87749c548f",
@@ -927,11 +959,11 @@
       },
       "reranked": {
         "ranked": [
-          "15760d57-468c-4f45-82b2-2b87749c548f",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "50032380-978a-48c3-8e31-988f4b5058c5",
+          "a917a1e2-81d8-43ef-945c-fb4bb817dd35",
           "844a79a1-e5f2-4dc1-8d34-eeaf1371422e",
-          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
-          "7c8bdcb2-6675-4f9f-a7a7-95665f96a402",
-          "876d7c03-f017-45cd-9120-b030b90c1214"
+          "18a2a7b1-c53f-410e-8722-e18f71bf048c"
         ],
         "recall": 0.0,
         "mrr": 0.0,
@@ -944,8 +976,10 @@
       "relevant": [
         "210dd53c-340c-4ea7-90bc-2feb4c48c3f8"
       ],
-      "serverMs": 11337,
-      "wallMs": 11343,
+      "serverMs": 9840,
+      "wallMs": 9877,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
@@ -984,11 +1018,11 @@
       },
       "reranked": {
         "ranked": [
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
           "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
-          "e134d01e-940a-4441-aab9-e60d729367a1",
-          "a2a2ee50-e9c9-46a6-ac6b-4a6e9d08b729",
-          "e8ba6fd5-caca-4eff-8039-c120d1d8d7ab",
-          "cc88b64a-8df8-4c9d-96c4-529d267d33ae"
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "cc88b64a-8df8-4c9d-96c4-529d267d33ae",
+          "e134d01e-940a-4441-aab9-e60d729367a1"
         ],
         "recall": 0.0,
         "mrr": 0.0,
@@ -1001,8 +1035,10 @@
       "relevant": [
         "7cb2b602-528a-4c18-9237-67a39c7dc7bf"
       ],
-      "serverMs": 11763,
-      "wallMs": 11770,
+      "serverMs": 14099,
+      "wallMs": 14122,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "6c0fb065-c911-4951-92b9-230f054d5c52",
@@ -1041,15 +1077,15 @@
       },
       "reranked": {
         "ranked": [
+          "7cb2b602-528a-4c18-9237-67a39c7dc7bf",
+          "081453b5-a6c9-4136-a585-d348982cb75f",
           "6c0fb065-c911-4951-92b9-230f054d5c52",
-          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
-          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
-          "9db85b9a-a415-4e5a-b30d-df591f52f860",
-          "f5a12fd4-e96c-4aee-ad2b-ef0cb20cedd0"
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "9db85b9a-a415-4e5a-b30d-df591f52f860"
         ],
-        "recall": 0.0,
-        "mrr": 0.0,
-        "ndcg": 0.0
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
       }
     },
     {
@@ -1058,8 +1094,10 @@
       "relevant": [
         "3d989a70-4e89-4837-ac33-dabef418303c"
       ],
-      "serverMs": 13939,
-      "wallMs": 13960,
+      "serverMs": 13209,
+      "wallMs": 13235,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
@@ -1098,15 +1136,15 @@
       },
       "reranked": {
         "ranked": [
-          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
-          "6c0fb065-c911-4951-92b9-230f054d5c52",
           "3d989a70-4e89-4837-ac33-dabef418303c",
+          "2f9f4d50-5c01-473a-9588-d2b265346a84",
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
           "7d85e11e-7814-4f89-9162-fad7aa7b0904",
-          "2f9f4d50-5c01-473a-9588-d2b265346a84"
+          "6c0fb065-c911-4951-92b9-230f054d5c52"
         ],
         "recall": 1.0,
-        "mrr": 0.3333,
-        "ndcg": 0.5
+        "mrr": 1.0,
+        "ndcg": 1.0
       }
     },
     {
@@ -1115,8 +1153,10 @@
       "relevant": [
         "13307b93-adce-45f4-a82e-ef50b539a800"
       ],
-      "serverMs": 9634,
-      "wallMs": 9640,
+      "serverMs": 13880,
+      "wallMs": 13888,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
@@ -1155,15 +1195,15 @@
       },
       "reranked": {
         "ranked": [
+          "13307b93-adce-45f4-a82e-ef50b539a800",
+          "4762b00b-01a9-4573-9b8a-c9cf1ae7987a",
+          "7d85e11e-7814-4f89-9162-fad7aa7b0904",
           "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
-          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
-          "6c0fb065-c911-4951-92b9-230f054d5c52",
-          "e134d01e-940a-4441-aab9-e60d729367a1",
-          "f5a12fd4-e96c-4aee-ad2b-ef0cb20cedd0"
+          "2f9f4d50-5c01-473a-9588-d2b265346a84"
         ],
-        "recall": 0.0,
-        "mrr": 0.0,
-        "ndcg": 0.0
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
       }
     },
     {
@@ -1172,8 +1212,10 @@
       "relevant": [
         "2f9f4d50-5c01-473a-9588-d2b265346a84"
       ],
-      "serverMs": 13110,
-      "wallMs": 13132,
+      "serverMs": 14244,
+      "wallMs": 14270,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
@@ -1212,11 +1254,11 @@
       },
       "reranked": {
         "ranked": [
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
           "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
           "e134d01e-940a-4441-aab9-e60d729367a1",
-          "eebacf29-db8c-43a5-8c60-89765c631f72",
-          "15760d57-468c-4f45-82b2-2b87749c548f",
-          "e8ba6fd5-caca-4eff-8039-c120d1d8d7ab"
+          "6c0fb065-c911-4951-92b9-230f054d5c52"
         ],
         "recall": 0.0,
         "mrr": 0.0,
@@ -1229,8 +1271,10 @@
       "relevant": [
         "7d85e11e-7814-4f89-9162-fad7aa7b0904"
       ],
-      "serverMs": 8854,
-      "wallMs": 8876,
+      "serverMs": 10074,
+      "wallMs": 10112,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "4762b00b-01a9-4573-9b8a-c9cf1ae7987a",
@@ -1269,15 +1313,15 @@
       },
       "reranked": {
         "ranked": [
-          "4762b00b-01a9-4573-9b8a-c9cf1ae7987a",
-          "13307b93-adce-45f4-a82e-ef50b539a800",
           "7d85e11e-7814-4f89-9162-fad7aa7b0904",
-          "e91e8d78-8836-4d71-8699-e80530d49aab",
-          "2f9f4d50-5c01-473a-9588-d2b265346a84"
+          "13307b93-adce-45f4-a82e-ef50b539a800",
+          "4762b00b-01a9-4573-9b8a-c9cf1ae7987a",
+          "2f9f4d50-5c01-473a-9588-d2b265346a84",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b"
         ],
         "recall": 1.0,
-        "mrr": 0.3333,
-        "ndcg": 0.5
+        "mrr": 1.0,
+        "ndcg": 1.0
       }
     },
     {
@@ -1286,8 +1330,10 @@
       "relevant": [
         "4762b00b-01a9-4573-9b8a-c9cf1ae7987a"
       ],
-      "serverMs": 11831,
-      "wallMs": 11838,
+      "serverMs": 9497,
+      "wallMs": 9530,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "15760d57-468c-4f45-82b2-2b87749c548f",
@@ -1326,15 +1372,15 @@
       },
       "reranked": {
         "ranked": [
-          "15760d57-468c-4f45-82b2-2b87749c548f",
-          "100493f0-3275-4897-b031-cb62be96f21a",
-          "5f0e2bbd-a8fa-45a0-8c7e-8b90bc685ac5",
-          "9db85b9a-a415-4e5a-b30d-df591f52f860",
-          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e"
+          "4762b00b-01a9-4573-9b8a-c9cf1ae7987a",
+          "7d85e11e-7814-4f89-9162-fad7aa7b0904",
+          "3d989a70-4e89-4837-ac33-dabef418303c",
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
+          "100493f0-3275-4897-b031-cb62be96f21a"
         ],
-        "recall": 0.0,
-        "mrr": 0.0,
-        "ndcg": 0.0
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
       }
     },
     {
@@ -1343,8 +1389,10 @@
       "relevant": [
         "d92e1878-e1ad-45df-9e33-75e31ac2ee8e"
       ],
-      "serverMs": 14582,
-      "wallMs": 14589,
+      "serverMs": 14138,
+      "wallMs": 14147,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
@@ -1384,10 +1432,10 @@
       "reranked": {
         "ranked": [
           "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
-          "6c0fb065-c911-4951-92b9-230f054d5c52",
           "7cb2b602-528a-4c18-9237-67a39c7dc7bf",
-          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
-          "3d989a70-4e89-4837-ac33-dabef418303c"
+          "081453b5-a6c9-4136-a585-d348982cb75f",
+          "e91e8d78-8836-4d71-8699-e80530d49aab",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b"
         ],
         "recall": 1.0,
         "mrr": 1.0,
@@ -1400,8 +1448,10 @@
       "relevant": [
         "38cb7d7e-c906-4984-9ca1-1af30b45181b"
       ],
-      "serverMs": 8683,
-      "wallMs": 8711,
+      "serverMs": 11770,
+      "wallMs": 11793,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
@@ -1440,11 +1490,11 @@
       },
       "reranked": {
         "ranked": [
-          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
-          "6c0fb065-c911-4951-92b9-230f054d5c52",
           "d41f7fde-dbd9-46ca-a3ff-8260e46ba7ae",
-          "f5a12fd4-e96c-4aee-ad2b-ef0cb20cedd0",
-          "29e8bf17-a5af-4d80-827d-0064a34ebef3"
+          "50032380-978a-48c3-8e31-988f4b5058c5",
+          "7d85e11e-7814-4f89-9162-fad7aa7b0904",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "6c0fb065-c911-4951-92b9-230f054d5c52"
         ],
         "recall": 0.0,
         "mrr": 0.0,
@@ -1457,8 +1507,10 @@
       "relevant": [
         "d41f7fde-dbd9-46ca-a3ff-8260e46ba7ae"
       ],
-      "serverMs": 12459,
-      "wallMs": 12465,
+      "serverMs": 10881,
+      "wallMs": 10890,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "f5a12fd4-e96c-4aee-ad2b-ef0cb20cedd0",
@@ -1497,15 +1549,15 @@
       },
       "reranked": {
         "ranked": [
-          "f5a12fd4-e96c-4aee-ad2b-ef0cb20cedd0",
-          "e8ba6fd5-caca-4eff-8039-c120d1d8d7ab",
-          "5f0e2bbd-a8fa-45a0-8c7e-8b90bc685ac5",
-          "a51107c7-7b94-4513-9c41-21139acfbc3b",
-          "15760d57-468c-4f45-82b2-2b87749c548f"
+          "d41f7fde-dbd9-46ca-a3ff-8260e46ba7ae",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "15760d57-468c-4f45-82b2-2b87749c548f",
+          "6c0fb065-c911-4951-92b9-230f054d5c52"
         ],
-        "recall": 0.0,
-        "mrr": 0.0,
-        "ndcg": 0.0
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
       }
     },
     {
@@ -1514,8 +1566,10 @@
       "relevant": [
         "fb0334b5-f338-4167-8840-6ef1890a853d"
       ],
-      "serverMs": 14152,
-      "wallMs": 14160,
+      "serverMs": 19851,
+      "wallMs": 19859,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
@@ -1554,15 +1608,15 @@
       },
       "reranked": {
         "ranked": [
+          "fb0334b5-f338-4167-8840-6ef1890a853d",
+          "100493f0-3275-4897-b031-cb62be96f21a",
+          "482403e9-4e38-43c8-8b7a-23bbd5108b61",
           "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
-          "6c0fb065-c911-4951-92b9-230f054d5c52",
-          "f5a12fd4-e96c-4aee-ad2b-ef0cb20cedd0",
-          "5f0e2bbd-a8fa-45a0-8c7e-8b90bc685ac5",
-          "889d7fb0-c750-4bfa-969e-f712e7f65004"
+          "6c0fb065-c911-4951-92b9-230f054d5c52"
         ],
-        "recall": 0.0,
-        "mrr": 0.0,
-        "ndcg": 0.0
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
       }
     },
     {
@@ -1571,8 +1625,10 @@
       "relevant": [
         "100493f0-3275-4897-b031-cb62be96f21a"
       ],
-      "serverMs": 19562,
-      "wallMs": 19568,
+      "serverMs": 12998,
+      "wallMs": 13011,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
@@ -1611,15 +1667,15 @@
       },
       "reranked": {
         "ranked": [
-          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
-          "6c0fb065-c911-4951-92b9-230f054d5c52",
+          "fb0334b5-f338-4167-8840-6ef1890a853d",
           "100493f0-3275-4897-b031-cb62be96f21a",
-          "cdcb6579-2568-4a03-8e6d-4064c4cf56d7",
-          "f5a12fd4-e96c-4aee-ad2b-ef0cb20cedd0"
+          "d41f7fde-dbd9-46ca-a3ff-8260e46ba7ae",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c"
         ],
         "recall": 1.0,
-        "mrr": 0.3333,
-        "ndcg": 0.5
+        "mrr": 0.5,
+        "ndcg": 0.6309
       }
     },
     {
@@ -1628,8 +1684,10 @@
       "relevant": [
         "8cf84796-18ad-4027-957e-d19b975f3ce7"
       ],
-      "serverMs": 14445,
-      "wallMs": 14453,
+      "serverMs": 10398,
+      "wallMs": 10411,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "5f0e2bbd-a8fa-45a0-8c7e-8b90bc685ac5",
@@ -1668,15 +1726,15 @@
       },
       "reranked": {
         "ranked": [
-          "5f0e2bbd-a8fa-45a0-8c7e-8b90bc685ac5",
-          "e8ba6fd5-caca-4eff-8039-c120d1d8d7ab",
-          "cdcb6579-2568-4a03-8e6d-4064c4cf56d7",
-          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
-          "6c0fb065-c911-4951-92b9-230f054d5c52"
+          "e91e8d78-8836-4d71-8699-e80530d49aab",
+          "50032380-978a-48c3-8e31-988f4b5058c5",
+          "482403e9-4e38-43c8-8b7a-23bbd5108b61",
+          "8cf84796-18ad-4027-957e-d19b975f3ce7",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680"
         ],
-        "recall": 0.0,
-        "mrr": 0.0,
-        "ndcg": 0.0
+        "recall": 1.0,
+        "mrr": 0.25,
+        "ndcg": 0.4307
       }
     },
     {
@@ -1685,8 +1743,10 @@
       "relevant": [
         "482403e9-4e38-43c8-8b7a-23bbd5108b61"
       ],
-      "serverMs": 10739,
-      "wallMs": 10747,
+      "serverMs": 13840,
+      "wallMs": 13862,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
@@ -1725,15 +1785,15 @@
       },
       "reranked": {
         "ranked": [
+          "482403e9-4e38-43c8-8b7a-23bbd5108b61",
+          "8cf84796-18ad-4027-957e-d19b975f3ce7",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
           "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
-          "6c0fb065-c911-4951-92b9-230f054d5c52",
-          "f5a12fd4-e96c-4aee-ad2b-ef0cb20cedd0",
-          "e8ba6fd5-caca-4eff-8039-c120d1d8d7ab",
-          "cdcb6579-2568-4a03-8e6d-4064c4cf56d7"
+          "6c0fb065-c911-4951-92b9-230f054d5c52"
         ],
-        "recall": 0.0,
-        "mrr": 0.0,
-        "ndcg": 0.0
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
       }
     },
     {
@@ -1742,8 +1802,10 @@
       "relevant": [
         "15760d57-468c-4f45-82b2-2b87749c548f"
       ],
-      "serverMs": 11240,
-      "wallMs": 11264,
+      "serverMs": 12047,
+      "wallMs": 12058,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "6c0fb065-c911-4951-92b9-230f054d5c52",
@@ -1782,15 +1844,15 @@
       },
       "reranked": {
         "ranked": [
-          "6c0fb065-c911-4951-92b9-230f054d5c52",
-          "f5a12fd4-e96c-4aee-ad2b-ef0cb20cedd0",
+          "15760d57-468c-4f45-82b2-2b87749c548f",
+          "482403e9-4e38-43c8-8b7a-23bbd5108b61",
+          "8cf84796-18ad-4027-957e-d19b975f3ce7",
           "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
-          "29e8bf17-a5af-4d80-827d-0064a34ebef3",
-          "889d7fb0-c750-4bfa-969e-f712e7f65004"
+          "6c0fb065-c911-4951-92b9-230f054d5c52"
         ],
-        "recall": 0.0,
-        "mrr": 0.0,
-        "ndcg": 0.0
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
       }
     },
     {
@@ -1799,8 +1861,10 @@
       "relevant": [
         "eebacf29-db8c-43a5-8c60-89765c631f72"
       ],
-      "serverMs": 14066,
-      "wallMs": 14096,
+      "serverMs": 19566,
+      "wallMs": 19580,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "eebacf29-db8c-43a5-8c60-89765c631f72",
@@ -1840,10 +1904,10 @@
       "reranked": {
         "ranked": [
           "eebacf29-db8c-43a5-8c60-89765c631f72",
-          "15760d57-468c-4f45-82b2-2b87749c548f",
-          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
           "b0a33406-8cd8-4691-88f5-a878be38bd16",
-          "cc88b64a-8df8-4c9d-96c4-529d267d33ae"
+          "e91e8d78-8836-4d71-8699-e80530d49aab",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
+          "15760d57-468c-4f45-82b2-2b87749c548f"
         ],
         "recall": 1.0,
         "mrr": 1.0,
@@ -1856,8 +1920,10 @@
       "relevant": [
         "c0d11804-4cae-44f4-91d9-b8162a1fe70c"
       ],
-      "serverMs": 9716,
-      "wallMs": 9722,
+      "serverMs": 8813,
+      "wallMs": 8824,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
@@ -1897,10 +1963,10 @@
       "reranked": {
         "ranked": [
           "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "6c0fb065-c911-4951-92b9-230f054d5c52",
+          "e8ba6fd5-caca-4eff-8039-c120d1d8d7ab",
           "29e8bf17-a5af-4d80-827d-0064a34ebef3",
-          "5f0e2bbd-a8fa-45a0-8c7e-8b90bc685ac5",
-          "a51107c7-7b94-4513-9c41-21139acfbc3b",
-          "e8ba6fd5-caca-4eff-8039-c120d1d8d7ab"
+          "5f0e2bbd-a8fa-45a0-8c7e-8b90bc685ac5"
         ],
         "recall": 1.0,
         "mrr": 1.0,
@@ -1913,8 +1979,10 @@
       "relevant": [
         "6c0fb065-c911-4951-92b9-230f054d5c52"
       ],
-      "serverMs": 9652,
-      "wallMs": 9677,
+      "serverMs": 11555,
+      "wallMs": 11565,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "f5a12fd4-e96c-4aee-ad2b-ef0cb20cedd0",
@@ -1953,15 +2021,15 @@
       },
       "reranked": {
         "ranked": [
-          "f5a12fd4-e96c-4aee-ad2b-ef0cb20cedd0",
           "6c0fb065-c911-4951-92b9-230f054d5c52",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "f5a12fd4-e96c-4aee-ad2b-ef0cb20cedd0",
           "29e8bf17-a5af-4d80-827d-0064a34ebef3",
-          "a51107c7-7b94-4513-9c41-21139acfbc3b",
-          "5f0e2bbd-a8fa-45a0-8c7e-8b90bc685ac5"
+          "a51107c7-7b94-4513-9c41-21139acfbc3b"
         ],
         "recall": 1.0,
-        "mrr": 0.5,
-        "ndcg": 0.6309
+        "mrr": 1.0,
+        "ndcg": 1.0
       }
     },
     {
@@ -1970,8 +2038,10 @@
       "relevant": [
         "fd7258e6-9c45-4768-b67d-b25669b36a35"
       ],
-      "serverMs": 13083,
-      "wallMs": 13090,
+      "serverMs": 10843,
+      "wallMs": 10857,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "f5a12fd4-e96c-4aee-ad2b-ef0cb20cedd0",
@@ -2011,10 +2081,10 @@
       "reranked": {
         "ranked": [
           "f5a12fd4-e96c-4aee-ad2b-ef0cb20cedd0",
-          "6c0fb065-c911-4951-92b9-230f054d5c52",
-          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
           "cdcb6579-2568-4a03-8e6d-4064c4cf56d7",
-          "1e5128ec-c156-44a1-b836-d20f4956c877"
+          "c441cd07-6826-4651-96bc-5ae6e54f32eb",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "7c8bdcb2-6675-4f9f-a7a7-95665f96a402"
         ],
         "recall": 0.0,
         "mrr": 0.0,
@@ -2027,8 +2097,10 @@
       "relevant": [
         "5cce6c92-9e45-461a-8e1e-94b910368c47"
       ],
-      "serverMs": 14748,
-      "wallMs": 14755,
+      "serverMs": 15869,
+      "wallMs": 15882,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "5cce6c92-9e45-461a-8e1e-94b910368c47",
@@ -2068,10 +2140,10 @@
       "reranked": {
         "ranked": [
           "5cce6c92-9e45-461a-8e1e-94b910368c47",
-          "a2a2ee50-e9c9-46a6-ac6b-4a6e9d08b729",
+          "34460ea6-b3ab-4854-ae3a-6fe7d0d65b1d",
           "32956d54-04e8-4a46-b21d-32ac919877a4",
-          "0482f811-600d-4fae-8969-c5e6ec30a588",
-          "909e2868-1990-43bd-a1e7-70f426728d66"
+          "c15f9e87-712c-4525-aeab-de971095ae65",
+          "0482f811-600d-4fae-8969-c5e6ec30a588"
         ],
         "recall": 1.0,
         "mrr": 1.0,
@@ -2084,8 +2156,10 @@
       "relevant": [
         "34460ea6-b3ab-4854-ae3a-6fe7d0d65b1d"
       ],
-      "serverMs": 12976,
-      "wallMs": 12982,
+      "serverMs": 16846,
+      "wallMs": 16859,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "6123160c-0691-4b26-92f8-a05791b9321e",
@@ -2124,15 +2198,15 @@
       },
       "reranked": {
         "ranked": [
-          "6123160c-0691-4b26-92f8-a05791b9321e",
+          "34460ea6-b3ab-4854-ae3a-6fe7d0d65b1d",
+          "c15f9e87-712c-4525-aeab-de971095ae65",
           "32956d54-04e8-4a46-b21d-32ac919877a4",
-          "2f10cbbe-2d3e-49be-bac3-2b944b7364ed",
-          "15760d57-468c-4f45-82b2-2b87749c548f",
-          "876d7c03-f017-45cd-9120-b030b90c1214"
+          "efc3cacd-2b60-4b06-b08f-32cf6a46a1f8",
+          "5cce6c92-9e45-461a-8e1e-94b910368c47"
         ],
-        "recall": 0.0,
-        "mrr": 0.0,
-        "ndcg": 0.0
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
       }
     },
     {
@@ -2141,8 +2215,10 @@
       "relevant": [
         "efc3cacd-2b60-4b06-b08f-32cf6a46a1f8"
       ],
-      "serverMs": 12302,
-      "wallMs": 12320,
+      "serverMs": 12436,
+      "wallMs": 12460,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "bee97d7d-b35e-44d3-aae7-b4a314ba8e9d",
@@ -2181,11 +2257,11 @@
       },
       "reranked": {
         "ranked": [
-          "bee97d7d-b35e-44d3-aae7-b4a314ba8e9d",
+          "c15f9e87-712c-4525-aeab-de971095ae65",
           "efc3cacd-2b60-4b06-b08f-32cf6a46a1f8",
           "32956d54-04e8-4a46-b21d-32ac919877a4",
-          "c15f9e87-712c-4525-aeab-de971095ae65",
-          "2f10cbbe-2d3e-49be-bac3-2b944b7364ed"
+          "2f10cbbe-2d3e-49be-bac3-2b944b7364ed",
+          "5cce6c92-9e45-461a-8e1e-94b910368c47"
         ],
         "recall": 1.0,
         "mrr": 0.5,
@@ -2198,8 +2274,10 @@
       "relevant": [
         "c15f9e87-712c-4525-aeab-de971095ae65"
       ],
-      "serverMs": 8894,
-      "wallMs": 8919,
+      "serverMs": 8897,
+      "wallMs": 8916,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "6123160c-0691-4b26-92f8-a05791b9321e",
@@ -2238,15 +2316,15 @@
       },
       "reranked": {
         "ranked": [
-          "6123160c-0691-4b26-92f8-a05791b9321e",
-          "1e5128ec-c156-44a1-b836-d20f4956c877",
-          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
-          "e8ba6fd5-caca-4eff-8039-c120d1d8d7ab",
-          "5f0e2bbd-a8fa-45a0-8c7e-8b90bc685ac5"
+          "c15f9e87-712c-4525-aeab-de971095ae65",
+          "efc3cacd-2b60-4b06-b08f-32cf6a46a1f8",
+          "34460ea6-b3ab-4854-ae3a-6fe7d0d65b1d",
+          "2f10cbbe-2d3e-49be-bac3-2b944b7364ed",
+          "876d7c03-f017-45cd-9120-b030b90c1214"
         ],
-        "recall": 0.0,
-        "mrr": 0.0,
-        "ndcg": 0.0
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
       }
     },
     {
@@ -2255,8 +2333,10 @@
       "relevant": [
         "fa5e7370-fe1f-4450-9dd9-56a8054de209"
       ],
-      "serverMs": 10871,
-      "wallMs": 10906,
+      "serverMs": 10438,
+      "wallMs": 10472,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "c15f9e87-712c-4525-aeab-de971095ae65",
@@ -2295,15 +2375,15 @@
       },
       "reranked": {
         "ranked": [
-          "c15f9e87-712c-4525-aeab-de971095ae65",
           "fa5e7370-fe1f-4450-9dd9-56a8054de209",
-          "844a79a1-e5f2-4dc1-8d34-eeaf1371422e",
-          "9db85b9a-a415-4e5a-b30d-df591f52f860",
-          "2f10cbbe-2d3e-49be-bac3-2b944b7364ed"
+          "c15f9e87-712c-4525-aeab-de971095ae65",
+          "efc3cacd-2b60-4b06-b08f-32cf6a46a1f8",
+          "5f0e2bbd-a8fa-45a0-8c7e-8b90bc685ac5",
+          "844a79a1-e5f2-4dc1-8d34-eeaf1371422e"
         ],
         "recall": 1.0,
-        "mrr": 0.5,
-        "ndcg": 0.6309
+        "mrr": 1.0,
+        "ndcg": 1.0
       }
     },
     {
@@ -2312,8 +2392,10 @@
       "relevant": [
         "a917a1e2-81d8-43ef-945c-fb4bb817dd35"
       ],
-      "serverMs": 13650,
-      "wallMs": 13657,
+      "serverMs": 13340,
+      "wallMs": 13371,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "a917a1e2-81d8-43ef-945c-fb4bb817dd35",
@@ -2353,10 +2435,10 @@
       "reranked": {
         "ranked": [
           "a917a1e2-81d8-43ef-945c-fb4bb817dd35",
-          "66a097d8-e8f0-4c39-90eb-5b4dee180afd",
-          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
           "fa5e7370-fe1f-4450-9dd9-56a8054de209",
-          "844a79a1-e5f2-4dc1-8d34-eeaf1371422e"
+          "34460ea6-b3ab-4854-ae3a-6fe7d0d65b1d",
+          "ea40260b-afe8-481c-a199-a0ce31892984",
+          "18a2a7b1-c53f-410e-8722-e18f71bf048c"
         ],
         "recall": 1.0,
         "mrr": 1.0,
@@ -2369,8 +2451,10 @@
       "relevant": [
         "909e2868-1990-43bd-a1e7-70f426728d66"
       ],
-      "serverMs": 14959,
-      "wallMs": 14965,
+      "serverMs": 14675,
+      "wallMs": 14687,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "909e2868-1990-43bd-a1e7-70f426728d66",
@@ -2410,10 +2494,10 @@
       "reranked": {
         "ranked": [
           "909e2868-1990-43bd-a1e7-70f426728d66",
+          "ea40260b-afe8-481c-a199-a0ce31892984",
+          "a917a1e2-81d8-43ef-945c-fb4bb817dd35",
           "a2a2ee50-e9c9-46a6-ac6b-4a6e9d08b729",
-          "fa5e7370-fe1f-4450-9dd9-56a8054de209",
-          "5cce6c92-9e45-461a-8e1e-94b910368c47",
-          "876d7c03-f017-45cd-9120-b030b90c1214"
+          "fa5e7370-fe1f-4450-9dd9-56a8054de209"
         ],
         "recall": 1.0,
         "mrr": 1.0,
@@ -2426,8 +2510,10 @@
       "relevant": [
         "ea40260b-afe8-481c-a199-a0ce31892984"
       ],
-      "serverMs": 13685,
-      "wallMs": 13710,
+      "serverMs": 15258,
+      "wallMs": 15284,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "ea40260b-afe8-481c-a199-a0ce31892984",
@@ -2467,8 +2553,8 @@
       "reranked": {
         "ranked": [
           "ea40260b-afe8-481c-a199-a0ce31892984",
-          "18a2a7b1-c53f-410e-8722-e18f71bf048c",
           "909e2868-1990-43bd-a1e7-70f426728d66",
+          "18a2a7b1-c53f-410e-8722-e18f71bf048c",
           "32956d54-04e8-4a46-b21d-32ac919877a4",
           "2f10cbbe-2d3e-49be-bac3-2b944b7364ed"
         ],
@@ -2483,8 +2569,10 @@
       "relevant": [
         "18a2a7b1-c53f-410e-8722-e18f71bf048c"
       ],
-      "serverMs": 10266,
-      "wallMs": 10272,
+      "serverMs": 11504,
+      "wallMs": 11516,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "18a2a7b1-c53f-410e-8722-e18f71bf048c",
@@ -2523,15 +2611,15 @@
       },
       "reranked": {
         "ranked": [
-          "18a2a7b1-c53f-410e-8722-e18f71bf048c",
           "ea40260b-afe8-481c-a199-a0ce31892984",
-          "3d989a70-4e89-4837-ac33-dabef418303c",
-          "bee97d7d-b35e-44d3-aae7-b4a314ba8e9d",
-          "15760d57-468c-4f45-82b2-2b87749c548f"
+          "18a2a7b1-c53f-410e-8722-e18f71bf048c",
+          "1934bf37-9c18-4bdd-b166-a9da41c8b9ca",
+          "e8ba6fd5-caca-4eff-8039-c120d1d8d7ab",
+          "bee97d7d-b35e-44d3-aae7-b4a314ba8e9d"
         ],
         "recall": 1.0,
-        "mrr": 1.0,
-        "ndcg": 1.0
+        "mrr": 0.5,
+        "ndcg": 0.6309
       }
     },
     {
@@ -2540,8 +2628,10 @@
       "relevant": [
         "0482f811-600d-4fae-8969-c5e6ec30a588"
       ],
-      "serverMs": 13315,
-      "wallMs": 13341,
+      "serverMs": 11819,
+      "wallMs": 11865,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "6c0fb065-c911-4951-92b9-230f054d5c52",
@@ -2580,15 +2670,15 @@
       },
       "reranked": {
         "ranked": [
-          "6c0fb065-c911-4951-92b9-230f054d5c52",
-          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
-          "6123160c-0691-4b26-92f8-a05791b9321e",
-          "f5a12fd4-e96c-4aee-ad2b-ef0cb20cedd0",
-          "c441cd07-6826-4651-96bc-5ae6e54f32eb"
+          "0482f811-600d-4fae-8969-c5e6ec30a588",
+          "32956d54-04e8-4a46-b21d-32ac919877a4",
+          "a2a2ee50-e9c9-46a6-ac6b-4a6e9d08b729",
+          "18a2a7b1-c53f-410e-8722-e18f71bf048c",
+          "6123160c-0691-4b26-92f8-a05791b9321e"
         ],
-        "recall": 0.0,
-        "mrr": 0.0,
-        "ndcg": 0.0
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
       }
     },
     {
@@ -2597,8 +2687,10 @@
       "relevant": [
         "32956d54-04e8-4a46-b21d-32ac919877a4"
       ],
-      "serverMs": 18907,
-      "wallMs": 18930,
+      "serverMs": 10043,
+      "wallMs": 10095,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "32956d54-04e8-4a46-b21d-32ac919877a4",
@@ -2638,10 +2730,10 @@
       "reranked": {
         "ranked": [
           "32956d54-04e8-4a46-b21d-32ac919877a4",
-          "1e5128ec-c156-44a1-b836-d20f4956c877",
-          "e8ba6fd5-caca-4eff-8039-c120d1d8d7ab",
-          "5f0e2bbd-a8fa-45a0-8c7e-8b90bc685ac5",
-          "889d7fb0-c750-4bfa-969e-f712e7f65004"
+          "0482f811-600d-4fae-8969-c5e6ec30a588",
+          "5cce6c92-9e45-461a-8e1e-94b910368c47",
+          "34460ea6-b3ab-4854-ae3a-6fe7d0d65b1d",
+          "efc3cacd-2b60-4b06-b08f-32cf6a46a1f8"
         ],
         "recall": 1.0,
         "mrr": 1.0,
@@ -2654,8 +2746,10 @@
       "relevant": [
         "bee97d7d-b35e-44d3-aae7-b4a314ba8e9d"
       ],
-      "serverMs": 11300,
-      "wallMs": 11307,
+      "serverMs": 11006,
+      "wallMs": 11031,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "2f10cbbe-2d3e-49be-bac3-2b944b7364ed",
@@ -2694,15 +2788,15 @@
       },
       "reranked": {
         "ranked": [
-          "2f10cbbe-2d3e-49be-bac3-2b944b7364ed",
           "bee97d7d-b35e-44d3-aae7-b4a314ba8e9d",
-          "9db85b9a-a415-4e5a-b30d-df591f52f860",
-          "876d7c03-f017-45cd-9120-b030b90c1214",
-          "32956d54-04e8-4a46-b21d-32ac919877a4"
+          "2f10cbbe-2d3e-49be-bac3-2b944b7364ed",
+          "32956d54-04e8-4a46-b21d-32ac919877a4",
+          "a2a2ee50-e9c9-46a6-ac6b-4a6e9d08b729",
+          "c5d237db-ab6b-4cf5-8050-517da8ad02cf"
         ],
         "recall": 1.0,
-        "mrr": 0.5,
-        "ndcg": 0.6309
+        "mrr": 1.0,
+        "ndcg": 1.0
       }
     },
     {
@@ -2711,8 +2805,10 @@
       "relevant": [
         "2f10cbbe-2d3e-49be-bac3-2b944b7364ed"
       ],
-      "serverMs": 14031,
-      "wallMs": 14037,
+      "serverMs": 15410,
+      "wallMs": 15439,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "2f10cbbe-2d3e-49be-bac3-2b944b7364ed",
@@ -2754,8 +2850,8 @@
           "2f10cbbe-2d3e-49be-bac3-2b944b7364ed",
           "876d7c03-f017-45cd-9120-b030b90c1214",
           "bee97d7d-b35e-44d3-aae7-b4a314ba8e9d",
-          "32956d54-04e8-4a46-b21d-32ac919877a4",
-          "909e2868-1990-43bd-a1e7-70f426728d66"
+          "909e2868-1990-43bd-a1e7-70f426728d66",
+          "32956d54-04e8-4a46-b21d-32ac919877a4"
         ],
         "recall": 1.0,
         "mrr": 1.0,
@@ -2768,8 +2864,10 @@
       "relevant": [
         "876d7c03-f017-45cd-9120-b030b90c1214"
       ],
-      "serverMs": 13304,
-      "wallMs": 13312,
+      "serverMs": 11645,
+      "wallMs": 11656,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "876d7c03-f017-45cd-9120-b030b90c1214",
@@ -2810,9 +2908,9 @@
         "ranked": [
           "876d7c03-f017-45cd-9120-b030b90c1214",
           "2f10cbbe-2d3e-49be-bac3-2b944b7364ed",
-          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
-          "cdcb6579-2568-4a03-8e6d-4064c4cf56d7",
-          "e8ba6fd5-caca-4eff-8039-c120d1d8d7ab"
+          "bee97d7d-b35e-44d3-aae7-b4a314ba8e9d",
+          "32956d54-04e8-4a46-b21d-32ac919877a4",
+          "909e2868-1990-43bd-a1e7-70f426728d66"
         ],
         "recall": 1.0,
         "mrr": 1.0,
@@ -2825,8 +2923,10 @@
       "relevant": [
         "a2a2ee50-e9c9-46a6-ac6b-4a6e9d08b729"
       ],
-      "serverMs": 13743,
-      "wallMs": 13748,
+      "serverMs": 15728,
+      "wallMs": 15757,
+      "rerankStatus": "success",
+      "rrfK": 60,
       "vectorRecall": {
         "ranked": [
           "a2a2ee50-e9c9-46a6-ac6b-4a6e9d08b729",
@@ -2866,15 +2966,27 @@
       "reranked": {
         "ranked": [
           "a2a2ee50-e9c9-46a6-ac6b-4a6e9d08b729",
-          "909e2868-1990-43bd-a1e7-70f426728d66",
-          "5cce6c92-9e45-461a-8e1e-94b910368c47",
-          "fa5e7370-fe1f-4450-9dd9-56a8054de209",
-          "876d7c03-f017-45cd-9120-b030b90c1214"
+          "66a097d8-e8f0-4c39-90eb-5b4dee180afd",
+          "0482f811-600d-4fae-8969-c5e6ec30a588",
+          "876d7c03-f017-45cd-9120-b030b90c1214",
+          "5cce6c92-9e45-461a-8e1e-94b910368c47"
         ],
         "recall": 1.0,
         "mrr": 1.0,
         "ndcg": 1.0
       }
     }
-  ]
+  ],
+  "rerankStatus": {
+    "success": 50,
+    "disabled": 0,
+    "degraded": 0,
+    "missing": 0
+  },
+  "latency": {
+    "p50ServerMs": 12967.5,
+    "p95ServerMs": 20497.799999999996,
+    "p50WallMs": 12984.5,
+    "p95WallMs": 20519.549999999996
+  }
 }
