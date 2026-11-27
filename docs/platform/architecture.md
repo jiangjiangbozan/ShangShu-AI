@@ -374,33 +374,37 @@ CREATE TABLE sys_user (
 
 ### 4.3 Elasticsearch 索引
 
-#### 向量索引 `kb_vector_<kbId>`
+#### 知识库向量索引 `ai_agent_knowledge`
+
+全库共用单索引，靠 `metadata.knowledgeBaseId` 做知识库隔离，避免按库建索引带来的 mapping 漂移。
+
 ```json
 {
   "mappings": {
     "properties": {
-      "kb_id": { "type": "long" },
-      "document_id": { "type": "long" },
-      "chunk_id": { "type": "long" },
-      "content": {
-        "type": "text",
-        "analyzer": "ik_max_word",
-        "search_analyzer": "ik_smart"
-      },
-      "content_vector": {
+      "id": { "type": "text", "fields": { "keyword": { "type": "keyword", "ignore_above": 256 } } },
+      "content": { "type": "text", "fields": { "keyword": { "type": "keyword", "ignore_above": 256 } } },
+      "embedding": {
         "type": "dense_vector",
-        "dims": 1024,
+        "dims": 768,
         "index": true,
-        "similarity": "cosine"
+        "similarity": "cosine",
+        "index_options": { "type": "int8_hnsw", "m": 16, "ef_construction": 100 }
       },
-      "metadata": { "type": "object" },
-      "created_at": { "type": "date" }
+      "metadata": {
+        "properties": {
+          "documentId": { "type": "text", "fields": { "keyword": { "type": "keyword", "ignore_above": 256 } } },
+          "knowledgeBaseId": { "type": "text", "fields": { "keyword": { "type": "keyword", "ignore_above": 256 } } }
+        }
+      }
     }
   }
 }
 ```
 
-> embedding 维度由所选模型决定：bge-m3 = 1024，通义 text-embedding-v3 = 1024。
+> **维度必须与向量模型一致**：当前落地为百炼 `qwen3.7-text-embedding-flash`（768 维，`dimensions` 支持 768/512/256）。历史本地后端 `nomic-embed-text` 同样是 768 维，因此切换模型无需重建索引，但**必须原地重算全部分片向量**（`dev/rag-eval/reembed.py`，按 `_id` 更新、保留 chunk id）。若改维度，需删除索引重建并全量重嵌入。
+>
+> `int8_hnsw` 量化把向量内存占用压到 float32 的约 1/4，召回损失在 768 维余弦场景下可忽略（实测切换前后 RRF Recall 0.780 → 0.940，见 `docs/platform/testing/rag-eval-report.md`）。
 
 ### 4.4 RabbitMQ 队列
 
@@ -527,17 +531,33 @@ ChatClient.builder()
 
 ```mermaid
 flowchart LR
-    Q[用户问题] --> A[Query 改写]
-    A --> B[Embedding]
-    B --> C[向量检索<br/>TopK=20]
-    Q --> D[关键词检索<br/>BM25]
-    C --> E[合并去重]
-    D --> E
-    E --> F[重排序<br/>Cohere/BGE-Reranker]
-    F --> G[TopK=5]
-    G --> H[组装 Prompt]
-    H --> I[流式生成]
+    Q[用户问题] --> A[Query 改写<br/>DeepSeek 主 / Ollama 兜底]
+    A --> B[向量化<br/>qwen3.7-text-embedding-flash 768d]
+    B --> C[语义召回<br/>ES dense_vector kNN]
+    Q --> D[关键词召回<br/>BM25]
+    Q --> E[父文档召回<br/>相邻分片回溯]
+    Q --> F[知识图谱召回<br/>实体匹配 + 多跳]
+    C --> G[RRF 融合<br/>k=60]
+    D --> G
+    E --> G
+    F --> G
+    G --> H[精排<br/>qwen3.7-text-rerank<br/>候选 10 → 取 5]
+    H --> I[组装 Prompt]
+    I --> J[流式生成]
 ```
+
+**落地要点**
+
+| 环节 | 实现 | 配置项 |
+|---|---|---|
+| Query 改写 | 主 DeepSeek、兜底本地 Ollama qwen3:8b；短查询（<6 字符）不改写 | `rag.query-rewrite.*` |
+| 向量化 | 百炼 OpenAI 兼容端点，单批 20 条、768 维；`@Primary` Bean 覆盖 Ollama | `rag.embedding.*` |
+| 四路召回 | `semantic,fulltext,parent,knowledge_graph`，各路独立 topK 后融合 | `rag.retrieval-methods` |
+| 融合 | RRF（k=60），连字符自动归一化为下划线 | `rag.query-rewrite.rrf-k` |
+| 精排 | 百炼原生 rerank 协议，候选 10 条取前 5，分数回写 metadata 供下游门控 | `rag.rerank.*` |
+| 降级 | rerank 关闭或调用失败自动回退 RRF 原序；客服 KB 命中阈值取 rerank 分数 0.5 | `cs.kb-hit-threshold` |
+
+> 实测（50 题中文数据集）：四路召回 + RRF 达 Recall@5 0.940 / nDCG@5 0.794，再叠加 rerank 后 nDCG@5 0.870、命中率 94%。指标与演进对比见 `docs/platform/testing/rag-eval-report.md`。
 
 ### 6.4 Agent ReAct 引擎
 
@@ -638,7 +658,7 @@ flowchart TB
 
 > **核心策略**：初期优先采用 Maven 多模块单体打包方式，这是 AI 平台开发中避免关键陷阱的重要策略。
 
-**M0-M2**：单模块 `api/`，按子包组织（见 [coding-standards.md](../standards/coding-standards.md) §3.1）。
+**M0-M2**：单模块 `d:\ai\api`，按子包组织（见 [coding-standards.md](../standards/coding-standards.md) §3.1）。
 
 **M3 起按需拆分 Maven 子模块**（编译期模块化，运行期仍单体 fat-jar 部署）：
 - 触发条件：编译变慢、模块边界稳定、团队规模扩大
@@ -692,6 +712,6 @@ flowchart TB
 - [changes-roadmap.md](./changes-roadmap.md)
 - [deployment.md](./deployment.md)
 - [training-plan.md](./training-plan.md)
-- 现有后端项目：[api/](file:///d:/ai/api)
-- 现有前端项目：[ai-agent-web/](file:///d:/ai/ai-agent-web)
-- OpenSpec 配置：[openspec/config.yaml](file:///d:/ai/openspec/config.yaml)
+- 现有后端项目：[d:\ai\api](file:///d:/ai/api)
+- 现有前端项目：[d:\ai\ai-agent-web](file:///d:/ai/ai-agent-web)
+- OpenSpec 配置：[d:\ai\openspec\config.yaml](file:///d:/ai/openspec/config.yaml)

@@ -22,8 +22,8 @@
 
 尚枢 AI（ShangShu AI）是一个**纯 Java 技术栈**的自托管 AI 应用平台。基于 Spring AI 构建，将多模型接入、企业知识库 RAG、可视化 Agent 工作流、运行观测与安全治理整合到一套可部署、可扩展、可运营的系统中。
 
-- **Spring AI 原生**：模型接入、Embedding、VectorStore 全部走 Spring AI 抽象，不锁死供应商
-- **完整 RAG 链路**：QueryRewrite → 向量 + 关键词双路召回 → RRF 融合 → Rerank → Parent Document → 知识图谱抽取
+- **Spring AI 原生**：模型接入、Embedding、VectorStore 全部走 Spring AI 抽象，向量化后端可在本地 Ollama 与百炼之间配置切换
+- **完整 RAG 链路**：QueryRewrite → 语义 / 关键词 / 父文档 / 知识图谱四路召回 → RRF 融合 → 百炼 Rerank 精排 → 引用来源（50 题评测 Recall@5 0.940、命中率 94%）
 - **可扩展工作流引擎**：20 种节点执行器，DAG 拓扑执行，变量上下文，条件分支，SSE 实时推送
 - **工程化开箱即用**：Flyway 数据库迁移、JWT + RBAC + CSRF + XSS 安全体系、RabbitMQ 异步架构、Redis Stack 会话持久化
 
@@ -133,13 +133,23 @@ npm run dev
 >   ① 停掉本地服务（如 `Stop-Service MySQL80`）再 `docker compose up -d`；
 >   ② 切换端口：`MYSQL_HOST_PORT=3307 docker compose up -d`，启动后端时加 `MYSQL_PORT=3307`
 
-> **RAG 功能额外依赖**：向量默认走 Ollama `nomic-embed-text`，需要本机安装 Ollama 并拉取模型：
+> **RAG 功能额外依赖**：向量化默认走百炼 `qwen3.7-text-embedding-flash`（OpenAI 兼容端点，768 维），需要配置密钥：
 >
 > ```bash
-> ollama pull nomic-embed-text
+> # 方式一：环境变量
+> export DASHSCOPE_API_KEY=sk-xxx
+>
+> # 方式二：本地 secret 文件（已被 .gitignore 忽略，不入库）
+> # api/src/main/resources/application-secret.yml
+> # dashscope:
+> #   api-key: sk-xxx
 > ```
 >
-> 只测试 Chat / Agent / Workflow 功能不需要这一步；RAG 检索与知识库向量化必须先有 Embedding 模型（或在 `.env` / 环境变量中改配其他 Embedding 方案）。
+> 想完全离线可回退本地 Ollama：设 `RAG_EMBEDDING_PROVIDER=ollama` 并 `ollama pull nomic-embed-text`。两者同为 768 维，切换后需用 `dev/rag-eval/reembed.py` 重嵌入全部分片，否则语义检索失效。
+>
+> 精排（rerank）同样走百炼，`rag.rerank.enabled` 默认开启；关闭或调用失败会自动回退 RRF 原序。
+>
+> 只测试 Chat / Agent / Workflow 功能不需要这一步。
 
 ### 模式 B：Docker 完整部署
 

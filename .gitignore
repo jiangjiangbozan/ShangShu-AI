@@ -28,6 +28,9 @@
 /docs/platform/*
 !/docs/platform/architecture.md
 !/docs/platform/deployment.md
+# 测试与评测文档对外可见（评测结论是项目能力的一部分）
+!/docs/platform/testing/
+!/docs/platform/testing/*.md
 
 # ---------------------------------------------------------------------
 # 环境变量与密钥（绝不提交）
