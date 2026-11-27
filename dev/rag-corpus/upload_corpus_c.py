@@ -11,9 +11,11 @@
 
 from __future__ import annotations
 
+import argparse
 import glob
 import json
 import os
+import re
 import sys
 import urllib.request
 import uuid
@@ -73,13 +75,25 @@ def batch_upload(kb_id: int, token: str, csrf: str, paths: list[str]):
     return payload.get("data")
 
 
+def order_of(path: str) -> int:
+    m = re.match(r"(\d{2,})-", os.path.basename(path))
+    return int(m.group(1)) if m else 0
+
+
 def main() -> None:
+    ap = argparse.ArgumentParser(description="批次 C 语料入库")
+    ap.add_argument("--from-order", type=int, default=0, help="只上传文件名序号 >= N 的语料（增量续传）")
+    ap.add_argument("--dry-run", action="store_true", help="只打印清单")
+    args = ap.parse_args()
+
     paths = sorted(glob.glob(os.path.join(CORPUS_DIR, "*.md")))
+    if args.from_order:
+        paths = [p for p in paths if order_of(p) >= args.from_order]
     if not paths:
         sys.exit(f"语料目录为空：{CORPUS_DIR}")
     total_bytes = sum(os.path.getsize(p) for p in paths)
     print(f"待上传 {len(paths)} 篇，原始字节 {total_bytes}")
-    if "--dry-run" in sys.argv:
+    if args.dry_run:
         for p in paths:
             print(" -", os.path.basename(p))
         return

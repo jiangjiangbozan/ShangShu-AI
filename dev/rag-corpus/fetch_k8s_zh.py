@@ -138,12 +138,24 @@ def load_sitemap_urls() -> list[str]:
     return [m.group(1) for m in re.finditer(r"<loc>(.*?)</loc>", xml)]
 
 
-def select_urls(all_urls: list[str], limit: int) -> list[str]:
-    """按 分类优先级 + 路径深度 排序，取前 limit 篇。"""
+def existing_slugs() -> set[str]:
+    """扫描已抓取的语料文件，返回 slug 集合，用于增量抓取去重。"""
+    result: set[str] = set()
+    if not os.path.isdir(OUT_DIR):
+        return result
+    for name in os.listdir(OUT_DIR):
+        m = re.match(r"\d{2,}-(.+)\.md$", name)
+        if m:
+            result.add(m.group(1))
+    return result
+
+
+def select_urls(all_urls: list[str], limit: int, sections: list[str], skip: set[str]) -> list[str]:
+    """按 分区优先级 + 路径深度 排序，跳过已抓页面，取前 limit 篇。"""
     docs = [u for u in all_urls if "/zh-cn/docs/" in u]
     ranked = []
     for u in docs:
-        for idx, sec in enumerate(SECTION_ORDER):
+        for idx, sec in enumerate(sections):
             if sec in u:
                 rest = u.split(sec, 1)[1].strip("/")
                 depth = rest.count("/") + 1 if rest else 0
@@ -154,7 +166,7 @@ def select_urls(all_urls: list[str], limit: int) -> list[str]:
     ranked.sort()
     out = []
     for _, _, _, _, u in ranked:
-        if u not in out:
+        if u not in out and slug(u) not in skip:
             out.append(u)
     return out[:limit]
 
@@ -170,21 +182,30 @@ def slug(url: str) -> str:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int, default=85)
+    ap.add_argument("--sections", default="concepts,tasks,tutorials",
+                    help="分区白名单，逗号分隔（concepts/tasks/tutorials/reference/setup）")
+    ap.add_argument("--error-log", default="", help="额外输出 JSON 错误清单路径（增量抓取时用）")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
-    urls = select_urls(load_sitemap_urls(), args.limit)
-    print(f"[plan] 计划抓取 {len(urls)} 篇", flush=True)
+    sections = [f"/docs/{s.strip()}/" for s in args.sections.split(",") if s.strip()]
+    urls = select_urls(load_sitemap_urls(), args.limit, sections, existing_slugs())
+    print(f"[plan] 计划抓取 {len(urls)} 篇（分区 {sections}）", flush=True)
     if args.dry_run:
         for u in urls[:15]:
             print("   ", u)
         return
 
     os.makedirs(OUT_DIR, exist_ok=True)
+    start = 1
+    for name in os.listdir(OUT_DIR):
+        m = re.match(r"(\d{2,})-", name)
+        if m:
+            start = max(start, int(m.group(1)) + 1)
     records, failed = [], []
     total_chars = total_cn = 0
 
-    for i, url in enumerate(urls, start=1):
+    for i, url in enumerate(urls, start=start):
         try:
             html = fetch_text(url)
             p = DocExtractor()
@@ -220,22 +241,38 @@ def main() -> None:
         print(f"[{i:02d}] OK {chars:>6}字 中文{cn:>5}  {name}", flush=True)
         time.sleep(0.25)
 
+    # 合并历史批次记录，避免增量抓取覆盖既有 MANIFEST
+    manifest_path = os.path.join(os.path.dirname(OUT_DIR), "manifest_c.json")
+    all_records = list(records)
+    prev_chars = prev_cn = 0
+    try:
+        with open(manifest_path, encoding="utf-8") as fp:
+            prev = json.load(fp)
+        current_files = {r["file"] for r in records}
+        prev_records = [r for r in (prev.get("records") or []) if r.get("file") not in current_files]
+        prev_chars = sum(int(r.get("chars") or 0) for r in prev_records)
+        prev_cn = sum(int(r.get("cn_chars") or 0) for r in prev_records)
+        all_records = prev_records + records
+    except Exception:  # noqa: BLE001
+        pass
+
     manifest = ["# 批次 C：Kubernetes 中文官方文档语料\n",
                 "> 来源 kubernetes.io/zh-cn（CC BY 4.0），HTML 正文提取，用于中文检索能力补强。\n"]
-    manifest.append(f"- 文档数：{len(records)}")
-    manifest.append(f"- 失败数：{len(failed)}")
-    manifest.append(f"- 总字符数：{total_chars}")
-    manifest.append(f"- 中文字符数：{total_cn}")
-    manifest.append(f"- 平均字符数：{total_chars // max(len(records), 1)}\n")
+    manifest.append(f"- 文档数：{len(all_records)}")
+    manifest.append(f"- 本轮新增：{len(records)}，失败：{len(failed)}")
+    manifest.append(f"- 总字符数：{prev_chars + total_chars}")
+    manifest.append(f"- 中文字符数：{prev_cn + total_cn}")
+    manifest.append(f"- 平均字符数：{(prev_chars + total_chars) // max(len(all_records), 1)}\n")
     manifest.append("| # | 文档 | 字符数 | 中文字 | 来源 |")
     manifest.append("|---|---|---|---|---|")
-    for r in records:
+    for r in all_records:
         manifest.append(f"| {r['order']} | {r['title'][:40]} | {r['chars']} | {r['cn_chars']} | [link]({r['url']}) |")
 
     with open(os.path.join(os.path.dirname(OUT_DIR), "MANIFEST_C.md"), "w", encoding="utf-8", newline="\n") as fp:
         fp.write("\n".join(manifest) + "\n")
-    with open(os.path.join(os.path.dirname(OUT_DIR), "manifest_c.json"), "w", encoding="utf-8", newline="\n") as fp:
-        json.dump({"records": records, "failed": failed, "total_chars": total_chars, "total_cn": total_cn},
+    with open(manifest_path, "w", encoding="utf-8", newline="\n") as fp:
+        json.dump({"records": all_records, "failed": failed,
+                   "total_chars": prev_chars + total_chars, "total_cn": prev_cn + total_cn},
                   fp, ensure_ascii=False, indent=2)
 
     print(f"\n[done] {len(records)} 篇 / {total_chars} 字符 / 中文 {total_cn} / 失败 {len(failed)}")

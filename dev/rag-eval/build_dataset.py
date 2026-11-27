@@ -7,6 +7,7 @@
 
 import argparse
 import json
+import random
 import sys
 
 import eval_common
@@ -64,12 +65,17 @@ def main():
     parser.add_argument("--model-id", default=eval_common.MODEL_ID, help="生成问题用的模型")
     parser.add_argument("--min-chars", type=int, default=60, help="chunk 最小长度过滤（默认 60）")
     parser.add_argument("--output", default="dataset.jsonl", help="输出文件")
+    parser.add_argument("--shuffle", action="store_true", help="打乱文档顺序，避免题目集中在少数文档")
+    parser.add_argument("--per-doc", type=int, default=2, help="每篇文档最多取几个 chunk 出题")
     args = parser.parse_args()
 
     token, csrf = eval_common.login()
     print(f"登录成功，知识库 {args.kb_id}，目标题数 {args.count}")
 
     docs = list_documents(token, csrf, args.kb_id)
+    if args.shuffle:
+        random.seed(42)
+        random.shuffle(docs)
     print(f"获取到 {len(docs)} 篇文档")
     if not docs:
         sys.exit("知识库没有文档，请先入库测试文档")
@@ -82,8 +88,9 @@ def main():
         if doc_id is None:
             continue
         chunks = list_chunks(token, csrf, doc_id)
+        taken = 0
         for chunk in chunks:
-            if len(items) >= args.count:
+            if len(items) >= args.count or taken >= args.per_doc:
                 break
             chunk_id = pick_field(chunk, ("id", "chunkId"))
             text = pick_field(chunk, ("content", "text", "chunkText")) or ""
@@ -105,6 +112,7 @@ def main():
                 "sourceChunkExcerpt": str(text)[:120],  # 便于人工核对题目与来源 chunk 的对应关系
             })
             print(f"[{len(items)}/{args.count}] {question[:50]}")
+            taken += 1
 
     with open(args.output, "w", encoding="utf-8") as f:
         for item in items:
