@@ -298,15 +298,22 @@ rag:
     # 注：解析时会把连字符归一化为下划线，knowledge-graph 与 knowledge_graph 等价
     retrieval-methods: semantic,fulltext,parent,knowledge_graph
   # 混合检索精排（add-3rd-4th-retrieval，对齐 Dify rerank_model 配置化思路）
-  # 基于 HTTP 兼容 /rerank 接口（SiliconFlow / Jina / Cohere 协议），关闭或未配置时降级返回 RRF 原序
+  # protocol=openai 走 {base-url}/rerank（SiliconFlow / Jina / Cohere 协议）；
+  # protocol=dashscope 走百炼原生 {base-url}/api/v1/services/rerank/text-rerank/text-rerank
+  # 关闭或未配置时降级返回 RRF 原序
   rerank:
     enabled: ${RAG_RERANK_ENABLED:false}
+    protocol: ${RAG_RERANK_PROTOCOL:openai}
     base-url: ${RAG_RERANK_BASE_URL:}
     api-key: ${RAG_RERANK_API_KEY:}
     model: ${RAG_RERANK_MODEL:bge-reranker-v2-m3}
     top-n: 5
     candidate-n: 10
-    timeout-ms: 3000
+    # 单条候选截断长度，控制请求体大小与计费 token（百炼单篇上限 30K，1200 字足够判别相关性）
+    max-candidate-chars: ${RAG_RERANK_MAX_CANDIDATE_CHARS:1200}
+    # 百炼 rerank 自定义排序指令，留空用官方默认 QA 检索语义
+    instruct: ${RAG_RERANK_INSTRUCT:}
+    timeout-ms: ${RAG_RERANK_TIMEOUT_MS:8000}
   # 父文档召回配置（add-3rd-4th-retrieval）
   parent-doc:
     enabled: true

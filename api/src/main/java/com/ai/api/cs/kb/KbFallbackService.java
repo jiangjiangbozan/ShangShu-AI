@@ -2,6 +2,7 @@ package com.ai.api.cs.kb;
 
 import com.ai.api.cs.config.CustomerServiceProperties;
 import com.ai.api.knowledge.service.RagRetrievalService;
+import com.ai.api.knowledge.service.RerankService;
 import java.math.BigDecimal;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -53,10 +54,20 @@ public class KbFallbackService {
       return null;
     }
     Document top1 = docs.get(0);
-    // RRF 融合后无显式 score 字段，用 1.0 / (rank + 1) 作为近似
-    BigDecimal score = BigDecimal.ONE;
+    // 精排分数由 RerankService 写回 metadata；缺失说明精排未启用或本次降级
+    Object rawScore = top1.getMetadata().get(RerankService.METADATA_RERANK_SCORE);
+    boolean scoreAvailable = rawScore instanceof Number;
+    BigDecimal score =
+        scoreAvailable ? BigDecimal.valueOf(((Number) rawScore).doubleValue()) : BigDecimal.ONE;
     boolean hit = score.doubleValue() >= properties.getKbHitThreshold();
     kbHitLogRecorder.record(runtimeId, query, kbId, top1.getId(), score, hit);
+    if (!scoreAvailable) {
+      // 没有可信相关性分数时保持旧的宽松命中，避免精排未启用时客服兜底整体失效
+      log.warn(
+          "[KbFallback][no rerank score, permissive hit][runtimeId({}) docId({})]",
+          runtimeId,
+          top1.getId());
+    }
     if (hit) {
       log.info(
           "[KbFallback][hit][runtimeId({}) query({}) docId({}) score({})]",

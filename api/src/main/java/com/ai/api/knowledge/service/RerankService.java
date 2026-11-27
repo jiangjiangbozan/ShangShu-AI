@@ -3,6 +3,8 @@ package com.ai.api.knowledge.service;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
@@ -44,13 +46,28 @@ import org.springframework.web.client.RestClient;
 @Service
 public class RerankService {
 
-  /** 单条候选送入精排的文本长度上限，控制请求体大小。 */
-  private static final int MAX_CANDIDATE_CHARS = 2000;
+  /** Document metadata 中承载精排相关性分数的键，供链路追踪与客服兜底门控读取。 */
+  public static final String METADATA_RERANK_SCORE = "rerankScore";
+
+  /** 百炼（DashScope）原生协议标识。 */
+  private static final String PROTOCOL_DASHSCOPE = "dashscope";
 
   private final RestClient restClient;
 
   @Value("${rag.rerank.enabled:false}")
   private boolean enabled;
+
+  /** 精排协议：openai=SiliconFlow/Jina/Cohere 式 /rerank；dashscope=百炼原生 text-rerank。 */
+  @Value("${rag.rerank.protocol:openai}")
+  private String protocol;
+
+  /** 单条候选送入精排的文本长度上限，控制请求体大小与计费 token。 */
+  @Value("${rag.rerank.max-candidate-chars:1200}")
+  private int maxCandidateChars;
+
+  /** 百炼 rerank 的自定义排序指令（可选，仅 dashscope 协议生效）。 */
+  @Value("${rag.rerank.instruct:}")
+  private String instruct;
 
   @Value("${rag.rerank.base-url:}")
   private String baseUrl;
@@ -130,8 +147,8 @@ public class RerankService {
       List<String> texts = new ArrayList<>(subset.size());
       for (Document doc : subset) {
         String text = doc.getText();
-        if (text != null && text.length() > MAX_CANDIDATE_CHARS) {
-          text = text.substring(0, MAX_CANDIDATE_CHARS);
+        if (text != null && text.length() > maxCandidateChars) {
+          text = text.substring(0, maxCandidateChars);
         }
         texts.add(text == null ? "" : text);
       }
@@ -144,15 +161,16 @@ public class RerankService {
       order.sort(Comparator.comparingDouble((Integer i) -> scores.get(i)).reversed());
       List<Document> ranked = new ArrayList<>(subset.size());
       for (Integer i : order) {
-        ranked.add(subset.get(i));
+        ranked.add(withRerankScore(subset.get(i), scores.get(i)));
       }
       int limit = Math.min(Math.max(1, topN), Math.min(targetTopN, ranked.size()));
       List<Document> result = new ArrayList<>(ranked.subList(0, limit));
       log.debug(
-          "[RerankService][精排完成: candidates={}, returned={}, model={}]",
+          "[RerankService][精排完成: candidates={}, returned={}, model={}, topScore={}]",
           subset.size(),
           result.size(),
-          model);
+          model,
+          scores.get(order.get(0)));
       return new RerankOutcome(
           result, RerankOutcome.STATUS_SUCCESS, null, System.currentTimeMillis() - start);
     } catch (Exception e) {
@@ -166,18 +184,57 @@ public class RerankService {
     }
   }
 
-  /** 调用 /rerank 接口，返回与入参 documents 一一对应的相关性分数。 */
+  /** 按配置协议调用精排接口，返回与入参 documents 一一对应的相关性分数。 */
   private List<Double> callRerank(String query, List<String> documents) {
-    Map<String, Object> requestBody = new java.util.LinkedHashMap<>();
+    if (PROTOCOL_DASHSCOPE.equalsIgnoreCase(protocol)) {
+      return callDashScopeRerank(query, documents);
+    }
+    return callOpenAiRerank(query, documents);
+  }
+
+  /** OpenAI 生态（SiliconFlow / Jina / Cohere）风格：POST {base-url}/rerank。 */
+  private List<Double> callOpenAiRerank(String query, List<String> documents) {
+    Map<String, Object> requestBody = new LinkedHashMap<>();
     requestBody.put("model", model);
     requestBody.put("query", query);
     requestBody.put("documents", documents);
     requestBody.put("top_n", documents.size());
 
+    Map<String, Object> body = post(baseUrl + "/rerank", requestBody);
+    return parseResults(body.get("results"), documents.size());
+  }
+
+  /** 百炼原生风格：POST {base-url}/api/v1/services/rerank/text-rerank/text-rerank。 */
+  private List<Double> callDashScopeRerank(String query, List<String> documents) {
+    Map<String, Object> input = new LinkedHashMap<>();
+    input.put("query", query);
+    input.put("documents", documents);
+    Map<String, Object> parameters = new LinkedHashMap<>();
+    parameters.put("top_n", documents.size());
+    parameters.put("return_documents", false);
+    if (instruct != null && !instruct.isBlank()) {
+      parameters.put("instruct", instruct);
+    }
+    Map<String, Object> requestBody = new LinkedHashMap<>();
+    requestBody.put("model", model);
+    requestBody.put("input", input);
+    requestBody.put("parameters", parameters);
+
+    Map<String, Object> body =
+        post(baseUrl + "/api/v1/services/rerank/text-rerank/text-rerank", requestBody);
+    Object output = body.get("output");
+    if (!(output instanceof Map<?, ?> outputMap)) {
+      throw new IllegalStateException("百炼 rerank 响应缺少 output 对象");
+    }
+    return parseResults(outputMap.get("results"), documents.size());
+  }
+
+  /** 统一 POST JSON 并返回响应体；非 2xx 由 RestClient 抛出异常，交由上层降级。 */
+  private Map<String, Object> post(String url, Map<String, Object> requestBody) {
     Map<String, Object> body =
         restClient
             .post()
-            .uri(baseUrl + "/rerank")
+            .uri(url)
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + apiKey)
             .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
             .body(requestBody)
@@ -186,11 +243,15 @@ public class RerankService {
     if (body == null) {
       throw new IllegalStateException("rerank 响应为空");
     }
-    Object resultsObj = body.get("results");
+    return body;
+  }
+
+  /** 解析 results 数组（两种协议的条目字段一致：index + relevance_score/score）。 */
+  private List<Double> parseResults(Object resultsObj, int size) {
     if (!(resultsObj instanceof List<?> results)) {
       throw new IllegalStateException("rerank 响应缺少 results 数组");
     }
-    Double[] scores = new Double[documents.size()];
+    Double[] scores = new Double[size];
     for (Object item : results) {
       if (!(item instanceof Map<?, ?> m)) {
         continue;
@@ -211,11 +272,18 @@ public class RerankService {
         scores[i] = n.doubleValue();
       }
     }
-    List<Double> result = new ArrayList<>(documents.size());
+    List<Double> result = new ArrayList<>(size);
     for (Double s : scores) {
       // 缺失的索引给最低分，保证排序稳定
       result.add(s == null ? -1.0 : s);
     }
     return result;
+  }
+
+  /** 把精排分数写回 Document metadata（不修改原对象），供 trace 与客服兜底读取。 */
+  private static Document withRerankScore(Document doc, double score) {
+    Map<String, Object> metadata = new HashMap<>(doc.getMetadata());
+    metadata.put(METADATA_RERANK_SCORE, score);
+    return doc.isText() ? new Document(doc.getId(), doc.getText(), metadata) : doc;
   }
 }

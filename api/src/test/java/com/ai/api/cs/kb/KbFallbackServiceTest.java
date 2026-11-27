@@ -12,7 +12,9 @@ import static org.mockito.Mockito.when;
 
 import com.ai.api.cs.config.CustomerServiceProperties;
 import com.ai.api.knowledge.service.RagRetrievalService;
+import com.ai.api.knowledge.service.RerankService;
 import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -91,6 +93,32 @@ class KbFallbackServiceTest {
         .thenReturn(List.of(doc));
     String result = service.tryFallback(1L, "测试", null);
     assertThat(result).isEqualTo("answer content");
+  }
+
+  @Test
+  @DisplayName("精排分数 >= 阈值 → 命中并返回文档文本")
+  void rerankScoreAboveThreshold_hit() {
+    Document doc =
+        new Document(
+            "id-1",
+            "answer content",
+            Map.<String, Object>of(RerankService.METADATA_RERANK_SCORE, 0.92));
+    when(ragRetrievalService.retrieveWithRrf(ArgumentMatchers.<Long>any(), any(), anyInt()))
+        .thenReturn(List.of(doc));
+    assertThat(service.tryFallback(1L, "测试", null)).isEqualTo("answer content");
+  }
+
+  @Test
+  @DisplayName("精排分数 < 阈值 → 不命中（修复硬编码 1.0 的永久命中缺陷）")
+  void rerankScoreBelowThreshold_noHit() {
+    Document doc =
+        new Document(
+            "id-2",
+            "irrelevant content",
+            Map.<String, Object>of(RerankService.METADATA_RERANK_SCORE, 0.12));
+    when(ragRetrievalService.retrieveWithRrf(ArgumentMatchers.<Long>any(), any(), anyInt()))
+        .thenReturn(List.of(doc));
+    assertThat(service.tryFallback(1L, "测试", null)).isNull();
   }
 
   @Test
