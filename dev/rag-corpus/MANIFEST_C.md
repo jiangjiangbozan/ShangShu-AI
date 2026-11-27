@@ -2,11 +2,11 @@
 
 > 来源 kubernetes.io/zh-cn（CC BY 4.0），HTML 正文提取，用于中文检索能力补强。
 
-- 文档数：123
-- 本轮新增：51，失败：9
-- 总字符数：721708
-- 中文字符数：236595
-- 平均字符数：5867
+- 文档数：165
+- 本轮新增：42，失败：18
+- 总字符数：1004797
+- 中文字符数：335129
+- 平均字符数：6089
 
 | # | 文档 | 字符数 | 中文字 | 来源 |
 |---|---|---|---|---|
@@ -133,3 +133,45 @@
 | 143 | 手动轮换 CA 证书 | 4874 | 1544 | [link](https://kubernetes.io/zh-cn/docs/tasks/tls/manual-rotation-of-ca-certificates/) |
 | 144 | 为 Pod 配置 user 名字空间 | 2391 | 911 | [link](https://kubernetes.io/zh-cn/docs/tasks/configure-pod-container/user-namespaces/) |
 | 145 | 使用 HTTP 代理访问 Kubernetes API | 1677 | 318 | [link](https://kubernetes.io/zh-cn/docs/tasks/extend-kubernetes/http-proxy-access-api/) |
+| 159 | Kubernetes 系统组件指标 | 7401 | 2741 | [link](https://kubernetes.io/zh-cn/docs/concepts/cluster-administration/system-metrics/) |
+| 161 | 资源管理器 | 7452 | 3092 | [link](https://kubernetes.io/zh-cn/docs/concepts/resource-management/resource-managers/) |
+| 162 | Windows 网络 | 5224 | 1918 | [link](https://kubernetes.io/zh-cn/docs/concepts/services-networking/windows-networking/) |
+| 163 | Node 自动扩缩容 | 5322 | 2585 | [link](https://kubernetes.io/zh-cn/docs/concepts/cluster-administration/node-autoscaling/) |
+| 164 | PodGroup 调度 | 3947 | 1829 | [link](https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/podgroup-scheduling/) |
+| 165 | 应用安全检查清单 | 2433 | 1389 | [link](https://kubernetes.io/zh-cn/docs/concepts/security/application-security-checklist/) |
+| 166 | Ingress 控制器 | 3240 | 1163 | [link](https://kubernetes.io/zh-cn/docs/concepts/services-networking/ingress-controllers/) |
+| 167 | 资源装箱 | 4816 | 1059 | [link](https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/resource-bin-packing/) |
+| 168 | 调度框架 | 4883 | 2407 | [link](https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/scheduling-framework/) |
+| 169 | 污点和容忍度 | 9204 | 3893 | [link](https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/) |
+| 170 | Kubernetes 对象状态的指标 | 1530 | 568 | [link](https://kubernetes.io/zh-cn/docs/concepts/cluster-administration/kube-state-metrics/) |
+| 171 | 为 Pod 和容器管理资源 | 16866 | 5068 | [link](https://kubernetes.io/zh-cn/docs/concepts/configuration/manage-resources-containers/) |
+| 172 | Windows 节点的资源管理 | 1599 | 778 | [link](https://kubernetes.io/zh-cn/docs/concepts/configuration/windows-resource-management/) |
+| 173 | 调度器性能调优 | 3627 | 1882 | [link](https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/scheduler-perf-tuning/) |
+| 174 | Service ClusterIP 分配 | 2425 | 755 | [link](https://kubernetes.io/zh-cn/docs/concepts/services-networking/cluster-ip-allocation/) |
+| 175 | 节点声明式特性 | 1679 | 609 | [link](https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/node-declared-features/) |
+| 176 | 节点压力驱逐 | 11158 | 4910 | [link](https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/) |
+| 177 | 针对 Pod 和容器的 Linux 内核安全约束 | 5260 | 3003 | [link](https://kubernetes.io/zh-cn/docs/concepts/security/linux-kernel-security-constraints/) |
+| 179 | 拓扑感知路由 | 3549 | 1923 | [link](https://kubernetes.io/zh-cn/docs/concepts/services-networking/topology-aware-routing/) |
+| 180 | 卷填充器（Populator）与数据源 | 3422 | 1251 | [link](https://kubernetes.io/zh-cn/docs/concepts/storage/volume-populators-and-data-sources/) |
+| 181 | Pod 优先级和抢占 | 10633 | 4797 | [link](https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/) |
+| 183 | Pod 调度就绪态 | 2718 | 797 | [link](https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/pod-scheduling-readiness/) |
+| 184 | 节点与控制面之间的通信 | 2410 | 1303 | [link](https://kubernetes.io/zh-cn/docs/concepts/architecture/control-plane-node-communication/) |
+| 185 | 交换内存管理 | 8578 | 4092 | [link](https://kubernetes.io/zh-cn/docs/concepts/cluster-administration/swap-memory-management/) |
+| 186 | 拓扑感知的工作负载调度 | 3013 | 1080 | [link](https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/topology-aware-scheduling/) |
+| 187 | 工作负载感知的抢占 | 3075 | 1335 | [link](https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/workload-aware-preemption/) |
+| 188 | 动态资源分配 | 2326 | 1054 | [link](https://kubernetes.io/zh-cn/docs/concepts/resource-management/dynamic-resource-allocation/) |
+| 189 | Pod 级资源管理器 | 8091 | 2921 | [link](https://kubernetes.io/zh-cn/docs/concepts/resource-management/pod-level-resource-managers/) |
+| 191 | Pod 拓扑分布约束 | 15307 | 3225 | [link](https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/) |
+| 192 | 使用 kubeconfig 文件组织集群访问 | 2926 | 1399 | [link](https://kubernetes.io/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/) |
+| 193 | 协调领导者选举 | 2424 | 1054 | [link](https://kubernetes.io/zh-cn/docs/concepts/cluster-administration/coordinated-leader-election/) |
+| 194 | Admission Webhook 良好实践 | 11400 | 6219 | [link](https://kubernetes.io/zh-cn/docs/concepts/cluster-administration/admission-webhooks-good-practices/) |
+| 195 | 存活、就绪和启动探针 | 10022 | 3984 | [link](https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/probes/) |
+| 196 | Pod QoS 类 | 5303 | 2038 | [link](https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/pod-qos/) |
+| 197 | Job | 32750 | 2927 | [link](https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/job/) |
+| 198 | 干扰（Disruptions） | 5894 | 2962 | [link](https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/disruptions/) |
+| 200 | Downward API | 2743 | 1010 | [link](https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/downward-api/) |
+| 201 | Pod 主机名 | 2831 | 787 | [link](https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/pod-hostname/) |
+| 202 | Pod 状况 | 6812 | 2050 | [link](https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/pod-condition/) |
+| 203 | Pod 的生命周期 | 23806 | 5024 | [link](https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/) |
+| 204 | Init 容器 | 7582 | 2507 | [link](https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/init-containers/) |
+| 205 | 用户命名空间 | 7408 | 3146 | [link](https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/user-namespaces/) |

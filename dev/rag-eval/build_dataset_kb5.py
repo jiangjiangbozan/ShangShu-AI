@@ -25,7 +25,9 @@ import eval_common  # noqa: E402
 from build_dataset import list_chunks, list_documents, pick_field  # noqa: E402
 
 ENDPOINT = "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions"
-MODEL = "qwen-plus"
+# 仅使用 docs/platform/testing/model-usage-policy.md 中授权的模型；
+# 新增模型前必须先获得用户明确同意并更新该文档。
+MODEL = "qwen3.8-max-0902"
 PROMPT = (
     "你是评测集构建助手。根据下面的资料，站在提问者角度生成一个可以用该资料回答的问题。"
     "要求：只输出问题本身，不要编号、引号或其他说明。\n\n资料："
@@ -37,7 +39,7 @@ def gen_question(text: str, key: str) -> str:
         "model": MODEL,
         "messages": [{"role": "user", "content": PROMPT + text[:1200]}],
         "temperature": 0.3,
-        "max_tokens": 200,
+        "max_tokens": 400,
     }
     request = urllib.request.Request(
         ENDPOINT,

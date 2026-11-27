@@ -1,0 +1,4753 @@
+{
+  "summary": {
+    "纯向量": {
+      "recall@k": 0.9625,
+      "mrr": 0.8354166666666666,
+      "ndcg@k": 0.8682993287946482,
+      "hitRate": 0.9625
+    },
+    "纯关键词": {
+      "recall@k": 0.9625,
+      "mrr": 0.81875,
+      "ndcg@k": 0.8557028646661264,
+      "hitRate": 0.9625
+    },
+    "向量+关键词+RRF": {
+      "recall@k": 0.975,
+      "mrr": 0.8333333333333334,
+      "ndcg@k": 0.8702324383928645,
+      "hitRate": 0.975
+    },
+    "+Rerank": {
+      "recall@k": 0.975,
+      "mrr": 0.79625,
+      "ndcg@k": 0.8420850124351309,
+      "hitRate": 0.975
+    }
+  },
+  "perQuery": [
+    {
+      "id": "q001",
+      "question": "拓扑管理器在 Kubernetes 中如何协调 CPU 隔离、内存和设备局部性等优化？",
+      "relevant": [
+        "50f50818-9adc-473b-902e-33d52195a228"
+      ],
+      "serverMs": 30688,
+      "wallMs": 30733,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "50f50818-9adc-473b-902e-33d52195a228",
+          "1ec1e938-468e-40e0-a259-88b2083ff1c2",
+          "b28d0ab0-3d3f-428d-9874-4245a5942024",
+          "b6889659-fc1c-45b6-a8e8-bd4349ba5ba1",
+          "5bb06b8e-fe0c-4dd4-8762-bf7d3b0b4785"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "50f50818-9adc-473b-902e-33d52195a228",
+          "1ec1e938-468e-40e0-a259-88b2083ff1c2",
+          "ea173890-0c3c-49ac-b3c0-e07845db0a45",
+          "b6889659-fc1c-45b6-a8e8-bd4349ba5ba1",
+          "15e8dcf9-6cea-49d7-ac50-1db28ad02800"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "50f50818-9adc-473b-902e-33d52195a228",
+          "1ec1e938-468e-40e0-a259-88b2083ff1c2",
+          "b6889659-fc1c-45b6-a8e8-bd4349ba5ba1",
+          "b28d0ab0-3d3f-428d-9874-4245a5942024",
+          "ea173890-0c3c-49ac-b3c0-e07845db0a45"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "50f50818-9adc-473b-902e-33d52195a228",
+          "1ec1e938-468e-40e0-a259-88b2083ff1c2",
+          "b6889659-fc1c-45b6-a8e8-bd4349ba5ba1",
+          "ea173890-0c3c-49ac-b3c0-e07845db0a45",
+          "5bb06b8e-fe0c-4dd4-8762-bf7d3b0b4785"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q002",
+      "question": "拓扑管理器在 Kubernetes 中如何协调 CPU 和设备管理器的资源分配决策以避免跨 NUMA 节点分配导致的性能问题？",
+      "relevant": [
+        "b6889659-fc1c-45b6-a8e8-bd4349ba5ba1"
+      ],
+      "serverMs": 14725,
+      "wallMs": 14766,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "b6889659-fc1c-45b6-a8e8-bd4349ba5ba1",
+          "1ec1e938-468e-40e0-a259-88b2083ff1c2",
+          "50f50818-9adc-473b-902e-33d52195a228",
+          "7fa0b910-5595-4069-83ad-c7790223f8e1",
+          "5bb06b8e-fe0c-4dd4-8762-bf7d3b0b4785"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "b6889659-fc1c-45b6-a8e8-bd4349ba5ba1",
+          "3b920971-96a8-493f-9d2e-340f3be159bb",
+          "1ec1e938-468e-40e0-a259-88b2083ff1c2",
+          "15e8dcf9-6cea-49d7-ac50-1db28ad02800",
+          "ea173890-0c3c-49ac-b3c0-e07845db0a45"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "b6889659-fc1c-45b6-a8e8-bd4349ba5ba1",
+          "1ec1e938-468e-40e0-a259-88b2083ff1c2",
+          "3b920971-96a8-493f-9d2e-340f3be159bb",
+          "50f50818-9adc-473b-902e-33d52195a228",
+          "7fa0b910-5595-4069-83ad-c7790223f8e1"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "b6889659-fc1c-45b6-a8e8-bd4349ba5ba1",
+          "3b920971-96a8-493f-9d2e-340f3be159bb",
+          "ea173890-0c3c-49ac-b3c0-e07845db0a45",
+          "15e8dcf9-6cea-49d7-ac50-1db28ad02800",
+          "5bb06b8e-fe0c-4dd4-8762-bf7d3b0b4785"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q003",
+      "question": "如何在删除 StatefulSet 时不删除其管理的 Pod？",
+      "relevant": [
+        "4681c5c3-8d31-4775-99b9-539ceda4f75d"
+      ],
+      "serverMs": 10837,
+      "wallMs": 10875,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "4681c5c3-8d31-4775-99b9-539ceda4f75d",
+          "a31abfdd-262c-4593-acbc-b6798dc3b503",
+          "6528dd65-d0a9-4e9f-8bb5-5db28ba28066",
+          "e70b5236-99ec-4a08-90cc-a5b7e8e010cb",
+          "4a9a96aa-8db3-4da6-88f9-260b46255857"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "4681c5c3-8d31-4775-99b9-539ceda4f75d",
+          "a31abfdd-262c-4593-acbc-b6798dc3b503",
+          "6528dd65-d0a9-4e9f-8bb5-5db28ba28066",
+          "0c823cfa-f12a-4eae-b0bd-e70e8c2b4cde",
+          "9ee6f4ad-72ea-42b2-a4c0-d40a9dc77e72"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "4681c5c3-8d31-4775-99b9-539ceda4f75d",
+          "a31abfdd-262c-4593-acbc-b6798dc3b503",
+          "6528dd65-d0a9-4e9f-8bb5-5db28ba28066",
+          "e70b5236-99ec-4a08-90cc-a5b7e8e010cb",
+          "0c823cfa-f12a-4eae-b0bd-e70e8c2b4cde"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "a31abfdd-262c-4593-acbc-b6798dc3b503",
+          "4681c5c3-8d31-4775-99b9-539ceda4f75d",
+          "6528dd65-d0a9-4e9f-8bb5-5db28ba28066",
+          "e70b5236-99ec-4a08-90cc-a5b7e8e010cb",
+          "4a9a96aa-8db3-4da6-88f9-260b46255857"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      }
+    },
+    {
+      "id": "q004",
+      "question": "如何安全地完全删除一个 StatefulSet 及其管理的所有 Pod 和 PVC？",
+      "relevant": [
+        "a31abfdd-262c-4593-acbc-b6798dc3b503"
+      ],
+      "serverMs": 13195,
+      "wallMs": 13211,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "a31abfdd-262c-4593-acbc-b6798dc3b503",
+          "4681c5c3-8d31-4775-99b9-539ceda4f75d",
+          "6528dd65-d0a9-4e9f-8bb5-5db28ba28066",
+          "e70b5236-99ec-4a08-90cc-a5b7e8e010cb",
+          "f4205ccd-69a3-4fb5-becf-980b7fce4b5a"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "a31abfdd-262c-4593-acbc-b6798dc3b503",
+          "4681c5c3-8d31-4775-99b9-539ceda4f75d",
+          "6528dd65-d0a9-4e9f-8bb5-5db28ba28066",
+          "0d515951-caab-416f-badf-ce96c4448f37",
+          "728f74d3-3110-4fd2-8694-43cbbacb4c58"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "a31abfdd-262c-4593-acbc-b6798dc3b503",
+          "4681c5c3-8d31-4775-99b9-539ceda4f75d",
+          "6528dd65-d0a9-4e9f-8bb5-5db28ba28066",
+          "e70b5236-99ec-4a08-90cc-a5b7e8e010cb",
+          "0d515951-caab-416f-badf-ce96c4448f37"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "a31abfdd-262c-4593-acbc-b6798dc3b503",
+          "6528dd65-d0a9-4e9f-8bb5-5db28ba28066",
+          "4681c5c3-8d31-4775-99b9-539ceda4f75d",
+          "e70b5236-99ec-4a08-90cc-a5b7e8e010cb",
+          "f4205ccd-69a3-4fb5-becf-980b7fce4b5a"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q005",
+      "question": "如何使用 kubectl 检查已知的 Kubernetes 集群位置和访问凭证？",
+      "relevant": [
+        "6970bdc2-380d-485c-b9cd-9b338c731570"
+      ],
+      "serverMs": 16685,
+      "wallMs": 16699,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "6970bdc2-380d-485c-b9cd-9b338c731570",
+          "fb0877b5-0afe-4ea5-be82-15ae7e915d29",
+          "30199def-baff-4a8a-bbe9-332eeb798d01",
+          "4bae78e5-7b0a-4297-a6eb-66ea4a9fe7d6",
+          "84cb4c56-9d56-44db-ac17-4cc927714b98"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "6970bdc2-380d-485c-b9cd-9b338c731570",
+          "30199def-baff-4a8a-bbe9-332eeb798d01",
+          "5493403b-ad12-4308-8045-e70c8f9fa4f2",
+          "fb0877b5-0afe-4ea5-be82-15ae7e915d29",
+          "62a198c1-bf79-492e-88a4-64b520a58292"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "6970bdc2-380d-485c-b9cd-9b338c731570",
+          "30199def-baff-4a8a-bbe9-332eeb798d01",
+          "fb0877b5-0afe-4ea5-be82-15ae7e915d29",
+          "5493403b-ad12-4308-8045-e70c8f9fa4f2",
+          "4bae78e5-7b0a-4297-a6eb-66ea4a9fe7d6"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "6970bdc2-380d-485c-b9cd-9b338c731570",
+          "fb0877b5-0afe-4ea5-be82-15ae7e915d29",
+          "30199def-baff-4a8a-bbe9-332eeb798d01",
+          "84cb4c56-9d56-44db-ac17-4cc927714b98",
+          "4bae78e5-7b0a-4297-a6eb-66ea4a9fe7d6"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q006",
+      "question": "如何在不使用 kubectl 代理的情况下，通过 curl 直接访问 Kubernetes REST API？",
+      "relevant": [
+        "30199def-baff-4a8a-bbe9-332eeb798d01"
+      ],
+      "serverMs": 12111,
+      "wallMs": 12127,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "30199def-baff-4a8a-bbe9-332eeb798d01",
+          "cbe282d3-53b2-4117-9056-64aab61ad2e0",
+          "3dd9826d-9784-4679-9602-56c54f45902f",
+          "21044242-0304-4727-828f-568675a125a4",
+          "6970bdc2-380d-485c-b9cd-9b338c731570"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "30199def-baff-4a8a-bbe9-332eeb798d01",
+          "6970bdc2-380d-485c-b9cd-9b338c731570",
+          "cbe282d3-53b2-4117-9056-64aab61ad2e0",
+          "3dd9826d-9784-4679-9602-56c54f45902f",
+          "8436bb34-f27d-4fe0-98d4-887fa15609eb"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "30199def-baff-4a8a-bbe9-332eeb798d01",
+          "cbe282d3-53b2-4117-9056-64aab61ad2e0",
+          "6970bdc2-380d-485c-b9cd-9b338c731570",
+          "3dd9826d-9784-4679-9602-56c54f45902f",
+          "21044242-0304-4727-828f-568675a125a4"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "21044242-0304-4727-828f-568675a125a4",
+          "30199def-baff-4a8a-bbe9-332eeb798d01",
+          "6970bdc2-380d-485c-b9cd-9b338c731570",
+          "3dd9826d-9784-4679-9602-56c54f45902f",
+          "cbe282d3-53b2-4117-9056-64aab61ad2e0"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      }
+    },
+    {
+      "id": "q007",
+      "question": "如何在 Kubernetes 中使用索引作业（Indexed Job）实现静态工作分配下的并行处理？",
+      "relevant": [
+        "3e434c80-70ce-4311-bc98-57bb1a0cfacd"
+      ],
+      "serverMs": 14622,
+      "wallMs": 14659,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "3e434c80-70ce-4311-bc98-57bb1a0cfacd",
+          "06bc5455-6a90-4361-813b-48da9f9e2247",
+          "ea8aaee9-17cc-4461-81f9-7800ba5d8a76",
+          "30e63b73-1683-4d62-825b-5b63306769ef",
+          "e631c72f-d55e-4821-96ef-e3aa6f793f77"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "3e434c80-70ce-4311-bc98-57bb1a0cfacd",
+          "132900ec-b597-496b-98d9-cec30fc06ddc",
+          "ea8aaee9-17cc-4461-81f9-7800ba5d8a76",
+          "30e63b73-1683-4d62-825b-5b63306769ef",
+          "9ebe08ef-ed9a-4f4c-a39c-744cbf93aedb"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "3e434c80-70ce-4311-bc98-57bb1a0cfacd",
+          "ea8aaee9-17cc-4461-81f9-7800ba5d8a76",
+          "30e63b73-1683-4d62-825b-5b63306769ef",
+          "06bc5455-6a90-4361-813b-48da9f9e2247",
+          "132900ec-b597-496b-98d9-cec30fc06ddc"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "3e434c80-70ce-4311-bc98-57bb1a0cfacd",
+          "30e63b73-1683-4d62-825b-5b63306769ef",
+          "06bc5455-6a90-4361-813b-48da9f9e2247",
+          "ea8aaee9-17cc-4461-81f9-7800ba5d8a76",
+          "132900ec-b597-496b-98d9-cec30fc06ddc"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q008",
+      "question": "如何在 Kubernetes Indexed Job 中让容器通过环境变量获取当前任务的完成索引？",
+      "relevant": [
+        "b9f9a4f2-7224-465a-92d3-9f21ecbb97a5"
+      ],
+      "serverMs": 13010,
+      "wallMs": 13022,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "3e434c80-70ce-4311-bc98-57bb1a0cfacd",
+          "b9f9a4f2-7224-465a-92d3-9f21ecbb97a5",
+          "132900ec-b597-496b-98d9-cec30fc06ddc",
+          "06bc5455-6a90-4361-813b-48da9f9e2247",
+          "9ebe08ef-ed9a-4f4c-a39c-744cbf93aedb"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "keywordRecall": {
+        "ranked": [
+          "3e434c80-70ce-4311-bc98-57bb1a0cfacd",
+          "b9f9a4f2-7224-465a-92d3-9f21ecbb97a5",
+          "132900ec-b597-496b-98d9-cec30fc06ddc",
+          "9ebe08ef-ed9a-4f4c-a39c-744cbf93aedb",
+          "30e63b73-1683-4d62-825b-5b63306769ef"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "rrfMerged": {
+        "ranked": [
+          "3e434c80-70ce-4311-bc98-57bb1a0cfacd",
+          "b9f9a4f2-7224-465a-92d3-9f21ecbb97a5",
+          "132900ec-b597-496b-98d9-cec30fc06ddc",
+          "9ebe08ef-ed9a-4f4c-a39c-744cbf93aedb",
+          "06bc5455-6a90-4361-813b-48da9f9e2247"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "reranked": {
+        "ranked": [
+          "b9f9a4f2-7224-465a-92d3-9f21ecbb97a5",
+          "3e434c80-70ce-4311-bc98-57bb1a0cfacd",
+          "30e63b73-1683-4d62-825b-5b63306769ef",
+          "132900ec-b597-496b-98d9-cec30fc06ddc",
+          "9ebe08ef-ed9a-4f4c-a39c-744cbf93aedb"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q009",
+      "question": "如何验证 Kubernetes 双协议栈集群中节点是否正确分配了 IPv4 和 IPv6 的 Pod 地址范围？",
+      "relevant": [
+        "86ddd39a-3d95-44e7-b039-be676598a5c8"
+      ],
+      "serverMs": 14881,
+      "wallMs": 14895,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "86ddd39a-3d95-44e7-b039-be676598a5c8",
+          "3e1a01a3-2bd2-4a77-bcd6-9c3febc8ad2a",
+          "cb77a5e6-bc5b-4c8b-8ef7-292924b666a2",
+          "82b13e94-48d1-4364-9d6f-064feeb4ccec",
+          "7f2f9b70-b791-40a9-930c-181efa674725"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "86ddd39a-3d95-44e7-b039-be676598a5c8",
+          "82b13e94-48d1-4364-9d6f-064feeb4ccec",
+          "cb77a5e6-bc5b-4c8b-8ef7-292924b666a2",
+          "5bf3b299-ca3d-4a2f-a2f6-27cac966bd00",
+          "f5acdb7d-2bb8-4c4f-bf7b-4e5478641717"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "86ddd39a-3d95-44e7-b039-be676598a5c8",
+          "82b13e94-48d1-4364-9d6f-064feeb4ccec",
+          "cb77a5e6-bc5b-4c8b-8ef7-292924b666a2",
+          "3e1a01a3-2bd2-4a77-bcd6-9c3febc8ad2a",
+          "5bf3b299-ca3d-4a2f-a2f6-27cac966bd00"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "3e1a01a3-2bd2-4a77-bcd6-9c3febc8ad2a",
+          "86ddd39a-3d95-44e7-b039-be676598a5c8",
+          "5bf3b299-ca3d-4a2f-a2f6-27cac966bd00",
+          "cb77a5e6-bc5b-4c8b-8ef7-292924b666a2",
+          "7f2f9b70-b791-40a9-930c-181efa674725"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      }
+    },
+    {
+      "id": "q010",
+      "question": "如何验证 Kubernetes 集群中的 Pod 是否同时分配了 IPv4 和 IPv6 地址？",
+      "relevant": [
+        "3e1a01a3-2bd2-4a77-bcd6-9c3febc8ad2a"
+      ],
+      "serverMs": 12484,
+      "wallMs": 12559,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "3e1a01a3-2bd2-4a77-bcd6-9c3febc8ad2a",
+          "86ddd39a-3d95-44e7-b039-be676598a5c8",
+          "7f2f9b70-b791-40a9-930c-181efa674725",
+          "cb77a5e6-bc5b-4c8b-8ef7-292924b666a2",
+          "712c5e0c-bee4-4ea1-9b25-df3582ac7706"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "86ddd39a-3d95-44e7-b039-be676598a5c8",
+          "3e1a01a3-2bd2-4a77-bcd6-9c3febc8ad2a",
+          "cb77a5e6-bc5b-4c8b-8ef7-292924b666a2",
+          "82b13e94-48d1-4364-9d6f-064feeb4ccec",
+          "712c5e0c-bee4-4ea1-9b25-df3582ac7706"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "rrfMerged": {
+        "ranked": [
+          "3e1a01a3-2bd2-4a77-bcd6-9c3febc8ad2a",
+          "86ddd39a-3d95-44e7-b039-be676598a5c8",
+          "cb77a5e6-bc5b-4c8b-8ef7-292924b666a2",
+          "712c5e0c-bee4-4ea1-9b25-df3582ac7706",
+          "7f2f9b70-b791-40a9-930c-181efa674725"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "3e1a01a3-2bd2-4a77-bcd6-9c3febc8ad2a",
+          "86ddd39a-3d95-44e7-b039-be676598a5c8",
+          "712c5e0c-bee4-4ea1-9b25-df3582ac7706",
+          "82b13e94-48d1-4364-9d6f-064feeb4ccec",
+          "7f2f9b70-b791-40a9-930c-181efa674725"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q011",
+      "question": "如何停止 Kubernetes 中已启用的静态加密以使 API 数据以未加密形式存储？",
+      "relevant": [
+        "0381835a-e88b-4514-9bf0-94d0e457b2c7"
+      ],
+      "serverMs": 9361,
+      "wallMs": 9374,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "0381835a-e88b-4514-9bf0-94d0e457b2c7",
+          "e2c7d8f4-ae16-4c2b-9fde-1776b557472c",
+          "080b7fb4-a4ae-40cb-aa86-beb1984f13b3",
+          "4da0fde3-7c34-47f8-82e7-e376a14caae2",
+          "01b16253-e444-4996-bbe8-364283c7c5a4"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "0381835a-e88b-4514-9bf0-94d0e457b2c7",
+          "106e6abc-edf0-4bbe-915d-b949f87a82ec",
+          "66eafdd8-8a11-4a61-a60a-425fbe9b420d",
+          "080b7fb4-a4ae-40cb-aa86-beb1984f13b3",
+          "0904a755-5b23-48c6-baf8-c7d5b433d79f"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "0381835a-e88b-4514-9bf0-94d0e457b2c7",
+          "080b7fb4-a4ae-40cb-aa86-beb1984f13b3",
+          "e2c7d8f4-ae16-4c2b-9fde-1776b557472c",
+          "106e6abc-edf0-4bbe-915d-b949f87a82ec",
+          "66eafdd8-8a11-4a61-a60a-425fbe9b420d"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "e2c7d8f4-ae16-4c2b-9fde-1776b557472c",
+          "4da0fde3-7c34-47f8-82e7-e376a14caae2",
+          "0904a755-5b23-48c6-baf8-c7d5b433d79f",
+          "0381835a-e88b-4514-9bf0-94d0e457b2c7",
+          "66eafdd8-8a11-4a61-a60a-425fbe9b420d"
+        ],
+        "recall": 1.0,
+        "mrr": 0.25,
+        "ndcg": 0.4307
+      }
+    },
+    {
+      "id": "q012",
+      "question": "如何确定 Kubernetes 集群是否已启用静态加密？",
+      "relevant": [
+        "66eafdd8-8a11-4a61-a60a-425fbe9b420d"
+      ],
+      "serverMs": 15624,
+      "wallMs": 15636,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "106e6abc-edf0-4bbe-915d-b949f87a82ec",
+          "080b7fb4-a4ae-40cb-aa86-beb1984f13b3",
+          "66eafdd8-8a11-4a61-a60a-425fbe9b420d",
+          "0381835a-e88b-4514-9bf0-94d0e457b2c7",
+          "e8ff21a0-72cb-4b1c-9212-2aed5190bb63"
+        ],
+        "recall": 1.0,
+        "mrr": 0.3333,
+        "ndcg": 0.5
+      },
+      "keywordRecall": {
+        "ranked": [
+          "106e6abc-edf0-4bbe-915d-b949f87a82ec",
+          "66eafdd8-8a11-4a61-a60a-425fbe9b420d",
+          "0381835a-e88b-4514-9bf0-94d0e457b2c7",
+          "e8ff21a0-72cb-4b1c-9212-2aed5190bb63",
+          "080b7fb4-a4ae-40cb-aa86-beb1984f13b3"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "rrfMerged": {
+        "ranked": [
+          "106e6abc-edf0-4bbe-915d-b949f87a82ec",
+          "66eafdd8-8a11-4a61-a60a-425fbe9b420d",
+          "080b7fb4-a4ae-40cb-aa86-beb1984f13b3",
+          "0381835a-e88b-4514-9bf0-94d0e457b2c7",
+          "e8ff21a0-72cb-4b1c-9212-2aed5190bb63"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "reranked": {
+        "ranked": [
+          "106e6abc-edf0-4bbe-915d-b949f87a82ec",
+          "66eafdd8-8a11-4a61-a60a-425fbe9b420d",
+          "e8ff21a0-72cb-4b1c-9212-2aed5190bb63",
+          "080b7fb4-a4ae-40cb-aa86-beb1984f13b3",
+          "0381835a-e88b-4514-9bf0-94d0e457b2c7"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      }
+    },
+    {
+      "id": "q013",
+      "question": "如何为命名空间配置 API 对象配额，例如限制 PersistentVolumeClaim 和 Service 的数量？",
+      "relevant": [
+        "b9c22875-e81a-4241-9d68-b470975ee8a8"
+      ],
+      "serverMs": 10363,
+      "wallMs": 10370,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "b9c22875-e81a-4241-9d68-b470975ee8a8",
+          "937a3c07-0d00-4ab8-a51c-a13459edac34",
+          "b0988d51-99d5-43ee-afe2-1e892f4b3d11",
+          "02e0e45a-6ead-47ea-83a2-fad27d504965",
+          "d4c3790c-a5e4-4cca-9111-b08f0ebe8958"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "b9c22875-e81a-4241-9d68-b470975ee8a8",
+          "937a3c07-0d00-4ab8-a51c-a13459edac34",
+          "950e7125-696c-495d-8bcb-311e2a81e972",
+          "99cbc50b-0630-4841-96a9-a25f05891023",
+          "c69ac09a-fd01-4fd1-8041-3c50921a7bf1"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "b9c22875-e81a-4241-9d68-b470975ee8a8",
+          "937a3c07-0d00-4ab8-a51c-a13459edac34",
+          "b0988d51-99d5-43ee-afe2-1e892f4b3d11",
+          "950e7125-696c-495d-8bcb-311e2a81e972",
+          "02e0e45a-6ead-47ea-83a2-fad27d504965"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "b9c22875-e81a-4241-9d68-b470975ee8a8",
+          "02e0e45a-6ead-47ea-83a2-fad27d504965",
+          "950e7125-696c-495d-8bcb-311e2a81e972",
+          "d4c3790c-a5e4-4cca-9111-b08f0ebe8958",
+          "b0988d51-99d5-43ee-afe2-1e892f4b3d11"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q014",
+      "question": "在 quota-object-example 命名空间中，ResourceQuota object-quota-demo 对 PersistentVolumeClaim、LoadBalancer 类型服务和 NodePort 类型服务分别设置了怎样的数量限制？",
+      "relevant": [
+        "02e0e45a-6ead-47ea-83a2-fad27d504965"
+      ],
+      "serverMs": 13060,
+      "wallMs": 13071,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "02e0e45a-6ead-47ea-83a2-fad27d504965",
+          "937a3c07-0d00-4ab8-a51c-a13459edac34",
+          "b9c22875-e81a-4241-9d68-b470975ee8a8",
+          "8e43766c-4f3b-4731-a064-0818935e783c",
+          "d4c3790c-a5e4-4cca-9111-b08f0ebe8958"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "02e0e45a-6ead-47ea-83a2-fad27d504965",
+          "937a3c07-0d00-4ab8-a51c-a13459edac34",
+          "b9c22875-e81a-4241-9d68-b470975ee8a8",
+          "b0988d51-99d5-43ee-afe2-1e892f4b3d11",
+          "301ff1bd-8108-48b9-8f3a-6bc8cb12a406"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "02e0e45a-6ead-47ea-83a2-fad27d504965",
+          "937a3c07-0d00-4ab8-a51c-a13459edac34",
+          "b9c22875-e81a-4241-9d68-b470975ee8a8",
+          "8e43766c-4f3b-4731-a064-0818935e783c",
+          "b0988d51-99d5-43ee-afe2-1e892f4b3d11"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "02e0e45a-6ead-47ea-83a2-fad27d504965",
+          "b9c22875-e81a-4241-9d68-b470975ee8a8",
+          "301ff1bd-8108-48b9-8f3a-6bc8cb12a406",
+          "b0988d51-99d5-43ee-afe2-1e892f4b3d11",
+          "937a3c07-0d00-4ab8-a51c-a13459edac34"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q015",
+      "question": "如何为 Kubernetes Pod 配置 user 名字空间以实现容器内用户与主机用户的隔离？",
+      "relevant": [
+        "3eedb720-9347-466d-a292-01d2e56679cd"
+      ],
+      "serverMs": 33390,
+      "wallMs": 33407,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "3eedb720-9347-466d-a292-01d2e56679cd",
+          "a12dd9ab-6a6f-41d5-996a-03a3879e09d7",
+          "d4d513dc-b733-46d5-abcb-d6530218e738",
+          "e0be3a80-0ae4-45e0-a153-48d8aee0c650",
+          "c89d8ed4-4398-4fa3-8f87-2136328713bd"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "3eedb720-9347-466d-a292-01d2e56679cd",
+          "a12dd9ab-6a6f-41d5-996a-03a3879e09d7",
+          "89458f16-c281-4c02-8f6e-5891cb0e1c69",
+          "dd473c8d-e846-4ca8-8c41-8fad3b284f45",
+          "94fe6cf4-c25f-4f7c-9cc1-1977dbcc7611"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "3eedb720-9347-466d-a292-01d2e56679cd",
+          "a12dd9ab-6a6f-41d5-996a-03a3879e09d7",
+          "d4d513dc-b733-46d5-abcb-d6530218e738",
+          "89458f16-c281-4c02-8f6e-5891cb0e1c69",
+          "e0be3a80-0ae4-45e0-a153-48d8aee0c650"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "d4d513dc-b733-46d5-abcb-d6530218e738",
+          "a12dd9ab-6a6f-41d5-996a-03a3879e09d7",
+          "c89d8ed4-4398-4fa3-8f87-2136328713bd",
+          "3eedb720-9347-466d-a292-01d2e56679cd",
+          "e0be3a80-0ae4-45e0-a153-48d8aee0c650"
+        ],
+        "recall": 1.0,
+        "mrr": 0.25,
+        "ndcg": 0.4307
+      }
+    },
+    {
+      "id": "q016",
+      "question": "Kubernetes 如何通过 user 名字空间隔离容器内 root 用户与宿主机用户，从而缓解容器逃逸带来的安全风险？",
+      "relevant": [
+        "a12dd9ab-6a6f-41d5-996a-03a3879e09d7"
+      ],
+      "serverMs": 14214,
+      "wallMs": 14226,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "a12dd9ab-6a6f-41d5-996a-03a3879e09d7",
+          "3eedb720-9347-466d-a292-01d2e56679cd",
+          "dd473c8d-e846-4ca8-8c41-8fad3b284f45",
+          "b169c3a5-9f15-4de1-b976-ba4e5d495d2b",
+          "939c72cb-70ec-4189-8afc-f77c6085ee92"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "a12dd9ab-6a6f-41d5-996a-03a3879e09d7",
+          "db95a1cf-1b29-4105-ace4-e295633434ac",
+          "3eedb720-9347-466d-a292-01d2e56679cd",
+          "d1d254f2-4bf8-404b-bec8-4f30a025260d",
+          "dd473c8d-e846-4ca8-8c41-8fad3b284f45"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "a12dd9ab-6a6f-41d5-996a-03a3879e09d7",
+          "3eedb720-9347-466d-a292-01d2e56679cd",
+          "dd473c8d-e846-4ca8-8c41-8fad3b284f45",
+          "db95a1cf-1b29-4105-ace4-e295633434ac",
+          "b169c3a5-9f15-4de1-b976-ba4e5d495d2b"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "a12dd9ab-6a6f-41d5-996a-03a3879e09d7",
+          "3eedb720-9347-466d-a292-01d2e56679cd",
+          "d1d254f2-4bf8-404b-bec8-4f30a025260d",
+          "db95a1cf-1b29-4105-ace4-e295633434ac",
+          "939c72cb-70ec-4189-8afc-f77c6085ee92"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q017",
+      "question": "如何在 Kubernetes 节点上通过文件系统配置静态 Pod？",
+      "relevant": [
+        "aac2774b-98cb-4b6e-803f-ae184de52729"
+      ],
+      "serverMs": 13051,
+      "wallMs": 13065,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "aac2774b-98cb-4b6e-803f-ae184de52729",
+          "8f535eba-25c8-4bae-804c-d58d3820e35b",
+          "5a869505-c619-463d-a42d-1c395b283708",
+          "aaf4e2af-c969-4f6b-a546-ff038277c515",
+          "75fc95ba-7bc0-4d38-aac2-63b6e3700ba8"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "aac2774b-98cb-4b6e-803f-ae184de52729",
+          "8f535eba-25c8-4bae-804c-d58d3820e35b",
+          "6dda4ab1-c1db-4a19-8d0f-e5a1488c6343",
+          "44eb2e49-ebcd-426d-855c-7bd26c0000b9",
+          "75fc95ba-7bc0-4d38-aac2-63b6e3700ba8"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "aac2774b-98cb-4b6e-803f-ae184de52729",
+          "8f535eba-25c8-4bae-804c-d58d3820e35b",
+          "75fc95ba-7bc0-4d38-aac2-63b6e3700ba8",
+          "5a869505-c619-463d-a42d-1c395b283708",
+          "6dda4ab1-c1db-4a19-8d0f-e5a1488c6343"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "8f535eba-25c8-4bae-804c-d58d3820e35b",
+          "5a869505-c619-463d-a42d-1c395b283708",
+          "aac2774b-98cb-4b6e-803f-ae184de52729",
+          "6dda4ab1-c1db-4a19-8d0f-e5a1488c6343",
+          "44eb2e49-ebcd-426d-855c-7bd26c0000b9"
+        ],
+        "recall": 1.0,
+        "mrr": 0.3333,
+        "ndcg": 0.5
+      }
+    },
+    {
+      "id": "q018",
+      "question": "如何在 Kubernetes 中通过文件系统配置静态 Pod，并避免备份文件被 kubelet 错误解析？",
+      "relevant": [
+        "8f535eba-25c8-4bae-804c-d58d3820e35b"
+      ],
+      "serverMs": 14427,
+      "wallMs": 14453,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "8f535eba-25c8-4bae-804c-d58d3820e35b",
+          "75fc95ba-7bc0-4d38-aac2-63b6e3700ba8",
+          "aac2774b-98cb-4b6e-803f-ae184de52729",
+          "2f139d3f-3685-432e-84d6-972bfd7c7080",
+          "5a869505-c619-463d-a42d-1c395b283708"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "8f535eba-25c8-4bae-804c-d58d3820e35b",
+          "aac2774b-98cb-4b6e-803f-ae184de52729",
+          "75fc95ba-7bc0-4d38-aac2-63b6e3700ba8",
+          "6dda4ab1-c1db-4a19-8d0f-e5a1488c6343",
+          "eb826133-1424-4ff9-9eda-d566476b6d8f"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "8f535eba-25c8-4bae-804c-d58d3820e35b",
+          "75fc95ba-7bc0-4d38-aac2-63b6e3700ba8",
+          "aac2774b-98cb-4b6e-803f-ae184de52729",
+          "2f139d3f-3685-432e-84d6-972bfd7c7080",
+          "6dda4ab1-c1db-4a19-8d0f-e5a1488c6343"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "8f535eba-25c8-4bae-804c-d58d3820e35b",
+          "5a869505-c619-463d-a42d-1c395b283708",
+          "aac2774b-98cb-4b6e-803f-ae184de52729",
+          "6dda4ab1-c1db-4a19-8d0f-e5a1488c6343",
+          "75fc95ba-7bc0-4d38-aac2-63b6e3700ba8"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q019",
+      "question": "如何在 Kubernetes 中配置一个索引完成模式的 Job，使得其创建的各 Pod 能够通过主机名（而非 Pod IP 地址）进行通信？",
+      "relevant": [
+        "3b50a26f-fec3-4433-9467-31de4d81004a"
+      ],
+      "serverMs": 14723,
+      "wallMs": 14747,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "3b50a26f-fec3-4433-9467-31de4d81004a",
+          "06bc5455-6a90-4361-813b-48da9f9e2247",
+          "3e434c80-70ce-4311-bc98-57bb1a0cfacd",
+          "be235f73-3305-4ff4-aa81-716684d0f75a",
+          "e631c72f-d55e-4821-96ef-e3aa6f793f77"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "3b50a26f-fec3-4433-9467-31de4d81004a",
+          "c035b150-c704-435d-8eab-6cbdb7758da8",
+          "edce1b9c-2839-404b-aeed-bf9a7f68bca2",
+          "3e434c80-70ce-4311-bc98-57bb1a0cfacd",
+          "a608a414-b2a8-470c-825e-1343b3701ca4"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "3b50a26f-fec3-4433-9467-31de4d81004a",
+          "3e434c80-70ce-4311-bc98-57bb1a0cfacd",
+          "06bc5455-6a90-4361-813b-48da9f9e2247",
+          "c035b150-c704-435d-8eab-6cbdb7758da8",
+          "edce1b9c-2839-404b-aeed-bf9a7f68bca2"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "edce1b9c-2839-404b-aeed-bf9a7f68bca2",
+          "3b50a26f-fec3-4433-9467-31de4d81004a",
+          "3e434c80-70ce-4311-bc98-57bb1a0cfacd",
+          "06bc5455-6a90-4361-813b-48da9f9e2247",
+          "be235f73-3305-4ff4-aa81-716684d0f75a"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      }
+    },
+    {
+      "id": "q020",
+      "question": "如何在 Kubernetes Job 中启用 Pod 间通过主机名进行通信？",
+      "relevant": [
+        "edce1b9c-2839-404b-aeed-bf9a7f68bca2"
+      ],
+      "serverMs": 15466,
+      "wallMs": 15480,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "3b50a26f-fec3-4433-9467-31de4d81004a",
+          "edce1b9c-2839-404b-aeed-bf9a7f68bca2",
+          "333c869d-f18f-4c51-84ef-fc8a46da53e2",
+          "c035b150-c704-435d-8eab-6cbdb7758da8",
+          "6e798386-c3e9-41ae-9143-c4b6c08feeea"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "keywordRecall": {
+        "ranked": [
+          "edce1b9c-2839-404b-aeed-bf9a7f68bca2",
+          "3b50a26f-fec3-4433-9467-31de4d81004a",
+          "a12dd9ab-6a6f-41d5-996a-03a3879e09d7",
+          "333c869d-f18f-4c51-84ef-fc8a46da53e2",
+          "c035b150-c704-435d-8eab-6cbdb7758da8"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "3b50a26f-fec3-4433-9467-31de4d81004a",
+          "edce1b9c-2839-404b-aeed-bf9a7f68bca2",
+          "333c869d-f18f-4c51-84ef-fc8a46da53e2",
+          "c035b150-c704-435d-8eab-6cbdb7758da8",
+          "a12dd9ab-6a6f-41d5-996a-03a3879e09d7"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "reranked": {
+        "ranked": [
+          "edce1b9c-2839-404b-aeed-bf9a7f68bca2",
+          "3b50a26f-fec3-4433-9467-31de4d81004a",
+          "333c869d-f18f-4c51-84ef-fc8a46da53e2",
+          "6e798386-c3e9-41ae-9143-c4b6c08feeea",
+          "c035b150-c704-435d-8eab-6cbdb7758da8"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q021",
+      "question": "如何列出 DaemonSet 的所有历史修订版本？",
+      "relevant": [
+        "9fdca04a-c023-4f60-9700-ca9e12d5f99e"
+      ],
+      "serverMs": 10957,
+      "wallMs": 10984,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "626bd9d0-c417-477d-bed7-6148e4b505ac",
+          "9fdca04a-c023-4f60-9700-ca9e12d5f99e",
+          "1bc9e0c9-08bf-4e01-8016-87a7c9a9abe4",
+          "9a4af582-9b6b-4bc8-b0f6-785a9d66b33d",
+          "d562bc08-0229-43b0-811f-24962836a302"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "keywordRecall": {
+        "ranked": [
+          "9fdca04a-c023-4f60-9700-ca9e12d5f99e",
+          "626bd9d0-c417-477d-bed7-6148e4b505ac",
+          "9a4af582-9b6b-4bc8-b0f6-785a9d66b33d",
+          "1bc9e0c9-08bf-4e01-8016-87a7c9a9abe4",
+          "d562bc08-0229-43b0-811f-24962836a302"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "626bd9d0-c417-477d-bed7-6148e4b505ac",
+          "9fdca04a-c023-4f60-9700-ca9e12d5f99e",
+          "1bc9e0c9-08bf-4e01-8016-87a7c9a9abe4",
+          "9a4af582-9b6b-4bc8-b0f6-785a9d66b33d",
+          "d562bc08-0229-43b0-811f-24962836a302"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "reranked": {
+        "ranked": [
+          "626bd9d0-c417-477d-bed7-6148e4b505ac",
+          "9fdca04a-c023-4f60-9700-ca9e12d5f99e",
+          "1bc9e0c9-08bf-4e01-8016-87a7c9a9abe4",
+          "9a4af582-9b6b-4bc8-b0f6-785a9d66b33d",
+          "d562bc08-0229-43b0-811f-24962836a302"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      }
+    },
+    {
+      "id": "q022",
+      "question": "如何查看 DaemonSet 的所有版本及其变更原因，并回滚到指定修订版本？",
+      "relevant": [
+        "626bd9d0-c417-477d-bed7-6148e4b505ac"
+      ],
+      "serverMs": 13346,
+      "wallMs": 13361,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "626bd9d0-c417-477d-bed7-6148e4b505ac",
+          "9a4af582-9b6b-4bc8-b0f6-785a9d66b33d",
+          "9fdca04a-c023-4f60-9700-ca9e12d5f99e",
+          "1bc9e0c9-08bf-4e01-8016-87a7c9a9abe4",
+          "d562bc08-0229-43b0-811f-24962836a302"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "626bd9d0-c417-477d-bed7-6148e4b505ac",
+          "9a4af582-9b6b-4bc8-b0f6-785a9d66b33d",
+          "d562bc08-0229-43b0-811f-24962836a302",
+          "1bc9e0c9-08bf-4e01-8016-87a7c9a9abe4",
+          "9fdca04a-c023-4f60-9700-ca9e12d5f99e"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "626bd9d0-c417-477d-bed7-6148e4b505ac",
+          "9a4af582-9b6b-4bc8-b0f6-785a9d66b33d",
+          "9fdca04a-c023-4f60-9700-ca9e12d5f99e",
+          "d562bc08-0229-43b0-811f-24962836a302",
+          "1bc9e0c9-08bf-4e01-8016-87a7c9a9abe4"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "626bd9d0-c417-477d-bed7-6148e4b505ac",
+          "9fdca04a-c023-4f60-9700-ca9e12d5f99e",
+          "1bc9e0c9-08bf-4e01-8016-87a7c9a9abe4",
+          "9a4af582-9b6b-4bc8-b0f6-785a9d66b33d",
+          "d562bc08-0229-43b0-811f-24962836a302"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q023",
+      "question": "如何在确保 PodDisruptionBudget 的前提下安全地清空一个 Kubernetes 节点？",
+      "relevant": [
+        "b3b6406c-8d0b-43b1-b90d-1075ca67537b"
+      ],
+      "serverMs": 16542,
+      "wallMs": 16576,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "b3b6406c-8d0b-43b1-b90d-1075ca67537b",
+          "728f74d3-3110-4fd2-8694-43cbbacb4c58",
+          "daa121a0-21e8-48ac-a578-3ca7f6b33d2a",
+          "158ee217-64b9-4128-b8c0-7568a9baf0f7",
+          "c0c4511b-027a-4f86-9922-34955fa608f6"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "b3b6406c-8d0b-43b1-b90d-1075ca67537b",
+          "728f74d3-3110-4fd2-8694-43cbbacb4c58",
+          "daa121a0-21e8-48ac-a578-3ca7f6b33d2a",
+          "5493403b-ad12-4308-8045-e70c8f9fa4f2",
+          "e5231f97-7ac2-4712-9180-99aac3fb8bb7"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "b3b6406c-8d0b-43b1-b90d-1075ca67537b",
+          "728f74d3-3110-4fd2-8694-43cbbacb4c58",
+          "daa121a0-21e8-48ac-a578-3ca7f6b33d2a",
+          "158ee217-64b9-4128-b8c0-7568a9baf0f7",
+          "5493403b-ad12-4308-8045-e70c8f9fa4f2"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "b3b6406c-8d0b-43b1-b90d-1075ca67537b",
+          "728f74d3-3110-4fd2-8694-43cbbacb4c58",
+          "daa121a0-21e8-48ac-a578-3ca7f6b33d2a",
+          "158ee217-64b9-4128-b8c0-7568a9baf0f7",
+          "c0c4511b-027a-4f86-9922-34955fa608f6"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q024",
+      "question": "如何安全地从Kubernetes集群中移除一个节点以进行维护？",
+      "relevant": [
+        "728f74d3-3110-4fd2-8694-43cbbacb4c58"
+      ],
+      "serverMs": 10728,
+      "wallMs": 10741,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "b3b6406c-8d0b-43b1-b90d-1075ca67537b",
+          "728f74d3-3110-4fd2-8694-43cbbacb4c58",
+          "daa121a0-21e8-48ac-a578-3ca7f6b33d2a",
+          "158ee217-64b9-4128-b8c0-7568a9baf0f7",
+          "528424ea-33ec-43df-9876-27db613b94ff"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "keywordRecall": {
+        "ranked": [
+          "b3b6406c-8d0b-43b1-b90d-1075ca67537b",
+          "728f74d3-3110-4fd2-8694-43cbbacb4c58",
+          "daa121a0-21e8-48ac-a578-3ca7f6b33d2a",
+          "158ee217-64b9-4128-b8c0-7568a9baf0f7",
+          "325cbc8e-ee2b-4f75-987b-3d2e291ba286"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "rrfMerged": {
+        "ranked": [
+          "b3b6406c-8d0b-43b1-b90d-1075ca67537b",
+          "728f74d3-3110-4fd2-8694-43cbbacb4c58",
+          "daa121a0-21e8-48ac-a578-3ca7f6b33d2a",
+          "158ee217-64b9-4128-b8c0-7568a9baf0f7",
+          "528424ea-33ec-43df-9876-27db613b94ff"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "reranked": {
+        "ranked": [
+          "728f74d3-3110-4fd2-8694-43cbbacb4c58",
+          "b3b6406c-8d0b-43b1-b90d-1075ca67537b",
+          "158ee217-64b9-4128-b8c0-7568a9baf0f7",
+          "daa121a0-21e8-48ac-a578-3ca7f6b33d2a",
+          "325cbc8e-ee2b-4f75-987b-3d2e291ba286"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q025",
+      "question": "如何为运行在 Windows 节点上的 Kubernetes Pod 和容器配置组管理的服务账号（GMSA）？",
+      "relevant": [
+        "037abe14-d971-4110-9abb-cbb2eb5f95e6"
+      ],
+      "serverMs": 17565,
+      "wallMs": 17579,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "037abe14-d971-4110-9abb-cbb2eb5f95e6",
+          "64e13a46-39d4-4a47-9da1-da8cbd740364",
+          "484e4e11-89a8-4888-ba17-c98da00bef1b",
+          "b380a889-44a3-4896-9429-e7c25d616341",
+          "a936d228-844c-41d2-b6cb-1299df584a92"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "037abe14-d971-4110-9abb-cbb2eb5f95e6",
+          "b380a889-44a3-4896-9429-e7c25d616341",
+          "04d5c9b9-cdc5-473f-b017-684e75a78fa8",
+          "484e4e11-89a8-4888-ba17-c98da00bef1b",
+          "a936d228-844c-41d2-b6cb-1299df584a92"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "037abe14-d971-4110-9abb-cbb2eb5f95e6",
+          "b380a889-44a3-4896-9429-e7c25d616341",
+          "484e4e11-89a8-4888-ba17-c98da00bef1b",
+          "a936d228-844c-41d2-b6cb-1299df584a92",
+          "64e13a46-39d4-4a47-9da1-da8cbd740364"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "a936d228-844c-41d2-b6cb-1299df584a92",
+          "037abe14-d971-4110-9abb-cbb2eb5f95e6",
+          "484e4e11-89a8-4888-ba17-c98da00bef1b",
+          "04d5c9b9-cdc5-473f-b017-684e75a78fa8",
+          "64e13a46-39d4-4a47-9da1-da8cbd740364"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      }
+    },
+    {
+      "id": "q026",
+      "question": "如何在 Kubernetes 集群中配置 GMSA 以支持 Windows 工作节点上的容器进行基于域的身份认证？",
+      "relevant": [
+        "a936d228-844c-41d2-b6cb-1299df584a92"
+      ],
+      "serverMs": 15376,
+      "wallMs": 15392,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "037abe14-d971-4110-9abb-cbb2eb5f95e6",
+          "a936d228-844c-41d2-b6cb-1299df584a92",
+          "484e4e11-89a8-4888-ba17-c98da00bef1b",
+          "04d5c9b9-cdc5-473f-b017-684e75a78fa8",
+          "e761caa8-4239-4f43-a761-4278d02851c5"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "keywordRecall": {
+        "ranked": [
+          "037abe14-d971-4110-9abb-cbb2eb5f95e6",
+          "a936d228-844c-41d2-b6cb-1299df584a92",
+          "04d5c9b9-cdc5-473f-b017-684e75a78fa8",
+          "b380a889-44a3-4896-9429-e7c25d616341",
+          "9ffa2155-7c2d-4fc6-b4f1-0e43f5713367"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "rrfMerged": {
+        "ranked": [
+          "037abe14-d971-4110-9abb-cbb2eb5f95e6",
+          "a936d228-844c-41d2-b6cb-1299df584a92",
+          "04d5c9b9-cdc5-473f-b017-684e75a78fa8",
+          "484e4e11-89a8-4888-ba17-c98da00bef1b",
+          "b380a889-44a3-4896-9429-e7c25d616341"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "reranked": {
+        "ranked": [
+          "a936d228-844c-41d2-b6cb-1299df584a92",
+          "04d5c9b9-cdc5-473f-b017-684e75a78fa8",
+          "037abe14-d971-4110-9abb-cbb2eb5f95e6",
+          "484e4e11-89a8-4888-ba17-c98da00bef1b",
+          "e761caa8-4239-4f43-a761-4278d02851c5"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q027",
+      "question": "如何在 Linux x86-64 系统中使用 curl 下载指定版本（例如 1.37.0）的 kubectl？",
+      "relevant": [
+        "88d9562f-0e65-4c2c-a330-a789935838dc"
+      ],
+      "serverMs": 13050,
+      "wallMs": 13079,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "88d9562f-0e65-4c2c-a330-a789935838dc",
+          "63f8d957-70e2-40c3-9bba-02f70c5cce95",
+          "2a1c5dc4-dff4-4b6e-a6d4-4d84baaf2e39",
+          "d53d6469-ac17-42e9-b075-df5005d55c53",
+          "8436bb34-f27d-4fe0-98d4-887fa15609eb"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "88d9562f-0e65-4c2c-a330-a789935838dc",
+          "63f8d957-70e2-40c3-9bba-02f70c5cce95",
+          "2a1c5dc4-dff4-4b6e-a6d4-4d84baaf2e39",
+          "074d5e03-6ca3-40ec-9ed7-6aa65fa1c315",
+          "8436bb34-f27d-4fe0-98d4-887fa15609eb"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "88d9562f-0e65-4c2c-a330-a789935838dc",
+          "63f8d957-70e2-40c3-9bba-02f70c5cce95",
+          "2a1c5dc4-dff4-4b6e-a6d4-4d84baaf2e39",
+          "8436bb34-f27d-4fe0-98d4-887fa15609eb",
+          "d53d6469-ac17-42e9-b075-df5005d55c53"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "63f8d957-70e2-40c3-9bba-02f70c5cce95",
+          "88d9562f-0e65-4c2c-a330-a789935838dc",
+          "2a1c5dc4-dff4-4b6e-a6d4-4d84baaf2e39",
+          "d53d6469-ac17-42e9-b075-df5005d55c53",
+          "074d5e03-6ca3-40ec-9ed7-6aa65fa1c315"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      }
+    },
+    {
+      "id": "q028",
+      "question": "如何在 Linux ARM64 系统上下载并验证指定版本（如 1.37.0）的 kubectl 可执行文件？",
+      "relevant": [
+        "63f8d957-70e2-40c3-9bba-02f70c5cce95"
+      ],
+      "serverMs": 24170,
+      "wallMs": 24186,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "63f8d957-70e2-40c3-9bba-02f70c5cce95",
+          "2a1c5dc4-dff4-4b6e-a6d4-4d84baaf2e39",
+          "88d9562f-0e65-4c2c-a330-a789935838dc",
+          "d53d6469-ac17-42e9-b075-df5005d55c53",
+          "41abea21-3105-4f76-ae42-788c97df4d0d"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "63f8d957-70e2-40c3-9bba-02f70c5cce95",
+          "2a1c5dc4-dff4-4b6e-a6d4-4d84baaf2e39",
+          "88d9562f-0e65-4c2c-a330-a789935838dc",
+          "ccfaa3a5-18b2-4d1b-8764-b3e9f4338990",
+          "41abea21-3105-4f76-ae42-788c97df4d0d"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "63f8d957-70e2-40c3-9bba-02f70c5cce95",
+          "2a1c5dc4-dff4-4b6e-a6d4-4d84baaf2e39",
+          "88d9562f-0e65-4c2c-a330-a789935838dc",
+          "41abea21-3105-4f76-ae42-788c97df4d0d",
+          "d53d6469-ac17-42e9-b075-df5005d55c53"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "63f8d957-70e2-40c3-9bba-02f70c5cce95",
+          "88d9562f-0e65-4c2c-a330-a789935838dc",
+          "ccfaa3a5-18b2-4d1b-8764-b3e9f4338990",
+          "2a1c5dc4-dff4-4b6e-a6d4-4d84baaf2e39",
+          "41abea21-3105-4f76-ae42-788c97df4d0d"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q029",
+      "question": "如何在 Kubernetes 集群中强化动态资源分配（DRA）的授权，特别是针对 ResourceClaim 状态更新的最小权限访问？",
+      "relevant": [
+        "3ff4945f-f357-4607-843e-bdf313089a5a"
+      ],
+      "serverMs": 12211,
+      "wallMs": 12227,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "3ff4945f-f357-4607-843e-bdf313089a5a",
+          "0a2e6e4d-3d3c-4bb2-8952-851d4ba645dd",
+          "02c674ea-99ee-4bb1-b75a-3e739c4850f4",
+          "20399923-45fd-42a6-b493-de0766cb8b8d",
+          "65467ee7-5397-4e9b-91c4-365ea696b234"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "3ff4945f-f357-4607-843e-bdf313089a5a",
+          "0a2e6e4d-3d3c-4bb2-8952-851d4ba645dd",
+          "65467ee7-5397-4e9b-91c4-365ea696b234",
+          "b269e273-f941-49a8-b015-d18c51a9f7fe",
+          "b8aee92a-aaad-4589-ad14-3640dc4dc8b0"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "3ff4945f-f357-4607-843e-bdf313089a5a",
+          "0a2e6e4d-3d3c-4bb2-8952-851d4ba645dd",
+          "65467ee7-5397-4e9b-91c4-365ea696b234",
+          "02c674ea-99ee-4bb1-b75a-3e739c4850f4",
+          "20399923-45fd-42a6-b493-de0766cb8b8d"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "0a2e6e4d-3d3c-4bb2-8952-851d4ba645dd",
+          "20399923-45fd-42a6-b493-de0766cb8b8d",
+          "b269e273-f941-49a8-b015-d18c51a9f7fe",
+          "65467ee7-5397-4e9b-91c4-365ea696b234",
+          "02c674ea-99ee-4bb1-b75a-3e739c4850f4"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      }
+    },
+    {
+      "id": "q030",
+      "question": "如何为 Kubernetes 集群中的节点本地 DRA 驱动程序配置 RBAC 权限以更新 ResourceClaim 状态？",
+      "relevant": [
+        "0a2e6e4d-3d3c-4bb2-8952-851d4ba645dd"
+      ],
+      "serverMs": 17472,
+      "wallMs": 17487,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "3ff4945f-f357-4607-843e-bdf313089a5a",
+          "0a2e6e4d-3d3c-4bb2-8952-851d4ba645dd",
+          "a3679a73-1950-47e2-ae86-872f04d139a0",
+          "02c674ea-99ee-4bb1-b75a-3e739c4850f4",
+          "20399923-45fd-42a6-b493-de0766cb8b8d"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "keywordRecall": {
+        "ranked": [
+          "0a2e6e4d-3d3c-4bb2-8952-851d4ba645dd",
+          "3ff4945f-f357-4607-843e-bdf313089a5a",
+          "02c674ea-99ee-4bb1-b75a-3e739c4850f4",
+          "a4eae148-86a8-434a-8860-2708198be76d",
+          "663de20c-6895-40b1-9b21-09a01c6d0d33"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "3ff4945f-f357-4607-843e-bdf313089a5a",
+          "0a2e6e4d-3d3c-4bb2-8952-851d4ba645dd",
+          "02c674ea-99ee-4bb1-b75a-3e739c4850f4",
+          "a3679a73-1950-47e2-ae86-872f04d139a0",
+          "a4eae148-86a8-434a-8860-2708198be76d"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "reranked": {
+        "ranked": [
+          "a3679a73-1950-47e2-ae86-872f04d139a0",
+          "0a2e6e4d-3d3c-4bb2-8952-851d4ba645dd",
+          "20399923-45fd-42a6-b493-de0766cb8b8d",
+          "02c674ea-99ee-4bb1-b75a-3e739c4850f4",
+          "3ff4945f-f357-4607-843e-bdf313089a5a"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      }
+    },
+    {
+      "id": "q031",
+      "question": "IP Masquerade Agent 在 Kubernetes 中的作用是什么？",
+      "relevant": [
+        "267c61cb-167a-4423-96f3-a2b9a6d82b3b"
+      ],
+      "serverMs": 10576,
+      "wallMs": 10607,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "267c61cb-167a-4423-96f3-a2b9a6d82b3b",
+          "ae0014b2-9e3f-4e7a-9779-acdef1e072a3",
+          "7091fab7-3eb5-48a7-b4e5-f1c9db03aebc",
+          "fb438e00-f584-4291-9bea-bf316ed62b8c",
+          "4be69e00-264a-4622-a7fe-38559c2150d3"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "267c61cb-167a-4423-96f3-a2b9a6d82b3b",
+          "4be69e00-264a-4622-a7fe-38559c2150d3",
+          "2de163ef-1833-488c-b473-4da4e4e92242",
+          "f84beac9-1e38-4510-ba3c-9a48a4c234c4",
+          "63267dc0-3fa6-47cc-bdc6-e180788bd074"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "267c61cb-167a-4423-96f3-a2b9a6d82b3b",
+          "4be69e00-264a-4622-a7fe-38559c2150d3",
+          "ae0014b2-9e3f-4e7a-9779-acdef1e072a3",
+          "7091fab7-3eb5-48a7-b4e5-f1c9db03aebc",
+          "2de163ef-1833-488c-b473-4da4e4e92242"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "267c61cb-167a-4423-96f3-a2b9a6d82b3b",
+          "fb438e00-f584-4291-9bea-bf316ed62b8c",
+          "f84beac9-1e38-4510-ba3c-9a48a4c234c4",
+          "4be69e00-264a-4622-a7fe-38559c2150d3",
+          "ae0014b2-9e3f-4e7a-9779-acdef1e072a3"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q032",
+      "question": "在 Kubernetes 中，伪装（Masquerading）属于 NAT 的哪种形式，其主要作用是什么？",
+      "relevant": [
+        "0a14ddee-83c5-4a45-9856-5ccd1dedb349"
+      ],
+      "serverMs": 11510,
+      "wallMs": 11523,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "267c61cb-167a-4423-96f3-a2b9a6d82b3b",
+          "0a14ddee-83c5-4a45-9856-5ccd1dedb349"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "keywordRecall": {
+        "ranked": [
+          "0a14ddee-83c5-4a45-9856-5ccd1dedb349",
+          "267c61cb-167a-4423-96f3-a2b9a6d82b3b",
+          "1892d121-85cd-4077-b105-fc48a069c10b",
+          "4695c194-4a15-4977-830a-7123c22c20ee",
+          "ca4d18d5-e72c-48e2-9cfc-c205b74e2fb4"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "267c61cb-167a-4423-96f3-a2b9a6d82b3b",
+          "0a14ddee-83c5-4a45-9856-5ccd1dedb349",
+          "1892d121-85cd-4077-b105-fc48a069c10b",
+          "4695c194-4a15-4977-830a-7123c22c20ee",
+          "ca4d18d5-e72c-48e2-9cfc-c205b74e2fb4"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "reranked": {
+        "ranked": [
+          "267c61cb-167a-4423-96f3-a2b9a6d82b3b",
+          "0a14ddee-83c5-4a45-9856-5ccd1dedb349",
+          "1892d121-85cd-4077-b105-fc48a069c10b",
+          "4695c194-4a15-4977-830a-7123c22c20ee",
+          "ca4d18d5-e72c-48e2-9cfc-c205b74e2fb4"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      }
+    },
+    {
+      "id": "q033",
+      "question": "如何手动轮换 Kubernetes 集群中的 CA 证书？",
+      "relevant": [
+        "ce405dae-122a-448a-8ecc-c977fe3b638b"
+      ],
+      "serverMs": 11398,
+      "wallMs": 11413,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "ce405dae-122a-448a-8ecc-c977fe3b638b",
+          "f4b66a91-9ecb-4c5f-be7b-8d5a9ac38eb8",
+          "76a8602f-5a39-460d-8096-55eb45233059",
+          "219e6699-5fd8-42ca-978c-035f348e7442",
+          "66c3f208-d78c-4870-8452-d3a5c9f282b5"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "ce405dae-122a-448a-8ecc-c977fe3b638b",
+          "66c3f208-d78c-4870-8452-d3a5c9f282b5",
+          "f4b66a91-9ecb-4c5f-be7b-8d5a9ac38eb8",
+          "69ff243c-ce4f-4bcc-812a-24f6eb5dee34",
+          "70e2cc82-8de7-4d24-bb9a-d80d0a331110"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "ce405dae-122a-448a-8ecc-c977fe3b638b",
+          "f4b66a91-9ecb-4c5f-be7b-8d5a9ac38eb8",
+          "66c3f208-d78c-4870-8452-d3a5c9f282b5",
+          "76a8602f-5a39-460d-8096-55eb45233059",
+          "219e6699-5fd8-42ca-978c-035f348e7442"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "ce405dae-122a-448a-8ecc-c977fe3b638b",
+          "76a8602f-5a39-460d-8096-55eb45233059",
+          "f4b66a91-9ecb-4c5f-be7b-8d5a9ac38eb8",
+          "69ff243c-ce4f-4bcc-812a-24f6eb5dee34",
+          "66c3f208-d78c-4870-8452-d3a5c9f282b5"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q034",
+      "question": "如何在 Kubernetes 集群中安全轮换 CA 证书，确保新旧 CA 同时生效且不中断服务？",
+      "relevant": [
+        "0ccf4389-dbc1-4c71-a6f9-557ec0d8a79d"
+      ],
+      "serverMs": 14553,
+      "wallMs": 14569,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "ce405dae-122a-448a-8ecc-c977fe3b638b",
+          "76a8602f-5a39-460d-8096-55eb45233059",
+          "f4b66a91-9ecb-4c5f-be7b-8d5a9ac38eb8",
+          "69ff243c-ce4f-4bcc-812a-24f6eb5dee34",
+          "70e2cc82-8de7-4d24-bb9a-d80d0a331110"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "ce405dae-122a-448a-8ecc-c977fe3b638b",
+          "f4b66a91-9ecb-4c5f-be7b-8d5a9ac38eb8",
+          "70e2cc82-8de7-4d24-bb9a-d80d0a331110",
+          "0ccf4389-dbc1-4c71-a6f9-557ec0d8a79d",
+          "e60d9f97-8476-4aac-aef3-aec1f1683cec"
+        ],
+        "recall": 1.0,
+        "mrr": 0.25,
+        "ndcg": 0.4307
+      },
+      "rrfMerged": {
+        "ranked": [
+          "ce405dae-122a-448a-8ecc-c977fe3b638b",
+          "f4b66a91-9ecb-4c5f-be7b-8d5a9ac38eb8",
+          "70e2cc82-8de7-4d24-bb9a-d80d0a331110",
+          "76a8602f-5a39-460d-8096-55eb45233059",
+          "69ff243c-ce4f-4bcc-812a-24f6eb5dee34"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "reranked": {
+        "ranked": [
+          "e60d9f97-8476-4aac-aef3-aec1f1683cec",
+          "f4b66a91-9ecb-4c5f-be7b-8d5a9ac38eb8",
+          "0ccf4389-dbc1-4c71-a6f9-557ec0d8a79d",
+          "70e2cc82-8de7-4d24-bb9a-d80d0a331110",
+          "76a8602f-5a39-460d-8096-55eb45233059"
+        ],
+        "recall": 1.0,
+        "mrr": 0.3333,
+        "ndcg": 0.5
+      }
+    },
+    {
+      "id": "q035",
+      "question": "从 Pod 内部访问 Kubernetes API 的推荐方式是什么？",
+      "relevant": [
+        "c01fb606-b64f-4961-9561-3cd1342565ad"
+      ],
+      "serverMs": 13571,
+      "wallMs": 13588,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "c01fb606-b64f-4961-9561-3cd1342565ad",
+          "21044242-0304-4727-828f-568675a125a4",
+          "3dd9826d-9784-4679-9602-56c54f45902f",
+          "8e531a28-c684-42d0-b22d-2fb4af513204",
+          "cbe282d3-53b2-4117-9056-64aab61ad2e0"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "c01fb606-b64f-4961-9561-3cd1342565ad",
+          "249e78eb-1403-4f8f-be46-3aedcaec5fc9",
+          "b1ebdffa-4f3f-4636-8859-1ed7b9598c37",
+          "4695c194-4a15-4977-830a-7123c22c20ee",
+          "9ffa2155-7c2d-4fc6-b4f1-0e43f5713367"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "c01fb606-b64f-4961-9561-3cd1342565ad",
+          "21044242-0304-4727-828f-568675a125a4",
+          "249e78eb-1403-4f8f-be46-3aedcaec5fc9",
+          "3dd9826d-9784-4679-9602-56c54f45902f",
+          "b1ebdffa-4f3f-4636-8859-1ed7b9598c37"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "c01fb606-b64f-4961-9561-3cd1342565ad",
+          "21044242-0304-4727-828f-568675a125a4",
+          "3dd9826d-9784-4679-9602-56c54f45902f",
+          "cbe282d3-53b2-4117-9056-64aab61ad2e0",
+          "9ffa2155-7c2d-4fc6-b4f1-0e43f5713367"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q036",
+      "question": "在 Pod 中如何安全地访问 Kubernetes API 服务器？",
+      "relevant": [
+        "752fc5c4-b6a3-48c7-9e3b-aa9f4a84a911"
+      ],
+      "serverMs": 13288,
+      "wallMs": 13305,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "c01fb606-b64f-4961-9561-3cd1342565ad",
+          "21044242-0304-4727-828f-568675a125a4",
+          "8e531a28-c684-42d0-b22d-2fb4af513204",
+          "3dd9826d-9784-4679-9602-56c54f45902f",
+          "4febd3d2-0517-4d3a-a820-e6500fd50f6d"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "035fccfb-1abb-4126-91e8-87714937197d",
+          "8e531a28-c684-42d0-b22d-2fb4af513204",
+          "3900b51a-4ce5-4283-bd9d-81369db2e034",
+          "6d546173-10e8-49c5-b363-13b58a119c77",
+          "8b25a012-ee39-48d1-972b-8b99fb820d92"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "8e531a28-c684-42d0-b22d-2fb4af513204",
+          "c01fb606-b64f-4961-9561-3cd1342565ad",
+          "035fccfb-1abb-4126-91e8-87714937197d",
+          "21044242-0304-4727-828f-568675a125a4",
+          "3900b51a-4ce5-4283-bd9d-81369db2e034"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "reranked": {
+        "ranked": [
+          "21044242-0304-4727-828f-568675a125a4",
+          "c01fb606-b64f-4961-9561-3cd1342565ad",
+          "4febd3d2-0517-4d3a-a820-e6500fd50f6d",
+          "3dd9826d-9784-4679-9602-56c54f45902f",
+          "6d546173-10e8-49c5-b363-13b58a119c77"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      }
+    },
+    {
+      "id": "q037",
+      "question": "如何使用 CertificateSigningRequest 为 Kubernetes API 客户端颁发 X.509 证书？",
+      "relevant": [
+        "f7e714e1-842d-4db3-a388-3014c36a5693"
+      ],
+      "serverMs": 13058,
+      "wallMs": 13073,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "f7e714e1-842d-4db3-a388-3014c36a5693",
+          "df3070e0-7343-4aa5-a178-7e4824d13fd2",
+          "72e32633-df89-4b70-96eb-58152fdffca5",
+          "5da3c671-de48-4a4b-8a17-4cf1c251b189",
+          "ce2b1a8b-9e54-47a0-8be5-2f8262635d19"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "f7e714e1-842d-4db3-a388-3014c36a5693",
+          "2525faac-8490-4599-a62b-4dfb43c95e19",
+          "4febd3d2-0517-4d3a-a820-e6500fd50f6d",
+          "aafc40d7-41ad-4d8c-b9f0-2d673abc7a65",
+          "fddcae60-9bef-4956-b13b-3f386428bc2e"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "f7e714e1-842d-4db3-a388-3014c36a5693",
+          "df3070e0-7343-4aa5-a178-7e4824d13fd2",
+          "2525faac-8490-4599-a62b-4dfb43c95e19",
+          "72e32633-df89-4b70-96eb-58152fdffca5",
+          "4febd3d2-0517-4d3a-a820-e6500fd50f6d"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "f7e714e1-842d-4db3-a388-3014c36a5693",
+          "72e32633-df89-4b70-96eb-58152fdffca5",
+          "df3070e0-7343-4aa5-a178-7e4824d13fd2",
+          "5da3c671-de48-4a4b-8a17-4cf1c251b189",
+          "fddcae60-9bef-4956-b13b-3f386428bc2e"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q038",
+      "question": "如何在Kubernetes集群中为新用户myuser创建并提交CertificateSigningRequest？",
+      "relevant": [
+        "b4b971b1-457f-4135-9f87-adb04cf3ee9e"
+      ],
+      "serverMs": 12726,
+      "wallMs": 12742,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "b4b971b1-457f-4135-9f87-adb04cf3ee9e",
+          "f7e714e1-842d-4db3-a388-3014c36a5693",
+          "9297baec-9451-4ace-b2c2-d7f3faf5dccb",
+          "df3070e0-7343-4aa5-a178-7e4824d13fd2",
+          "9a6f01ac-6462-432c-852c-fbc52b2833c9"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "b4b971b1-457f-4135-9f87-adb04cf3ee9e",
+          "9a6f01ac-6462-432c-852c-fbc52b2833c9",
+          "f7e714e1-842d-4db3-a388-3014c36a5693",
+          "9297baec-9451-4ace-b2c2-d7f3faf5dccb",
+          "a7de071d-9395-417a-90f5-a245a7cfe912"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "b4b971b1-457f-4135-9f87-adb04cf3ee9e",
+          "f7e714e1-842d-4db3-a388-3014c36a5693",
+          "9a6f01ac-6462-432c-852c-fbc52b2833c9",
+          "9297baec-9451-4ace-b2c2-d7f3faf5dccb",
+          "df3070e0-7343-4aa5-a178-7e4824d13fd2"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "df3070e0-7343-4aa5-a178-7e4824d13fd2",
+          "b4b971b1-457f-4135-9f87-adb04cf3ee9e",
+          "9297baec-9451-4ace-b2c2-d7f3faf5dccb",
+          "f7e714e1-842d-4db3-a388-3014c36a5693",
+          "9a6f01ac-6462-432c-852c-fbc52b2833c9"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      }
+    },
+    {
+      "id": "q039",
+      "question": "如何在 Kubernetes 中配置 DaemonSet 仅在具有 SSD 存储的节点上运行 Pod？",
+      "relevant": [
+        "31e58c1e-4cac-42dc-9deb-5b1ffba92faa"
+      ],
+      "serverMs": 16709,
+      "wallMs": 16738,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "31e58c1e-4cac-42dc-9deb-5b1ffba92faa",
+          "906a172a-079e-4e13-bf09-b1f69393fdb7",
+          "c5602c05-cf64-4f85-9103-4b9bc36d294e",
+          "17ed603f-9730-42e7-b8f5-acfe0251ecd0",
+          "64b960f9-d8b9-4144-b225-03d9331e21f7"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "31e58c1e-4cac-42dc-9deb-5b1ffba92faa",
+          "906a172a-079e-4e13-bf09-b1f69393fdb7",
+          "c5602c05-cf64-4f85-9103-4b9bc36d294e",
+          "158ee217-64b9-4128-b8c0-7568a9baf0f7",
+          "17ed603f-9730-42e7-b8f5-acfe0251ecd0"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "31e58c1e-4cac-42dc-9deb-5b1ffba92faa",
+          "906a172a-079e-4e13-bf09-b1f69393fdb7",
+          "c5602c05-cf64-4f85-9103-4b9bc36d294e",
+          "17ed603f-9730-42e7-b8f5-acfe0251ecd0",
+          "158ee217-64b9-4128-b8c0-7568a9baf0f7"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "906a172a-079e-4e13-bf09-b1f69393fdb7",
+          "31e58c1e-4cac-42dc-9deb-5b1ffba92faa",
+          "c5602c05-cf64-4f85-9103-4b9bc36d294e",
+          "17ed603f-9730-42e7-b8f5-acfe0251ecd0",
+          "158ee217-64b9-4128-b8c0-7568a9baf0f7"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      }
+    },
+    {
+      "id": "q040",
+      "question": "如何确保DaemonSet只在具有ssd=true标签的节点上运行Pod？",
+      "relevant": [
+        "906a172a-079e-4e13-bf09-b1f69393fdb7"
+      ],
+      "serverMs": 12798,
+      "wallMs": 12815,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "31e58c1e-4cac-42dc-9deb-5b1ffba92faa",
+          "906a172a-079e-4e13-bf09-b1f69393fdb7",
+          "c5602c05-cf64-4f85-9103-4b9bc36d294e",
+          "a1aee8c1-2cb9-4875-bdd3-c54a7cb081cd",
+          "158ee217-64b9-4128-b8c0-7568a9baf0f7"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "keywordRecall": {
+        "ranked": [
+          "31e58c1e-4cac-42dc-9deb-5b1ffba92faa",
+          "906a172a-079e-4e13-bf09-b1f69393fdb7",
+          "c5602c05-cf64-4f85-9103-4b9bc36d294e",
+          "5d02d482-63d5-47a8-a304-21455f8445b5",
+          "857ab44a-ff48-44bd-813e-99dd3b9c3dc5"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "rrfMerged": {
+        "ranked": [
+          "31e58c1e-4cac-42dc-9deb-5b1ffba92faa",
+          "906a172a-079e-4e13-bf09-b1f69393fdb7",
+          "c5602c05-cf64-4f85-9103-4b9bc36d294e",
+          "a1aee8c1-2cb9-4875-bdd3-c54a7cb081cd",
+          "5d02d482-63d5-47a8-a304-21455f8445b5"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "reranked": {
+        "ranked": [
+          "906a172a-079e-4e13-bf09-b1f69393fdb7",
+          "31e58c1e-4cac-42dc-9deb-5b1ffba92faa",
+          "c5602c05-cf64-4f85-9103-4b9bc36d294e",
+          "5d02d482-63d5-47a8-a304-21455f8445b5",
+          "857ab44a-ff48-44bd-813e-99dd3b9c3dc5"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q041",
+      "question": "Kubernetes 1.37 中支持哪两个版本的 KMS 静态加密方式，为什么推荐使用 KMS v2？",
+      "relevant": [
+        "afbd80f5-3276-44c1-ad61-6cae758bad57"
+      ],
+      "serverMs": 20162,
+      "wallMs": 20197,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "afbd80f5-3276-44c1-ad61-6cae758bad57",
+          "2544fd6c-0e8c-4223-87db-2e7c67878a21",
+          "ffb3fc4d-f220-4c3b-b3bd-a31ef9710b72",
+          "2d1770a2-e94f-4631-8f14-dc2e48870049",
+          "c9425e67-b4d4-48c6-aa07-5ab0e957be82"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "2544fd6c-0e8c-4223-87db-2e7c67878a21",
+          "afbd80f5-3276-44c1-ad61-6cae758bad57",
+          "3c57e040-1502-4879-b246-07da9249cf01",
+          "c9425e67-b4d4-48c6-aa07-5ab0e957be82",
+          "6064181f-237d-422a-8aa6-495240e491fe"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "rrfMerged": {
+        "ranked": [
+          "afbd80f5-3276-44c1-ad61-6cae758bad57",
+          "2544fd6c-0e8c-4223-87db-2e7c67878a21",
+          "c9425e67-b4d4-48c6-aa07-5ab0e957be82",
+          "ffb3fc4d-f220-4c3b-b3bd-a31ef9710b72",
+          "3c57e040-1502-4879-b246-07da9249cf01"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "afbd80f5-3276-44c1-ad61-6cae758bad57",
+          "6064181f-237d-422a-8aa6-495240e491fe",
+          "2544fd6c-0e8c-4223-87db-2e7c67878a21",
+          "ffb3fc4d-f220-4c3b-b3bd-a31ef9710b72",
+          "c9425e67-b4d4-48c6-aa07-5ab0e957be82"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q042",
+      "question": "Kubernetes 中 KMS v1 和 KMS v2 的主要区别是什么？",
+      "relevant": [
+        "2544fd6c-0e8c-4223-87db-2e7c67878a21"
+      ],
+      "serverMs": 10215,
+      "wallMs": 10260,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "afbd80f5-3276-44c1-ad61-6cae758bad57",
+          "ffb3fc4d-f220-4c3b-b3bd-a31ef9710b72",
+          "2544fd6c-0e8c-4223-87db-2e7c67878a21",
+          "63a30151-5587-4817-b46f-069fac3dc4e0",
+          "c9425e67-b4d4-48c6-aa07-5ab0e957be82"
+        ],
+        "recall": 1.0,
+        "mrr": 0.3333,
+        "ndcg": 0.5
+      },
+      "keywordRecall": {
+        "ranked": [
+          "2544fd6c-0e8c-4223-87db-2e7c67878a21",
+          "afbd80f5-3276-44c1-ad61-6cae758bad57",
+          "c9425e67-b4d4-48c6-aa07-5ab0e957be82",
+          "63a30151-5587-4817-b46f-069fac3dc4e0",
+          "386ac8b2-34d1-40f9-a0a6-17d133b60f04"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "afbd80f5-3276-44c1-ad61-6cae758bad57",
+          "2544fd6c-0e8c-4223-87db-2e7c67878a21",
+          "c9425e67-b4d4-48c6-aa07-5ab0e957be82",
+          "63a30151-5587-4817-b46f-069fac3dc4e0",
+          "ffb3fc4d-f220-4c3b-b3bd-a31ef9710b72"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "reranked": {
+        "ranked": [
+          "ffb3fc4d-f220-4c3b-b3bd-a31ef9710b72",
+          "c9425e67-b4d4-48c6-aa07-5ab0e957be82",
+          "2544fd6c-0e8c-4223-87db-2e7c67878a21",
+          "afbd80f5-3276-44c1-ad61-6cae758bad57",
+          "63a30151-5587-4817-b46f-069fac3dc4e0"
+        ],
+        "recall": 1.0,
+        "mrr": 0.3333,
+        "ndcg": 0.5
+      }
+    },
+    {
+      "id": "q043",
+      "question": "如何保护 Kubernetes 集群免受意外或恶意访问？",
+      "relevant": [
+        "cea2a4d3-cd55-4865-8d7b-09390aed9ab1"
+      ],
+      "serverMs": 16732,
+      "wallMs": 16748,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "cea2a4d3-cd55-4865-8d7b-09390aed9ab1",
+          "c5ede4f8-c46d-4e1a-8c09-d4801e2ce526",
+          "325cbc8e-ee2b-4f75-987b-3d2e291ba286",
+          "5493403b-ad12-4308-8045-e70c8f9fa4f2",
+          "939c72cb-70ec-4189-8afc-f77c6085ee92"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "c5ede4f8-c46d-4e1a-8c09-d4801e2ce526",
+          "cea2a4d3-cd55-4865-8d7b-09390aed9ab1",
+          "b1b2a862-4637-4712-b155-066deb34a2b4",
+          "070fef42-8487-499e-81d5-5c647c9c094c",
+          "892f2ca8-9e0f-4d2e-9d0a-b3dc33b19715"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "rrfMerged": {
+        "ranked": [
+          "cea2a4d3-cd55-4865-8d7b-09390aed9ab1",
+          "c5ede4f8-c46d-4e1a-8c09-d4801e2ce526",
+          "325cbc8e-ee2b-4f75-987b-3d2e291ba286",
+          "b1b2a862-4637-4712-b155-066deb34a2b4",
+          "5493403b-ad12-4308-8045-e70c8f9fa4f2"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "cea2a4d3-cd55-4865-8d7b-09390aed9ab1",
+          "5493403b-ad12-4308-8045-e70c8f9fa4f2",
+          "325cbc8e-ee2b-4f75-987b-3d2e291ba286",
+          "b1b2a862-4637-4712-b155-066deb34a2b4",
+          "939c72cb-70ec-4189-8afc-f77c6085ee92"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q044",
+      "question": "Kubernetes集群中如何根据规模和安全需求选择合适的API认证和授权机制？",
+      "relevant": [
+        "ec4f0eb3-aeda-4500-a07c-5d4b43487985"
+      ],
+      "serverMs": 10193,
+      "wallMs": 10225,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "ec4f0eb3-aeda-4500-a07c-5d4b43487985",
+          "cea2a4d3-cd55-4865-8d7b-09390aed9ab1",
+          "4d877faf-0f0c-46ce-9128-ebb2c1db6cd1",
+          "5493403b-ad12-4308-8045-e70c8f9fa4f2",
+          "7ae784bd-24d7-455e-935b-0ff4746b05a2"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "ec4f0eb3-aeda-4500-a07c-5d4b43487985",
+          "4d877faf-0f0c-46ce-9128-ebb2c1db6cd1",
+          "b8aee92a-aaad-4589-ad14-3640dc4dc8b0",
+          "5493403b-ad12-4308-8045-e70c8f9fa4f2",
+          "65467ee7-5397-4e9b-91c4-365ea696b234"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "ec4f0eb3-aeda-4500-a07c-5d4b43487985",
+          "4d877faf-0f0c-46ce-9128-ebb2c1db6cd1",
+          "5493403b-ad12-4308-8045-e70c8f9fa4f2",
+          "cea2a4d3-cd55-4865-8d7b-09390aed9ab1",
+          "b8aee92a-aaad-4589-ad14-3640dc4dc8b0"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "ec4f0eb3-aeda-4500-a07c-5d4b43487985",
+          "cea2a4d3-cd55-4865-8d7b-09390aed9ab1",
+          "65467ee7-5397-4e9b-91c4-365ea696b234",
+          "4d877faf-0f0c-46ce-9128-ebb2c1db6cd1",
+          "7ae784bd-24d7-455e-935b-0ff4746b05a2"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q045",
+      "question": "在 Kubernetes 集群中，从哪个版本开始 kubelet 支持使用斜线（/）作为 sysctl 参数的分隔符？",
+      "relevant": [
+        "cc028229-bd0f-484c-942e-9dc160c0ad79"
+      ],
+      "serverMs": 11140,
+      "wallMs": 11170,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "cc028229-bd0f-484c-942e-9dc160c0ad79",
+          "9afd69a3-bb91-4f08-9a76-66ccaa535f44",
+          "4253810c-3722-4b2f-893c-e8468344c427",
+          "bd5d1531-556d-4d93-92b8-8c83c8c0f969",
+          "b3cf099b-db9b-4ba1-a6a8-30d3869a73c1"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "cc028229-bd0f-484c-942e-9dc160c0ad79",
+          "9afd69a3-bb91-4f08-9a76-66ccaa535f44",
+          "32646d2c-d58d-4403-b139-6ec5d734894e",
+          "4253810c-3722-4b2f-893c-e8468344c427",
+          "b9889379-5c17-42a8-93b8-aadd892cbc6a"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "cc028229-bd0f-484c-942e-9dc160c0ad79",
+          "9afd69a3-bb91-4f08-9a76-66ccaa535f44",
+          "4253810c-3722-4b2f-893c-e8468344c427",
+          "32646d2c-d58d-4403-b139-6ec5d734894e",
+          "bd5d1531-556d-4d93-92b8-8c83c8c0f969"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "cc028229-bd0f-484c-942e-9dc160c0ad79",
+          "b3cf099b-db9b-4ba1-a6a8-30d3869a73c1",
+          "9afd69a3-bb91-4f08-9a76-66ccaa535f44",
+          "bd5d1531-556d-4d93-92b8-8c83c8c0f969",
+          "b9889379-5c17-42a8-93b8-aadd892cbc6a"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q046",
+      "question": "在 Kubernetes 集群中，哪些 sysctl 参数被认定为安全的，以及判断它们为安全的标准是什么？",
+      "relevant": [
+        "7de13a61-8ebc-49fb-a9fc-0bae2afec5d4"
+      ],
+      "serverMs": 9265,
+      "wallMs": 9291,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "bd5d1531-556d-4d93-92b8-8c83c8c0f969",
+          "4253810c-3722-4b2f-893c-e8468344c427",
+          "7de13a61-8ebc-49fb-a9fc-0bae2afec5d4",
+          "9afd69a3-bb91-4f08-9a76-66ccaa535f44",
+          "d53b1669-2930-4dcc-a855-4643cc59d1f7"
+        ],
+        "recall": 1.0,
+        "mrr": 0.3333,
+        "ndcg": 0.5
+      },
+      "keywordRecall": {
+        "ranked": [
+          "d53b1669-2930-4dcc-a855-4643cc59d1f7",
+          "4253810c-3722-4b2f-893c-e8468344c427",
+          "7de13a61-8ebc-49fb-a9fc-0bae2afec5d4",
+          "1aecd777-ba3b-4faf-a36d-6524edffefb3",
+          "34cd00e9-15af-490b-bf09-f552e54b6f63"
+        ],
+        "recall": 1.0,
+        "mrr": 0.3333,
+        "ndcg": 0.5
+      },
+      "rrfMerged": {
+        "ranked": [
+          "4253810c-3722-4b2f-893c-e8468344c427",
+          "d53b1669-2930-4dcc-a855-4643cc59d1f7",
+          "7de13a61-8ebc-49fb-a9fc-0bae2afec5d4",
+          "bd5d1531-556d-4d93-92b8-8c83c8c0f969",
+          "9afd69a3-bb91-4f08-9a76-66ccaa535f44"
+        ],
+        "recall": 1.0,
+        "mrr": 0.3333,
+        "ndcg": 0.5
+      },
+      "reranked": {
+        "ranked": [
+          "bd5d1531-556d-4d93-92b8-8c83c8c0f969",
+          "7de13a61-8ebc-49fb-a9fc-0bae2afec5d4",
+          "9afd69a3-bb91-4f08-9a76-66ccaa535f44",
+          "d53b1669-2930-4dcc-a855-4643cc59d1f7",
+          "4253810c-3722-4b2f-893c-e8468344c427"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      }
+    },
+    {
+      "id": "q047",
+      "question": "在 Windows 上安装 kubectl 时，如何使用 curl 下载适用于 amd64 架构的 v1.37.0 版本？",
+      "relevant": [
+        "8436bb34-f27d-4fe0-98d4-887fa15609eb"
+      ],
+      "serverMs": 17065,
+      "wallMs": 17094,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "8436bb34-f27d-4fe0-98d4-887fa15609eb",
+          "88d9562f-0e65-4c2c-a330-a789935838dc",
+          "2a1c5dc4-dff4-4b6e-a6d4-4d84baaf2e39",
+          "63f8d957-70e2-40c3-9bba-02f70c5cce95",
+          "d53d6469-ac17-42e9-b075-df5005d55c53"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "8436bb34-f27d-4fe0-98d4-887fa15609eb",
+          "d53d6469-ac17-42e9-b075-df5005d55c53",
+          "63f8d957-70e2-40c3-9bba-02f70c5cce95",
+          "2a1c5dc4-dff4-4b6e-a6d4-4d84baaf2e39",
+          "06c9dde0-ab24-43fb-847d-13366652ab08"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "8436bb34-f27d-4fe0-98d4-887fa15609eb",
+          "d53d6469-ac17-42e9-b075-df5005d55c53",
+          "2a1c5dc4-dff4-4b6e-a6d4-4d84baaf2e39",
+          "63f8d957-70e2-40c3-9bba-02f70c5cce95",
+          "88d9562f-0e65-4c2c-a330-a789935838dc"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "d53d6469-ac17-42e9-b075-df5005d55c53",
+          "8436bb34-f27d-4fe0-98d4-887fa15609eb",
+          "63f8d957-70e2-40c3-9bba-02f70c5cce95",
+          "2a1c5dc4-dff4-4b6e-a6d4-4d84baaf2e39",
+          "06c9dde0-ab24-43fb-847d-13366652ab08"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      }
+    },
+    {
+      "id": "q048",
+      "question": "如何在Windows系统上下载并验证kubectl v1.37.0的可执行文件？",
+      "relevant": [
+        "d53d6469-ac17-42e9-b075-df5005d55c53"
+      ],
+      "serverMs": 17433,
+      "wallMs": 17446,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "d53d6469-ac17-42e9-b075-df5005d55c53",
+          "8436bb34-f27d-4fe0-98d4-887fa15609eb",
+          "63f8d957-70e2-40c3-9bba-02f70c5cce95",
+          "2a1c5dc4-dff4-4b6e-a6d4-4d84baaf2e39",
+          "88d9562f-0e65-4c2c-a330-a789935838dc"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "8436bb34-f27d-4fe0-98d4-887fa15609eb",
+          "d34dd825-675c-4782-88bb-c4f5bb5f09f8",
+          "d53d6469-ac17-42e9-b075-df5005d55c53",
+          "06c9dde0-ab24-43fb-847d-13366652ab08",
+          "63f8d957-70e2-40c3-9bba-02f70c5cce95"
+        ],
+        "recall": 1.0,
+        "mrr": 0.3333,
+        "ndcg": 0.5
+      },
+      "rrfMerged": {
+        "ranked": [
+          "8436bb34-f27d-4fe0-98d4-887fa15609eb",
+          "d53d6469-ac17-42e9-b075-df5005d55c53",
+          "63f8d957-70e2-40c3-9bba-02f70c5cce95",
+          "d34dd825-675c-4782-88bb-c4f5bb5f09f8",
+          "2a1c5dc4-dff4-4b6e-a6d4-4d84baaf2e39"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "reranked": {
+        "ranked": [
+          "d53d6469-ac17-42e9-b075-df5005d55c53",
+          "8436bb34-f27d-4fe0-98d4-887fa15609eb",
+          "d34dd825-675c-4782-88bb-c4f5bb5f09f8",
+          "63f8d957-70e2-40c3-9bba-02f70c5cce95",
+          "06c9dde0-ab24-43fb-847d-13366652ab08"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q049",
+      "question": "如何构建一个在 Kubernetes 集群每个节点上运行 Pod 的基本 DaemonSet，使其使用 Init 容器读取并记录 /etc/machine-id 文件内容，并用 pause 容器保持 Pod 运行？",
+      "relevant": [
+        "17ed603f-9730-42e7-b8f5-acfe0251ecd0"
+      ],
+      "serverMs": 14719,
+      "wallMs": 14735,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "a1aee8c1-2cb9-4875-bdd3-c54a7cb081cd",
+          "17ed603f-9730-42e7-b8f5-acfe0251ecd0",
+          "5ff846a4-7b23-42a5-812b-50e000e7b427",
+          "b39743f9-b5e5-4fd5-abb0-3c448896a1ee",
+          "31e58c1e-4cac-42dc-9deb-5b1ffba92faa"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "keywordRecall": {
+        "ranked": [
+          "17ed603f-9730-42e7-b8f5-acfe0251ecd0",
+          "a1aee8c1-2cb9-4875-bdd3-c54a7cb081cd",
+          "5ff846a4-7b23-42a5-812b-50e000e7b427",
+          "b39743f9-b5e5-4fd5-abb0-3c448896a1ee",
+          "ec670b30-5d0c-4209-a4f7-2878fc10dc2b"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "a1aee8c1-2cb9-4875-bdd3-c54a7cb081cd",
+          "17ed603f-9730-42e7-b8f5-acfe0251ecd0",
+          "5ff846a4-7b23-42a5-812b-50e000e7b427",
+          "b39743f9-b5e5-4fd5-abb0-3c448896a1ee",
+          "31e58c1e-4cac-42dc-9deb-5b1ffba92faa"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "reranked": {
+        "ranked": [
+          "a1aee8c1-2cb9-4875-bdd3-c54a7cb081cd",
+          "17ed603f-9730-42e7-b8f5-acfe0251ecd0",
+          "5ff846a4-7b23-42a5-812b-50e000e7b427",
+          "b39743f9-b5e5-4fd5-abb0-3c448896a1ee",
+          "31e58c1e-4cac-42dc-9deb-5b1ffba92faa"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      }
+    },
+    {
+      "id": "q050",
+      "question": "如何基于提供的 YAML 清单创建一个确保 Pod 副本调度到每个节点的 DaemonSet？",
+      "relevant": [
+        "a1aee8c1-2cb9-4875-bdd3-c54a7cb081cd"
+      ],
+      "serverMs": 16147,
+      "wallMs": 16159,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "a1aee8c1-2cb9-4875-bdd3-c54a7cb081cd",
+          "17ed603f-9730-42e7-b8f5-acfe0251ecd0",
+          "31e58c1e-4cac-42dc-9deb-5b1ffba92faa",
+          "906a172a-079e-4e13-bf09-b1f69393fdb7",
+          "158ee217-64b9-4128-b8c0-7568a9baf0f7"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "a1aee8c1-2cb9-4875-bdd3-c54a7cb081cd",
+          "17ed603f-9730-42e7-b8f5-acfe0251ecd0",
+          "ffd43246-969c-4fc3-b4a5-41c2c8b4d907",
+          "158ee217-64b9-4128-b8c0-7568a9baf0f7",
+          "5ff846a4-7b23-42a5-812b-50e000e7b427"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "a1aee8c1-2cb9-4875-bdd3-c54a7cb081cd",
+          "17ed603f-9730-42e7-b8f5-acfe0251ecd0",
+          "158ee217-64b9-4128-b8c0-7568a9baf0f7",
+          "31e58c1e-4cac-42dc-9deb-5b1ffba92faa",
+          "ffd43246-969c-4fc3-b4a5-41c2c8b4d907"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "a1aee8c1-2cb9-4875-bdd3-c54a7cb081cd",
+          "5ff846a4-7b23-42a5-812b-50e000e7b427",
+          "17ed603f-9730-42e7-b8f5-acfe0251ecd0",
+          "906a172a-079e-4e13-bf09-b1f69393fdb7",
+          "31e58c1e-4cac-42dc-9deb-5b1ffba92faa"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q051",
+      "question": "如何手动升级使用非kubeadm方式部署的Kubernetes集群？",
+      "relevant": [
+        "9e48435b-a9dc-4560-b1a3-92eaa24d1885"
+      ],
+      "serverMs": 10588,
+      "wallMs": 10620,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "528424ea-33ec-43df-9876-27db613b94ff",
+          "9e48435b-a9dc-4560-b1a3-92eaa24d1885",
+          "473d0e08-1a0a-4db9-b8e7-68fe7787b71e",
+          "dfda6085-0993-4015-95f9-b72e21081288",
+          "0d37b5b4-b396-4067-a178-10c263e0639f"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "keywordRecall": {
+        "ranked": [
+          "528424ea-33ec-43df-9876-27db613b94ff",
+          "9e48435b-a9dc-4560-b1a3-92eaa24d1885",
+          "42bef2a0-3029-42d2-8443-5b33a86c4856",
+          "02c674ea-99ee-4bb1-b75a-3e739c4850f4",
+          "a527677a-c580-4551-9740-42ccc68df873"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "rrfMerged": {
+        "ranked": [
+          "528424ea-33ec-43df-9876-27db613b94ff",
+          "9e48435b-a9dc-4560-b1a3-92eaa24d1885",
+          "473d0e08-1a0a-4db9-b8e7-68fe7787b71e",
+          "42bef2a0-3029-42d2-8443-5b33a86c4856",
+          "dfda6085-0993-4015-95f9-b72e21081288"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "reranked": {
+        "ranked": [
+          "9e48435b-a9dc-4560-b1a3-92eaa24d1885",
+          "528424ea-33ec-43df-9876-27db613b94ff",
+          "dfda6085-0993-4015-95f9-b72e21081288",
+          "0d37b5b4-b396-4067-a178-10c263e0639f",
+          "473d0e08-1a0a-4db9-b8e7-68fe7787b71e"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q052",
+      "question": "如何在升级 Kubernetes 版本时安全地更新使用已弃用 API 的对象清单？",
+      "relevant": [
+        "0d37b5b4-b396-4067-a178-10c263e0639f"
+      ],
+      "serverMs": 9303,
+      "wallMs": 9314,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "0d37b5b4-b396-4067-a178-10c263e0639f",
+          "9e48435b-a9dc-4560-b1a3-92eaa24d1885",
+          "ead689ee-e785-479b-a4ce-fa733e1f19c1",
+          "528424ea-33ec-43df-9876-27db613b94ff",
+          "82210252-80ae-4885-914f-5c41c757ddf2"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "9e48435b-a9dc-4560-b1a3-92eaa24d1885",
+          "0d37b5b4-b396-4067-a178-10c263e0639f",
+          "528424ea-33ec-43df-9876-27db613b94ff",
+          "ead689ee-e785-479b-a4ce-fa733e1f19c1",
+          "c6e83d7a-7fbb-4023-b978-32cbab784198"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "rrfMerged": {
+        "ranked": [
+          "0d37b5b4-b396-4067-a178-10c263e0639f",
+          "9e48435b-a9dc-4560-b1a3-92eaa24d1885",
+          "ead689ee-e785-479b-a4ce-fa733e1f19c1",
+          "528424ea-33ec-43df-9876-27db613b94ff",
+          "82210252-80ae-4885-914f-5c41c757ddf2"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "0d37b5b4-b396-4067-a178-10c263e0639f",
+          "9e48435b-a9dc-4560-b1a3-92eaa24d1885",
+          "82210252-80ae-4885-914f-5c41c757ddf2",
+          "ead689ee-e785-479b-a4ce-fa733e1f19c1",
+          "528424ea-33ec-43df-9876-27db613b94ff"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q053",
+      "question": "如何在 Kubernetes 中使用 CronJob 每分钟运行一个打印当前时间和“Hello from the Kubernetes cluster”的自动化任务？",
+      "relevant": [
+        "579ef8cb-6555-4b47-9a46-31e6eccb36b8"
+      ],
+      "serverMs": 12839,
+      "wallMs": 12876,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "579ef8cb-6555-4b47-9a46-31e6eccb36b8",
+          "68c278bb-39c0-4f4b-9074-c30d5061b28d",
+          "97ed2a6a-81c2-4b14-896f-de5a1921c52b",
+          "cca14aed-51d0-40cd-ac20-544b0bbc70d6",
+          "fe861256-3720-4356-8ee7-f88bf40d0615"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "579ef8cb-6555-4b47-9a46-31e6eccb36b8",
+          "97ed2a6a-81c2-4b14-896f-de5a1921c52b",
+          "68c278bb-39c0-4f4b-9074-c30d5061b28d",
+          "cca14aed-51d0-40cd-ac20-544b0bbc70d6",
+          "f685a853-9ba8-4147-ab3a-9965a6e7f517"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "579ef8cb-6555-4b47-9a46-31e6eccb36b8",
+          "68c278bb-39c0-4f4b-9074-c30d5061b28d",
+          "97ed2a6a-81c2-4b14-896f-de5a1921c52b",
+          "cca14aed-51d0-40cd-ac20-544b0bbc70d6",
+          "fe861256-3720-4356-8ee7-f88bf40d0615"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "579ef8cb-6555-4b47-9a46-31e6eccb36b8",
+          "97ed2a6a-81c2-4b14-896f-de5a1921c52b",
+          "68c278bb-39c0-4f4b-9074-c30d5061b28d",
+          "cca14aed-51d0-40cd-ac20-544b0bbc70d6",
+          "fe861256-3720-4356-8ee7-f88bf40d0615"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q054",
+      "question": "如何验证 CronJob 是否已成功创建并查看其当前状态？",
+      "relevant": [
+        "97ed2a6a-81c2-4b14-896f-de5a1921c52b"
+      ],
+      "serverMs": 12274,
+      "wallMs": 12285,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "97ed2a6a-81c2-4b14-896f-de5a1921c52b",
+          "cca14aed-51d0-40cd-ac20-544b0bbc70d6",
+          "68c278bb-39c0-4f4b-9074-c30d5061b28d"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "fb0877b5-0afe-4ea5-be82-15ae7e915d29",
+          "84cb4c56-9d56-44db-ac17-4cc927714b98",
+          "ccfaa3a5-18b2-4d1b-8764-b3e9f4338990",
+          "68c278bb-39c0-4f4b-9074-c30d5061b28d",
+          "8ec3acd5-83e9-4176-821d-4e6471ce2cb4"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "68c278bb-39c0-4f4b-9074-c30d5061b28d",
+          "97ed2a6a-81c2-4b14-896f-de5a1921c52b",
+          "fb0877b5-0afe-4ea5-be82-15ae7e915d29",
+          "cca14aed-51d0-40cd-ac20-544b0bbc70d6",
+          "84cb4c56-9d56-44db-ac17-4cc927714b98"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "reranked": {
+        "ranked": [
+          "97ed2a6a-81c2-4b14-896f-de5a1921c52b",
+          "cca14aed-51d0-40cd-ac20-544b0bbc70d6",
+          "68c278bb-39c0-4f4b-9074-c30d5061b28d",
+          "84cb4c56-9d56-44db-ac17-4cc927714b98",
+          "8ec3acd5-83e9-4176-821d-4e6471ce2cb4"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q055",
+      "question": "如何配置 Konnectivity 服务以实现控制平面的 TCP 级别代理通信？",
+      "relevant": [
+        "46e34848-4cf6-46f7-a4fe-a24ee5e2834d"
+      ],
+      "serverMs": 15150,
+      "wallMs": 15181,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "46e34848-4cf6-46f7-a4fe-a24ee5e2834d",
+          "3a0d4b60-36b8-484b-abed-cd105332d118",
+          "f3d35a3f-e271-43cd-a4b9-e8613681ebcc",
+          "a21bd187-89ce-4eb4-abaf-1b8408fce09e",
+          "7372d29e-fdcb-4e25-a74b-43402abd8b6c"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "46e34848-4cf6-46f7-a4fe-a24ee5e2834d",
+          "a21bd187-89ce-4eb4-abaf-1b8408fce09e",
+          "f3d35a3f-e271-43cd-a4b9-e8613681ebcc",
+          "0b91b6f8-c246-43c7-b682-d2d7dd995d41",
+          "6025b019-32ae-4715-886f-73c0d42d8585"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "46e34848-4cf6-46f7-a4fe-a24ee5e2834d",
+          "a21bd187-89ce-4eb4-abaf-1b8408fce09e",
+          "f3d35a3f-e271-43cd-a4b9-e8613681ebcc",
+          "3a0d4b60-36b8-484b-abed-cd105332d118",
+          "0b91b6f8-c246-43c7-b682-d2d7dd995d41"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "46e34848-4cf6-46f7-a4fe-a24ee5e2834d",
+          "a21bd187-89ce-4eb4-abaf-1b8408fce09e",
+          "f3d35a3f-e271-43cd-a4b9-e8613681ebcc",
+          "7372d29e-fdcb-4e25-a74b-43402abd8b6c",
+          "3a0d4b60-36b8-484b-abed-cd105332d118"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q056",
+      "question": "如何配置 Kubernetes 集群的 Konnectivity 服务以使用 GRPC 协议和 Unix 域套接字（UDS）进行 API 服务器与 Konnectivity 服务器之间的通信？",
+      "relevant": [
+        "a21bd187-89ce-4eb4-abaf-1b8408fce09e"
+      ],
+      "serverMs": 15663,
+      "wallMs": 15674,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "a21bd187-89ce-4eb4-abaf-1b8408fce09e",
+          "3693b5a2-ff47-405e-8642-9b3825b841b1",
+          "f3d35a3f-e271-43cd-a4b9-e8613681ebcc",
+          "9392e1d4-68ad-4d2b-9427-b7a5cea48bb2",
+          "46e34848-4cf6-46f7-a4fe-a24ee5e2834d"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "a21bd187-89ce-4eb4-abaf-1b8408fce09e",
+          "3693b5a2-ff47-405e-8642-9b3825b841b1",
+          "682aee6e-1557-48e1-999b-b10ae233689e",
+          "6064181f-237d-422a-8aa6-495240e491fe",
+          "a96dcc98-ebf6-4fb5-919f-9306b5a56024"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "a21bd187-89ce-4eb4-abaf-1b8408fce09e",
+          "3693b5a2-ff47-405e-8642-9b3825b841b1",
+          "f3d35a3f-e271-43cd-a4b9-e8613681ebcc",
+          "682aee6e-1557-48e1-999b-b10ae233689e",
+          "9392e1d4-68ad-4d2b-9427-b7a5cea48bb2"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "a21bd187-89ce-4eb4-abaf-1b8408fce09e",
+          "9392e1d4-68ad-4d2b-9427-b7a5cea48bb2",
+          "3693b5a2-ff47-405e-8642-9b3825b841b1",
+          "f3d35a3f-e271-43cd-a4b9-e8613681ebcc",
+          "46e34848-4cf6-46f7-a4fe-a24ee5e2834d"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q057",
+      "question": "如何在 Kubernetes 中以非 root 用户身份运行节点组件（如 kubelet、CRI、OCI、CNI）？",
+      "relevant": [
+        "57b88ef4-6067-40f6-af00-2410f5278102"
+      ],
+      "serverMs": 8885,
+      "wallMs": 8898,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "57b88ef4-6067-40f6-af00-2410f5278102",
+          "a12dd9ab-6a6f-41d5-996a-03a3879e09d7",
+          "d1ca9626-6f97-4593-b9e0-2692adc77eef",
+          "d1d254f2-4bf8-404b-bec8-4f30a025260d",
+          "4504b8c9-ac68-403b-913b-bb4dcec8b2b1"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "57b88ef4-6067-40f6-af00-2410f5278102",
+          "4504b8c9-ac68-403b-913b-bb4dcec8b2b1",
+          "b41b5025-34a5-4210-96d2-31f3e64cd839",
+          "382f42b1-8fca-40a5-a14e-82690d97481a",
+          "b8aee92a-aaad-4589-ad14-3640dc4dc8b0"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "57b88ef4-6067-40f6-af00-2410f5278102",
+          "4504b8c9-ac68-403b-913b-bb4dcec8b2b1",
+          "a12dd9ab-6a6f-41d5-996a-03a3879e09d7",
+          "d1ca9626-6f97-4593-b9e0-2692adc77eef",
+          "b41b5025-34a5-4210-96d2-31f3e64cd839"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "57b88ef4-6067-40f6-af00-2410f5278102",
+          "4504b8c9-ac68-403b-913b-bb4dcec8b2b1",
+          "d1ca9626-6f97-4593-b9e0-2692adc77eef",
+          "a12dd9ab-6a6f-41d5-996a-03a3879e09d7",
+          "d1d254f2-4bf8-404b-bec8-4f30a025260d"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q058",
+      "question": "哪些工具支持在 Rootless 模式下使用 Docker、Podman 或 nerdctl 运行 Kubernetes？",
+      "relevant": [
+        "d1ca9626-6f97-4593-b9e0-2692adc77eef"
+      ],
+      "serverMs": 19253,
+      "wallMs": 19262,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "d1ca9626-6f97-4593-b9e0-2692adc77eef",
+          "57b88ef4-6067-40f6-af00-2410f5278102",
+          "b169c3a5-9f15-4de1-b976-ba4e5d495d2b",
+          "d1d254f2-4bf8-404b-bec8-4f30a025260d",
+          "ad4d0a64-0c02-4dd5-8327-78e2cc13818a"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "d1ca9626-6f97-4593-b9e0-2692adc77eef",
+          "57b88ef4-6067-40f6-af00-2410f5278102",
+          "b169c3a5-9f15-4de1-b976-ba4e5d495d2b",
+          "dfed29d1-c611-4655-a8fd-0fe3b5c4914f",
+          "3fc07167-f5cd-4a13-affe-d9d1766d7131"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "d1ca9626-6f97-4593-b9e0-2692adc77eef",
+          "57b88ef4-6067-40f6-af00-2410f5278102",
+          "b169c3a5-9f15-4de1-b976-ba4e5d495d2b",
+          "d1d254f2-4bf8-404b-bec8-4f30a025260d",
+          "dfed29d1-c611-4655-a8fd-0fe3b5c4914f"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "d1ca9626-6f97-4593-b9e0-2692adc77eef",
+          "57b88ef4-6067-40f6-af00-2410f5278102",
+          "dfed29d1-c611-4655-a8fd-0fe3b5c4914f",
+          "b169c3a5-9f15-4de1-b976-ba4e5d495d2b",
+          "3fc07167-f5cd-4a13-affe-d9d1766d7131"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q059",
+      "question": "NodeLocal DNSCache 是如何通过在节点上运行 DNS 缓存代理来提升 Kubernetes 集群 DNS 性能的？",
+      "relevant": [
+        "be12c32f-13db-4fa9-be80-1b26228576fa"
+      ],
+      "serverMs": 15932,
+      "wallMs": 15944,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "be12c32f-13db-4fa9-be80-1b26228576fa",
+          "798b1f76-4d67-4348-bb0f-2ed668372883",
+          "86ddb83c-9d52-4f83-91ec-b28352a93388",
+          "b760d39c-9b1c-46b5-a938-20a7d2b46378",
+          "8a0eee88-d081-4e7f-8ccc-6f6ff2080c6e"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "be12c32f-13db-4fa9-be80-1b26228576fa",
+          "798b1f76-4d67-4348-bb0f-2ed668372883",
+          "86ddb83c-9d52-4f83-91ec-b28352a93388",
+          "b760d39c-9b1c-46b5-a938-20a7d2b46378",
+          "8a0eee88-d081-4e7f-8ccc-6f6ff2080c6e"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "be12c32f-13db-4fa9-be80-1b26228576fa",
+          "798b1f76-4d67-4348-bb0f-2ed668372883",
+          "86ddb83c-9d52-4f83-91ec-b28352a93388",
+          "b760d39c-9b1c-46b5-a938-20a7d2b46378",
+          "8a0eee88-d081-4e7f-8ccc-6f6ff2080c6e"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "be12c32f-13db-4fa9-be80-1b26228576fa",
+          "798b1f76-4d67-4348-bb0f-2ed668372883",
+          "86ddb83c-9d52-4f83-91ec-b28352a93388",
+          "b760d39c-9b1c-46b5-a938-20a7d2b46378",
+          "8a0eee88-d081-4e7f-8ccc-6f6ff2080c6e"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q060",
+      "question": "NodeLocal DNSCache 如何通过本地缓存代理优化 Kubernetes 集群中的 DNS 查询延迟和连接跟踪问题？",
+      "relevant": [
+        "798b1f76-4d67-4348-bb0f-2ed668372883"
+      ],
+      "serverMs": 11964,
+      "wallMs": 11987,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "798b1f76-4d67-4348-bb0f-2ed668372883",
+          "be12c32f-13db-4fa9-be80-1b26228576fa",
+          "b760d39c-9b1c-46b5-a938-20a7d2b46378",
+          "86ddb83c-9d52-4f83-91ec-b28352a93388",
+          "8a0eee88-d081-4e7f-8ccc-6f6ff2080c6e"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "798b1f76-4d67-4348-bb0f-2ed668372883",
+          "be12c32f-13db-4fa9-be80-1b26228576fa",
+          "b760d39c-9b1c-46b5-a938-20a7d2b46378",
+          "86ddb83c-9d52-4f83-91ec-b28352a93388",
+          "8a0eee88-d081-4e7f-8ccc-6f6ff2080c6e"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "798b1f76-4d67-4348-bb0f-2ed668372883",
+          "be12c32f-13db-4fa9-be80-1b26228576fa",
+          "b760d39c-9b1c-46b5-a938-20a7d2b46378",
+          "86ddb83c-9d52-4f83-91ec-b28352a93388",
+          "8a0eee88-d081-4e7f-8ccc-6f6ff2080c6e"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "798b1f76-4d67-4348-bb0f-2ed668372883",
+          "be12c32f-13db-4fa9-be80-1b26228576fa",
+          "b760d39c-9b1c-46b5-a938-20a7d2b46378",
+          "86ddb83c-9d52-4f83-91ec-b28352a93388",
+          "8a0eee88-d081-4e7f-8ccc-6f6ff2080c6e"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q061",
+      "question": "如何使用easyrsa手动生成Kubernetes集群的CA证书、服务器证书和私钥？",
+      "relevant": [
+        "219e6699-5fd8-42ca-978c-035f348e7442"
+      ],
+      "serverMs": 12814,
+      "wallMs": 12825,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "219e6699-5fd8-42ca-978c-035f348e7442",
+          "f666b710-e5da-4df5-9954-d884c8df1722",
+          "42806fab-55a6-490d-b70b-000d668be069",
+          "8f9c0568-e0d4-4605-a17f-f734feb9dc9d",
+          "3266dac2-9081-4ced-9ef3-df5df6d58e03"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "219e6699-5fd8-42ca-978c-035f348e7442",
+          "ce405dae-122a-448a-8ecc-c977fe3b638b",
+          "70e2cc82-8de7-4d24-bb9a-d80d0a331110",
+          "f666b710-e5da-4df5-9954-d884c8df1722",
+          "f4b66a91-9ecb-4c5f-be7b-8d5a9ac38eb8"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "219e6699-5fd8-42ca-978c-035f348e7442",
+          "f666b710-e5da-4df5-9954-d884c8df1722",
+          "ce405dae-122a-448a-8ecc-c977fe3b638b",
+          "42806fab-55a6-490d-b70b-000d668be069",
+          "70e2cc82-8de7-4d24-bb9a-d80d0a331110"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "219e6699-5fd8-42ca-978c-035f348e7442",
+          "f666b710-e5da-4df5-9954-d884c8df1722",
+          "42806fab-55a6-490d-b70b-000d668be069",
+          "8f9c0568-e0d4-4605-a17f-f734feb9dc9d",
+          "3266dac2-9081-4ced-9ef3-df5df6d58e03"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q062",
+      "question": "如何为 Kubernetes API 服务器生成包含指定 IP 和 DNS 名称的服务器证书，并配置其启动参数以启用 TLS？",
+      "relevant": [
+        "f666b710-e5da-4df5-9954-d884c8df1722"
+      ],
+      "serverMs": 16920,
+      "wallMs": 16937,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "f666b710-e5da-4df5-9954-d884c8df1722",
+          "4febd3d2-0517-4d3a-a820-e6500fd50f6d",
+          "e6b9c3af-aa84-403d-8cbb-67ec61a0285b",
+          "3266dac2-9081-4ced-9ef3-df5df6d58e03",
+          "3dd9826d-9784-4679-9602-56c54f45902f"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "f666b710-e5da-4df5-9954-d884c8df1722",
+          "219e6699-5fd8-42ca-978c-035f348e7442",
+          "3266dac2-9081-4ced-9ef3-df5df6d58e03",
+          "69ff243c-ce4f-4bcc-812a-24f6eb5dee34",
+          "286ab24d-8a91-4416-babe-59450b49861d"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "f666b710-e5da-4df5-9954-d884c8df1722",
+          "3266dac2-9081-4ced-9ef3-df5df6d58e03",
+          "4febd3d2-0517-4d3a-a820-e6500fd50f6d",
+          "219e6699-5fd8-42ca-978c-035f348e7442",
+          "e6b9c3af-aa84-403d-8cbb-67ec61a0285b"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "f666b710-e5da-4df5-9954-d884c8df1722",
+          "e6b9c3af-aa84-403d-8cbb-67ec61a0285b",
+          "219e6699-5fd8-42ca-978c-035f348e7442",
+          "3266dac2-9081-4ced-9ef3-df5df6d58e03",
+          "286ab24d-8a91-4416-babe-59450b49861d"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q063",
+      "question": "如何手动调整 Kubernetes Deployment 的副本数以实现水平扩缩？",
+      "relevant": [
+        "473d0e08-1a0a-4db9-b8e7-68fe7787b71e"
+      ],
+      "serverMs": 12258,
+      "wallMs": 12270,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "473d0e08-1a0a-4db9-b8e7-68fe7787b71e",
+          "9c7b0a59-5b4a-4c71-9f9e-e2a1c9b435a6",
+          "c54a6505-80c4-4992-ad9a-90328e1fceca",
+          "bb64f665-0cb7-4440-ad50-80565644c208",
+          "ccb70371-0131-4e76-96b2-c4e9ebd271ec"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "9c7b0a59-5b4a-4c71-9f9e-e2a1c9b435a6",
+          "473d0e08-1a0a-4db9-b8e7-68fe7787b71e",
+          "c54a6505-80c4-4992-ad9a-90328e1fceca",
+          "a6447bf3-f01c-4950-8a34-78400a3fea90",
+          "15b99571-30de-41cb-b942-5786765088c8"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "rrfMerged": {
+        "ranked": [
+          "473d0e08-1a0a-4db9-b8e7-68fe7787b71e",
+          "9c7b0a59-5b4a-4c71-9f9e-e2a1c9b435a6",
+          "c54a6505-80c4-4992-ad9a-90328e1fceca",
+          "bb64f665-0cb7-4440-ad50-80565644c208",
+          "a6447bf3-f01c-4950-8a34-78400a3fea90"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "c54a6505-80c4-4992-ad9a-90328e1fceca",
+          "473d0e08-1a0a-4db9-b8e7-68fe7787b71e",
+          "ccb70371-0131-4e76-96b2-c4e9ebd271ec",
+          "9c7b0a59-5b4a-4c71-9f9e-e2a1c9b435a6",
+          "a6447bf3-f01c-4950-8a34-78400a3fea90"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      }
+    },
+    {
+      "id": "q064",
+      "question": "如何使用kubectl scale命令将名为nginx-deployment的Deployment扩容到4个副本？",
+      "relevant": [
+        "4a586ee1-46a1-4bd0-910d-fb5b6a09e099"
+      ],
+      "serverMs": 13041,
+      "wallMs": 13055,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "4a586ee1-46a1-4bd0-910d-fb5b6a09e099",
+          "a98ad534-acc1-432e-9e24-54f480560f72",
+          "1138efa2-28cf-4a3e-8ae9-296ee38b2183",
+          "66d40e7b-bde4-43ae-a72b-131ea58e6d20",
+          "a4a5bb97-8756-4765-9a8b-8817429ed2d3"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "4a586ee1-46a1-4bd0-910d-fb5b6a09e099",
+          "1138efa2-28cf-4a3e-8ae9-296ee38b2183",
+          "a98ad534-acc1-432e-9e24-54f480560f72",
+          "473d0e08-1a0a-4db9-b8e7-68fe7787b71e",
+          "a4a5bb97-8756-4765-9a8b-8817429ed2d3"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "4a586ee1-46a1-4bd0-910d-fb5b6a09e099",
+          "a98ad534-acc1-432e-9e24-54f480560f72",
+          "1138efa2-28cf-4a3e-8ae9-296ee38b2183",
+          "a4a5bb97-8756-4765-9a8b-8817429ed2d3",
+          "66d40e7b-bde4-43ae-a72b-131ea58e6d20"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "4a586ee1-46a1-4bd0-910d-fb5b6a09e099",
+          "a98ad534-acc1-432e-9e24-54f480560f72",
+          "1138efa2-28cf-4a3e-8ae9-296ee38b2183",
+          "66d40e7b-bde4-43ae-a72b-131ea58e6d20",
+          "473d0e08-1a0a-4db9-b8e7-68fe7787b71e"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q065",
+      "question": "如何使用展开的方式在 Kubernetes 中并行处理多个批处理任务？",
+      "relevant": [
+        "8d5d828a-bb8a-4408-9fb8-ffc2537d8b15"
+      ],
+      "serverMs": 12051,
+      "wallMs": 12083,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "8d5d828a-bb8a-4408-9fb8-ffc2537d8b15"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "8d5d828a-bb8a-4408-9fb8-ffc2537d8b15",
+          "a527677a-c580-4551-9740-42ccc68df873",
+          "b207d9c0-e71f-4994-9a77-ed93e857fb6a",
+          "3e434c80-70ce-4311-bc98-57bb1a0cfacd",
+          "03d88f9d-d264-49e0-be4c-f0bdee3d05ea"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "8d5d828a-bb8a-4408-9fb8-ffc2537d8b15",
+          "a527677a-c580-4551-9740-42ccc68df873",
+          "b207d9c0-e71f-4994-9a77-ed93e857fb6a",
+          "3e434c80-70ce-4311-bc98-57bb1a0cfacd",
+          "03d88f9d-d264-49e0-be4c-f0bdee3d05ea"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "8d5d828a-bb8a-4408-9fb8-ffc2537d8b15",
+          "3e434c80-70ce-4311-bc98-57bb1a0cfacd",
+          "a527677a-c580-4551-9740-42ccc68df873",
+          "b207d9c0-e71f-4994-9a77-ed93e857fb6a",
+          "03d88f9d-d264-49e0-be4c-f0bdee3d05ea"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q066",
+      "question": "如何使用sed命令将job-tmpl.yaml模板文件中的$ITEM占位符替换为实际值并生成可用的Kubernetes Job清单？",
+      "relevant": [
+        "11ffc7c1-4d6f-492b-aa83-770bc60e2a0d"
+      ],
+      "serverMs": 12125,
+      "wallMs": 12135,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "f0881766-ef5f-4377-86a4-7a76ea5d0d12",
+          "11ffc7c1-4d6f-492b-aa83-770bc60e2a0d",
+          "5ae645ec-15a6-4063-876b-bdc246b2ef74",
+          "0991b354-d4de-456e-83df-d8349c7d7e0f",
+          "fe861256-3720-4356-8ee7-f88bf40d0615"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "keywordRecall": {
+        "ranked": [
+          "f0881766-ef5f-4377-86a4-7a76ea5d0d12",
+          "11ffc7c1-4d6f-492b-aa83-770bc60e2a0d",
+          "5ae645ec-15a6-4063-876b-bdc246b2ef74",
+          "8d5d828a-bb8a-4408-9fb8-ffc2537d8b15",
+          "0991b354-d4de-456e-83df-d8349c7d7e0f"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "rrfMerged": {
+        "ranked": [
+          "f0881766-ef5f-4377-86a4-7a76ea5d0d12",
+          "11ffc7c1-4d6f-492b-aa83-770bc60e2a0d",
+          "5ae645ec-15a6-4063-876b-bdc246b2ef74",
+          "0991b354-d4de-456e-83df-d8349c7d7e0f",
+          "8d5d828a-bb8a-4408-9fb8-ffc2537d8b15"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "reranked": {
+        "ranked": [
+          "f0881766-ef5f-4377-86a4-7a76ea5d0d12",
+          "11ffc7c1-4d6f-492b-aa83-770bc60e2a0d",
+          "8d5d828a-bb8a-4408-9fb8-ffc2537d8b15",
+          "fe861256-3720-4356-8ee7-f88bf40d0615",
+          "0991b354-d4de-456e-83df-d8349c7d7e0f"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      }
+    },
+    {
+      "id": "q067",
+      "question": "如何在 Kubernetes 中启用和配置静态加密以保护存储在 etcd 中的 Secret 对象数据？",
+      "relevant": [
+        "080b7fb4-a4ae-40cb-aa86-beb1984f13b3"
+      ],
+      "serverMs": 16727,
+      "wallMs": 16754,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "080b7fb4-a4ae-40cb-aa86-beb1984f13b3",
+          "6868cfc7-df6b-4858-a872-9ed01269d433",
+          "3900b51a-4ce5-4283-bd9d-81369db2e034",
+          "0381835a-e88b-4514-9bf0-94d0e457b2c7",
+          "035fccfb-1abb-4126-91e8-87714937197d"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "6868cfc7-df6b-4858-a872-9ed01269d433",
+          "080b7fb4-a4ae-40cb-aa86-beb1984f13b3",
+          "035fccfb-1abb-4126-91e8-87714937197d",
+          "260afb1f-1fda-45cb-8c23-4811a7c5bf16",
+          "3250dab7-8da5-4f5d-aa36-b66bcbcd8a2f"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "rrfMerged": {
+        "ranked": [
+          "080b7fb4-a4ae-40cb-aa86-beb1984f13b3",
+          "6868cfc7-df6b-4858-a872-9ed01269d433",
+          "035fccfb-1abb-4126-91e8-87714937197d",
+          "3900b51a-4ce5-4283-bd9d-81369db2e034",
+          "0381835a-e88b-4514-9bf0-94d0e457b2c7"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "080b7fb4-a4ae-40cb-aa86-beb1984f13b3",
+          "3250dab7-8da5-4f5d-aa36-b66bcbcd8a2f",
+          "035fccfb-1abb-4126-91e8-87714937197d",
+          "6868cfc7-df6b-4858-a872-9ed01269d433",
+          "260afb1f-1fda-45cb-8c23-4811a7c5bf16"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q068",
+      "question": "如何确定 Kubernetes 集群是否已启用静态数据加密？",
+      "relevant": [
+        "106e6abc-edf0-4bbe-915d-b949f87a82ec"
+      ],
+      "serverMs": 10699,
+      "wallMs": 10728,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "080b7fb4-a4ae-40cb-aa86-beb1984f13b3",
+          "106e6abc-edf0-4bbe-915d-b949f87a82ec",
+          "0381835a-e88b-4514-9bf0-94d0e457b2c7",
+          "e8ff21a0-72cb-4b1c-9212-2aed5190bb63",
+          "66eafdd8-8a11-4a61-a60a-425fbe9b420d"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "keywordRecall": {
+        "ranked": [
+          "106e6abc-edf0-4bbe-915d-b949f87a82ec",
+          "66eafdd8-8a11-4a61-a60a-425fbe9b420d",
+          "0381835a-e88b-4514-9bf0-94d0e457b2c7",
+          "e8ff21a0-72cb-4b1c-9212-2aed5190bb63",
+          "080b7fb4-a4ae-40cb-aa86-beb1984f13b3"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "106e6abc-edf0-4bbe-915d-b949f87a82ec",
+          "080b7fb4-a4ae-40cb-aa86-beb1984f13b3",
+          "0381835a-e88b-4514-9bf0-94d0e457b2c7",
+          "66eafdd8-8a11-4a61-a60a-425fbe9b420d",
+          "e8ff21a0-72cb-4b1c-9212-2aed5190bb63"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "106e6abc-edf0-4bbe-915d-b949f87a82ec",
+          "66eafdd8-8a11-4a61-a60a-425fbe9b420d",
+          "e8ff21a0-72cb-4b1c-9212-2aed5190bb63",
+          "080b7fb4-a4ae-40cb-aa86-beb1984f13b3",
+          "0381835a-e88b-4514-9bf0-94d0e457b2c7"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q069",
+      "question": "如何通过配置文件设置 kubelet 的监听地址？",
+      "relevant": [
+        "eb347750-49f5-4035-93a2-324026881f73"
+      ],
+      "serverMs": 11801,
+      "wallMs": 11819,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "eb347750-49f5-4035-93a2-324026881f73",
+          "b04cecf5-022e-4fbc-a99f-19ade090bddd",
+          "6dda4ab1-c1db-4a19-8d0f-e5a1488c6343",
+          "acbd49f7-2fb9-4a13-a3e4-28d3952eb23c",
+          "8f17c7db-1d46-4a9b-8adb-7b7025527d0b"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "86ddb83c-9d52-4f83-91ec-b28352a93388",
+          "b760d39c-9b1c-46b5-a938-20a7d2b46378",
+          "8a0eee88-d081-4e7f-8ccc-6f6ff2080c6e",
+          "eb347750-49f5-4035-93a2-324026881f73",
+          "cc22a054-1d25-43a9-ac21-f27bbea20102"
+        ],
+        "recall": 1.0,
+        "mrr": 0.25,
+        "ndcg": 0.4307
+      },
+      "rrfMerged": {
+        "ranked": [
+          "eb347750-49f5-4035-93a2-324026881f73",
+          "86ddb83c-9d52-4f83-91ec-b28352a93388",
+          "b04cecf5-022e-4fbc-a99f-19ade090bddd",
+          "b760d39c-9b1c-46b5-a938-20a7d2b46378",
+          "6dda4ab1-c1db-4a19-8d0f-e5a1488c6343"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "eb347750-49f5-4035-93a2-324026881f73",
+          "b04cecf5-022e-4fbc-a99f-19ade090bddd",
+          "acbd49f7-2fb9-4a13-a3e4-28d3952eb23c",
+          "8f17c7db-1d46-4a9b-8adb-7b7025527d0b",
+          "6dda4ab1-c1db-4a19-8d0f-e5a1488c6343"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q070",
+      "question": "kubelet 的 evictionHard 配置中，当节点主文件系统的可用空间低于多少百分比时会触发 Pod 驱逐？",
+      "relevant": [
+        "b827f70c-36ba-491f-81ab-b2d5314698c0"
+      ],
+      "serverMs": 14857,
+      "wallMs": 14867,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "b827f70c-36ba-491f-81ab-b2d5314698c0",
+          "7237d6d9-c3dd-4b56-985d-fdab28d387af",
+          "a69b9525-cc82-45aa-a995-424ec42f1a79",
+          "69ecbbf3-832f-4fc9-a328-60cf4541bf56",
+          "f3709b18-d833-4d69-a345-5df598713e01"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "b827f70c-36ba-491f-81ab-b2d5314698c0",
+          "49b41c73-67c7-4ee5-a95e-25c33be1081f",
+          "02891d1e-8b7c-448e-a546-ca3fcd4b8a22",
+          "283d9871-5f88-4f5b-bce4-fe65b2846081",
+          "d622a7ce-2029-4112-9f77-90d91a86f974"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "b827f70c-36ba-491f-81ab-b2d5314698c0",
+          "7237d6d9-c3dd-4b56-985d-fdab28d387af",
+          "49b41c73-67c7-4ee5-a95e-25c33be1081f",
+          "a69b9525-cc82-45aa-a995-424ec42f1a79",
+          "02891d1e-8b7c-448e-a546-ca3fcd4b8a22"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "b827f70c-36ba-491f-81ab-b2d5314698c0",
+          "69ecbbf3-832f-4fc9-a328-60cf4541bf56",
+          "7237d6d9-c3dd-4b56-985d-fdab28d387af",
+          "49b41c73-67c7-4ee5-a95e-25c33be1081f",
+          "02891d1e-8b7c-448e-a546-ca3fcd4b8a22"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q071",
+      "question": "Kubernetes 中如何使用 certificates.k8s.io API 配置由自定义证书颁发机构（CA）签名的 TLS 证书？",
+      "relevant": [
+        "471f4516-4b5c-44bb-a4e3-81f578fb5f81"
+      ],
+      "serverMs": 15359,
+      "wallMs": 15369,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "471f4516-4b5c-44bb-a4e3-81f578fb5f81",
+          "4febd3d2-0517-4d3a-a820-e6500fd50f6d",
+          "ce2b1a8b-9e54-47a0-8be5-2f8262635d19",
+          "1edaaaaf-968d-49d1-aef0-19ba338b8079",
+          "f7e714e1-842d-4db3-a388-3014c36a5693"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "fddcae60-9bef-4956-b13b-3f386428bc2e",
+          "2389aa3d-c042-4d27-9c67-2d0addb7c4ae",
+          "471f4516-4b5c-44bb-a4e3-81f578fb5f81",
+          "4febd3d2-0517-4d3a-a820-e6500fd50f6d",
+          "c33c1d69-689d-4a5e-95b2-ed1bba02aade"
+        ],
+        "recall": 1.0,
+        "mrr": 0.3333,
+        "ndcg": 0.5
+      },
+      "rrfMerged": {
+        "ranked": [
+          "471f4516-4b5c-44bb-a4e3-81f578fb5f81",
+          "4febd3d2-0517-4d3a-a820-e6500fd50f6d",
+          "fddcae60-9bef-4956-b13b-3f386428bc2e",
+          "2389aa3d-c042-4d27-9c67-2d0addb7c4ae",
+          "ce2b1a8b-9e54-47a0-8be5-2f8262635d19"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "471f4516-4b5c-44bb-a4e3-81f578fb5f81",
+          "2389aa3d-c042-4d27-9c67-2d0addb7c4ae",
+          "fddcae60-9bef-4956-b13b-3f386428bc2e",
+          "ce2b1a8b-9e54-47a0-8be5-2f8262635d19",
+          "1edaaaaf-968d-49d1-aef0-19ba338b8079"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q072",
+      "question": "如何为通过 DNS 访问的 Kubernetes 服务创建 TLS 证书？",
+      "relevant": [
+        "fddcae60-9bef-4956-b13b-3f386428bc2e"
+      ],
+      "serverMs": 10405,
+      "wallMs": 10416,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "3266dac2-9081-4ced-9ef3-df5df6d58e03",
+          "4febd3d2-0517-4d3a-a820-e6500fd50f6d",
+          "9b9a960d-4eef-4e29-ab50-c34a32c614d2",
+          "471f4516-4b5c-44bb-a4e3-81f578fb5f81",
+          "f7e714e1-842d-4db3-a388-3014c36a5693"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "3266dac2-9081-4ced-9ef3-df5df6d58e03",
+          "fddcae60-9bef-4956-b13b-3f386428bc2e",
+          "2525faac-8490-4599-a62b-4dfb43c95e19",
+          "4febd3d2-0517-4d3a-a820-e6500fd50f6d",
+          "cea2a4d3-cd55-4865-8d7b-09390aed9ab1"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "rrfMerged": {
+        "ranked": [
+          "3266dac2-9081-4ced-9ef3-df5df6d58e03",
+          "4febd3d2-0517-4d3a-a820-e6500fd50f6d",
+          "fddcae60-9bef-4956-b13b-3f386428bc2e",
+          "9b9a960d-4eef-4e29-ab50-c34a32c614d2",
+          "2525faac-8490-4599-a62b-4dfb43c95e19"
+        ],
+        "recall": 1.0,
+        "mrr": 0.3333,
+        "ndcg": 0.5
+      },
+      "reranked": {
+        "ranked": [
+          "3266dac2-9081-4ced-9ef3-df5df6d58e03",
+          "fddcae60-9bef-4956-b13b-3f386428bc2e",
+          "471f4516-4b5c-44bb-a4e3-81f578fb5f81",
+          "f7e714e1-842d-4db3-a388-3014c36a5693",
+          "4febd3d2-0517-4d3a-a820-e6500fd50f6d"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      }
+    },
+    {
+      "id": "q073",
+      "question": "如何安装和使用 kubectl 插件来扩展 kubectl 的功能？",
+      "relevant": [
+        "173e28d5-77e1-41ef-a0b4-06316c7a4a31"
+      ],
+      "serverMs": 10008,
+      "wallMs": 10036,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "173e28d5-77e1-41ef-a0b4-06316c7a4a31",
+          "74f6c9e0-4d8f-4390-a9cf-6b090fe14b8b",
+          "1a7d6678-cddc-4303-a7da-a738ee172acb",
+          "a3d9ba09-3757-4005-b47e-83e760b78dd9",
+          "9c8593c1-afc9-458d-88bd-520f92966246"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "173e28d5-77e1-41ef-a0b4-06316c7a4a31",
+          "74f6c9e0-4d8f-4390-a9cf-6b090fe14b8b",
+          "d34dd825-675c-4782-88bb-c4f5bb5f09f8",
+          "ccfaa3a5-18b2-4d1b-8764-b3e9f4338990",
+          "ce2c4ce1-44ca-4b8e-9827-bc8c90708361"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "173e28d5-77e1-41ef-a0b4-06316c7a4a31",
+          "74f6c9e0-4d8f-4390-a9cf-6b090fe14b8b",
+          "1a7d6678-cddc-4303-a7da-a738ee172acb",
+          "d34dd825-675c-4782-88bb-c4f5bb5f09f8",
+          "a3d9ba09-3757-4005-b47e-83e760b78dd9"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "173e28d5-77e1-41ef-a0b4-06316c7a4a31",
+          "74f6c9e0-4d8f-4390-a9cf-6b090fe14b8b",
+          "a3d9ba09-3757-4005-b47e-83e760b78dd9",
+          "9c8593c1-afc9-458d-88bd-520f92966246",
+          "ccfaa3a5-18b2-4d1b-8764-b3e9f4338990"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q074",
+      "question": "如何编写和安装一个自定义的 kubectl 插件？",
+      "relevant": [
+        "74f6c9e0-4d8f-4390-a9cf-6b090fe14b8b"
+      ],
+      "serverMs": 9985,
+      "wallMs": 10015,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "173e28d5-77e1-41ef-a0b4-06316c7a4a31",
+          "74f6c9e0-4d8f-4390-a9cf-6b090fe14b8b",
+          "a3d9ba09-3757-4005-b47e-83e760b78dd9",
+          "9c8593c1-afc9-458d-88bd-520f92966246",
+          "0b92d379-88eb-4a02-96aa-6246dcba70ce"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "keywordRecall": {
+        "ranked": [
+          "173e28d5-77e1-41ef-a0b4-06316c7a4a31",
+          "74f6c9e0-4d8f-4390-a9cf-6b090fe14b8b",
+          "a3d9ba09-3757-4005-b47e-83e760b78dd9",
+          "d1c1f48a-f449-483c-bf0d-16ed8813291c",
+          "d759d0e4-5395-4b43-9ee9-11980041fc72"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "rrfMerged": {
+        "ranked": [
+          "173e28d5-77e1-41ef-a0b4-06316c7a4a31",
+          "74f6c9e0-4d8f-4390-a9cf-6b090fe14b8b",
+          "a3d9ba09-3757-4005-b47e-83e760b78dd9",
+          "9c8593c1-afc9-458d-88bd-520f92966246",
+          "d1c1f48a-f449-483c-bf0d-16ed8813291c"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "reranked": {
+        "ranked": [
+          "a3d9ba09-3757-4005-b47e-83e760b78dd9",
+          "74f6c9e0-4d8f-4390-a9cf-6b090fe14b8b",
+          "9c8593c1-afc9-458d-88bd-520f92966246",
+          "173e28d5-77e1-41ef-a0b4-06316c7a4a31",
+          "0b92d379-88eb-4a02-96aa-6246dcba70ce"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      }
+    },
+    {
+      "id": "q075",
+      "question": "在 macOS 系统上，如何使用 curl 命令为 Apple Silicon（arm64）架构下载最新稳定版的 kubectl？",
+      "relevant": [
+        "28917c03-fc0e-4df5-8bf9-49950e3a53f5"
+      ],
+      "serverMs": 7844,
+      "wallMs": 7856,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "2a1c5dc4-dff4-4b6e-a6d4-4d84baaf2e39",
+          "28917c03-fc0e-4df5-8bf9-49950e3a53f5",
+          "63f8d957-70e2-40c3-9bba-02f70c5cce95",
+          "88d9562f-0e65-4c2c-a330-a789935838dc",
+          "d53d6469-ac17-42e9-b075-df5005d55c53"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "keywordRecall": {
+        "ranked": [
+          "2a1c5dc4-dff4-4b6e-a6d4-4d84baaf2e39",
+          "28917c03-fc0e-4df5-8bf9-49950e3a53f5",
+          "8436bb34-f27d-4fe0-98d4-887fa15609eb",
+          "e027e514-d650-41c3-a50e-25b6c2dc37cc",
+          "88d9562f-0e65-4c2c-a330-a789935838dc"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "rrfMerged": {
+        "ranked": [
+          "2a1c5dc4-dff4-4b6e-a6d4-4d84baaf2e39",
+          "28917c03-fc0e-4df5-8bf9-49950e3a53f5",
+          "88d9562f-0e65-4c2c-a330-a789935838dc",
+          "63f8d957-70e2-40c3-9bba-02f70c5cce95",
+          "8436bb34-f27d-4fe0-98d4-887fa15609eb"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "reranked": {
+        "ranked": [
+          "2a1c5dc4-dff4-4b6e-a6d4-4d84baaf2e39",
+          "28917c03-fc0e-4df5-8bf9-49950e3a53f5",
+          "e027e514-d650-41c3-a50e-25b6c2dc37cc",
+          "63f8d957-70e2-40c3-9bba-02f70c5cce95",
+          "88d9562f-0e65-4c2c-a330-a789935838dc"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      }
+    },
+    {
+      "id": "q076",
+      "question": "如何为 Apple Silicon 版本的 macOS 下载指定版本（例如 1.37.0）的 kubectl？",
+      "relevant": [
+        "2a1c5dc4-dff4-4b6e-a6d4-4d84baaf2e39"
+      ],
+      "serverMs": 11870,
+      "wallMs": 11890,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "2a1c5dc4-dff4-4b6e-a6d4-4d84baaf2e39",
+          "28917c03-fc0e-4df5-8bf9-49950e3a53f5",
+          "8436bb34-f27d-4fe0-98d4-887fa15609eb",
+          "88d9562f-0e65-4c2c-a330-a789935838dc",
+          "63f8d957-70e2-40c3-9bba-02f70c5cce95"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "2a1c5dc4-dff4-4b6e-a6d4-4d84baaf2e39",
+          "28917c03-fc0e-4df5-8bf9-49950e3a53f5",
+          "88d9562f-0e65-4c2c-a330-a789935838dc",
+          "63f8d957-70e2-40c3-9bba-02f70c5cce95",
+          "e027e514-d650-41c3-a50e-25b6c2dc37cc"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "2a1c5dc4-dff4-4b6e-a6d4-4d84baaf2e39",
+          "28917c03-fc0e-4df5-8bf9-49950e3a53f5",
+          "88d9562f-0e65-4c2c-a330-a789935838dc",
+          "63f8d957-70e2-40c3-9bba-02f70c5cce95",
+          "8436bb34-f27d-4fe0-98d4-887fa15609eb"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "2a1c5dc4-dff4-4b6e-a6d4-4d84baaf2e39",
+          "28917c03-fc0e-4df5-8bf9-49950e3a53f5",
+          "63f8d957-70e2-40c3-9bba-02f70c5cce95",
+          "e027e514-d650-41c3-a50e-25b6c2dc37cc",
+          "88d9562f-0e65-4c2c-a330-a789935838dc"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q077",
+      "question": "如何使用kubectl命令扩缩StatefulSet的副本数量？",
+      "relevant": [
+        "bb64f665-0cb7-4440-ad50-80565644c208"
+      ],
+      "serverMs": 10416,
+      "wallMs": 10424,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "bb64f665-0cb7-4440-ad50-80565644c208",
+          "f4205ccd-69a3-4fb5-becf-980b7fce4b5a",
+          "4681c5c3-8d31-4775-99b9-539ceda4f75d",
+          "cdccc673-209d-4ccd-8e5a-1d07707515e1",
+          "4a586ee1-46a1-4bd0-910d-fb5b6a09e099"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "bb64f665-0cb7-4440-ad50-80565644c208",
+          "f4205ccd-69a3-4fb5-becf-980b7fce4b5a",
+          "473d0e08-1a0a-4db9-b8e7-68fe7787b71e",
+          "c54a6505-80c4-4992-ad9a-90328e1fceca",
+          "1138efa2-28cf-4a3e-8ae9-296ee38b2183"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "bb64f665-0cb7-4440-ad50-80565644c208",
+          "f4205ccd-69a3-4fb5-becf-980b7fce4b5a",
+          "4681c5c3-8d31-4775-99b9-539ceda4f75d",
+          "473d0e08-1a0a-4db9-b8e7-68fe7787b71e",
+          "cdccc673-209d-4ccd-8e5a-1d07707515e1"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "bb64f665-0cb7-4440-ad50-80565644c208",
+          "f4205ccd-69a3-4fb5-becf-980b7fce4b5a",
+          "1138efa2-28cf-4a3e-8ae9-296ee38b2183",
+          "c54a6505-80c4-4992-ad9a-90328e1fceca",
+          "cdccc673-209d-4ccd-8e5a-1d07707515e1"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q078",
+      "question": "当 StatefulSet 的某个 Pod 不健康时，为什么无法执行缩容操作？",
+      "relevant": [
+        "f4205ccd-69a3-4fb5-becf-980b7fce4b5a"
+      ],
+      "serverMs": 12539,
+      "wallMs": 12570,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "e70b5236-99ec-4a08-90cc-a5b7e8e010cb",
+          "f4205ccd-69a3-4fb5-becf-980b7fce4b5a",
+          "4a9a96aa-8db3-4da6-88f9-260b46255857",
+          "4681c5c3-8d31-4775-99b9-539ceda4f75d",
+          "0c823cfa-f12a-4eae-b0bd-e70e8c2b4cde"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "keywordRecall": {
+        "ranked": [
+          "f4205ccd-69a3-4fb5-becf-980b7fce4b5a",
+          "e70b5236-99ec-4a08-90cc-a5b7e8e010cb",
+          "bb64f665-0cb7-4440-ad50-80565644c208",
+          "daa121a0-21e8-48ac-a578-3ca7f6b33d2a",
+          "f79fe251-2407-46b5-b0d7-5711b21d82ae"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "e70b5236-99ec-4a08-90cc-a5b7e8e010cb",
+          "f4205ccd-69a3-4fb5-becf-980b7fce4b5a",
+          "4a9a96aa-8db3-4da6-88f9-260b46255857",
+          "bb64f665-0cb7-4440-ad50-80565644c208",
+          "4681c5c3-8d31-4775-99b9-539ceda4f75d"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "reranked": {
+        "ranked": [
+          "f4205ccd-69a3-4fb5-becf-980b7fce4b5a",
+          "e70b5236-99ec-4a08-90cc-a5b7e8e010cb",
+          "bb64f665-0cb7-4440-ad50-80565644c208",
+          "0c823cfa-f12a-4eae-b0bd-e70e8c2b4cde",
+          "daa121a0-21e8-48ac-a578-3ca7f6b33d2a"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q079",
+      "question": "如何在 Kubernetes 集群中扩展 Service IP 范围？",
+      "relevant": [
+        "5509af40-19ab-4422-b5f4-8dd329a2a017"
+      ],
+      "serverMs": 10531,
+      "wallMs": 10552,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "7c8dc179-d0b5-4e3e-9777-ac223c0e7fcb",
+          "14712829-9159-45dc-87f6-55ea40ebd901",
+          "5509af40-19ab-4422-b5f4-8dd329a2a017",
+          "b9889379-5c17-42a8-93b8-aadd892cbc6a",
+          "c23bd9e8-b36a-4eb3-8690-d1f99747f8a7"
+        ],
+        "recall": 1.0,
+        "mrr": 0.3333,
+        "ndcg": 0.5
+      },
+      "keywordRecall": {
+        "ranked": [
+          "5509af40-19ab-4422-b5f4-8dd329a2a017",
+          "b9889379-5c17-42a8-93b8-aadd892cbc6a",
+          "7c8dc179-d0b5-4e3e-9777-ac223c0e7fcb",
+          "14712829-9159-45dc-87f6-55ea40ebd901",
+          "5ae815c2-c0c3-49e0-bc0d-08da0917e4f2"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "7c8dc179-d0b5-4e3e-9777-ac223c0e7fcb",
+          "5509af40-19ab-4422-b5f4-8dd329a2a017",
+          "14712829-9159-45dc-87f6-55ea40ebd901",
+          "b9889379-5c17-42a8-93b8-aadd892cbc6a",
+          "c23bd9e8-b36a-4eb3-8690-d1f99747f8a7"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "reranked": {
+        "ranked": [
+          "c23bd9e8-b36a-4eb3-8690-d1f99747f8a7",
+          "7c8dc179-d0b5-4e3e-9777-ac223c0e7fcb",
+          "b9889379-5c17-42a8-93b8-aadd892cbc6a",
+          "14712829-9159-45dc-87f6-55ea40ebd901",
+          "5509af40-19ab-4422-b5f4-8dd329a2a017"
+        ],
+        "recall": 1.0,
+        "mrr": 0.2,
+        "ndcg": 0.3869
+      }
+    },
+    {
+      "id": "q080",
+      "question": "如何查看 Kubernetes 集群中当前配置的 Service IP 地址范围？",
+      "relevant": [
+        "b9889379-5c17-42a8-93b8-aadd892cbc6a"
+      ],
+      "serverMs": 12813,
+      "wallMs": 12828,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "b9889379-5c17-42a8-93b8-aadd892cbc6a",
+          "dc3b1896-06c3-4a81-83dc-0285e65716f9",
+          "14712829-9159-45dc-87f6-55ea40ebd901",
+          "5509af40-19ab-4422-b5f4-8dd329a2a017",
+          "7c8dc179-d0b5-4e3e-9777-ac223c0e7fcb"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "dc3b1896-06c3-4a81-83dc-0285e65716f9",
+          "404f5578-3e5d-4780-a98e-d352353ad895",
+          "cb77a5e6-bc5b-4c8b-8ef7-292924b666a2",
+          "8b95caf0-800d-4873-85be-7ee46a10f421",
+          "a608a414-b2a8-470c-825e-1343b3701ca4"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "dc3b1896-06c3-4a81-83dc-0285e65716f9",
+          "b9889379-5c17-42a8-93b8-aadd892cbc6a",
+          "404f5578-3e5d-4780-a98e-d352353ad895",
+          "14712829-9159-45dc-87f6-55ea40ebd901",
+          "cb77a5e6-bc5b-4c8b-8ef7-292924b666a2"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "reranked": {
+        "ranked": [
+          "b9889379-5c17-42a8-93b8-aadd892cbc6a",
+          "14712829-9159-45dc-87f6-55ea40ebd901",
+          "404f5578-3e5d-4780-a98e-d352353ad895",
+          "dc3b1896-06c3-4a81-83dc-0285e65716f9",
+          "7c8dc179-d0b5-4e3e-9777-ac223c0e7fcb"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    }
+  ],
+  "rerankStatus": {
+    "success": 80,
+    "disabled": 0,
+    "degraded": 0,
+    "missing": 0
+  },
+  "latency": {
+    "p50ServerMs": 13045.5,
+    "p95ServerMs": 19298.449999999997,
+    "p50WallMs": 13060.0,
+    "p95WallMs": 19308.749999999996
+  }
+}
