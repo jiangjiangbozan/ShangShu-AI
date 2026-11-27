@@ -65,9 +65,13 @@ def resolve_key() -> str:
     return key
 
 
-def scroll_all(index: str, page: int):
-    """遍历索引中的全部文档，返回 (id, content)。"""
-    body = {"size": page, "_source": ["content"], "query": {"match_all": {}}}
+def scroll_all(index: str, page: int, kb_id: str | None = None):
+    """遍历索引中的文档，返回 (id, content)；kb_id 非空时只取该知识库的分片。"""
+    if kb_id:
+        query = {"term": {"metadata.knowledgeBaseId.keyword": str(kb_id)}}
+    else:
+        query = {"match_all": {}}
+    body = {"size": page, "_source": ["content"], "query": query}
     data = call_json("POST", f"{ES_URL}/{index}/_search?scroll=3m", body, timeout=30)
     scroll_id = data["_scroll_id"]
     try:
@@ -151,6 +155,7 @@ def main() -> None:
     parser.add_argument("--limit", type=int, default=0, help="只处理前 N 条，0 表示全部")
     parser.add_argument("--dry-run", action="store_true", help="只统计，不调 API 不写 ES")
     parser.add_argument("--skip-ids", default="", help="跳过 id 列表文件（每行一个）")
+    parser.add_argument("--kb-id", default="", help="只处理指定知识库的分片（metadata.knowledgeBaseId）")
     args = parser.parse_args()
 
     INDEX = args.index
@@ -182,7 +187,7 @@ def main() -> None:
         pending_texts.clear()
 
     print(f"[reembed] index={INDEX} model={MODEL} dims={DIMS} dry_run={args.dry_run}", flush=True)
-    for doc_id, content in scroll_all(INDEX, args.page):
+    for doc_id, content in scroll_all(INDEX, args.page, args.kb_id or None):
         if args.limit and seen >= args.limit:
             break
         seen += 1

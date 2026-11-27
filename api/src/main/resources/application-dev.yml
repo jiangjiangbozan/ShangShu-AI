@@ -329,8 +329,9 @@ rag:
     model: ${RAG_RERANK_MODEL:qwen3.7-text-rerank}
     top-n: 5
     candidate-n: 10
-    # 单条候选截断长度，控制请求体大小与计费 token（百炼单篇上限 30K，1200 字足够判别相关性）
-    max-candidate-chars: ${RAG_RERANK_MAX_CANDIDATE_CHARS:1200}
+    # 单条候选截断长度，控制请求体大小与计费 token；实测 800 字与 1200 字判别效果相当
+    # 单次 10 候选：1200 字约 7,710 token，800 字约 5,150 token，省 33%
+    max-candidate-chars: ${RAG_RERANK_MAX_CANDIDATE_CHARS:800}
     # 百炼 rerank 自定义排序指令，留空用官方默认 QA 检索语义
     instruct: ${RAG_RERANK_INSTRUCT:}
     timeout-ms: ${RAG_RERANK_TIMEOUT_MS:8000}

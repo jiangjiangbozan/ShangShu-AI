@@ -49,6 +49,8 @@ secrets/
 
 # 批次 B 第三方文档语料：可由 dev/rag-corpus/download_corpus_b.py 一键复现，不重复入库
 dev/rag-corpus/batch-b/
+# 批次 C 中文文档语料：可由 dev/rag-corpus/fetch_k8s_zh.py 一键复现，不重复入库
+dev/rag-corpus/batch-c/
 *.pem
 *.key
 !test/*.pem.nopkcs8
