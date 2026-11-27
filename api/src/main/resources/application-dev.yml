@@ -413,8 +413,9 @@ cs:
   # 意图识别置信度阈值，低于此值触发澄清或兜底
   intent-confidence-threshold: 0.6
   # KB 命中阈值，top1 rerank 相关性分数高于此值可跳过 LLM 直接返回
-  # rerank 分数有区分度（相关片段实测 0.85~0.92，无关 0.03~0.09），0.5 是保守分界
-  kb-hit-threshold: ${CS_KB_HIT_THRESHOLD:0.5}
+  # 0.4 依据 rerank 判别力标定（三组 215 题次实测）：0.5 会丢掉约 25% 的正例，
+  # 0.4 保留 80~84% 正例、负例误放仅 2~3%（详见 docs/platform/testing/rerank-calibration-report.md）
+  kb-hit-threshold: ${CS_KB_HIT_THRESHOLD:0.4}
   # 单次会话最大澄清轮数，超出强制 fallback
   clarify-max-rounds: 3
   # 默认兜底意图

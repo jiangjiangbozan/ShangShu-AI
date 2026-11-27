@@ -15,18 +15,18 @@
 | 模型 | 允许用途 | 额度（2026-11-27 末轮） |
 |---|---|---|
 | `qwen3.7-text-embedding-flash` | 知识库切片向量化、向量重嵌入 | **0，已用尽；用户明令禁止调用** |
-| `qwen3.7-text-rerank` | 检索精排、评测链路 rerank 阶段、**判别力标定实验** | **0，已用尽**（167.45K 用于标定） |
+| `qwen3.7-text-rerank` | 检索精排、评测链路 rerank 阶段、**判别力标定实验** | **0，已用尽；同样禁止调用** |
 | `qwen3.8-max-0902` | 生成 RAG 评测题；**QueryRewrite 查询改写**（替代本地 Ollama） | 约 91–97 万 / 1M |
 
 ## 三、额度禁用期作业规则（2026-11-27 起）
 
-`qwen3.7-text-embedding-flash` 额度为 0 后，**任何会触发 embedding 的操作一律禁止**：
+`qwen3.7-text-embedding-flash` 与 `qwen3.7-text-rerank` 额度均已归零，**任何会触发这两个模型的操作一律禁止**：
 
 - 知识库入库（`batch-upload`）、切片重建、重嵌入（`reembed.py`）
 - 检索链路（`retrieve-test`、`run_eval.py`、聊天问答）——query 向量化同样要调 embedding
-- 需要检索的 A/B 评测
+- 需要检索的 A/B 评测、rerank 标定实验（`rerank_calibration.py` 也已停用）
 
-允许：纯 rerank 调用（`rerank_calibration.py`，输入只有 query 与文本，不触发向量化）、qwen3.8-max 文本生成、本地数据处理与静态分析。
+允许：qwen3.8-max 文本生成、本地数据处理与静态分析。
 
 ## 四、QueryRewrite 链路的模型落点（2026-11-27 修复）
 

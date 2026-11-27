@@ -555,7 +555,7 @@ flowchart LR
 | 四路召回 | `semantic,fulltext,parent,knowledge_graph`，各路独立 topK 后融合 | `rag.retrieval-methods` |
 | 融合 | RRF（k=60），连字符自动归一化为下划线 | `rag.query-rewrite.rrf-k` |
 | 精排 | 百炼原生 rerank 协议，候选 10 条取前 5，分数回写 metadata 供下游门控 | `rag.rerank.*` |
-| 降级 | rerank 关闭或调用失败自动回退 RRF 原序；客服 KB 命中阈值取 rerank 分数 0.5 | `cs.kb-hit-threshold` |
+| 降级 | rerank 关闭或调用失败自动回退 RRF 原序；客服 KB 命中阈值取 rerank 分数 0.4（判别力标定结论） | `cs.kb-hit-threshold` |
 
 > 实测（50 题中文数据集）：四路召回 + RRF 达 Recall@5 0.940 / nDCG@5 0.794，再叠加 rerank 后 nDCG@5 0.870、命中率 94%。指标与演进对比见 `docs/platform/testing/rag-eval-report.md`。
 
