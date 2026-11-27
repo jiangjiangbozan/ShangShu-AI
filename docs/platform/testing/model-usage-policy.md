@@ -12,13 +12,23 @@
 
 ## 二、当前已授权的模型
 
-| 模型 | 允许用途 | 额度（2026-11-27 最新） |
+| 模型 | 允许用途 | 额度（2026-11-27 末轮） |
 |---|---|---|
-| `qwen3.7-text-embedding-flash` | 知识库切片向量化、向量重嵌入 | 剩 64.2K / 1M |
-| `qwen3.7-text-rerank` | 检索精排、评测链路 rerank 阶段 | 剩 312.73K / 1M |
-| `qwen3.8-max-0902` | 生成 RAG 评测题；**QueryRewrite 查询改写**（替代本地 Ollama） | 剩 999.88K / 1M |
+| `qwen3.7-text-embedding-flash` | 知识库切片向量化、向量重嵌入 | **0，已用尽；用户明令禁止调用** |
+| `qwen3.7-text-rerank` | 检索精排、评测链路 rerank 阶段、**判别力标定实验** | **0，已用尽**（167.45K 用于标定） |
+| `qwen3.8-max-0902` | 生成 RAG 评测题；**QueryRewrite 查询改写**（替代本地 Ollama） | 约 91–97 万 / 1M |
 
-## 三、QueryRewrite 链路的模型落点（2026-11-27 修复）
+## 三、额度禁用期作业规则（2026-11-27 起）
+
+`qwen3.7-text-embedding-flash` 额度为 0 后，**任何会触发 embedding 的操作一律禁止**：
+
+- 知识库入库（`batch-upload`）、切片重建、重嵌入（`reembed.py`）
+- 检索链路（`retrieve-test`、`run_eval.py`、聊天问答）——query 向量化同样要调 embedding
+- 需要检索的 A/B 评测
+
+允许：纯 rerank 调用（`rerank_calibration.py`，输入只有 query 与文本，不触发向量化）、qwen3.8-max 文本生成、本地数据处理与静态分析。
+
+## 四、QueryRewrite 链路的模型落点（2026-11-27 修复）
 
 用户授权 `qwen3.8-max-0902` 替代本地 Ollama 后，QueryRewrite 的模型链路做了如下调整：
 
@@ -35,7 +45,7 @@
 
 **已知限制**：qwen3.8-max 为推理型模型，单次改写实测 **28.8 秒**，同步链路下单次检索整体 29.8 秒。生产环境建议改为异步改写或使用更小模型（需另行授权）。
 
-## 四、越权事件记录
+## 五、越权事件记录
 
 ### 2026-11-27：qwen-plus 未经授权调用
 
@@ -44,7 +54,7 @@
 - **性质**：用户只授权了两个向量模型，qwen-plus 属未授权模型，调用前未询问。
 - **处置**：停止调用；相关脚本 `dev/rag-eval/build_dataset_kb5.py` 保留但标注为「使用前须确认授权模型」；后续改用 `qwen3.8-max-0902`。
 
-## 五、脚本侧落点
+## 六、脚本侧落点
 
 | 脚本 | 使用的模型 | 备注 |
 |---|---|---|
@@ -52,4 +62,6 @@
 | `api/.../RerankService.java` | qwen3.7-text-rerank | 后端精排 |
 | `dev/rag-eval/reembed.py` | qwen3.7-text-embedding-flash | 定点重嵌入 |
 | `dev/rag-eval/probe_usage.py` | embedding + rerank | 单价实测 |
+| `dev/rag-eval/rerank_calibration.py` | **仅 qwen3.7-text-rerank** | 判别力/阈值标定（不触发 embedding） |
+| `dev/rag-eval/analyze_rerank_calib.py` | 无（纯本地计算） | 标定数据分析 |
 | `dev/rag-eval/build_dataset_kb5.py` | `--model` 参数决定，默认需人工确认 | 评测题生成 |
