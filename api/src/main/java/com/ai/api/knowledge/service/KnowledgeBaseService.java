@@ -62,6 +62,10 @@ public class KnowledgeBaseService {
   @Value("${spring.ai.vectorstore.elasticsearch.index-name:ai_agent_knowledge}")
   private String vectorIndexName;
 
+  /** 当前向量化后端标识（ollama / dashscope），写入知识库元数据便于审计与迁移追溯。 */
+  @Value("${rag.embedding.provider:ollama}")
+  private String embeddingProvider;
+
   public KnowledgeBaseService(
       KnowledgeBaseMapper baseMapper,
       KnowledgeDocumentMapper documentMapper,
@@ -99,7 +103,7 @@ public class KnowledgeBaseService {
     kb.setName(name);
     kb.setDescription(description);
     kb.setOwnerId(ownerId);
-    kb.setEmbeddingModel("ollama");
+    kb.setEmbeddingModel(embeddingProvider);
     kb.setChunkSize(800);
     kb.setChunkOverlap(200);
     kb.setDocumentCount(0);

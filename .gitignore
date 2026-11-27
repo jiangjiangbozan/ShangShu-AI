@@ -41,6 +41,11 @@
 *.yml.local
 *.yaml.local
 secrets/
+# dev profile 通过 spring.config.import 引入的本地密钥文件
+**/application-secret.yml
+
+# 批次 B 第三方文档语料：可由 dev/rag-corpus/download_corpus_b.py 一键复现，不重复入库
+dev/rag-corpus/batch-b/
 *.pem
 *.key
 !test/*.pem.nopkcs8
