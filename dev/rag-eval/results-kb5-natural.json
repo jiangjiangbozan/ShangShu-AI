@@ -1,0 +1,1694 @@
+{
+  "summary": {
+    "纯向量": {
+      "recall@k": 0.16666666666666666,
+      "mrr": 0.14444444444444443,
+      "ndcg@k": 0.15,
+      "hitRate": 0.16666666666666666
+    },
+    "纯关键词": {
+      "recall@k": 0.03333333333333333,
+      "mrr": 0.03333333333333333,
+      "ndcg@k": 0.03333333333333333,
+      "hitRate": 0.03333333333333333
+    },
+    "向量+关键词+RRF": {
+      "recall@k": 0.16666666666666666,
+      "mrr": 0.12333333333333334,
+      "ndcg@k": 0.13392608536019998,
+      "hitRate": 0.16666666666666666
+    },
+    "+Rerank": {
+      "recall@k": 0.16666666666666666,
+      "mrr": 0.16666666666666666,
+      "ndcg@k": 0.16666666666666666,
+      "hitRate": 0.16666666666666666
+    }
+  },
+  "perQuery": [
+    {
+      "id": "q001",
+      "question": "机器上的内存或磁盘快不够时，上面跑着的应用会被直接掐掉吗，掐掉后会不会自动再补一个？",
+      "relevant": [
+        "1af3fad9-46b6-4b6d-a85f-312a8f9071c9"
+      ],
+      "serverMs": 70438,
+      "wallMs": 70490,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "2f7d294c-ddf3-455d-b183-b27d1445cca6",
+          "feb3f0e7-61a1-494b-bc5c-dab8528d0072"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "0913a214-3ca2-494e-adb4-cd6791bafdde",
+          "1cb75547-7f7b-4f08-a64d-6d04e9d834ea",
+          "cb802c69-770a-47c4-9bb4-fbc067943d21",
+          "fec2acca-ad45-4441-934b-ca5dbac948c5",
+          "d2726edc-e445-46cc-976c-a88ce69d7068"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "2f7d294c-ddf3-455d-b183-b27d1445cca6",
+          "0913a214-3ca2-494e-adb4-cd6791bafdde",
+          "feb3f0e7-61a1-494b-bc5c-dab8528d0072",
+          "1cb75547-7f7b-4f08-a64d-6d04e9d834ea",
+          "cb802c69-770a-47c4-9bb4-fbc067943d21"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "reranked": {
+        "ranked": [
+          "feb3f0e7-61a1-494b-bc5c-dab8528d0072",
+          "2f7d294c-ddf3-455d-b183-b27d1445cca6",
+          "0913a214-3ca2-494e-adb4-cd6791bafdde",
+          "1cb75547-7f7b-4f08-a64d-6d04e9d834ea",
+          "cb802c69-770a-47c4-9bb4-fbc067943d21"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      }
+    },
+    {
+      "id": "q002",
+      "question": "我想让应用之间的访问尽量待在同一个可用区里，少跨区绕路，Kubernetes 里有啥办法能做到吗？",
+      "relevant": [
+        "5f84bfb7-a3b2-442a-99aa-3471eb6e6d30"
+      ],
+      "serverMs": 8677,
+      "wallMs": 8737,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "a5d477d2-4801-4c35-b0ea-7b8b4e6d374a",
+          "5d9b4e71-27d4-4af2-be83-20ac2c25a83e",
+          "c69ac09a-fd01-4fd1-8041-3c50921a7bf1",
+          "dd473c8d-e846-4ca8-8c41-8fad3b284f45",
+          "e0be3a80-0ae4-45e0-a153-48d8aee0c650"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "e0be3a80-0ae4-45e0-a153-48d8aee0c650",
+          "c71741dd-5fcc-41bb-9807-8b9929ddaa9e",
+          "cc0fc06b-1194-4463-9e4a-6270884313d6",
+          "ef24c168-0444-4fd7-902f-d61ccd0842b0",
+          "ff6bc976-0b42-4ea4-9fe8-78fa45dfc3d8"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "e0be3a80-0ae4-45e0-a153-48d8aee0c650",
+          "a5d477d2-4801-4c35-b0ea-7b8b4e6d374a",
+          "5d9b4e71-27d4-4af2-be83-20ac2c25a83e",
+          "c71741dd-5fcc-41bb-9807-8b9929ddaa9e",
+          "c69ac09a-fd01-4fd1-8041-3c50921a7bf1"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "reranked": {
+        "ranked": [
+          "ef24c168-0444-4fd7-902f-d61ccd0842b0",
+          "cc0fc06b-1194-4463-9e4a-6270884313d6",
+          "c71741dd-5fcc-41bb-9807-8b9929ddaa9e",
+          "5d9b4e71-27d4-4af2-be83-20ac2c25a83e",
+          "dd473c8d-e846-4ca8-8c41-8fad3b284f45"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      }
+    },
+    {
+      "id": "q003",
+      "question": "我刚接触容器编排，想搞清楚集群里干活的那些机器和里面跑的程序是怎么安全地找到管理入口并且跟它说话的？",
+      "relevant": [
+        "53f8e0c3-49a4-42f3-8005-7f9dcf304735"
+      ],
+      "serverMs": 10882,
+      "wallMs": 10911,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "728f74d3-3110-4fd2-8694-43cbbacb4c58",
+          "9ffa2155-7c2d-4fc6-b4f1-0e43f5713367",
+          "ad4d0a64-0c02-4dd5-8327-78e2cc13818a",
+          "f685a853-9ba8-4147-ab3a-9965a6e7f517",
+          "9e48435b-a9dc-4560-b1a3-92eaa24d1885"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "728f74d3-3110-4fd2-8694-43cbbacb4c58",
+          "9ffa2155-7c2d-4fc6-b4f1-0e43f5713367",
+          "ad4d0a64-0c02-4dd5-8327-78e2cc13818a",
+          "f685a853-9ba8-4147-ab3a-9965a6e7f517",
+          "9e48435b-a9dc-4560-b1a3-92eaa24d1885"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "reranked": {
+        "ranked": [
+          "9ffa2155-7c2d-4fc6-b4f1-0e43f5713367",
+          "ad4d0a64-0c02-4dd5-8327-78e2cc13818a",
+          "f685a853-9ba8-4147-ab3a-9965a6e7f517",
+          "728f74d3-3110-4fd2-8694-43cbbacb4c58",
+          "9e48435b-a9dc-4560-b1a3-92eaa24d1885"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      }
+    },
+    {
+      "id": "q004",
+      "question": "升级集群的时候，系统是按什么顺序决定由哪个管理程序来牵头的？",
+      "relevant": [
+        "630373ec-8b7a-42a3-9c22-6f7a845321ee"
+      ],
+      "serverMs": 10659,
+      "wallMs": 10674,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "b3e8ad67-41fe-4f1e-84b0-dcbb68532317",
+          "528424ea-33ec-43df-9876-27db613b94ff",
+          "146c88a7-b58b-4ef4-a057-e63ea2ab3e05",
+          "d199a029-f561-4301-9933-f3ca4f68a63b",
+          "9e1f9470-4a8c-4ec3-9b9a-d81d0332aa8a"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "b3e8ad67-41fe-4f1e-84b0-dcbb68532317",
+          "528424ea-33ec-43df-9876-27db613b94ff",
+          "146c88a7-b58b-4ef4-a057-e63ea2ab3e05",
+          "d199a029-f561-4301-9933-f3ca4f68a63b",
+          "9e1f9470-4a8c-4ec3-9b9a-d81d0332aa8a"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "reranked": {
+        "ranked": [
+          "528424ea-33ec-43df-9876-27db613b94ff",
+          "d199a029-f561-4301-9933-f3ca4f68a63b",
+          "146c88a7-b58b-4ef4-a057-e63ea2ab3e05",
+          "b3e8ad67-41fe-4f1e-84b0-dcbb68532317",
+          "9e1f9470-4a8c-4ec3-9b9a-d81d0332aa8a"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      }
+    },
+    {
+      "id": "q005",
+      "question": "我想让容器里面看到的机器名不用默认那个，默认它是怎么来的，又能在哪儿改成自己想要的？",
+      "relevant": [
+        "b9b6e3db-d07b-4b4d-a5f5-f730113dfc42"
+      ],
+      "serverMs": 10952,
+      "wallMs": 10966,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "5ff3f392-d04b-4c63-902e-e2ac1b239f8b"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "66eafdd8-8a11-4a61-a60a-425fbe9b420d",
+          "ba7e38ce-73f5-4db9-8bb4-0f408ec8b180",
+          "0cf290d9-a69e-4ded-87d8-7b47be29ab4b",
+          "8622cdd9-1821-4240-9681-4693a0ea8e2a",
+          "30933d21-b61b-4dde-bf80-bf16fef2890b"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "5ff3f392-d04b-4c63-902e-e2ac1b239f8b",
+          "66eafdd8-8a11-4a61-a60a-425fbe9b420d",
+          "ba7e38ce-73f5-4db9-8bb4-0f408ec8b180",
+          "0cf290d9-a69e-4ded-87d8-7b47be29ab4b",
+          "8622cdd9-1821-4240-9681-4693a0ea8e2a"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "reranked": {
+        "ranked": [
+          "5ff3f392-d04b-4c63-902e-e2ac1b239f8b",
+          "8622cdd9-1821-4240-9681-4693a0ea8e2a",
+          "0cf290d9-a69e-4ded-87d8-7b47be29ab4b",
+          "30933d21-b61b-4dde-bf80-bf16fef2890b",
+          "ba7e38ce-73f5-4db9-8bb4-0f408ec8b180"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      }
+    },
+    {
+      "id": "q006",
+      "question": "我刚开始玩容器编排，想给自己电脑装那个操作集群的命令行工具，客户端和集群的版本差多少算合适？",
+      "relevant": [
+        "88d9562f-0e65-4c2c-a330-a789935838dc"
+      ],
+      "serverMs": 11585,
+      "wallMs": 11617,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "6970bdc2-380d-485c-b9cd-9b338c731570",
+          "b462b6e3-8c6e-46ab-b39b-b728fc8dc25f",
+          "50f50818-9adc-473b-902e-33d52195a228",
+          "0ce0da9d-a477-4d90-824b-698b87ed2dac",
+          "b9889379-5c17-42a8-93b8-aadd892cbc6a"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "6970bdc2-380d-485c-b9cd-9b338c731570",
+          "b462b6e3-8c6e-46ab-b39b-b728fc8dc25f",
+          "50f50818-9adc-473b-902e-33d52195a228",
+          "0ce0da9d-a477-4d90-824b-698b87ed2dac",
+          "b9889379-5c17-42a8-93b8-aadd892cbc6a"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "reranked": {
+        "ranked": [
+          "b9889379-5c17-42a8-93b8-aadd892cbc6a",
+          "b462b6e3-8c6e-46ab-b39b-b728fc8dc25f",
+          "6970bdc2-380d-485c-b9cd-9b338c731570",
+          "50f50818-9adc-473b-902e-33d52195a228",
+          "0ce0da9d-a477-4d90-824b-698b87ed2dac"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      }
+    },
+    {
+      "id": "q007",
+      "question": "现在还能不能把机器自己说明自身能力的那个功能关掉？",
+      "relevant": [
+        "722b3060-7c7c-4c4f-a9af-c7448302c245"
+      ],
+      "serverMs": 10498,
+      "wallMs": 10517,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "4bae78e5-7b0a-4297-a6eb-66ea4a9fe7d6",
+          "fb0877b5-0afe-4ea5-be82-15ae7e915d29",
+          "84cb4c56-9d56-44db-ac17-4cc927714b98",
+          "e6b9b708-36da-4787-a6f0-51a8964cdc31",
+          "36fa9a14-c418-4018-93bb-06a8ecbbcaff"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "4bae78e5-7b0a-4297-a6eb-66ea4a9fe7d6",
+          "fb0877b5-0afe-4ea5-be82-15ae7e915d29",
+          "84cb4c56-9d56-44db-ac17-4cc927714b98",
+          "e6b9b708-36da-4787-a6f0-51a8964cdc31",
+          "36fa9a14-c418-4018-93bb-06a8ecbbcaff"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "reranked": {
+        "ranked": [
+          "e6b9b708-36da-4787-a6f0-51a8964cdc31",
+          "4bae78e5-7b0a-4297-a6eb-66ea4a9fe7d6",
+          "fb0877b5-0afe-4ea5-be82-15ae7e915d29",
+          "36fa9a14-c418-4018-93bb-06a8ecbbcaff",
+          "84cb4c56-9d56-44db-ac17-4cc927714b98"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      }
+    },
+    {
+      "id": "q008",
+      "question": "我的服务启动特别慢，怎么设置才能让系统先别急着重启它或者把请求发给它？",
+      "relevant": [
+        "b8badf0c-a0bb-4c2e-a7c2-2be5633d8c2e"
+      ],
+      "serverMs": 12318,
+      "wallMs": 12329,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "a4e8be05-ea06-4c16-8abf-b67327124c19",
+          "53f8e0c3-49a4-42f3-8005-7f9dcf304735",
+          "d6be7941-7b39-48c0-a826-3a57b5caa858",
+          "1cb75547-7f7b-4f08-a64d-6d04e9d834ea",
+          "0913a214-3ca2-494e-adb4-cd6791bafdde"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "a4e8be05-ea06-4c16-8abf-b67327124c19",
+          "53f8e0c3-49a4-42f3-8005-7f9dcf304735",
+          "d6be7941-7b39-48c0-a826-3a57b5caa858",
+          "1cb75547-7f7b-4f08-a64d-6d04e9d834ea",
+          "0913a214-3ca2-494e-adb4-cd6791bafdde"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "reranked": {
+        "ranked": [
+          "1cb75547-7f7b-4f08-a64d-6d04e9d834ea",
+          "d6be7941-7b39-48c0-a826-3a57b5caa858",
+          "0913a214-3ca2-494e-adb4-cd6791bafdde",
+          "a4e8be05-ea06-4c16-8abf-b67327124c19",
+          "53f8e0c3-49a4-42f3-8005-7f9dcf304735"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      }
+    },
+    {
+      "id": "q009",
+      "question": "我有点好奇，如果跑在 Windows 机器上的容器把内存用得很紧张，系统会怎么处理，会不会直接把里面的程序结束掉？",
+      "relevant": [
+        "bd5c94fe-ac9d-4b2f-a2fa-12645d401390"
+      ],
+      "serverMs": 9707,
+      "wallMs": 9739,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "bd5c94fe-ac9d-4b2f-a2fa-12645d401390",
+          "285c0f19-c32c-4322-a356-950f868c7341",
+          "feb3f0e7-61a1-494b-bc5c-dab8528d0072",
+          "75317938-1171-4faa-8057-c19deb39895a",
+          "e5a03c83-2aca-42ae-8f9b-fba5e0eedf3e"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "bd5c94fe-ac9d-4b2f-a2fa-12645d401390",
+          "a4e8be05-ea06-4c16-8abf-b67327124c19",
+          "2199df15-f8ac-42ca-9f58-8667ba63e466",
+          "902dcb06-bf18-4d2a-a6e3-52a54e0d63c7",
+          "15a42b43-852b-45ff-a67e-d832a070835b"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "bd5c94fe-ac9d-4b2f-a2fa-12645d401390",
+          "285c0f19-c32c-4322-a356-950f868c7341",
+          "a4e8be05-ea06-4c16-8abf-b67327124c19",
+          "feb3f0e7-61a1-494b-bc5c-dab8528d0072",
+          "2199df15-f8ac-42ca-9f58-8667ba63e466"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "bd5c94fe-ac9d-4b2f-a2fa-12645d401390",
+          "285c0f19-c32c-4322-a356-950f868c7341",
+          "feb3f0e7-61a1-494b-bc5c-dab8528d0072",
+          "15a42b43-852b-45ff-a67e-d832a070835b",
+          "902dcb06-bf18-4d2a-a6e3-52a54e0d63c7"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q010",
+      "question": "我刚学容器编排，想问一下，如果一批必须一起跑起来的容器因为资源不够一直排不上，Kubernetes 会怎么把它们当成一个整体去腾出资源？",
+      "relevant": [
+        "4f451f87-95d6-4b37-8607-1a6b0a88393a"
+      ],
+      "serverMs": 12853,
+      "wallMs": 12882,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "9162b528-e670-4cea-b095-f85937f300eb",
+          "5d4c16d0-9e67-4d7d-9f62-70b7b894a2a9",
+          "050edb7d-0443-45ef-be6b-d559d41ba445",
+          "22be1d34-97b1-489e-bc82-00bf514aac11",
+          "e4e3eeb7-a6c1-455c-860a-e4375730cd42"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "f7262512-31db-4222-ad5a-d6d3d4c080f3",
+          "779a4d9d-2fb0-4362-bf5d-21bba2f0920d",
+          "2d3cea3c-c477-4eb0-b377-c467bd0ebc5c",
+          "661cac23-f241-4876-8de6-ca01c7129c21",
+          "a608d7ae-0a7a-4d49-ba19-f393a1c1bfd8"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "9162b528-e670-4cea-b095-f85937f300eb",
+          "f7262512-31db-4222-ad5a-d6d3d4c080f3",
+          "5d4c16d0-9e67-4d7d-9f62-70b7b894a2a9",
+          "779a4d9d-2fb0-4362-bf5d-21bba2f0920d",
+          "050edb7d-0443-45ef-be6b-d559d41ba445"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "reranked": {
+        "ranked": [
+          "2d3cea3c-c477-4eb0-b377-c467bd0ebc5c",
+          "050edb7d-0443-45ef-be6b-d559d41ba445",
+          "f7262512-31db-4222-ad5a-d6d3d4c080f3",
+          "e4e3eeb7-a6c1-455c-860a-e4375730cd42",
+          "5d4c16d0-9e67-4d7d-9f62-70b7b894a2a9"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      }
+    },
+    {
+      "id": "q011",
+      "question": "有没有什么办法能把集群里各个东西当前的状态拿出来做查询，比如数一下哪些应用实例还没准备好？",
+      "relevant": [
+        "52d10e3f-0571-42b8-ac8a-559ad478df23"
+      ],
+      "serverMs": 14211,
+      "wallMs": 14247,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "779a4d9d-2fb0-4362-bf5d-21bba2f0920d",
+          "7b6cf2dd-d4fc-4f0e-b421-4de1b71e5131",
+          "52d10e3f-0571-42b8-ac8a-559ad478df23"
+        ],
+        "recall": 1.0,
+        "mrr": 0.3333,
+        "ndcg": 0.5
+      },
+      "keywordRecall": {
+        "ranked": [
+          "f685a853-9ba8-4147-ab3a-9965a6e7f517",
+          "4ad78d57-124c-43d4-ba61-d607565f7386",
+          "842cd2da-8371-4f04-88aa-809ee23bf490",
+          "5b03dd9e-cdb9-4d7a-8622-21d4c91a2348",
+          "de926689-505b-4678-93bf-f828feceb1fd"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "779a4d9d-2fb0-4362-bf5d-21bba2f0920d",
+          "f685a853-9ba8-4147-ab3a-9965a6e7f517",
+          "7b6cf2dd-d4fc-4f0e-b421-4de1b71e5131",
+          "4ad78d57-124c-43d4-ba61-d607565f7386",
+          "52d10e3f-0571-42b8-ac8a-559ad478df23"
+        ],
+        "recall": 1.0,
+        "mrr": 0.2,
+        "ndcg": 0.3869
+      },
+      "reranked": {
+        "ranked": [
+          "52d10e3f-0571-42b8-ac8a-559ad478df23",
+          "7b6cf2dd-d4fc-4f0e-b421-4de1b71e5131",
+          "779a4d9d-2fb0-4362-bf5d-21bba2f0920d",
+          "f685a853-9ba8-4147-ab3a-9965a6e7f517",
+          "4ad78d57-124c-43d4-ba61-d607565f7386"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q012",
+      "question": "集群里资源紧张时，怎么让我比较重要的服务先跑起来，必要时把不重要的先挪走？",
+      "relevant": [
+        "cc1d6dac-e9c4-4984-9549-ba492a58eec9"
+      ],
+      "serverMs": 12369,
+      "wallMs": 12409,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "5d4c16d0-9e67-4d7d-9f62-70b7b894a2a9",
+          "91d04410-0217-4035-ae73-b59f3ed8a707"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "64305af6-e13e-4cb7-a301-6ad11ea2f1b2",
+          "d6be7941-7b39-48c0-a826-3a57b5caa858",
+          "8d8f21ec-1ed1-4eb1-aa9b-79f5f841479e",
+          "f685a853-9ba8-4147-ab3a-9965a6e7f517",
+          "c21c1ce1-0568-4b96-87a6-ea70f5c01a64"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "5d4c16d0-9e67-4d7d-9f62-70b7b894a2a9",
+          "64305af6-e13e-4cb7-a301-6ad11ea2f1b2",
+          "91d04410-0217-4035-ae73-b59f3ed8a707",
+          "d6be7941-7b39-48c0-a826-3a57b5caa858",
+          "8d8f21ec-1ed1-4eb1-aa9b-79f5f841479e"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "reranked": {
+        "ranked": [
+          "c21c1ce1-0568-4b96-87a6-ea70f5c01a64",
+          "5d4c16d0-9e67-4d7d-9f62-70b7b894a2a9",
+          "8d8f21ec-1ed1-4eb1-aa9b-79f5f841479e",
+          "64305af6-e13e-4cb7-a301-6ad11ea2f1b2",
+          "d6be7941-7b39-48c0-a826-3a57b5caa858"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      }
+    },
+    {
+      "id": "q013",
+      "question": "我刚学容器编排，命令行工具是怎么知道该连哪个环境的，那份配置文件默认放在哪，能不能让它读别的位置？",
+      "relevant": [
+        "0dcf467f-07dc-4709-aa0e-78ae5001e81c"
+      ],
+      "serverMs": 10980,
+      "wallMs": 10995,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "ab527392-b2c2-4268-a319-19d924963caa",
+          "b462b6e3-8c6e-46ab-b39b-b728fc8dc25f"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "3e434c80-70ce-4311-bc98-57bb1a0cfacd",
+          "6970bdc2-380d-485c-b9cd-9b338c731570",
+          "564a8ef7-75bb-48f9-b56e-8f85fb462c07",
+          "2d3c204a-9368-464e-a3d5-c3997c1872e9",
+          "0a2e6e4d-3d3c-4bb2-8952-851d4ba645dd"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "ab527392-b2c2-4268-a319-19d924963caa",
+          "3e434c80-70ce-4311-bc98-57bb1a0cfacd",
+          "b462b6e3-8c6e-46ab-b39b-b728fc8dc25f",
+          "6970bdc2-380d-485c-b9cd-9b338c731570",
+          "564a8ef7-75bb-48f9-b56e-8f85fb462c07"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "reranked": {
+        "ranked": [
+          "b462b6e3-8c6e-46ab-b39b-b728fc8dc25f",
+          "6970bdc2-380d-485c-b9cd-9b338c731570",
+          "2d3c204a-9368-464e-a3d5-c3997c1872e9",
+          "ab527392-b2c2-4268-a319-19d924963caa",
+          "0a2e6e4d-3d3c-4bb2-8952-851d4ba645dd"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      }
+    },
+    {
+      "id": "q014",
+      "question": "如果一个部署出来的实例看起来已经在跑了，但实际还不能处理请求，我该怎样理解这种差别，还能看哪些细节来排查？",
+      "relevant": [
+        "f01e6bc7-6ad0-4767-b29c-91b5abe8f42b"
+      ],
+      "serverMs": 8945,
+      "wallMs": 8960,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "779a4d9d-2fb0-4362-bf5d-21bba2f0920d",
+          "1238b600-40ef-4949-9336-7f4983a7fc0b",
+          "c7522c81-102a-4c8c-b774-b5247dce9573",
+          "eafa14eb-8293-40c4-8e83-76e08587a8ca",
+          "d44ac379-2aa4-4e5c-b7ab-b0c0d8d42465"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "779a4d9d-2fb0-4362-bf5d-21bba2f0920d",
+          "1238b600-40ef-4949-9336-7f4983a7fc0b",
+          "c7522c81-102a-4c8c-b774-b5247dce9573",
+          "eafa14eb-8293-40c4-8e83-76e08587a8ca",
+          "d44ac379-2aa4-4e5c-b7ab-b0c0d8d42465"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "reranked": {
+        "ranked": [
+          "779a4d9d-2fb0-4362-bf5d-21bba2f0920d",
+          "eafa14eb-8293-40c4-8e83-76e08587a8ca",
+          "d44ac379-2aa4-4e5c-b7ab-b0c0d8d42465",
+          "c7522c81-102a-4c8c-b774-b5247dce9573",
+          "1238b600-40ef-4949-9336-7f4983a7fc0b"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      }
+    },
+    {
+      "id": "q015",
+      "question": "我刚学这个，想问一下，如果集群里还有跑微软系统的机器，那上面的容器是怎么上网的？",
+      "relevant": [
+        "bd9165b6-5b39-4dd2-a00c-8d68cdbed983"
+      ],
+      "serverMs": 11468,
+      "wallMs": 11503,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "bd9165b6-5b39-4dd2-a00c-8d68cdbed983",
+          "c7708d6b-f914-4da7-b51d-c30303ab4b1d"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "ad4d0a64-0c02-4dd5-8327-78e2cc13818a",
+          "842cd2da-8371-4f04-88aa-809ee23bf490",
+          "9dc3cac0-19ea-473e-94c2-f0036b05c941",
+          "d2726edc-e445-46cc-976c-a88ce69d7068",
+          "11de2bc0-149d-466c-b6c1-0b7ac6b7d2f3"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "bd9165b6-5b39-4dd2-a00c-8d68cdbed983",
+          "ad4d0a64-0c02-4dd5-8327-78e2cc13818a",
+          "c7708d6b-f914-4da7-b51d-c30303ab4b1d",
+          "842cd2da-8371-4f04-88aa-809ee23bf490",
+          "9dc3cac0-19ea-473e-94c2-f0036b05c941"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "bd9165b6-5b39-4dd2-a00c-8d68cdbed983",
+          "c7708d6b-f914-4da7-b51d-c30303ab4b1d",
+          "9dc3cac0-19ea-473e-94c2-f0036b05c941",
+          "11de2bc0-149d-466c-b6c1-0b7ac6b7d2f3",
+          "ad4d0a64-0c02-4dd5-8327-78e2cc13818a"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q016",
+      "question": "如果集群里现有的机器已经塞不下新要跑的容器了，系统会自动加点机器吗，加机器时主要看什么？",
+      "relevant": [
+        "76e9d907-b02f-4848-8219-337b9a3df89d"
+      ],
+      "serverMs": 13052,
+      "wallMs": 13066,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "76e9d907-b02f-4848-8219-337b9a3df89d",
+          "f79fe251-2407-46b5-b0d7-5711b21d82ae",
+          "9162b528-e670-4cea-b095-f85937f300eb",
+          "d6b17338-1608-448b-898c-5dbe0321d829",
+          "522492ba-d775-4d6f-8043-f4d5fb0f6441"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "1d7631f2-9184-452f-97ef-20bb2d6545d8",
+          "4618bd67-6c14-4b52-a0cf-b90f4ca8a837",
+          "d2726edc-e445-46cc-976c-a88ce69d7068",
+          "0381835a-e88b-4514-9bf0-94d0e457b2c7",
+          "7cac8c90-9480-4dc8-990d-f849daaa0e2e"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "76e9d907-b02f-4848-8219-337b9a3df89d",
+          "1d7631f2-9184-452f-97ef-20bb2d6545d8",
+          "f79fe251-2407-46b5-b0d7-5711b21d82ae",
+          "4618bd67-6c14-4b52-a0cf-b90f4ca8a837",
+          "9162b528-e670-4cea-b095-f85937f300eb"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "76e9d907-b02f-4848-8219-337b9a3df89d",
+          "d6b17338-1608-448b-898c-5dbe0321d829",
+          "1d7631f2-9184-452f-97ef-20bb2d6545d8",
+          "f79fe251-2407-46b5-b0d7-5711b21d82ae",
+          "522492ba-d775-4d6f-8043-f4d5fb0f6441"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q017",
+      "question": "我想给集群加一个在资源提交时帮忙检查或修改配置的小服务，设计的时候该注意些什么？",
+      "relevant": [
+        "5de9104a-18f1-43cb-9cfe-fe62ad1a6fd3"
+      ],
+      "serverMs": 12593,
+      "wallMs": 12607,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "4618bd67-6c14-4b52-a0cf-b90f4ca8a837",
+          "66eafdd8-8a11-4a61-a60a-425fbe9b420d",
+          "f685a853-9ba8-4147-ab3a-9965a6e7f517",
+          "df1e8238-b195-4329-8afd-d945b237b49e",
+          "56acb18d-7779-4cbe-84c7-f9f1385749c1"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "4618bd67-6c14-4b52-a0cf-b90f4ca8a837",
+          "66eafdd8-8a11-4a61-a60a-425fbe9b420d",
+          "f685a853-9ba8-4147-ab3a-9965a6e7f517",
+          "df1e8238-b195-4329-8afd-d945b237b49e",
+          "56acb18d-7779-4cbe-84c7-f9f1385749c1"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "reranked": {
+        "ranked": [
+          "f685a853-9ba8-4147-ab3a-9965a6e7f517",
+          "df1e8238-b195-4329-8afd-d945b237b49e",
+          "56acb18d-7779-4cbe-84c7-f9f1385749c1",
+          "4618bd67-6c14-4b52-a0cf-b90f4ca8a837",
+          "66eafdd8-8a11-4a61-a60a-425fbe9b420d"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      }
+    },
+    {
+      "id": "q018",
+      "question": "我想让部署上去的服务不要用管理员身份启动，应该在配置里怎么指定，改成普通身份后要注意什么？",
+      "relevant": [
+        "59368258-c86c-4281-a66e-210fbaffc9fd"
+      ],
+      "serverMs": 11020,
+      "wallMs": 11034,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "bcaacf29-1868-45cb-83e6-930e7d8b5709",
+          "57b88ef4-6067-40f6-af00-2410f5278102",
+          "aafc40d7-41ad-4d8c-b9f0-2d673abc7a65",
+          "ec4f0eb3-aeda-4500-a07c-5d4b43487985",
+          "a527677a-c580-4551-9740-42ccc68df873"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "bcaacf29-1868-45cb-83e6-930e7d8b5709",
+          "57b88ef4-6067-40f6-af00-2410f5278102",
+          "aafc40d7-41ad-4d8c-b9f0-2d673abc7a65",
+          "ec4f0eb3-aeda-4500-a07c-5d4b43487985",
+          "a527677a-c580-4551-9740-42ccc68df873"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "reranked": {
+        "ranked": [
+          "57b88ef4-6067-40f6-af00-2410f5278102",
+          "ec4f0eb3-aeda-4500-a07c-5d4b43487985",
+          "bcaacf29-1868-45cb-83e6-930e7d8b5709",
+          "aafc40d7-41ad-4d8c-b9f0-2d673abc7a65",
+          "a527677a-c580-4551-9740-42ccc68df873"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      }
+    },
+    {
+      "id": "q019",
+      "question": "我想让外部请求访问集群里的服务，是不是得先装一个专门处理这种入口流量的东西？",
+      "relevant": [
+        "3be5f98d-3e92-472b-a56d-69fc18a94c0b"
+      ],
+      "serverMs": 10197,
+      "wallMs": 10210,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "c3ef7f84-90ae-4f98-8f7b-e1517364e472",
+          "4e208523-b369-49f4-a096-e776ee45b9d9"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "f685a853-9ba8-4147-ab3a-9965a6e7f517",
+          "eafa14eb-8293-40c4-8e83-76e08587a8ca",
+          "8622cdd9-1821-4240-9681-4693a0ea8e2a",
+          "4ad78d57-124c-43d4-ba61-d607565f7386",
+          "3be49aab-9785-44cf-81a8-89443e2d5f95"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "c3ef7f84-90ae-4f98-8f7b-e1517364e472",
+          "f685a853-9ba8-4147-ab3a-9965a6e7f517",
+          "4e208523-b369-49f4-a096-e776ee45b9d9",
+          "eafa14eb-8293-40c4-8e83-76e08587a8ca",
+          "8622cdd9-1821-4240-9681-4693a0ea8e2a"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "reranked": {
+        "ranked": [
+          "4e208523-b369-49f4-a096-e776ee45b9d9",
+          "8622cdd9-1821-4240-9681-4693a0ea8e2a",
+          "c3ef7f84-90ae-4f98-8f7b-e1517364e472",
+          "f685a853-9ba8-4147-ab3a-9965a6e7f517",
+          "4ad78d57-124c-43d4-ba61-d607565f7386"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      }
+    },
+    {
+      "id": "q020",
+      "question": "有没有办法让容器里看起来拿到最高权限的程序，到了外面的机器上其实没什么权限？",
+      "relevant": [
+        "3d7aa1b6-ad37-46b6-8ec6-37f175079d6f"
+      ],
+      "serverMs": 13562,
+      "wallMs": 13576,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "45e88b0c-c548-4d01-93a7-141ce30dfe05",
+          "53e88b7f-f603-4970-99e6-92ee3a996c64"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "842cd2da-8371-4f04-88aa-809ee23bf490",
+          "ba7e38ce-73f5-4db9-8bb4-0f408ec8b180",
+          "f0e42eec-4b8a-4b04-a494-a497b0c8cd95",
+          "a12dd9ab-6a6f-41d5-996a-03a3879e09d7",
+          "0a2e6e4d-3d3c-4bb2-8952-851d4ba645dd"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "45e88b0c-c548-4d01-93a7-141ce30dfe05",
+          "842cd2da-8371-4f04-88aa-809ee23bf490",
+          "53e88b7f-f603-4970-99e6-92ee3a996c64",
+          "ba7e38ce-73f5-4db9-8bb4-0f408ec8b180",
+          "f0e42eec-4b8a-4b04-a494-a497b0c8cd95"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "reranked": {
+        "ranked": [
+          "f0e42eec-4b8a-4b04-a494-a497b0c8cd95",
+          "a12dd9ab-6a6f-41d5-996a-03a3879e09d7",
+          "ba7e38ce-73f5-4db9-8bb4-0f408ec8b180",
+          "842cd2da-8371-4f04-88aa-809ee23bf490",
+          "45e88b0c-c548-4d01-93a7-141ce30dfe05"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      }
+    },
+    {
+      "id": "q021",
+      "question": "我刚学容器编排，怎么查看当前这套环境里已经有哪些隔离区域？",
+      "relevant": [
+        "e2f026fa-2652-465f-88d3-80ced7509f78"
+      ],
+      "serverMs": 12658,
+      "wallMs": 12672,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "d44ac379-2aa4-4e5c-b7ab-b0c0d8d42465",
+          "3638da22-5cc2-40da-aaa2-e6c283116ac6",
+          "db95a1cf-1b29-4105-ace4-e295633434ac",
+          "bc34f7a5-5ae7-4859-92cc-f84cab5ec56b",
+          "842cd2da-8371-4f04-88aa-809ee23bf490"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "d44ac379-2aa4-4e5c-b7ab-b0c0d8d42465",
+          "3638da22-5cc2-40da-aaa2-e6c283116ac6",
+          "db95a1cf-1b29-4105-ace4-e295633434ac",
+          "bc34f7a5-5ae7-4859-92cc-f84cab5ec56b",
+          "842cd2da-8371-4f04-88aa-809ee23bf490"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "reranked": {
+        "ranked": [
+          "db95a1cf-1b29-4105-ace4-e295633434ac",
+          "3638da22-5cc2-40da-aaa2-e6c283116ac6",
+          "bc34f7a5-5ae7-4859-92cc-f84cab5ec56b",
+          "d44ac379-2aa4-4e5c-b7ab-b0c0d8d42465",
+          "842cd2da-8371-4f04-88aa-809ee23bf490"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      }
+    },
+    {
+      "id": "q022",
+      "question": "刚学容器编排，我想知道如果一台跑服务的机器内存突然紧张，能不能让它像普通电脑那样用磁盘当临时内存缓一缓，这样上面的应用会不会不容易被直接杀掉？",
+      "relevant": [
+        "a4e8be05-ea06-4c16-8abf-b67327124c19"
+      ],
+      "serverMs": 13242,
+      "wallMs": 13292,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "21d9f125-c414-4e2f-99b8-2c2cdd17a088",
+          "5716ea9f-0b4a-4c90-835d-1302b76d9abd",
+          "cc2d36cc-6b9e-4fdf-aa6c-23f2c625d4a6",
+          "9162b528-e670-4cea-b095-f85937f300eb",
+          "feb3f0e7-61a1-494b-bc5c-dab8528d0072"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "0913a214-3ca2-494e-adb4-cd6791bafdde",
+          "5716ea9f-0b4a-4c90-835d-1302b76d9abd",
+          "07743d7d-6dd8-4c83-adaa-a999bf7f6f23",
+          "bd5c94fe-ac9d-4b2f-a2fa-12645d401390",
+          "e29f0d99-d7be-4919-a907-f15e94d762eb"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "5716ea9f-0b4a-4c90-835d-1302b76d9abd",
+          "21d9f125-c414-4e2f-99b8-2c2cdd17a088",
+          "0913a214-3ca2-494e-adb4-cd6791bafdde",
+          "cc2d36cc-6b9e-4fdf-aa6c-23f2c625d4a6",
+          "07743d7d-6dd8-4c83-adaa-a999bf7f6f23"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "reranked": {
+        "ranked": [
+          "21d9f125-c414-4e2f-99b8-2c2cdd17a088",
+          "bd5c94fe-ac9d-4b2f-a2fa-12645d401390",
+          "5716ea9f-0b4a-4c90-835d-1302b76d9abd",
+          "0913a214-3ca2-494e-adb4-cd6791bafdde",
+          "9162b528-e670-4cea-b095-f85937f300eb"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      }
+    },
+    {
+      "id": "q023",
+      "question": "给容器挑机器和把这个选择真正生效为什么要拆成两段，这两段执行起来有啥不一样？",
+      "relevant": [
+        "4313c163-2208-433e-823a-44b12c0603a6"
+      ],
+      "serverMs": 13517,
+      "wallMs": 13539,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "c1925d53-594d-4ad0-8536-a7441cb14793",
+          "10766269-1d14-4613-be04-dbffbd32904a",
+          "dbbaa34d-793a-4b6a-82a6-98fbb65b6e71",
+          "160b478e-f4a0-4e5f-86d2-fd33083e9c56",
+          "878bea42-6a64-4eca-9a2f-af51ac714229"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "c1925d53-594d-4ad0-8536-a7441cb14793",
+          "10766269-1d14-4613-be04-dbffbd32904a",
+          "dbbaa34d-793a-4b6a-82a6-98fbb65b6e71",
+          "160b478e-f4a0-4e5f-86d2-fd33083e9c56",
+          "878bea42-6a64-4eca-9a2f-af51ac714229"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "reranked": {
+        "ranked": [
+          "160b478e-f4a0-4e5f-86d2-fd33083e9c56",
+          "dbbaa34d-793a-4b6a-82a6-98fbb65b6e71",
+          "c1925d53-594d-4ad0-8536-a7441cb14793",
+          "10766269-1d14-4613-be04-dbffbd32904a",
+          "878bea42-6a64-4eca-9a2f-af51ac714229"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      }
+    },
+    {
+      "id": "q024",
+      "question": "我刚接触容器编排，跑批量任务时容器失败了，怎么让集群分清哪些可以再试一次、哪些应该直接算失败，别浪费资源？",
+      "relevant": [
+        "ce9d41d9-d0a4-4245-8fd5-e46684ba50e8"
+      ],
+      "serverMs": 15833,
+      "wallMs": 15849,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "ce9d41d9-d0a4-4245-8fd5-e46684ba50e8",
+          "3b40ec4f-bff1-455e-9024-eea0ea857f97",
+          "5b03dd9e-cdb9-4d7a-8622-21d4c91a2348",
+          "be3090c3-c2f9-4035-aaa5-14b6b359b81b",
+          "6b1291a9-6376-4749-a3ef-4fb84b92f170"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "d94c4e89-99f8-4aec-9faf-3b86e2dd4d2c",
+          "d1a5de78-86b4-43a3-b6ef-82ea0713eb40",
+          "42227572-8233-4e04-99d8-f27bda15c060",
+          "5b03dd9e-cdb9-4d7a-8622-21d4c91a2348",
+          "87750d7f-49d9-410c-8d74-49f5e5b42f51"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "5b03dd9e-cdb9-4d7a-8622-21d4c91a2348",
+          "ce9d41d9-d0a4-4245-8fd5-e46684ba50e8",
+          "d94c4e89-99f8-4aec-9faf-3b86e2dd4d2c",
+          "3b40ec4f-bff1-455e-9024-eea0ea857f97",
+          "d1a5de78-86b4-43a3-b6ef-82ea0713eb40"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "reranked": {
+        "ranked": [
+          "ce9d41d9-d0a4-4245-8fd5-e46684ba50e8",
+          "be3090c3-c2f9-4035-aaa5-14b6b359b81b",
+          "87750d7f-49d9-410c-8d74-49f5e5b42f51",
+          "6b1291a9-6376-4749-a3ef-4fb84b92f170",
+          "d1a5de78-86b4-43a3-b6ef-82ea0713eb40"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q025",
+      "question": "我想给集群里自带的那些服务做个简单监控，应该去哪儿看它们的运行数据，如果有些服务默认看不到该怎么处理？",
+      "relevant": [
+        "e8aa30de-24a5-4217-8ca4-e56e6c3d0b10"
+      ],
+      "serverMs": 13413,
+      "wallMs": 13426,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "9ffa2155-7c2d-4fc6-b4f1-0e43f5713367"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "66eafdd8-8a11-4a61-a60a-425fbe9b420d",
+          "8622cdd9-1821-4240-9681-4693a0ea8e2a",
+          "f685a853-9ba8-4147-ab3a-9965a6e7f517",
+          "dbbaa34d-793a-4b6a-82a6-98fbb65b6e71",
+          "bd1a71d1-79e2-4794-9884-efa132f2a50d"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "9ffa2155-7c2d-4fc6-b4f1-0e43f5713367",
+          "66eafdd8-8a11-4a61-a60a-425fbe9b420d",
+          "8622cdd9-1821-4240-9681-4693a0ea8e2a",
+          "f685a853-9ba8-4147-ab3a-9965a6e7f517",
+          "dbbaa34d-793a-4b6a-82a6-98fbb65b6e71"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "reranked": {
+        "ranked": [
+          "9ffa2155-7c2d-4fc6-b4f1-0e43f5713367",
+          "8622cdd9-1821-4240-9681-4693a0ea8e2a",
+          "f685a853-9ba8-4147-ab3a-9965a6e7f517",
+          "66eafdd8-8a11-4a61-a60a-425fbe9b420d",
+          "dbbaa34d-793a-4b6a-82a6-98fbb65b6e71"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      }
+    },
+    {
+      "id": "q026",
+      "question": "我想给一个服务设定最少需要多少机器资源、最多不能超过多少，这两种设置分别会带来什么影响？",
+      "relevant": [
+        "e4e3eeb7-a6c1-455c-860a-e4375730cd42"
+      ],
+      "serverMs": 8466,
+      "wallMs": 8485,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "e406ff5e-0a8e-4cb2-b25d-38f96264e35c",
+          "91d04410-0217-4035-ae73-b59f3ed8a707",
+          "5d4c16d0-9e67-4d7d-9f62-70b7b894a2a9",
+          "e0be3a80-0ae4-45e0-a153-48d8aee0c650",
+          "bd1a71d1-79e2-4794-9884-efa132f2a50d"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "e406ff5e-0a8e-4cb2-b25d-38f96264e35c",
+          "91d04410-0217-4035-ae73-b59f3ed8a707",
+          "5d4c16d0-9e67-4d7d-9f62-70b7b894a2a9",
+          "e0be3a80-0ae4-45e0-a153-48d8aee0c650",
+          "bd1a71d1-79e2-4794-9884-efa132f2a50d"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "reranked": {
+        "ranked": [
+          "5d4c16d0-9e67-4d7d-9f62-70b7b894a2a9",
+          "e406ff5e-0a8e-4cb2-b25d-38f96264e35c",
+          "bd1a71d1-79e2-4794-9884-efa132f2a50d",
+          "91d04410-0217-4035-ae73-b59f3ed8a707",
+          "e0be3a80-0ae4-45e0-a153-48d8aee0c650"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      }
+    },
+    {
+      "id": "q027",
+      "question": "集群机器特别多的时候，怎么让负责给容器挑机器的组件少看一些机器，在安排得快和挑得准之间做个平衡？",
+      "relevant": [
+        "7f573e41-6fec-4370-87b9-555ba610d0f5"
+      ],
+      "serverMs": 14776,
+      "wallMs": 14851,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "7ae784bd-24d7-455e-935b-0ff4746b05a2",
+          "50f50818-9adc-473b-902e-33d52195a228",
+          "ac0dd65e-dddb-4ded-93e9-369b37fd2ed1",
+          "bd1a71d1-79e2-4794-9884-efa132f2a50d",
+          "23edb6e8-6f72-49e9-977f-9469b589c99d"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "7ae784bd-24d7-455e-935b-0ff4746b05a2",
+          "50f50818-9adc-473b-902e-33d52195a228",
+          "ac0dd65e-dddb-4ded-93e9-369b37fd2ed1",
+          "bd1a71d1-79e2-4794-9884-efa132f2a50d",
+          "23edb6e8-6f72-49e9-977f-9469b589c99d"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "reranked": {
+        "ranked": [
+          "50f50818-9adc-473b-902e-33d52195a228",
+          "23edb6e8-6f72-49e9-977f-9469b589c99d",
+          "7ae784bd-24d7-455e-935b-0ff4746b05a2",
+          "bd1a71d1-79e2-4794-9884-efa132f2a50d",
+          "ac0dd65e-dddb-4ded-93e9-369b37fd2ed1"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      }
+    },
+    {
+      "id": "q028",
+      "question": "为什么我刚提交的应用实例明明已经创建出来了，却不能马上被安排到某台机器上运行，该怎么控制它什么时候才开始参与分配？",
+      "relevant": [
+        "c741f4ac-fcf5-4754-83a8-c479948edc5c"
+      ],
+      "serverMs": 7765,
+      "wallMs": 7781,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "842cd2da-8371-4f04-88aa-809ee23bf490",
+          "9cade42c-5154-4800-b4a8-3c103e16bed1",
+          "6c9db359-905e-493b-bf9e-d426a9cb40cd",
+          "779a4d9d-2fb0-4362-bf5d-21bba2f0920d",
+          "3bf90d00-adaa-4d4d-a1f9-d19beb4275b0"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "842cd2da-8371-4f04-88aa-809ee23bf490",
+          "9cade42c-5154-4800-b4a8-3c103e16bed1",
+          "6c9db359-905e-493b-bf9e-d426a9cb40cd",
+          "779a4d9d-2fb0-4362-bf5d-21bba2f0920d",
+          "3bf90d00-adaa-4d4d-a1f9-d19beb4275b0"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "reranked": {
+        "ranked": [
+          "3bf90d00-adaa-4d4d-a1f9-d19beb4275b0",
+          "779a4d9d-2fb0-4362-bf5d-21bba2f0920d",
+          "9cade42c-5154-4800-b4a8-3c103e16bed1",
+          "842cd2da-8371-4f04-88aa-809ee23bf490",
+          "6c9db359-905e-493b-bf9e-d426a9cb40cd"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      }
+    },
+    {
+      "id": "q029",
+      "question": "我刚申请的一块新盘，想让它一开始就装有现成的内容，而不是空着，这是怎么做到的？",
+      "relevant": [
+        "e6c65052-d727-48b5-a2c2-1a6740e3f5bc"
+      ],
+      "serverMs": 11508,
+      "wallMs": 11547,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "0913a214-3ca2-494e-adb4-cd6791bafdde",
+          "902dcb06-bf18-4d2a-a6e3-52a54e0d63c7",
+          "2199df15-f8ac-42ca-9f58-8667ba63e466",
+          "e29f0d99-d7be-4919-a907-f15e94d762eb",
+          "16e97634-ce83-4fa0-93b0-028274bd7aff"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "0913a214-3ca2-494e-adb4-cd6791bafdde",
+          "902dcb06-bf18-4d2a-a6e3-52a54e0d63c7",
+          "2199df15-f8ac-42ca-9f58-8667ba63e466",
+          "e29f0d99-d7be-4919-a907-f15e94d762eb",
+          "16e97634-ce83-4fa0-93b0-028274bd7aff"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "reranked": {
+        "ranked": [
+          "16e97634-ce83-4fa0-93b0-028274bd7aff",
+          "2199df15-f8ac-42ca-9f58-8667ba63e466",
+          "0913a214-3ca2-494e-adb4-cd6791bafdde",
+          "e29f0d99-d7be-4919-a907-f15e94d762eb",
+          "902dcb06-bf18-4d2a-a6e3-52a54e0d63c7"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      }
+    },
+    {
+      "id": "q030",
+      "question": "我想让一个常驻后台服务只在装了快速本地盘的机器上启动，要怎么做？",
+      "relevant": [
+        "31e58c1e-4cac-42dc-9deb-5b1ffba92faa"
+      ],
+      "serverMs": 12410,
+      "wallMs": 12424,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "0913a214-3ca2-494e-adb4-cd6791bafdde",
+          "158ee217-64b9-4128-b8c0-7568a9baf0f7",
+          "53f8e0c3-49a4-42f3-8005-7f9dcf304735",
+          "57b88ef4-6067-40f6-af00-2410f5278102",
+          "f685a853-9ba8-4147-ab3a-9965a6e7f517"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "0913a214-3ca2-494e-adb4-cd6791bafdde",
+          "158ee217-64b9-4128-b8c0-7568a9baf0f7",
+          "53f8e0c3-49a4-42f3-8005-7f9dcf304735",
+          "57b88ef4-6067-40f6-af00-2410f5278102",
+          "f685a853-9ba8-4147-ab3a-9965a6e7f517"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "reranked": {
+        "ranked": [
+          "158ee217-64b9-4128-b8c0-7568a9baf0f7",
+          "0913a214-3ca2-494e-adb4-cd6791bafdde",
+          "f685a853-9ba8-4147-ab3a-9965a6e7f517",
+          "53f8e0c3-49a4-42f3-8005-7f9dcf304735",
+          "57b88ef4-6067-40f6-af00-2410f5278102"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      }
+    }
+  ],
+  "rerankStatus": {
+    "success": 30,
+    "disabled": 0,
+    "degraded": 0,
+    "missing": 0
+  },
+  "latency": {
+    "p50ServerMs": 11951.5,
+    "p95ServerMs": 15357.349999999997,
+    "p50WallMs": 11973.0,
+    "p95WallMs": 15399.899999999998
+  }
+}

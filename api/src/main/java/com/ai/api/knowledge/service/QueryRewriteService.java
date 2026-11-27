@@ -1,6 +1,6 @@
 package com.ai.api.knowledge.service;
 
-import java.time.Duration;
+import com.ai.api.model.config.ChatClientFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -35,8 +35,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class QueryRewriteService {
 
-  private final ChatClient rewriteChatClient;
+  private final ChatClientFactory chatClientFactory;
   private final ChatClient fallbackChatClient;
+
+  /** 主改写模型 ID，按 sys_model_config 动态取用；默认百炼 qwen3.8-max（需在模型表中配置 api_key）。 */
+  @Value("${rag.query-rewrite.model-id:qwen3.8-max-0902}")
+  private String rewriteModelId;
 
   @Value("${rag.query-rewrite.enabled:true}")
   private boolean enabled;
@@ -53,9 +57,9 @@ public class QueryRewriteService {
   private static final Pattern LINE_PATTERN = Pattern.compile("^\\s*\\d+[\\.、)]\\s*(.+)$");
 
   public QueryRewriteService(
-      @Qualifier("deepSeekChatClient") ChatClient deepSeekChatClient,
+      ChatClientFactory chatClientFactory,
       @Qualifier("ollamaChatClient") ChatClient ollamaChatClient) {
-    this.rewriteChatClient = deepSeekChatClient;
+    this.chatClientFactory = chatClientFactory;
     this.fallbackChatClient = ollamaChatClient;
   }
 
@@ -96,10 +100,12 @@ public class QueryRewriteService {
   }
 
   private String callModel(String prompt) {
-    Duration timeout = Duration.ofMillis(timeoutMs);
     String primary = null;
     try {
-      primary = rewriteChatClient.prompt().user(prompt).call().content();
+      ChatClient primaryClient = chatClientFactory.getChatClient(rewriteModelId);
+      if (primaryClient != null) {
+        primary = primaryClient.prompt().user(prompt).call().content();
+      }
     } catch (Exception e) {
       log.warn("[QueryRewriteService][主模型调用失败，fallback: error={}]", e.getMessage());
     }

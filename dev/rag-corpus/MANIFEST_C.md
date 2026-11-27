@@ -2,11 +2,11 @@
 
 > 来源 kubernetes.io/zh-cn（CC BY 4.0），HTML 正文提取，用于中文检索能力补强。
 
-- 文档数：165
-- 本轮新增：42，失败：18
-- 总字符数：1004797
-- 中文字符数：335129
-- 平均字符数：6089
+- 文档数：195
+- 本轮新增：30，失败：10
+- 总字符数：1263874
+- 中文字符数：382905
+- 平均字符数：6481
 
 | # | 文档 | 字符数 | 中文字 | 来源 |
 |---|---|---|---|---|
@@ -175,3 +175,33 @@
 | 203 | Pod 的生命周期 | 23806 | 5024 | [link](https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/) |
 | 204 | Init 容器 | 7582 | 2507 | [link](https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/init-containers/) |
 | 205 | 用户命名空间 | 7408 | 3146 | [link](https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/user-namespaces/) |
+| 206 | 使用 seccomp 限制容器的系统调用 | 13505 | 2555 | [link](https://kubernetes.io/zh-cn/docs/tutorials/security/seccomp/) |
+| 207 | 使用 AppArmor 限制容器对资源的访问 | 6616 | 1598 | [link](https://kubernetes.io/zh-cn/docs/tutorials/security/apparmor/) |
+| 208 | 使用源 IP | 7069 | 1826 | [link](https://kubernetes.io/zh-cn/docs/tutorials/services/source-ip/) |
+| 209 | 在名字空间级别应用 Pod 安全标准 | 3238 | 621 | [link](https://kubernetes.io/zh-cn/docs/tutorials/security/ns-level-pss/) |
+| 214 | 在集群级别应用 Pod 安全标准 | 8428 | 1020 | [link](https://kubernetes.io/zh-cn/docs/tutorials/security/cluster-level-pss/) |
+| 216 | 示例：使用 StatefulSet 部署 Cassandra | 7160 | 1248 | [link](https://kubernetes.io/zh-cn/docs/tutorials/stateful-application/cassandra/) |
+| 217 | 运行 ZooKeeper，一个分布式协调系统 | 32048 | 1844 | [link](https://kubernetes.io/zh-cn/docs/tutorials/stateful-application/zookeeper/) |
+| 218 | 示例：使用 Redis 部署 PHP 留言板应用 | 9914 | 1647 | [link](https://kubernetes.io/zh-cn/docs/tutorials/stateless-application/guestbook/) |
+| 220 | 安装驱动并使用 DRA 来分配设备 | 12559 | 2267 | [link](https://kubernetes.io/zh-cn/docs/tutorials/cluster-management/install-use-dra/) |
+| 221 | 使用边车（Sidecar）容器 | 4253 | 2217 | [link](https://kubernetes.io/zh-cn/docs/tutorials/configuration/pod-sidecar-containers/) |
+| 222 | 探索验证与变更准入策略 | 9644 | 2581 | [link](https://kubernetes.io/zh-cn/docs/tutorials/cluster-management/admission-policies/) |
+| 223 | 以独立模式运行 kubelet | 6813 | 1878 | [link](https://kubernetes.io/zh-cn/docs/tutorials/cluster-management/kubelet-standalone/) |
+| 224 | 使用 Service 连接到应用 | 12408 | 2240 | [link](https://kubernetes.io/zh-cn/docs/tutorials/services/connect-applications-service/) |
+| 225 | StatefulSet 基础 | 30293 | 2256 | [link](https://kubernetes.io/zh-cn/docs/tutorials/stateful-application/basic-stateful-set/) |
+| 226 | 使用金丝雀部署发布版本 | 9519 | 2234 | [link](https://kubernetes.io/zh-cn/docs/tutorials/stateless-application/canary-deployment/) |
+| 227 | 在 Kubernetes 节点上配置交换内存 | 2358 | 909 | [link](https://kubernetes.io/zh-cn/docs/tutorials/cluster-management/provision-swap-memory/) |
+| 228 | 名字空间演练 | 6024 | 1231 | [link](https://kubernetes.io/zh-cn/docs/tutorials/cluster-management/namespaces-walkthrough/) |
+| 229 | 探索 Pod 及其端点的终止行为 | 4302 | 811 | [link](https://kubernetes.io/zh-cn/docs/tutorials/services/pods-and-endpoint-termination-flow/) |
+| 230 | 使用 ConfigMap 来配置 Redis | 4171 | 682 | [link](https://kubernetes.io/zh-cn/docs/tutorials/configuration/configure-redis-using-configmap/) |
+| 231 | 公开外部 IP 地址以访问集群中的应用 | 3615 | 565 | [link](https://kubernetes.io/zh-cn/docs/tutorials/stateless-application/expose-external-ip-address/) |
+| 232 | 配置 Pod 以使用 PersistentVolume 作为存储 | 9066 | 1855 | [link](https://kubernetes.io/zh-cn/docs/tutorials/configuration/configure-persistent-volume-storage/) |
+| 233 | 使用 Pod 级资源与 kubelet 资源管理器 | 9311 | 2187 | [link](https://kubernetes.io/zh-cn/docs/tutorials/cluster-management/use-pod-level-resource-managers/) |
+| 234 | 通过 ConfigMap 更新配置 | 19432 | 1990 | [link](https://kubernetes.io/zh-cn/docs/tutorials/configuration/updating-configuration-via-a-configmap/) |
+| 235 | 示例：使用持久卷部署 WordPress 和 MySQL | 6747 | 1286 | [link](https://kubernetes.io/zh-cn/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/) |
+| 236 | 运行多实例的应用 | 4009 | 1266 | [link](https://kubernetes.io/zh-cn/docs/tutorials/kubernetes-basics/scale/scale-intro/) |
+| 237 | 使用 Service 公开你的应用 | 4713 | 1737 | [link](https://kubernetes.io/zh-cn/docs/tutorials/kubernetes-basics/expose/expose-intro/) |
+| 238 | 执行滚动更新 | 3267 | 1229 | [link](https://kubernetes.io/zh-cn/docs/tutorials/kubernetes-basics/update/update-intro/) |
+| 239 | 查看 Pod 和节点 | 3292 | 1553 | [link](https://kubernetes.io/zh-cn/docs/tutorials/kubernetes-basics/explore/explore-intro/) |
+| 240 | 使用 kubectl 创建 Deployment | 3514 | 1523 | [link](https://kubernetes.io/zh-cn/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/) |
+| 241 | 使用 Minikube 创建集群 | 1789 | 920 | [link](https://kubernetes.io/zh-cn/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/) |

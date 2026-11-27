@@ -1319,82 +1319,290 @@
       "title": "用户命名空间",
       "chars": 7408,
       "cn_chars": 3146
+    },
+    {
+      "order": 206,
+      "file": "206-tutorials-security-seccomp.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/security/seccomp/",
+      "title": "使用 seccomp 限制容器的系统调用",
+      "chars": 13505,
+      "cn_chars": 2555
+    },
+    {
+      "order": 207,
+      "file": "207-tutorials-security-apparmor.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/security/apparmor/",
+      "title": "使用 AppArmor 限制容器对资源的访问",
+      "chars": 6616,
+      "cn_chars": 1598
+    },
+    {
+      "order": 208,
+      "file": "208-tutorials-services-source-ip.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/services/source-ip/",
+      "title": "使用源 IP",
+      "chars": 7069,
+      "cn_chars": 1826
+    },
+    {
+      "order": 209,
+      "file": "209-tutorials-security-ns-level-pss.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/security/ns-level-pss/",
+      "title": "在名字空间级别应用 Pod 安全标准",
+      "chars": 3238,
+      "cn_chars": 621
+    },
+    {
+      "order": 214,
+      "file": "214-tutorials-security-cluster-level-pss.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/security/cluster-level-pss/",
+      "title": "在集群级别应用 Pod 安全标准",
+      "chars": 8428,
+      "cn_chars": 1020
+    },
+    {
+      "order": 216,
+      "file": "216-tutorials-stateful-application-cassandra.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/stateful-application/cassandra/",
+      "title": "示例：使用 StatefulSet 部署 Cassandra",
+      "chars": 7160,
+      "cn_chars": 1248
+    },
+    {
+      "order": 217,
+      "file": "217-tutorials-stateful-application-zookeeper.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/stateful-application/zookeeper/",
+      "title": "运行 ZooKeeper，一个分布式协调系统",
+      "chars": 32048,
+      "cn_chars": 1844
+    },
+    {
+      "order": 218,
+      "file": "218-tutorials-stateless-application-guestbook.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/stateless-application/guestbook/",
+      "title": "示例：使用 Redis 部署 PHP 留言板应用",
+      "chars": 9914,
+      "cn_chars": 1647
+    },
+    {
+      "order": 220,
+      "file": "220-tutorials-cluster-management-install-use-dra.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/cluster-management/install-use-dra/",
+      "title": "安装驱动并使用 DRA 来分配设备",
+      "chars": 12559,
+      "cn_chars": 2267
+    },
+    {
+      "order": 221,
+      "file": "221-tutorials-configuration-pod-sidecar-containers.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/configuration/pod-sidecar-containers/",
+      "title": "使用边车（Sidecar）容器",
+      "chars": 4253,
+      "cn_chars": 2217
+    },
+    {
+      "order": 222,
+      "file": "222-tutorials-cluster-management-admission-policies.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/cluster-management/admission-policies/",
+      "title": "探索验证与变更准入策略",
+      "chars": 9644,
+      "cn_chars": 2581
+    },
+    {
+      "order": 223,
+      "file": "223-tutorials-cluster-management-kubelet-standalone.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/cluster-management/kubelet-standalone/",
+      "title": "以独立模式运行 kubelet",
+      "chars": 6813,
+      "cn_chars": 1878
+    },
+    {
+      "order": 224,
+      "file": "224-tutorials-services-connect-applications-service.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/services/connect-applications-service/",
+      "title": "使用 Service 连接到应用",
+      "chars": 12408,
+      "cn_chars": 2240
+    },
+    {
+      "order": 225,
+      "file": "225-tutorials-stateful-application-basic-stateful-set.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/stateful-application/basic-stateful-set/",
+      "title": "StatefulSet 基础",
+      "chars": 30293,
+      "cn_chars": 2256
+    },
+    {
+      "order": 226,
+      "file": "226-tutorials-stateless-application-canary-deployment.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/stateless-application/canary-deployment/",
+      "title": "使用金丝雀部署发布版本",
+      "chars": 9519,
+      "cn_chars": 2234
+    },
+    {
+      "order": 227,
+      "file": "227-tutorials-cluster-management-provision-swap-memory.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/cluster-management/provision-swap-memory/",
+      "title": "在 Kubernetes 节点上配置交换内存",
+      "chars": 2358,
+      "cn_chars": 909
+    },
+    {
+      "order": 228,
+      "file": "228-tutorials-cluster-management-namespaces-walkthrough.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/cluster-management/namespaces-walkthrough/",
+      "title": "名字空间演练",
+      "chars": 6024,
+      "cn_chars": 1231
+    },
+    {
+      "order": 229,
+      "file": "229-tutorials-services-pods-and-endpoint-termination-flow.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/services/pods-and-endpoint-termination-flow/",
+      "title": "探索 Pod 及其端点的终止行为",
+      "chars": 4302,
+      "cn_chars": 811
+    },
+    {
+      "order": 230,
+      "file": "230-tutorials-configuration-configure-redis-using-configmap.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/configuration/configure-redis-using-configmap/",
+      "title": "使用 ConfigMap 来配置 Redis",
+      "chars": 4171,
+      "cn_chars": 682
+    },
+    {
+      "order": 231,
+      "file": "231-tutorials-stateless-application-expose-external-ip-address.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/stateless-application/expose-external-ip-address/",
+      "title": "公开外部 IP 地址以访问集群中的应用",
+      "chars": 3615,
+      "cn_chars": 565
+    },
+    {
+      "order": 232,
+      "file": "232-tutorials-configuration-configure-persistent-volume-storage.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/configuration/configure-persistent-volume-storage/",
+      "title": "配置 Pod 以使用 PersistentVolume 作为存储",
+      "chars": 9066,
+      "cn_chars": 1855
+    },
+    {
+      "order": 233,
+      "file": "233-tutorials-cluster-management-use-pod-level-resource-managers.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/cluster-management/use-pod-level-resource-managers/",
+      "title": "使用 Pod 级资源与 kubelet 资源管理器",
+      "chars": 9311,
+      "cn_chars": 2187
+    },
+    {
+      "order": 234,
+      "file": "234-tutorials-configuration-updating-configuration-via-a-configmap.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/configuration/updating-configuration-via-a-configmap/",
+      "title": "通过 ConfigMap 更新配置",
+      "chars": 19432,
+      "cn_chars": 1990
+    },
+    {
+      "order": 235,
+      "file": "235-tutorials-stateful-application-mysql-wordpress-persistent-volume.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/",
+      "title": "示例：使用持久卷部署 WordPress 和 MySQL",
+      "chars": 6747,
+      "cn_chars": 1286
+    },
+    {
+      "order": 236,
+      "file": "236-tutorials-kubernetes-basics-scale-scale-intro.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/kubernetes-basics/scale/scale-intro/",
+      "title": "运行多实例的应用",
+      "chars": 4009,
+      "cn_chars": 1266
+    },
+    {
+      "order": 237,
+      "file": "237-tutorials-kubernetes-basics-expose-expose-intro.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/kubernetes-basics/expose/expose-intro/",
+      "title": "使用 Service 公开你的应用",
+      "chars": 4713,
+      "cn_chars": 1737
+    },
+    {
+      "order": 238,
+      "file": "238-tutorials-kubernetes-basics-update-update-intro.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/kubernetes-basics/update/update-intro/",
+      "title": "执行滚动更新",
+      "chars": 3267,
+      "cn_chars": 1229
+    },
+    {
+      "order": 239,
+      "file": "239-tutorials-kubernetes-basics-explore-explore-intro.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/kubernetes-basics/explore/explore-intro/",
+      "title": "查看 Pod 和节点",
+      "chars": 3292,
+      "cn_chars": 1553
+    },
+    {
+      "order": 240,
+      "file": "240-tutorials-kubernetes-basics-deploy-app-deploy-intro.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/",
+      "title": "使用 kubectl 创建 Deployment",
+      "chars": 3514,
+      "cn_chars": 1523
+    },
+    {
+      "order": 241,
+      "file": "241-tutorials-kubernetes-basics-create-cluster-cluster-intro.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/",
+      "title": "使用 Minikube 创建集群",
+      "chars": 1789,
+      "cn_chars": 920
     }
   ],
   "failed": [
     {
-      "url": "https://kubernetes.io/zh-cn/docs/concepts/overview/components/",
-      "reason": "太短(1275字)"
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/kubernetes-basics/scale/",
+      "reason": "太短(219字)"
     },
     {
-      "url": "https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/",
-      "reason": "太短(1366字)"
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/kubernetes-basics/expose/",
+      "reason": "太短(231字)"
     },
     {
-      "url": "https://kubernetes.io/zh-cn/docs/concepts/security/linux-security/",
-      "reason": "太短(634字)"
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/kubernetes-basics/update/",
+      "reason": "太短(217字)"
     },
     {
-      "url": "https://kubernetes.io/zh-cn/docs/concepts/storage/windows-storage/",
-      "reason": "太短(1287字)"
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/kubernetes-basics/explore/",
+      "reason": "太短(221字)"
     },
     {
-      "url": "https://kubernetes.io/zh-cn/docs/concepts/architecture/self-healing/",
-      "reason": "太短(1039字)"
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/kubernetes-basics/deploy-app/",
+      "reason": "太短(233字)"
     },
     {
-      "url": "https://kubernetes.io/zh-cn/docs/concepts/security/windows-security/",
-      "reason": "太短(956字)"
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/kubernetes-basics/create-cluster/",
+      "reason": "太短(265字)"
     },
     {
-      "url": "https://kubernetes.io/zh-cn/docs/concepts/security/pod-security-policy/",
-      "reason": "太短(530字)"
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/",
+      "reason": "太短(848字)"
     },
     {
-      "url": "https://kubernetes.io/zh-cn/docs/concepts/storage/volume-pvc-datasource/",
-      "reason": "太短(1426字)"
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/security/",
+      "reason": "太短(411字)"
     },
     {
-      "url": "https://kubernetes.io/zh-cn/docs/concepts/cluster-administration/proxies/",
-      "reason": "太短(1114字)"
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/services/",
+      "reason": "太短(254字)"
     },
     {
-      "url": "https://kubernetes.io/zh-cn/docs/concepts/extend-kubernetes/api-extension/",
-      "reason": "太短(596字)"
-    },
-    {
-      "url": "https://kubernetes.io/zh-cn/docs/concepts/containers/container-environment/",
-      "reason": "太短(774字)"
-    },
-    {
-      "url": "https://kubernetes.io/zh-cn/docs/concepts/storage/volume-health-monitoring/",
-      "reason": "太短(1043字)"
-    },
-    {
-      "url": "https://kubernetes.io/zh-cn/docs/concepts/cluster-administration/certificates/",
-      "reason": "太短(277字)"
-    },
-    {
-      "url": "https://kubernetes.io/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/",
-      "reason": "太短(893字)"
-    },
-    {
-      "url": "https://kubernetes.io/zh-cn/docs/concepts/services-networking/service-traffic-policy/",
-      "reason": "太短(1115字)"
-    },
-    {
-      "url": "https://kubernetes.io/zh-cn/docs/concepts/cluster-administration/compatibility-version/",
-      "reason": "太短(653字)"
-    },
-    {
-      "url": "https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/running-multiple-schedulers/",
-      "reason": "太短(1171字)"
-    },
-    {
-      "url": "https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/static-pods/",
-      "reason": "太短(1388字)"
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/configuration/",
+      "reason": "太短(299字)"
     }
   ],
-  "total_chars": 1004797,
-  "total_cn": 335129
+  "total_chars": 1263874,
+  "total_cn": 382905
 }

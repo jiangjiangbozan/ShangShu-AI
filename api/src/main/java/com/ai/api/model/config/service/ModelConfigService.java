@@ -186,7 +186,9 @@ public class ModelConfigService {
    */
   public String decryptApiKey(SysModelConfig config) {
     if (config.getApiKeyEncrypted() == null || config.getApiKeyEncrypted().isBlank()) {
-      return null;
+      // 明文回退：开发环境允许直接在 api_key 列填写（加密列优先）
+      String plain = config.getApiKey();
+      return (plain == null || plain.isBlank()) ? null : plain;
     }
     try {
       return encryptor.decrypt(config.getApiKeyEncrypted());

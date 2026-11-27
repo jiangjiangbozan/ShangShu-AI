@@ -286,6 +286,9 @@ elasticsearch:
 rag:
   query-rewrite:
     enabled: true
+    # 主改写模型：按 sys_model_config 动态取用（需在模型表配置 api_key）；默认百炼 qwen3.8-max
+    model-id: ${RAG_QUERY_REWRITE_MODEL_ID:qwen3.8-max-0902}
+    # 历史字段，改写模型实际由 model-id 决定
     model: deepseek
     fallback-model: ollama-qwen25
     timeout-ms: 3000

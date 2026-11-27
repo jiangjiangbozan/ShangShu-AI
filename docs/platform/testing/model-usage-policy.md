@@ -12,13 +12,30 @@
 
 ## 二、当前已授权的模型
 
-| 模型 | 允许用途 | 额度（2026-11-27） |
+| 模型 | 允许用途 | 额度（2026-11-27 最新） |
 |---|---|---|
-| `qwen3.7-text-embedding-flash` | 知识库切片向量化、向量重嵌入 | 剩 217.33K / 1M |
-| `qwen3.7-text-rerank` | 检索精排、评测链路 rerank 阶段 | 剩 502.22K / 1M |
-| `qwen3.8-max-0902` | 生成 RAG 评测题（build_dataset 类任务） | 剩 1M / 1M |
+| `qwen3.7-text-embedding-flash` | 知识库切片向量化、向量重嵌入 | 剩 64.2K / 1M |
+| `qwen3.7-text-rerank` | 检索精排、评测链路 rerank 阶段 | 剩 312.73K / 1M |
+| `qwen3.8-max-0902` | 生成 RAG 评测题；**QueryRewrite 查询改写**（替代本地 Ollama） | 剩 999.88K / 1M |
 
-## 三、越权事件记录
+## 三、QueryRewrite 链路的模型落点（2026-11-27 修复）
+
+用户授权 `qwen3.8-max-0902` 替代本地 Ollama 后，QueryRewrite 的模型链路做了如下调整：
+
+| 环节 | 修复前 | 修复后 |
+|---|---|---|
+| 主模型 | `deepSeekChatClient`（api_key 为空 → 401） | `ChatClientFactory.getChatClient("qwen3.8-max-0902")` 动态热建（读 `sys_model_config`） |
+| fallback | `ollamaChatClient`（116 秒/次 > 3 秒超时 → 必挂） | 保留兜底，主模型可用时不再触发 |
+
+修复要点：
+
+1. `sys_model_config` 的 qwen 条目更新为 `model_id=qwen3.8-max-0902`、`api_key` 填真实百炼 key、`base_url=https://dashscope.aliyuncs.com/compatible-mode`。
+2. `ModelConfigService.decryptApiKey` 增加**明文 `api_key` 列回退**（此前只认 `api_key_encrypted`，导致明文 key 被判为不可用，静态 Bean 复用 DeepSeek 的空 key → 401）。
+3. `QueryRewriteService` 改用 `ChatClientFactory` 动态路由，配置项 `rag.query-rewrite.model-id`（默认 `qwen3.8-max-0902`）。
+
+**已知限制**：qwen3.8-max 为推理型模型，单次改写实测 **28.8 秒**，同步链路下单次检索整体 29.8 秒。生产环境建议改为异步改写或使用更小模型（需另行授权）。
+
+## 四、越权事件记录
 
 ### 2026-11-27：qwen-plus 未经授权调用
 
@@ -27,7 +44,7 @@
 - **性质**：用户只授权了两个向量模型，qwen-plus 属未授权模型，调用前未询问。
 - **处置**：停止调用；相关脚本 `dev/rag-eval/build_dataset_kb5.py` 保留但标注为「使用前须确认授权模型」；后续改用 `qwen3.8-max-0902`。
 
-## 四、脚本侧落点
+## 五、脚本侧落点
 
 | 脚本 | 使用的模型 | 备注 |
 |---|---|---|
