@@ -155,14 +155,15 @@ fun LiveTranslateScreen(onBack: () -> Unit) {
                 }
                 if (state.captions.isEmpty()) {
                     item {
+                        val hint = when (state.phase) {
+                            UiState.Phase.IDLE -> "选择语言后点击麦克风开始实时翻译"
+                            UiState.Phase.CONNECTING -> "正在连接同传服务…"
+                            UiState.Phase.RUNNING -> "正在聆听，请开始说话…"
+                            UiState.Phase.FINISHING -> "正在收尾，等待剩余译文…"
+                            UiState.Phase.FINISHED -> "本次同传已结束，可再次开始"
+                        }
                         Text(
-                            when (state.phase) {
-                                UiState.Phase.IDLE -> "选择语言后点击麦克风开始实时翻译"
-                                UiState.Phase.CONNECTING -> "正在连接同传服务…"
-                                UiState.Phase.RUNNING -> "正在聆听，请开始说话…"
-                                UiState.Phase.FINISHING -> "正在收尾，等待剩余译文…"
-                                UiState.Phase.FINISHED -> "本次同传已结束，可再次开始",
-                            },
+                            hint,
                             fontSize = 14.sp,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier.padding(top = 24.dp),
