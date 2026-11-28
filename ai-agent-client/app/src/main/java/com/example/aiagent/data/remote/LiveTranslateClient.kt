@@ -57,7 +57,8 @@ class LiveTranslateClient(
         val token = SessionManager.accessToken
             ?: throw IllegalStateException("未登录，无法使用实时同传")
         val mode = if (audioOutput) "audio" else "text"
-        val url = "$wsEndpoint()?token=$token&lang=$lang&mode=$mode"
+        // 注意：$wsEndpoint 已含完整路径，后面不能跟 ()——否则会拼出 /ws/live-translate() 导致后端 500
+        val url = "$wsEndpoint?token=$token&lang=$lang&mode=$mode"
         val request = Request.Builder().url(url).build()
         webSocket = okHttpClient.newWebSocket(request, this)
     }
