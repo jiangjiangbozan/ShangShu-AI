@@ -74,6 +74,8 @@ public class RagRetrievalService {
   private final RerankService rerankService;
   // 知识库文档 Mapper，用于结构化过滤（fileType/documentId → documentId 集合）
   private final KnowledgeDocumentMapper knowledgeDocumentMapper;
+  // 跨语言检索：外文 query 译成语料语言（add-cross-language）
+  private final CrossLanguageQueryService crossLanguageQueryService;
 
   /** RRF算法平滑系数k，配置文件读取，默认60 k越大，排名先后对分数的影响越弱 */
   @Value("${rag.query-rewrite.rrf-k:60}")
@@ -99,7 +101,8 @@ public class RagRetrievalService {
       ParentDocumentRetrievalService parentDocumentRetrievalService,
       KnowledgeGraphRetrievalService knowledgeGraphRetrievalService,
       RerankService rerankService,
-      KnowledgeDocumentMapper knowledgeDocumentMapper) {
+      KnowledgeDocumentMapper knowledgeDocumentMapper,
+      CrossLanguageQueryService crossLanguageQueryService) {
     this.vectorStore = vectorStoreProvider.getIfAvailable();
     this.queryRewriteService = queryRewriteService;
     this.ragHitsCacheService = ragHitsCacheService;
@@ -109,6 +112,7 @@ public class RagRetrievalService {
     this.knowledgeGraphRetrievalService = knowledgeGraphRetrievalService;
     this.rerankService = rerankService;
     this.knowledgeDocumentMapper = knowledgeDocumentMapper;
+    this.crossLanguageQueryService = crossLanguageQueryService;
   }
 
   /**
@@ -184,14 +188,19 @@ public class RagRetrievalService {
    * @return 排序后的文档（精排后裁剪 topK）
    */
   private List<Document> doRetrieveWithRrf(RetrievalFilter filter, String rawQuery, int topK) {
+    // 0. 跨语言预处理（add-cross-language）：外文 query 译成语料语言后再改写/召回，
+    //    翻译失败自动降级原文，主链路不中断；缓存 key 仍用原始 query（译文确定性好）
+    CrossLanguageQueryService.PreparedQuery prepared = crossLanguageQueryService.prepare(rawQuery);
+    String retrievalQuery = prepared.retrievalQuery();
+
     // 1. 查询改写：原始问题生成多条扩展问句
-    List<String> queries = queryRewriteService.rewrite(rawQuery);
+    List<String> queries = queryRewriteService.rewrite(retrievalQuery);
     // 读取配置的检索方法列表：semantic / fulltext / parent / knowledge_graph
     List<String> methods = parseRetrievalMethods();
 
     // 边界：只有1条问句且只有1个检索器，不需要RRF多路融合，直接单路召回
     if (queries.size() == 1 && methods.size() == 1) {
-      return retrieveSingle(rawQuery, topK, methods.get(0), filter);
+      return retrieveSingle(retrievalQuery, topK, methods.get(0), filter);
     }
 
     // docById：保存全部文档，key=文档id，value=文档对象，做去重
@@ -238,8 +247,8 @@ public class RagRetrievalService {
         methods,
         ranked.size());
 
-    // 6. 精排（关闭时原序返回）后裁剪 topK
-    List<Document> reranked = rerankService.rerank(rawQuery, ranked, topK);
+    // 6. 精排（关闭时原序返回）后裁剪 topK（精排用译后 query，与语料同语言）
+    List<Document> reranked = rerankService.rerank(retrievalQuery, ranked, topK);
     return truncate(reranked, topK);
   }
 
@@ -437,46 +446,42 @@ public class RagRetrievalService {
     trace.put("originalQuery", rawQuery);
     trace.put("rrfK", activeRrfK);
 
+    // 0. 跨语言预处理（add-cross-language）：外文 query 译成语料语言；trace 透出全过程
+    long tcl = System.currentTimeMillis();
+    CrossLanguageQueryService.PreparedQuery prepared = crossLanguageQueryService.prepare(rawQuery);
+    String retrievalQuery = prepared.retrievalQuery();
+    Map<String, Object> crossInfo = new LinkedHashMap<>();
+    crossInfo.put("status", prepared.status());
+    crossInfo.put("detectedSourceLang", prepared.detectedSourceLang());
+    crossInfo.put("targetLang", prepared.targetLang());
+    if (prepared.translated()) {
+      crossInfo.put("translatedQuery", retrievalQuery);
+    }
+    trace.put("crossLanguage", crossInfo);
+    trace.put("crossLanguageTookMs", System.currentTimeMillis() - tcl);
+
     // 1. QueryRewrite
     long t0 = System.currentTimeMillis();
-    List<String> queries = queryRewriteService.rewrite(rawQuery);
+    List<String> queries = queryRewriteService.rewrite(retrievalQuery);
     trace.put("rewrittenQueries", queries);
     trace.put("rewriteTookMs", System.currentTimeMillis() - t0);
 
-    // 2. 按当前配置的检索方法，逐路召回（单 query 原始问题，不走多 query 展开以简化 trace）
+    // 2. 按当前配置的检索方法，逐路召回（单 query 检索问句，不走多 query 展开以简化 trace）
     RetrievalFilter filter = RetrievalFilter.of(kbId, null, null);
     List<String> methods = parseRetrievalMethods();
 
     // 2a. 向量路
     long t1 = System.currentTimeMillis();
-    List<Document> vectorHits = retrieveSemantic(rawQuery, filter);
-    trace.put(
-        "vectorRecall",
-        vectorHits.stream()
-            .limit(topKPerQuery)
-            .map(
-                d ->
-                    Map.of(
-                        "chunkId", d.getId(),
-                        "score", d.getMetadata().getOrDefault("score", 0.0),
-                        "text", truncateText(d.getText(), 200)))
-            .toList());
+    List<Document> vectorHits = retrieveSemantic(retrievalQuery, filter);
+    List<Map<String, Object>> vectorItems = previewItems(vectorHits, topKPerQuery, "score");
+    trace.put("vectorRecall", vectorItems);
     trace.put("vectorRecallTookMs", System.currentTimeMillis() - t1);
 
     // 2b. 关键词路
     long t2 = System.currentTimeMillis();
-    List<Document> kwHits = retrieveFulltext(rawQuery, filter);
-    trace.put(
-        "keywordRecall",
-        kwHits.stream()
-            .limit(topKPerQuery)
-            .map(
-                d ->
-                    Map.of(
-                        "chunkId", d.getId(),
-                        "score", d.getMetadata().getOrDefault("score", 0.0),
-                        "text", truncateText(d.getText(), 200)))
-            .toList());
+    List<Document> kwHits = retrieveFulltext(retrievalQuery, filter);
+    List<Map<String, Object>> kwItems = previewItems(kwHits, topKPerQuery, "score");
+    trace.put("keywordRecall", kwItems);
     trace.put("keywordRecallTookMs", System.currentTimeMillis() - t2);
 
     // 3. RRF 融合（仅当前两路）
@@ -495,43 +500,64 @@ public class RagRetrievalService {
     }
     List<Map.Entry<String, Double>> sorted = new ArrayList<>(rrfScore.entrySet());
     sorted.sort(Map.Entry.<String, Double>comparingByValue().reversed());
-    List<Map<String, Object>> rrfMerged =
-        sorted.stream()
-            .limit(topKPerQuery * 2)
-            .map(
-                e -> {
-                  Document d = docById.get(e.getKey());
-                  Map<String, Object> item = new LinkedHashMap<>();
-                  item.put("chunkId", d.getId());
-                  item.put("rrfScore", round(e.getValue(), 4));
-                  item.put("text", truncateText(d.getText(), 200));
-                  return item;
-                })
-            .toList();
-    trace.put("rrfMerged", rrfMerged);
+    List<Map<String, Object>> rrfItems = new ArrayList<>();
+    sorted.stream()
+        .limit(topKPerQuery * 2L)
+        .forEach(
+            e -> {
+              Document d = docById.get(e.getKey());
+              Map<String, Object> item = new LinkedHashMap<>();
+              item.put("chunkId", d.getId());
+              item.put("rrfScore", round(e.getValue(), 4));
+              item.put("text", truncateText(d.getText(), 200));
+              rrfItems.add(item);
+            });
+    trace.put("rrfMerged", rrfItems);
     trace.put("rrfMergedTookMs", System.currentTimeMillis() - t3);
 
     // 4. Rerank 精排（带状态观测：success/disabled/degraded + 降级原因，供评测与 retrieve-test 透出）
     List<Document> reranked;
     long t4 = System.currentTimeMillis();
     RerankService.RerankOutcome rerankOutcome =
-        rerankService.rerankWithStatus(rawQuery, new ArrayList<>(docById.values()), topK);
+        rerankService.rerankWithStatus(retrievalQuery, new ArrayList<>(docById.values()), topK);
     reranked = rerankOutcome.documents();
     trace.put("rerankStatus", rerankOutcome.status());
     trace.put("rerankReason", rerankOutcome.reason());
-    trace.put(
-        "reranked",
-        reranked.stream()
-            .map(
-                d -> {
-                  Map<String, Object> item = new LinkedHashMap<>();
-                  item.put("chunkId", d.getId());
-                  item.put("finalScore", d.getMetadata().getOrDefault("rerankScore", 0.0));
-                  item.put("text", truncateText(d.getText(), 200));
-                  return item;
-                })
-            .toList());
+    List<Map<String, Object>> rerankItems = new ArrayList<>();
+    for (Document d : reranked) {
+      Map<String, Object> item = new LinkedHashMap<>();
+      item.put("chunkId", d.getId());
+      item.put("finalScore", d.getMetadata().getOrDefault("rerankScore", 0.0));
+      item.put("text", truncateText(d.getText(), 200));
+      rerankItems.add(item);
+    }
+    trace.put("reranked", rerankItems);
     trace.put("rerankTookMs", System.currentTimeMillis() - t4);
+
+    // 4.1 跨语言回译：跨语言 query 命中时把片段预览回译回 query 语言（trace 展示用）
+    if (prepared.translated() && crossLanguageQueryService.isTranslateResultsEnabled()) {
+      long t5 = System.currentTimeMillis();
+      List<List<Map<String, Object>>> previewLanes =
+          List.of(vectorItems, kwItems, rrfItems, rerankItems);
+      List<String> previews = new ArrayList<>();
+      for (List<Map<String, Object>> lane : previewLanes) {
+        for (Map<String, Object> item : lane) {
+          previews.add((String) item.get("text"));
+        }
+      }
+      List<String> localized =
+          crossLanguageQueryService.backTranslatePreviews(previews, prepared.originalQuery());
+      int idx = 0;
+      for (List<Map<String, Object>> lane : previewLanes) {
+        for (Map<String, Object> item : lane) {
+          String localizedText = localized.get(idx++);
+          if (localizedText != null && !localizedText.isBlank()) {
+            item.put("localizedText", localizedText);
+          }
+        }
+      }
+      trace.put("backTranslateTookMs", System.currentTimeMillis() - t5);
+    }
 
     // 5. 最终文档
     trace.put(
@@ -550,6 +576,19 @@ public class RagRetrievalService {
     // 汇总
     trace.put("totalTookMs", System.currentTimeMillis() - t0);
     return trace;
+  }
+
+  /** 召回路预览条目构造（LinkedHashMap，便于后续追加 localizedText）。 */
+  private List<Map<String, Object>> previewItems(List<Document> docs, int limit, String scoreKey) {
+    List<Map<String, Object>> items = new ArrayList<>();
+    for (Document d : docs.stream().limit(limit).toList()) {
+      Map<String, Object> item = new LinkedHashMap<>();
+      item.put("chunkId", d.getId());
+      item.put(scoreKey, d.getMetadata().getOrDefault(scoreKey, 0.0));
+      item.put("text", truncateText(d.getText(), 200));
+      items.add(item);
+    }
+    return items;
   }
 
   private static String truncateText(String text, int maxLen) {

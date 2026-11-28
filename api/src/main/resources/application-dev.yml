@@ -294,6 +294,12 @@ rag:
     timeout-ms: 3000
     max-tokens: 200
     min-query-length: 6
+  # 跨语言检索（add-cross-language）：外文 query 先经 qwen-mt-uni 译成 target-lang 再召回，
+  # 失败自动降级原文；translate-results 控制是否把召回片段预览回译回 query 语言（检索测试 trace 用）
+  cross-language:
+    enabled: ${RAG_CROSS_LANGUAGE_ENABLED:true}
+    target-lang: ${RAG_CROSS_LANGUAGE_TARGET_LANG:zh}
+    translate-results: ${RAG_CROSS_LANGUAGE_TRANSLATE_RESULTS:true}
     rrf-k: 60
     top-k-per-query: 5
     # 多检索器混合召回（add-multi-retriever）：逗号分隔，对齐 Dify RetrievalMethod.hybrid_search
