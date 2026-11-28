@@ -950,10 +950,18 @@ onUnmounted(stopBatchProgressPolling)
             </el-descriptions-item>
           </el-descriptions>
 
-          <template v-if="docDetail.document.summary">
+          <template v-if="docDetail.document.summary || docDetail.document.summaryEn">
             <el-divider content-position="left">文档摘要</el-divider>
             <div class="doc-summary">
-              <p class="summary-text">{{ docDetail.document.summary }}</p>
+              <p v-if="docDetail.document.summary" class="summary-text">
+                {{ docDetail.document.summary }}
+              </p>
+              <p
+                v-if="docDetail.document.summaryEn"
+                class="summary-text summary-text--en"
+              >
+                {{ docDetail.document.summaryEn }}
+              </p>
               <div v-if="docDetail.document.keywords" class="keyword-row">
                 <el-tag
                   v-for="kw in docDetail.document.keywords.split(',')"
@@ -1323,6 +1331,12 @@ onUnmounted(stopBatchProgressPolling)
   font-size: 13px;
   line-height: 1.7;
   color: var(--text-secondary, #606266);
+}
+
+.summary-text--en {
+  margin-top: -4px;
+  font-style: italic;
+  color: var(--text-tertiary, #909399);
 }
 
 .keyword-row {

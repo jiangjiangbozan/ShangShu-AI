@@ -35,6 +35,9 @@ public class KnowledgeDocument {
   /** 问答对 JSON（[{q,a},...]） */
   private String qaJson;
 
+  /** 英文摘要（qwen-mt-uni 离线翻译，双语摘要产出） */
+  private String summaryEn;
+
   @TableField(fill = com.baomidou.mybatisplus.annotation.FieldFill.INSERT)
   private String creator;
 

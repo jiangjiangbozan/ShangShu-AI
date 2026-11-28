@@ -35,6 +35,7 @@ export interface KnowledgeDocumentResp {
   status: 'pending' | 'parsing' | 'vectorizing' | 'completed' | 'failed'
   errorMessage: string | null
   summary?: string | null
+  summaryEn?: string | null
   keywords?: string | null
   qaJson?: string | null
   createTime: string
