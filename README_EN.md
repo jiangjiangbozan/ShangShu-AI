@@ -2,123 +2,149 @@
   <img src="docs/logo.png" alt="ShangShu AI Logo" width="120" />
 </p>
 
+<h1 align="center">ShangShu AI</h1>
+
 <p align="center">
-  <h1 align="center">ShangShu AI · 尚枢 AI</h1>
-  <p align="center">A self-hosted AI application platform for Java / Spring Boot teams</p>
+  <strong>A self-hosted AI application platform built entirely on Java</strong><br />
+  Multi-model gateway · Knowledge-base RAG · Agent workflows · Customer service · Security governance
+</p>
+
+<p align="center">
+  <a href="https://github.com/jiangjiangbozan/ShangShu-AI/actions/workflows/ci.yml"><img src="https://github.com/jiangjiangbozan/ShangShu-AI/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg" alt="License" /></a>
+  <img src="https://img.shields.io/badge/Java-21-orange.svg" alt="Java 21" />
+  <img src="https://img.shields.io/badge/Spring%20Boot-4.1-brightgreen.svg" alt="Spring Boot 4.1" />
+  <img src="https://img.shields.io/badge/Spring%20AI-2.0-6DB33F.svg" alt="Spring AI" />
+  <a href="https://github.com/jiangjiangbozan/ShangShu-AI/pulls"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome" /></a>
+  <a href="https://github.com/jiangjiangbozan/ShangShu-AI/discussions"><img src="https://img.shields.io/badge/Discussions-join-blueviolet.svg" alt="Discussions" /></a>
 </p>
 
 <p align="center">
   <a href="README.md">中文</a> ·
-  <a href="https://github.com/jiangjiangbozan/ShangShu-AI/actions"><img src="https://github.com/jiangjiangbozan/ShangShu-AI/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
+  <a href="#-quick-start">Quick start</a> ·
+  <a href="#-benchmarks">Benchmarks</a> ·
+  <a href="#-documentation">Docs</a> ·
+  <a href="#-roadmap">Roadmap</a> ·
+  <a href="#-contributing--community">Contributing</a>
 </p>
 
 <p align="center">
-  <a href="https://www.oracle.com/java/technologies/downloads/#java21">Java 21</a> ·
-  <a href="https://spring.io/projects/spring-boot">Spring Boot 4.1</a> ·
-  <a href="https://spring.io/projects/spring-ai">Spring AI</a> ·
-  <a href="https://element-plus.org">Element Plus</a> ·
-  <a href="https://vueflow.dev">Vue Flow</a>
+  <img src="docs/screenshots/dashboard.png" alt="Dashboard" width="880" />
 </p>
 
 ---
 
-> The landing page of this repository is served without login: open the web console and the public
-> home page introduces the platform, its capabilities and the open-source repository before you
-> decide to sign up.
+## Table of contents
 
-ShangShu AI is a **pure Java stack** self-hosted AI application platform. Built on Spring AI, it
-brings multi-model access, enterprise knowledge-base RAG, visual Agent workflows, runtime
-observability and security governance into one deployable, extensible and operable system.
-
-- **Spring AI native**: model access, embeddings and vector stores all go through Spring AI
-  abstractions; the embedding backend can be switched by configuration between local Ollama and Bailian
-- **Complete RAG pipeline**: QueryRewrite → semantic / keyword / parent-document / knowledge-graph
-  four-path recall → RRF fusion → Bailian Rerank → cited sources (50-question eval: Recall@5 0.940,
-  94% hit rate)
-- **Extensible workflow engine**: 20 node executors, DAG topology execution, variable context,
-  conditional branches and real-time SSE push
-- **Production ready out of the box**: Flyway migrations, JWT + RBAC + CSRF + XSS security stack,
-  RabbitMQ asynchronous architecture, Redis Stack session persistence
+- [Why ShangShu AI](#why-shangshu-ai)
+- [Features](#-features)
+- [Screenshots](#-screenshots)
+- [Tech stack & architecture](#-tech-stack--architecture)
+- [Quick start](#-quick-start)
+- [Docker deployment](#-docker-deployment)
+- [Key configuration](#-key-configuration)
+- [Benchmarks](#-benchmarks)
+- [Roadmap](#-roadmap)
+- [Documentation](#-documentation)
+- [Contributing & community](#-contributing--community)
+- [License](#-license)
 
 ---
 
-## Features
+## Why ShangShu AI
 
-| Module                     | Capability                                                                                                        |
-| -------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| **Multi-model management** | Unified access to DeepSeek / Qwen / Ollama, dynamic loading, connectivity tests, routing and fallback             |
-| **Knowledge base RAG**     | Document parsing and chunking, four-path recall, RRF, Bailian Rerank, feedback loop, Redis hit cache              |
-| **Agent**                  | Dual-strategy engine (ReAct / Function Calling), tool registry and invocation, execution trace                    |
-| **Visual workflow**        | 20 node types, Dify-style editor, canvas / minimap / custom edges, SSE runtime push                               |
-| **Customer service**       | Intent recognition, slot filling, clarification templates, state-machine dialogue, knowledge-base fallback        |
-| **Course Q&A**             | RAG Q&A scenario with QueryRewrite, multi-path retrieval and cited sources                                        |
-| **Platform security**      | Dual JWT tokens, CSRF double-submit, XSS filter, RBAC permissions, Jasypt encryption                              |
-| **Observability**          | TraceId across the full chain, conversation logs, LLM call statistics, Prometheus metrics, Actuator health checks |
-| **Multi-platform**         | Vue 3 admin console, Android client, uni-app mini program                                                         |
+Most AI application frameworks are Python-first. Java teams either import a foreign stack or hand-assemble scattered components. ShangShu AI wires the whole AI application surface into **one pure-Java engineering system**:
 
-### Workflow node catalogue (20 types)
+- **Spring AI native**: model access, embeddings and vector stores all go through Spring AI abstractions. The embedding backend switches between local Ollama and Alibaba DashScope with a single flag (both 768-dim; run `reembed.py` after switching).
+- **A RAG pipeline you can actually measure**: QueryRewrite → vector / keyword / parent-doc / knowledge-graph recall → RRF fusion → rerank → citations. **Recall@5 0.960 with a 96% hit rate on a 50-question benchmark**, all reproducible from the repo.
+- **Production plumbing included**: Flyway migrations, JWT + RBAC + CSRF + XSS, RabbitMQ async processing, Redis Stack sessions, Prometheus metrics, one-command Docker Compose.
+- **Consistent multi-client experience**: Vue 3 console, Android (Compose), uni-app mini program.
 
-Start · End · LLM · IfElse · Loop · Iteration · KnowledgeRetrieval · QuestionClassifier · Agent ·
-Code · HttpRequest · Tool · HumanInput · VariableAssigner · VariableAggregator ·
-TemplateTransform · ParameterExtractor · ListFilter · DocExtractor · Answer
+> The web app opens on a public landing page (platform overview, capability list, repo links) before login.
 
 ---
 
-## Tech stack
+## ✨ Features
 
-| Layer          | Technology                                                                                         |
-| -------------- | -------------------------------------------------------------------------------------------------- |
-| Backend        | Java 21 · Spring Boot 4.1 · Spring AI · Spring Security 7 · MyBatis-Plus 3.5 · Flyway · Redisson 4 |
-| Middleware     | MySQL 8 · Redis 7 Stack (with RediSearch) · Elasticsearch 9 · RabbitMQ 3.13                        |
-| Web            | Vue 3 · TypeScript · Vite · Element Plus · Pinia · Vue Flow · ECharts                              |
-| Mobile         | Kotlin · Jetpack Compose · Retrofit                                                                |
-| Infrastructure | Docker Compose · Nginx · p6spy · Spotless · Checkstyle                                             |
+| Module | Capabilities |
+| --- | --- |
+| **Model gateway** | DeepSeek / Qwen / Ollama behind one registry (`sys_model_config`), hot-rebuilt clients, connectivity tests, routing and fallback |
+| **Knowledge-base RAG** | Parsing and chunking, multi-channel recall, RRF, rerank, feedback loop, Redis hit cache, step-by-step retrieval debugging |
+| **Agent** | ReAct and Function-Calling engines, tool registry, execution tracing |
+| **Visual workflows** | 20 node executors, Dify-style canvas (minimap, custom edges), DAG execution, SSE streaming, per-node retry |
+| **Customer service** | Intent recognition, slot filling, clarification templates, state machine, KB fallback |
+| **Course Q&A** | RAG scenario: QueryRewrite + multi-channel retrieval + citations |
+| **Security** | JWT dual tokens, CSRF double-submit, XSS filter, RBAC, Jasypt field encryption |
+| **Observability** | End-to-end TraceId, conversation logs, LLM call stats, Prometheus, Actuator |
+| **Clients** | Vue 3 console · Android (Kotlin + Compose) · uni-app mini program |
 
-> **Version note**: Spring Boot 4.1 and Spring AI are pinned to GA releases; the Elasticsearch 9
-> client protocol matches Spring Data Elasticsearch 6.0; Redis Stack ships the RediSearch module
-> (`FT._LIST` is required by the Spring AI ChatMemory implementation).
+<details>
+<summary><b>Workflow node catalogue (20 types)</b></summary>
+
+`Start` · `End` · `LLM` · `IfElse` · `Loop` · `Iteration` · `KnowledgeRetrieval` · `QuestionClassifier` · `Agent` · `Code` · `HttpRequest` · `Tool` · `HumanInput` · `VariableAssigner` · `VariableAggregator` · `TemplateTransform` · `ParameterExtractor` · `ListFilter` · `DocExtractor` · `Answer`
+
+See [docs/workflow-nodes.md](docs/workflow-nodes.md) for usage and [docs/workflow-node-spi.md](docs/workflow-node-spi.md) for extending.
+
+</details>
 
 ---
 
-## Repository layout
+## 📸 Screenshots
+
+### Knowledge-base RAG
+
+![Knowledge-base RAG](docs/screenshots/knowledge-base-rag.png)
+
+> Retrieval results unfold step by step: original query, rewritten queries, per-channel latency, RRF fusion, rerank scores and the final citations.
+
+---
+
+## 🏗 Tech stack & architecture
+
+| Layer | Technology |
+| --- | --- |
+| Backend | Java 21 · Spring Boot 4.1 · Spring AI 2.0 · Spring Security 7 · MyBatis-Plus 3.5 · Flyway · Redisson 4 |
+| Middleware | MySQL 8 · Redis 7 Stack (RediSearch) · Elasticsearch 9 · RabbitMQ 3.13 |
+| Web | Vue 3 · TypeScript · Vite · Element Plus · Pinia · Vue Flow · ECharts |
+| Mobile | Kotlin · Jetpack Compose · Retrofit |
+| Infra | Docker Compose · Nginx · p6spy · Spotless · Checkstyle · GitHub Actions |
+
+> **Version note**: Spring Boot 4.1 / Spring AI 2.0 are milestone releases; ES 9 is aligned with the Spring Data Elasticsearch 6.0 client; Redis Stack ships RediSearch (`FT._LIST` is required by Spring AI ChatMemory).
 
 ```
 ai/
-├── api/                       # Backend service (Spring Boot + Spring AI)
+├── api/                       # Backend (Spring Boot + Spring AI)
 │   └── src/main/java/com/ai/api/
-│       ├── agent/             # Agent runtime: ReAct / FC engines, tool registry, execution trace
-│       ├── workflow/          # Visual workflow engine: 20 NodeExecutors, DAG executor
-│       ├── knowledge/         # Knowledge base RAG: parsing, chunking, multi-path retrieval, RRF, Rerank
-│       ├── chat/              # Chat: SSE streaming, session management, ES search index
-│       ├── cs/                # Customer service: intent, slot filling, clarification, state machine
-│       ├── course/            # Course knowledge Q&A scenario
-│       ├── model/             # Model management: dynamic loading, connectivity tests, routing fallback
-│       ├── identity/          # Identity: JWT, OAuth2, RBAC, API Key
-│       ├── data/              # Infrastructure: MyBatis-Plus config, RabbitMQ, Redis
-│       ├── audit/             # Operation audit
-│       ├── common/            # Shared layer: unified response, exceptions, TraceId, CORS
-│       └── ...                # See AGENTS.md for the full module list
-├── ai-agent-web/              # Web admin console (Vue 3 + Element Plus + Vue Flow)
-├── ai-agent-client/           # Android client (Kotlin + Jetpack Compose)
-├── ai-agent-mini/             # Mini program client (uni-app)
-├── docker-compose.yml         # Docker Compose (middleware / API / Web)
-├── .env.example               # Environment variable template (copy to .env)
-└── docs/                      # Development logs, specs and documents
+│       ├── agent/             # Agent runtime: ReAct / FC engines, tools, tracing
+│       ├── workflow/          # Workflow engine: 20 NodeExecutors, DAG runner
+│       ├── knowledge/         # RAG: parsing, chunking, recall, RRF, rerank
+│       ├── chat/              # Chat: SSE streaming, sessions, ES index
+│       ├── cs/                # Customer service: intents, slots, state machine
+│       ├── model/             # Model registry: hot loading, connectivity
+│       ├── identity/          # JWT, OAuth2, RBAC, API keys
+│       ├── data/              # MyBatis-Plus, RabbitMQ, Redis
+│       ├── audit/ · common/   # Audit, unified response, TraceId, CORS
+│       └── ...                # See api/AGENTS.md
+├── ai-agent-web/              # Web console (Vue 3 + Element Plus + Vue Flow)
+├── ai-agent-client/           # Android (Kotlin + Compose)
+├── ai-agent-mini/             # Mini program (uni-app)
+├── dev/                       # Evaluation & corpus tooling (datasets, fetch, re-embed, calibration)
+├── docs/                      # Architecture, benchmark reports, dev logs, templates
+├── docker-compose.yml         # Middleware / API / Web orchestration
+└── .env.example               # Environment template
 ```
 
 ---
 
-## Quick start
+## 🚀 Quick start
 
-### Mode A: local development (recommended)
-
-Requirements: Docker + JDK 21 + Node 22+ + Maven 3.9+
+**Requirements**: Docker + JDK 21 + Node 22+ + Maven 3.9+
 
 ```bash
-# 1. Start middleware (MySQL / Redis / ES / RabbitMQ)
+# 1. Start middleware (MySQL / Redis Stack / ES / RabbitMQ)
 docker compose up -d
 
-# 2. Start backend (zero configuration: application-dev.yml defaults match Compose)
+# 2. Start the backend (zero config: application-dev.yml matches Compose defaults)
 cd api
 mvn spring-boot:run -Dspring-boot.run.profiles=dev
 # Swagger:  http://localhost:8080/swagger-ui.html
@@ -131,139 +157,159 @@ npm run dev
 # Open: http://localhost:5173
 ```
 
-> **Notes**:
->
-> - **No `.env` needed for local development.** The defaults (MySQL `ai_agent` / `ai_agent_123`,
->   Redis, RabbitMQ, …) already match `docker-compose.yml`. `mvn spring-boot:run` does not read
->   `.env`; inject environment variables through your IDE or the run configuration instead.
-> - If port 3306 is already taken by a local MySQL, pick either:
->   ① stop the local service (e.g. `Stop-Service MySQL80`) then run `docker compose up -d`;
->   ② switch the port: `MYSQL_HOST_PORT=3307 docker compose up -d`, and start the backend with
->   `MYSQL_PORT=3307`.
+**Smoke test**:
 
-> **Extra dependency for RAG**: embeddings default to Bailian `qwen3.7-text-embedding-flash`
-> (OpenAI-compatible endpoint, 768 dims), so an API key is required:
->
-> ```bash
-> # option 1: environment variable
-> export DASHSCOPE_API_KEY=sk-xxx
->
-> # option 2: local secret file (git-ignored, never committed)
-> # api/src/main/resources/application-secret.yml
-> # dashscope:
-> #   api-key: sk-xxx
-> ```
->
-> For a fully offline setup, switch back to local Ollama with `RAG_EMBEDDING_PROVIDER=ollama` and
-> `ollama pull nomic-embed-text`. Both produce 768 dims; after switching you must re-embed all
-> chunks via `dev/rag-eval/reembed.py`, otherwise semantic retrieval breaks.
->
-> Rerank also runs on Bailian and is enabled by default; disabling it or a failed call falls back to
-> the RRF order automatically.
->
-> This step is only required for RAG retrieval and knowledge-base vectorization. Testing Chat / Agent
-> / Workflow does not need it.
+- `curl http://localhost:8080/actuator/health` returns `{"status":"UP"}`
+- `http://localhost:5173` shows the landing page; sign up and enter the dashboard
+- Create a knowledge base, upload a Markdown file, and watch each retrieval stage in the "retrieval test" panel
 
-### Mode B: full Docker deployment
+> **Port conflict**: if host port 3306 is taken, run `MYSQL_HOST_PORT=3307 docker compose up -d` and start the backend with `MYSQL_PORT=3307`.
+
+---
+
+## 🐳 Docker deployment
 
 ```bash
 cp .env.example .env
-# .env already ships working development defaults; a full deployment requires at least
-# AI_AUTH_JWT_SECRET and JASYPT_ENCRYPTOR_PASSWORD (the API service validates them)
+# A full deployment requires at least AI_AUTH_JWT_SECRET and JASYPT_ENCRYPTOR_PASSWORD
 
-# Start everything (middleware + API + Web)
 docker compose --profile full up -d --build
-
-# API:  http://localhost:8080
-# Web:  http://localhost
+# API: http://localhost:8080
+# Web: http://localhost
 ```
 
-> **Before going to production** make sure to:
->
-> - Replace `AI_AUTH_JWT_SECRET` with a random string of at least 32 characters
-> - Replace `JASYPT_ENCRYPTOR_PASSWORD` with a strong password
-> - Replace `MYSQL_ROOT_PASSWORD`, `MYSQL_PASSWORD` and `REDIS_PASSWORD`
-> - Replace `RABBITMQ_PASSWORD` (default `Admin@123456`, must match the API service)
-> - Configure at least one usable model API key (`DEEPSEEK_API_KEY` / `QWEN_API_KEY`, …)
+| Command | Services |
+| --- | --- |
+| `docker compose up -d` | MySQL · Redis Stack · Elasticsearch · RabbitMQ (middleware only) |
+| `docker compose --profile full up -d --build` | middleware + API + Web |
 
-### Docker Compose profiles
-
-| Command                                       | Services started                                                 |
-| --------------------------------------------- | ---------------------------------------------------------------- |
-| `docker compose up -d`                        | MySQL · Redis Stack · Elasticsearch · RabbitMQ (middleware only) |
-| `docker compose --profile full up -d --build` | The above plus API and Web (full deployment)                     |
-
-> Ollama is not orchestrated by Compose (its service definition is kept but commented out): RAG
-> embeddings connect to the host Ollama instance (`localhost:11434`) by default, so the native
-> Windows/macOS desktop app or a host service works without containerisation.
+> Before going to production, change `AI_AUTH_JWT_SECRET` (≥32 random chars), `JASYPT_ENCRYPTOR_PASSWORD`, `MYSQL_ROOT_PASSWORD`, `MYSQL_PASSWORD`, `REDIS_PASSWORD`, `RABBITMQ_PASSWORD`, and provide at least one model API key.
 
 ---
 
-## Screenshots
+## ⚙️ Key configuration
 
-### Platform dashboard
+### Models
 
-![Platform dashboard](docs/screenshots/dashboard.png)
+Models live in the `sys_model_config` table (provider / model_id / base_url / api_key). `ChatClientFactory` hot-builds a client per model id; `api_key` supports both the encrypted column (`api_key_encrypted`, Jasypt) and the plain column.
 
-### Knowledge base RAG
+### Embedding & rerank
 
-![Knowledge base RAG](docs/screenshots/knowledge-base-rag.png)
+```yaml
+rag:
+  embedding:
+    provider: dashscope   # dashscope | ollama
+  rerank:
+    enabled: true
+    protocol: dashscope
+    model: qwen3.7-text-rerank
+```
+
+Key resolution order: `DASHSCOPE_API_KEY` env → `api/src/main/resources/application-secret.yml` (gitignored) → empty.
+
+> Fully offline: set `RAG_EMBEDDING_PROVIDER=ollama` and `ollama pull nomic-embed-text`; both are 768-dim, but re-embed all chunks with `dev/rag-eval/reembed.py` after switching.
+
+### Knowledge-base hit gate
+
+`cs.kb-hit-threshold` defaults to **0.4**, derived from a 215-question rerank calibration (see [rerank-calibration-report.md](docs/platform/testing/rerank-calibration-report.md)).
 
 ---
 
-## Backend API
+## 📊 Benchmarks
 
-- Swagger UI: `http://localhost:8080/swagger-ui.html` after startup
-- Actuator: `/actuator/health` · `/actuator/prometheus`
+Every number below is reproducible: datasets, scripts and reports live in `dev/` and `docs/platform/testing/`.
+
+### Corpus
+
+| Knowledge base | Docs | Chunks | Tokens | Source |
+| --- | --- | --- | --- | --- |
+| kb1 benchmark | 2 | 70 | 12,486 | Compiler-principles lab report |
+| kb3 tech docs | 27 | 338 | 56,170 | Project's own docs |
+| kb4 official docs | 33 | 747 | 122,968 | Spring AI / MyBatis-Plus / Elasticsearch / RabbitMQ repos |
+| kb5 Chinese docs | 193 | 2,024 | 353,565 | Kubernetes official docs (CC BY 4.0) |
+| **Total** | **255** | **3,179** | **545,189** | MySQL and ES counts reconcile |
+
+### Retrieval quality (kb1 · 50 questions)
+
+| Config | Recall@5 | MRR | nDCG@5 | Hit rate | Rerank tokens per query |
+| --- | --- | --- | --- | --- | --- |
+| RRF only | 0.780 | 0.491 | 0.563 | — | 0 |
+| **+ Rerank (800-char truncation)** | **0.960** | **0.857** | **0.884** | **96%** | **5,210** |
+
+> 800-char truncation saves 32% tokens while improving metrics over 1,200 chars (0.940 → 0.960). See [rag-eval-slim-report.md](docs/platform/testing/rag-eval-slim-report.md).
+
+### Rerank calibration (215 independent questions)
+
+| Gate threshold | Positive kept | Negative leaked |
+| --- | --- | --- |
+| 0.3 | 85.5–87.5% | 5.6–6.6% |
+| **0.4 (default)** | **80–84%** | **2.1–2.8%** |
+| 0.5 | 74.5–75.0% | 0.6–1.0% |
+| 0.6 | 61.8–63.7% | 0–0.3% |
+
+> Top-1 accuracy of the positive passage: 92.5% with 5 candidates, 91.2% with 10, 87.3% with 15. A 0.5 gate silently drops ~1/4 of positives — the real cause behind the early "rerank hurts Chinese corpus" result. See [rerank-calibration-report.md](docs/platform/testing/rerank-calibration-report.md).
+
+### Corpus enrichment
+
+All 255 documents now carry a summary, 5 keywords and 3 Q&A pairs (1,275 keywords, 765 QA pairs), generated offline and backfilled into the database; `qa_json` can seed evaluation sets. See [corpus-enrichment-report.md](docs/platform/testing/corpus-enrichment-report.md).
 
 ---
 
-## Documentation
+## 🗺 Roadmap
+
+- [x] Multi-model gateway with hot loading and connectivity checks
+- [x] Full RAG pipeline (QueryRewrite / multi-channel recall / RRF / rerank / citations)
+- [x] RAG evaluation harness (datasets + Recall/MRR/nDCG reports + gate calibration)
+- [x] Visual workflow engine (20 node executors + DAG + SSE)
+- [x] Agent ReAct / Function-Calling engines
+- [x] App publishing with unified API keys (OpenAI-compatible)
+- [x] Workflow run persistence + DAG execution view
+- [x] Prompt versioning · workflow versioning · node retry · parallel branches
+- [x] Corpus enrichment (summary / keywords / Q&A) surfaced in the doc drawer
+- [ ] Multimodal corpus: diagram captioning (VL) for image-aware retrieval
+- [ ] Voice pipeline: STT / TTS (`VoiceService` already exposes OpenAI-compatible endpoints)
+- [ ] Dark mode for the web console (GFI-3)
+- [ ] Knowledge-graph recall enhancements and incremental indexing
+- [ ] Raise unit-test coverage to 60%
+
+---
+
+## 📚 Documentation
 
 Most documents are written in Chinese.
 
-| Document                        | Path                            |
-| ------------------------------- | ------------------------------- |
-| Architecture                    | `docs/platform/architecture.md` |
-| Development log                 | `docs/dev-log/`                 |
-| RAG retrieval evaluation report | `docs/rag-eval-report.md`       |
-| Workflow node extension guide   | `docs/workflow-node-spi.md`     |
-| Workflow node usage (20 types)  | `docs/workflow-nodes.md`        |
-| Official workflow templates     | `docs/workflow-templates/`      |
-| Technical articles              | `docs/articles/`                |
-| Backend conventions             | `api/AGENTS.md`                 |
-| Frontend conventions            | `ai-agent-web/AGENTS.md`        |
-| General development principles  | `AGENTS.md`                     |
+| Document | Path |
+| --- | --- |
+| Architecture | [docs/platform/architecture.md](docs/platform/architecture.md) |
+| Corpus statistics | [docs/platform/testing/knowledge-base-corpus.md](docs/platform/testing/knowledge-base-corpus.md) |
+| RAG benchmark (50 Q) | [docs/platform/testing/rag-eval-slim-report.md](docs/platform/testing/rag-eval-slim-report.md) |
+| Chinese corpus eval (80 Q) | [docs/platform/testing/rag-eval-kb5-report.md](docs/platform/testing/rag-eval-kb5-report.md) |
+| Rerank calibration | [docs/platform/testing/rerank-calibration-report.md](docs/platform/testing/rerank-calibration-report.md) |
+| Corpus enrichment | [docs/platform/testing/corpus-enrichment-report.md](docs/platform/testing/corpus-enrichment-report.md) |
+| Workflow nodes / SPI | [docs/workflow-nodes.md](docs/workflow-nodes.md) · [docs/workflow-node-spi.md](docs/workflow-node-spi.md) |
 
-## Community
+---
 
-- **Contribute**: [CONTRIBUTING.md](CONTRIBUTING.md) (environment setup · code style · PR flow)
-- **Good first issues**: [Good First Issues](docs/good-first-issues.md) (5 beginner tasks with acceptance criteria)
-- **Security vulnerabilities**: please report privately, do not open a public issue — see [SECURITY.md](SECURITY.md)
-- **Release notes**: [Release Notes](docs/release-notes/) (current version v0.1.0)
+## 🤝 Contributing & community
+
+- **Contributing**: [CONTRIBUTING.md](CONTRIBUTING.md) (setup · conventions · PR flow)
+- **Good first issues**: [docs/good-first-issues.md](docs/good-first-issues.md)
+- **Security**: report privately via [SECURITY.md](SECURITY.md)
+- **Release notes**: [docs/release-notes/](docs/release-notes/) (currently v0.1.0)
 - **Discussions**: [GitHub Discussions](https://github.com/jiangjiangbozan/ShangShu-AI/discussions)
+
+If this project helps you, a ⭐ Star is appreciated.
 
 ---
 
 ## License
 
-Apache License 2.0
+[Apache License 2.0](LICENSE)
 
 ---
 
-## Roadmap
+## ⭐ Star History
 
-- [x] Multi-model access + dynamic loading + connectivity tests
-- [x] Knowledge base RAG retrieval pipeline (hybrid recall + RRF + Rerank + QueryRewrite)
-- [x] Visual workflow engine (20 NodeExecutors + DAG executor)
-- [x] Agent ReAct / Function Calling dual-strategy engine
-- [x] JWT + RBAC + CSRF + XSS security stack
-- [x] AI application publishing and unified API Key invocation (chat / rag / agent / workflow, OpenAI-compatible protocol)
-- [x] Workflow run persistence + front-end DAG execution view
-- [x] RAG retrieval test page (step-by-step pipeline expansion)
-- [x] Prompt version management
-- [x] Workflow versioning + node-level retry + parallel branches
-- [x] RAG retrieval evaluation dataset and comparison report (50-question dataset + Recall / MRR / nDCG)
-- [x] English README
-- [ ] Dark mode for the web console
-- [ ] Example workflow template library expansion
+<a href="https://star-history.com/#jiangjiangbozan/ShangShu-AI&Date">
+  <img src="https://api.star-history.com/svg?repos=jiangjiangbozan/ShangShu-AI&type=Date" alt="Star History Chart" width="600" />
+</a>
