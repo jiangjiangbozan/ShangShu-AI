@@ -12,6 +12,7 @@
  * - 无 Cookie，CSRF Token 改存 Storage
  * - 无 WeakSet，改用请求选项对象上的 _retried 标记
  */
+import { API_BASE_URL } from '@/utils/apiConfig'
 import { generateTraceId } from '@/utils/trace'
 import { getStorage, setStorage } from '@/utils/storage'
 import { tryRefreshToken } from '@/composables/useTokenRefresh'
@@ -24,8 +25,8 @@ const CSRF_TOKEN_KEY = 'ai_csrf_token'
 const BIZ_CODE_SUCCESS = 0
 const BIZ_CODE_UNAUTHORIZED = 401
 
-/** API 基础地址 */
-const BASE_URL = 'http://localhost:8080/api/v1'
+/** API 基础地址：来自环境变量，见 utils/apiConfig.ts */
+const BASE_URL: string = API_BASE_URL
 
 /** 请求超时时间（毫秒） */
 const TIMEOUT = 30000

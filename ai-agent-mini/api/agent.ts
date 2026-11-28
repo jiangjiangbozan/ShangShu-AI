@@ -7,10 +7,14 @@
 import { get, post } from '@/utils/request'
 import type {
   AgentRuntimeResp,
+  AgentTaskPageResp,
   AgentTraceResp,
   CreateRuntimeResp,
   SkillDefinitionResp,
 } from '@/types/agent'
+
+const DEFAULT_TASK_PAGE = 1
+const DEFAULT_TASK_PAGE_SIZE = 20
 
 /** 创建 runtime（无参数，默认模型） */
 export function createRuntime() {
@@ -40,6 +44,15 @@ export function cancelRuntime(id: number) {
 /** 查询 runtime 详情 */
 export function getRuntime(id: number) {
   return get<AgentRuntimeResp>(`/agent/runtime/${id}`)
+}
+
+/** 分页查询当前用户的任务 */
+export function listTasks(status?: string): Promise<AgentTaskPageResp> {
+  return get<AgentTaskPageResp>('/agent/tasks', {
+    page: DEFAULT_TASK_PAGE,
+    size: DEFAULT_TASK_PAGE_SIZE,
+    status,
+  })
 }
 
 /** 列出所有已启用的 Skill */

@@ -17,6 +17,26 @@ export interface AgentRuntimeResp {
   updateTime: string
 }
 
+/** 用户任务分页响应 */
+export interface AgentTaskPageResp {
+  list: AgentTaskResp[]
+  total: number
+}
+
+/** 用户任务列表项 */
+export interface AgentTaskResp {
+  agentConfigId: number | null
+  createTime: string
+  errorMessage: string | null
+  modelId: string | null
+  nextStepIndex: number
+  runtimeId: number
+  sessionId: number | null
+  status: string
+  strategy: string | null
+  updateTime: string
+}
+
 /** Skill 元数据响应 */
 export interface SkillDefinitionResp {
   id: number

@@ -1,6 +1,20 @@
 {
   "pages": [
     {
+      "path": "pages/app/index",
+      "style": {
+        "navigationBarTitleText": "应用",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/app/chat",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+      }
+    },
+    {
       "path": "pages/chat/index",
       "style": {
         "navigationBarTitleText": "对话",
@@ -70,6 +84,12 @@
     "backgroundColor": "#ffffff",
     "borderStyle": "white",
     "list": [
+      {
+        "pagePath": "pages/app/index",
+        "text": "应用",
+        "iconPath": "static/tab-icons/chat.png",
+        "selectedIconPath": "static/tab-icons/chat-active.png"
+      },
       {
         "pagePath": "pages/chat/index",
         "text": "对话",

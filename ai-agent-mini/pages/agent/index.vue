@@ -1,13 +1,10 @@
 <script setup lang="ts">
 /**
- * Agent 任务编排页（小程序端）
+ * 用户任务页（小程序端）
  *
- * 对标 Web 端 AgentView（精简版）：
- * - runtime 生命周期管理（创建/启动/暂停/恢复/取消/刷新）
- * - Skill 列表
- * - Trace 回放时间轴
- *
- * 说明：本页仅做小程序端 UI 编排，不包含 Web 端的高级配置。
+ * - 只展示当前登录用户有权访问的任务，不要求输入 Runtime ID
+ * - 复用现有生命周期接口，任务详情中保留必要的技术标识
+ * - Skill 与执行日志仍作为辅助信息展示
  */
 import { computed, ref } from 'vue'
 import { onShow } from '@dcloudio/uni-app'
@@ -17,21 +14,39 @@ import {
   createRuntime,
   getRuntime,
   listSkills,
+  listTasks,
   pauseRuntime,
   replayTrace,
   resumeRuntime,
   startRuntime,
 } from '@/api/agent'
-import type { AgentRuntimeResp, AgentTraceResp, SkillDefinitionResp } from '@/types/agent'
+import type {
+  AgentRuntimeResp,
+  AgentTaskResp,
+  AgentTraceResp,
+  SkillDefinitionResp,
+} from '@/types/agent'
 
-const runtime = ref<AgentRuntimeResp | null>(null)
-const runtimeIdInput = ref('')
+const activeTrace = ref(false)
 const creating = ref(false)
 const operating = ref(false)
+const runtime = ref<AgentRuntimeResp | null>(null)
+const runtimeId = ref<number | null>(null)
 const skills = ref<SkillDefinitionResp[]>([])
-const traces = ref<AgentTraceResp[]>([])
+const statusFilter = ref('')
+const tasks = ref<AgentTaskResp[]>([])
 const traceLoading = ref(false)
-const activeTrace = ref(false)
+const traces = ref<AgentTraceResp[]>([])
+
+const STATUS_FILTERS: Array<{ label: string; value: string }> = [
+  { label: '全部', value: '' },
+  { label: '等待中', value: 'pending' },
+  { label: '运行中', value: 'running' },
+  { label: '已暂停', value: 'paused' },
+  { label: '已完成', value: 'done' },
+  { label: '失败', value: 'failed' },
+  { label: '已取消', value: 'cancelled' },
+]
 
 const STATUS_TEXT: Record<string, string> = {
   pending: '等待中',
@@ -42,32 +57,31 @@ const STATUS_TEXT: Record<string, string> = {
   cancelled: '已取消',
 }
 
+const STEP_TEXT: Record<string, string> = {
+  thought: '思考',
+  action: '调用工具',
+  observation: '观察结果',
+  resume: '恢复执行',
+  error: '错误',
+}
+
 const isRunning = computed(() => runtime.value?.status === 'running')
 const isPaused = computed(() => runtime.value?.status === 'paused')
 
 onShow(() => {
   loadSkills()
-  // 若已有 runtime，刷新状态
-  if (runtime.value?.id) refreshRuntime()
+  loadTasks()
 })
-
-async function loadSkills() {
-  try {
-    skills.value = await listSkills()
-  } catch {
-    // 已 toast
-  }
-}
 
 async function handleCreate() {
   creating.value = true
   try {
     const res = await createRuntime()
-    if (res.runtimeId != null) {
-      runtimeIdInput.value = String(res.runtimeId)
-      runtime.value = await getRuntime(res.runtimeId)
-      uni.showToast({ title: `已创建 runtime ${res.runtimeId}`, icon: 'success' })
-    }
+    if (res.runtimeId == null) return
+    runtimeId.value = res.runtimeId
+    runtime.value = await getRuntime(res.runtimeId)
+    await loadTasks()
+    uni.showToast({ title: '任务已创建', icon: 'success' })
   } catch {
     // 已 toast
   } finally {
@@ -75,49 +89,17 @@ async function handleCreate() {
   }
 }
 
-async function handleLoad() {
-  const id = Number(runtimeIdInput.value)
-  if (!id) {
-    uni.showToast({ title: '请输入 runtime ID', icon: 'none' })
-    return
-  }
+async function handleSelect(task: AgentTaskResp) {
+  runtimeId.value = task.runtimeId
+  activeTrace.value = false
+  traces.value = []
   await refreshRuntime()
 }
 
-async function refreshRuntime() {
-  const id = Number(runtimeIdInput.value) || runtime.value?.id
-  if (!id) return
-  try {
-    runtime.value = await getRuntime(id)
-  } catch {
-    // 已 toast
-  }
-}
-
-async function operate(action: 'start' | 'pause' | 'resume' | 'cancel') {
-  const id = runtime.value?.id
-  if (id == null) {
-    uni.showToast({ title: '请先创建/加载 runtime', icon: 'none' })
-    return
-  }
-  operating.value = true
-  try {
-    if (action === 'start') await startRuntime(id)
-    else if (action === 'pause') await pauseRuntime(id)
-    else if (action === 'resume') await resumeRuntime(id)
-    else await cancelRuntime(id)
-    await refreshRuntime()
-  } catch {
-    // 已 toast
-  } finally {
-    operating.value = false
-  }
-}
-
 async function handleTrace() {
-  const id = runtime.value?.id
+  const id = runtimeId.value
   if (id == null) {
-    uni.showToast({ title: '请先创建/加载 runtime', icon: 'none' })
+    uni.showToast({ title: '请先选择任务', icon: 'none' })
     return
   }
   if (activeTrace.value) {
@@ -131,7 +113,7 @@ async function handleTrace() {
   try {
     traces.value = await replayTrace(id)
     if (!traces.value.length) {
-      uni.showToast({ title: '暂无 Trace 记录', icon: 'none' })
+      uni.showToast({ title: '暂无执行日志', icon: 'none' })
     }
   } catch {
     // 已 toast
@@ -140,12 +122,66 @@ async function handleTrace() {
   }
 }
 
-const STEP_TEXT: Record<string, string> = {
-  thought: '思考',
-  action: '调用工具',
-  observation: '观察结果',
-  resume: '恢复执行',
-  error: '错误',
+async function loadSkills() {
+  try {
+    skills.value = await listSkills()
+  } catch {
+    // 已 toast
+  }
+}
+
+async function loadTasks() {
+  try {
+    tasks.value = (await listTasks(statusFilter.value)).list
+  } catch {
+    // 已 toast
+  }
+}
+
+async function operate(action: 'start' | 'pause' | 'resume' | 'cancel') {
+  const id = runtimeId.value
+  if (id == null) {
+    uni.showToast({ title: '请先选择任务', icon: 'none' })
+    return
+  }
+  operating.value = true
+  try {
+    if (action === 'start') await startRuntime(id)
+    else if (action === 'pause') await pauseRuntime(id)
+    else if (action === 'resume') await resumeRuntime(id)
+    else await cancelRuntime(id)
+    await refreshRuntime()
+    await loadTasks()
+  } catch {
+    // 已 toast
+  } finally {
+    operating.value = false
+  }
+}
+
+function prettyJson(text: string | null): string {
+  if (!text) return ''
+  try {
+    const obj: unknown = JSON.parse(text)
+    return JSON.stringify(obj, null, 2)
+  } catch {
+    return text
+  }
+}
+
+async function refreshRuntime() {
+  const id = runtimeId.value
+  if (id == null) return
+  try {
+    runtime.value = await getRuntime(id)
+  } catch {
+    // 已 toast
+  }
+}
+
+async function selectFilter(value: string) {
+  statusFilter.value = value
+  await loadTasks()
 }
 
 function stepClass(type: string): string {
@@ -155,46 +191,53 @@ function stepClass(type: string): string {
   if (type === 'observation') return 'is-obs'
   return 'is-resume'
 }
-
-function prettyJson(text: string | null): string {
-  if (!text) return ''
-  try {
-    const obj = JSON.parse(text)
-    return JSON.stringify(obj, null, 2)
-  } catch {
-    return text
-  }
-}
 </script>
 
 <template>
   <view class="ag-page">
     <NavBar title="Agent 任务编排" show-back />
 
-    <!-- Runtime 管理 -->
+    <!-- 我的任务 -->
     <view class="ag-card">
-      <view class="ag-card__title">Runtime 管理</view>
-      <view class="ag-row">
-        <input
-          v-model="runtimeIdInput"
-          class="ag-input"
-          type="number"
-          placeholder="runtime ID"
-        />
-        <button class="ag-btn ag-btn--ghost" @tap="handleLoad">加载</button>
+      <view class="ag-card__title">我的任务</view>
+      <view class="ag-task__filters">
+        <button
+          v-for="item in STATUS_FILTERS"
+          :key="item.value"
+          class="ag-btn ag-btn--ghost"
+          :class="{ 'is-active': statusFilter === item.value }"
+          @tap="selectFilter(item.value)"
+        >{{ item.label }}</button>
       </view>
       <view class="ag-row">
-        <button class="ag-btn" :loading="creating" :disabled="creating" @tap="handleCreate">新建 Runtime</button>
+        <button class="ag-btn" :loading="creating" :disabled="creating" @tap="handleCreate">新建任务</button>
         <button class="ag-btn" :disabled="operating" @tap="operate('start')">启动</button>
         <button class="ag-btn ag-btn--warn" :disabled="operating || !isRunning" @tap="operate('pause')">暂停</button>
         <button class="ag-btn ag-btn--ghost" :disabled="operating || !isPaused" @tap="operate('resume')">恢复</button>
         <button class="ag-btn ag-btn--danger" :disabled="operating" @tap="operate('cancel')">取消</button>
       </view>
 
-      <!-- Runtime 状态 -->
+      <view v-if="!tasks.length" class="ag-hint">暂无任务，点击「新建任务」开始</view>
+      <view v-else class="ag-task__list">
+        <view
+          v-for="task in tasks"
+          :key="task.runtimeId"
+          class="ag-task"
+          :class="{ 'is-selected': runtimeId === task.runtimeId }"
+          @tap="handleSelect(task)"
+        >
+          <view class="ag-task__head">
+            <text class="ag-task__title">任务 #{{ task.runtimeId }}</text>
+            <text class="ag-status__tag" :class="'st-' + task.status">{{ STATUS_TEXT[task.status] || task.status }}</text>
+          </view>
+          <text class="ag-task__meta">当前步骤 {{ task.nextStepIndex }}</text>
+          <text v-if="task.errorMessage" class="ag-task__error">{{ task.errorMessage }}</text>
+        </view>
+      </view>
+
       <view v-if="runtime" class="ag-status">
         <view class="ag-status__line">
-          <text class="ag-status__label">ID</text>
+          <text class="ag-status__label">任务编号</text>
           <text class="ag-status__value">{{ runtime.id }}</text>
           <text class="ag-status__tag" :class="'st-' + runtime.status">{{ STATUS_TEXT[runtime.status] || runtime.status }}</text>
         </view>
@@ -203,7 +246,7 @@ function prettyJson(text: string | null): string {
           <text class="ag-status__value">{{ runtime.modelId || '默认' }}</text>
         </view>
         <view v-if="runtime.finalAnswer" class="ag-status__block">
-          <text class="ag-status__label">最终回答</text>
+          <text class="ag-status__label">最终结果</text>
           <text class="ag-status__answer">{{ runtime.finalAnswer }}</text>
         </view>
         <view v-if="runtime.errorMessage" class="ag-status__block">
@@ -211,12 +254,12 @@ function prettyJson(text: string | null): string {
           <text class="ag-status__error">{{ runtime.errorMessage }}</text>
         </view>
       </view>
-      <view v-else class="ag-hint">点击「新建 Runtime」或输入 ID 加载</view>
+      <view v-else class="ag-hint">请从上方选择或新建任务</view>
 
-      <!-- Trace 时间轴 -->
+      <!-- 执行日志 -->
       <view class="ag-row ag-row--end">
         <button class="ag-btn ag-btn--ghost" @tap="handleTrace">
-          {{ activeTrace ? '收起 Trace' : '回放 Trace' }}
+          {{ activeTrace ? '收起日志' : '查看执行日志' }}
         </button>
       </view>
       <view v-if="traceLoading" class="ag-hint">加载中...</view>
@@ -335,6 +378,64 @@ function prettyJson(text: string | null): string {
     color: $color-danger;
     background-color: $color-danger-soft;
   }
+
+  &.is-active {
+    color: $text-inverse;
+    background-color: $color-primary;
+    border-color: $color-primary;
+  }
+}
+
+.ag-task__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+  margin-bottom: $space-3;
+}
+
+.ag-task__list {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  margin-bottom: $space-3;
+}
+
+.ag-task {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+  padding: $space-3;
+  background-color: $bg-subtle;
+  border: 1rpx solid transparent;
+  border-radius: $radius-lg;
+
+  &.is-selected {
+    border-color: $color-primary;
+    background-color: $bg-card;
+  }
+}
+
+.ag-task__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-2;
+}
+
+.ag-task__title {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $text-primary;
+}
+
+.ag-task__meta {
+  font-size: $font-size-xs;
+  color: $text-tertiary;
+}
+
+.ag-task__error {
+  font-size: $font-size-xs;
+  color: $color-danger;
 }
 
 .ag-hint {

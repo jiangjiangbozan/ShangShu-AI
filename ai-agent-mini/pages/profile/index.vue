@@ -13,6 +13,17 @@ import NavBar from '@/components/common/NavBar.vue'
 const authStore = useAuthStore()
 const chatStore = useChatStore()
 
+/** 是否可进入客服工作台 */
+const canAccessCustomerService = computed(
+  () => authStore.hasPerm('cs:session:list') || authStore.hasRole('SUPER_ADMIN'),
+)
+/** 是否可进入数据分析工作台 */
+const canAccessDataAnalysis = computed(
+  () =>
+    authStore.hasPerm('data:analysis:schema') ||
+    authStore.hasPerm('data:analysis:ask') ||
+    authStore.hasRole('SUPER_ADMIN'),
+)
 /** 用户显示名 */
 const displayName = computed(() => authStore.user?.username || '未登录')
 /** 用户邮箱 */
@@ -85,13 +96,13 @@ function goPage(path: string) {
 
       <view class="settings-item" @tap="goPage('/pages/agent/index')">
         <view class="settings-item__left">
-          <text class="settings-item__label">Agent 任务编排</text>
-          <text class="settings-item__desc">Runtime 生命周期与 Trace 回放</text>
+          <text class="settings-item__label">我的任务</text>
+          <text class="settings-item__desc">任务状态、结果与执行日志</text>
         </view>
         <text class="settings-item__arrow">›</text>
       </view>
 
-      <view class="settings-item" @tap="goPage('/pages/customer-service/index')">
+      <view v-if="canAccessCustomerService" class="settings-item" @tap="goPage('/pages/customer-service/index')">
         <view class="settings-item__left">
           <text class="settings-item__label">客服工作台</text>
           <text class="settings-item__desc">会话接管、标注回流与命中统计</text>
@@ -99,7 +110,7 @@ function goPage(path: string) {
         <text class="settings-item__arrow">›</text>
       </view>
 
-      <view class="settings-item" @tap="goPage('/pages/data-analysis/index')">
+      <view v-if="canAccessDataAnalysis" class="settings-item" @tap="goPage('/pages/data-analysis/index')">
         <view class="settings-item__left">
           <text class="settings-item__label">数据分析</text>
           <text class="settings-item__desc">自然语言问数与图表可视化</text>

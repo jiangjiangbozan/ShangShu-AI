@@ -320,7 +320,6 @@ function escapeHtml(text: string): string {
     <!-- 新建会话弹窗 -->
     <view v-if="showNewDialog" class="chat-list-page__mask" @tap="showNewDialog = false">
       <view class="chat-list-page__dialog" @tap.stop>
-        <!-- ... existing new session dialog content ... -->
         <text class="dialog__title">新建对话</text>
 
         <text class="dialog__label">选择模型</text>

@@ -7,6 +7,7 @@
  * 通过 URL 参数 sessionId 定位会话。
  */
 import { onMounted, ref, computed } from 'vue'
+import { onShareAppMessage, onShareTimeline } from '@dcloudio/uni-app'
 import { useChatStore } from '@/stores/chat'
 import NavBar from '@/components/common/NavBar.vue'
 import MessageList from '@/components/chat/MessageList.vue'
@@ -25,6 +26,16 @@ const sessionTitle = computed(() => {
   const session = chatStore.sessions.find((s) => s.sessionId === sessionId.value)
   return session?.title || '对话'
 })
+
+onShareAppMessage(() => ({
+  title: `${sessionTitle.value} - ShangShu AI`,
+  path: `/pages/chat/conversation?sessionId=${sessionId.value ?? ''}`,
+}))
+
+onShareTimeline(() => ({
+  title: `${sessionTitle.value} - ShangShu AI`,
+  query: `sessionId=${sessionId.value ?? ''}`,
+}))
 
 onMounted(() => {
   // 获取页面参数

@@ -7,6 +7,7 @@
  * 采用 JSON 同步返回（非流式），页面自管理消息列表。
  */
 import { ref, nextTick } from 'vue'
+import { onShareAppMessage, onShareTimeline } from '@dcloudio/uni-app'
 import { askCourseQuestion } from '@/api/course'
 import NavBar from '@/components/common/NavBar.vue'
 
@@ -21,6 +22,15 @@ const inputText = ref('')
 const sending = ref(false)
 /** 滚动锚点 */
 const scrollTop = ref(0)
+
+onShareAppMessage(() => ({
+  title: '计算机网络课程 AI 助手',
+  path: '/pages/course/index',
+}))
+
+onShareTimeline(() => ({
+  title: '计算机网络课程 AI 助手',
+}))
 
 /** 发送问题 */
 async function handleSend() {

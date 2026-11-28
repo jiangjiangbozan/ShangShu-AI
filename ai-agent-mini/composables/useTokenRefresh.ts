@@ -7,6 +7,7 @@
  * 对标 Web 端 request.ts 中的 WeakSet 防循环重试机制，
  * 但针对小程序端做了并发刷新队列增强。
  */
+import { API_BASE_URL } from '@/utils/apiConfig'
 import { getStorage } from '@/utils/storage'
 import type { LoginResponse } from '@/types/auth'
 import type { ApiResult } from '@/types/api'
@@ -17,9 +18,6 @@ let isRefreshing = false
 type QueueCallback = (token: string) => void
 type QueueReject = (reason?: unknown) => void
 const pendingQueue: Array<{ resolve: QueueCallback; reject: QueueReject }> = []
-
-/** API 基础地址（与 request.ts 共享） */
-const BASE_URL = 'http://localhost:8080/api/v1'
 
 /**
  * 将请求加入刷新等待队列
@@ -54,7 +52,7 @@ export async function tryRefreshToken(): Promise<boolean> {
   try {
     const result = await new Promise<ApiResult<LoginResponse> & { csrfFromHeader?: string }>((resolve, reject) => {
       uni.request({
-        url: `${BASE_URL}/auth/refresh`,
+        url: `${API_BASE_URL}/auth/refresh`,
         method: 'POST',
         header: { 'Content-Type': 'application/json' },
         data: { refreshToken },
