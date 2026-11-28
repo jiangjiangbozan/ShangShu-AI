@@ -950,6 +950,24 @@ onUnmounted(stopBatchProgressPolling)
             </el-descriptions-item>
           </el-descriptions>
 
+          <template v-if="docDetail.document.summary">
+            <el-divider content-position="left">文档摘要</el-divider>
+            <div class="doc-summary">
+              <p class="summary-text">{{ docDetail.document.summary }}</p>
+              <div v-if="docDetail.document.keywords" class="keyword-row">
+                <el-tag
+                  v-for="kw in docDetail.document.keywords.split(',')"
+                  :key="kw"
+                  size="small"
+                  type="success"
+                  class="keyword-tag"
+                >
+                  {{ kw }}
+                </el-tag>
+              </div>
+            </div>
+          </template>
+
           <el-divider content-position="left">
             分片预览（前 5 条）
             <el-button
@@ -1294,6 +1312,27 @@ onUnmounted(stopBatchProgressPolling)
 
 .doc-detail-body {
   padding: 0 var(--space-3);
+}
+
+.doc-summary {
+  margin-bottom: 8px;
+}
+
+.summary-text {
+  margin: 0 0 8px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-secondary, #606266);
+}
+
+.keyword-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.keyword-tag {
+  font-weight: 400;
 }
 
 .hash-text {
