@@ -19,8 +19,8 @@ public class CustomerServiceProperties {
   /** 意图识别置信度阈值，低于此值触发澄清或兜底。 */
   private double intentConfidenceThreshold = 0.6;
 
-  /** KB 命中阈值，top1 score 高于此值跳过 LLM 直接返回。 */
-  private double kbHitThreshold = 0.85;
+  /** KB 命中阈值，top1 相关性分数高于此值跳过 LLM 直接返回。rerank 分数区分度足够，0.5 为保守分界。 */
+  private double kbHitThreshold = 0.5;
 
   /** 单次会话最大澄清轮数，超出强制 fallback。 */
   private int clarifyMaxRounds = 3;

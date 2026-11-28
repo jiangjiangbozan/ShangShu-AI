@@ -1,0 +1,2863 @@
+{
+  "summary": {
+    "纯向量": {
+      "recall@k": 0.82,
+      "mrr": 0.6966666666666668,
+      "ndcg@k": 0.7288045457857207,
+      "hitRate": 0.82
+    },
+    "纯关键词": {
+      "recall@k": 0.88,
+      "mrr": 0.6473333333333333,
+      "ndcg@k": 0.7063872593247764,
+      "hitRate": 0.88
+    },
+    "向量+关键词+RRF": {
+      "recall@k": 0.96,
+      "mrr": 0.779,
+      "ndcg@k": 0.8251551330918794,
+      "hitRate": 0.96
+    },
+    "+Rerank": {
+      "recall@k": 0.96,
+      "mrr": 0.8566666666666667,
+      "ndcg@k": 0.8835673556428624,
+      "hitRate": 0.96
+    }
+  },
+  "perQuery": [
+    {
+      "id": "q001",
+      "question": "关键字WHILE的类别编码是多少？",
+      "relevant": [
+        "7ea0bc21-9591-48b5-82e3-fafde9eaa680"
+      ],
+      "serverMs": 8014,
+      "wallMs": 8054,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "50032380-978a-48c3-8e31-988f4b5058c5"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "50032380-978a-48c3-8e31-988f4b5058c5",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "efc3cacd-2b60-4b06-b08f-32cf6a46a1f8",
+          "5cce6c92-9e45-461a-8e1e-94b910368c47"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "50032380-978a-48c3-8e31-988f4b5058c5",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "efc3cacd-2b60-4b06-b08f-32cf6a46a1f8",
+          "5cce6c92-9e45-461a-8e1e-94b910368c47"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "50032380-978a-48c3-8e31-988f4b5058c5",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "efc3cacd-2b60-4b06-b08f-32cf6a46a1f8",
+          "5cce6c92-9e45-461a-8e1e-94b910368c47"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q002",
+      "question": "当处于S0状态并遇到分号时，会输出什么符号并转移到哪个状态？",
+      "relevant": [
+        "9db85b9a-a415-4e5a-b30d-df591f52f860"
+      ],
+      "serverMs": 14776,
+      "wallMs": 14798,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "85ae9c35-01d0-47ba-a727-d6fd04a2cfd0",
+          "881a4912-e7b1-4ddd-a4d8-99842cf52319",
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
+          "210dd53c-340c-4ea7-90bc-2feb4c48c3f8"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "85ae9c35-01d0-47ba-a727-d6fd04a2cfd0",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
+          "cdcb6579-2568-4a03-8e6d-4064c4cf56d7"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "85ae9c35-01d0-47ba-a727-d6fd04a2cfd0",
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
+          "881a4912-e7b1-4ddd-a4d8-99842cf52319",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "85ae9c35-01d0-47ba-a727-d6fd04a2cfd0",
+          "881a4912-e7b1-4ddd-a4d8-99842cf52319",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "210dd53c-340c-4ea7-90bc-2feb4c48c3f8"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q003",
+      "question": "当处于S0状态时，输入字符为'.'会转移到哪个状态？",
+      "relevant": [
+        "85ae9c35-01d0-47ba-a727-d6fd04a2cfd0"
+      ],
+      "serverMs": 11800,
+      "wallMs": 11828,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "85ae9c35-01d0-47ba-a727-d6fd04a2cfd0",
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "881a4912-e7b1-4ddd-a4d8-99842cf52319",
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "85ae9c35-01d0-47ba-a727-d6fd04a2cfd0",
+          "881a4912-e7b1-4ddd-a4d8-99842cf52319",
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "rrfMerged": {
+        "ranked": [
+          "85ae9c35-01d0-47ba-a727-d6fd04a2cfd0",
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "881a4912-e7b1-4ddd-a4d8-99842cf52319",
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "85ae9c35-01d0-47ba-a727-d6fd04a2cfd0",
+          "881a4912-e7b1-4ddd-a4d8-99842cf52319",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      }
+    },
+    {
+      "id": "q004",
+      "question": "当处于状态S8且输入为'='时，系统会转移到哪个状态？",
+      "relevant": [
+        "881a4912-e7b1-4ddd-a4d8-99842cf52319"
+      ],
+      "serverMs": 15775,
+      "wallMs": 15792,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "881a4912-e7b1-4ddd-a4d8-99842cf52319",
+          "85ae9c35-01d0-47ba-a727-d6fd04a2cfd0",
+          "9db85b9a-a415-4e5a-b30d-df591f52f860"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "85ae9c35-01d0-47ba-a727-d6fd04a2cfd0",
+          "881a4912-e7b1-4ddd-a4d8-99842cf52319",
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
+          "cdcb6579-2568-4a03-8e6d-4064c4cf56d7"
+        ],
+        "recall": 1.0,
+        "mrr": 0.3333,
+        "ndcg": 0.5
+      },
+      "rrfMerged": {
+        "ranked": [
+          "881a4912-e7b1-4ddd-a4d8-99842cf52319",
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "85ae9c35-01d0-47ba-a727-d6fd04a2cfd0",
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
+          "cdcb6579-2568-4a03-8e6d-4064c4cf56d7"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "881a4912-e7b1-4ddd-a4d8-99842cf52319",
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "85ae9c35-01d0-47ba-a727-d6fd04a2cfd0",
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
+          "cdcb6579-2568-4a03-8e6d-4064c4cf56d7"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q005",
+      "question": "在词法分析程序的数据结构设计中，TokenType枚举中的ID和UCON分别代表什么类型的词法单元？",
+      "relevant": [
+        "d7467b34-4fd3-4331-b837-5cf8004d0d06"
+      ],
+      "serverMs": 13314,
+      "wallMs": 13328,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "d7467b34-4fd3-4331-b837-5cf8004d0d06",
+          "50032380-978a-48c3-8e31-988f4b5058c5",
+          "7cb2b602-528a-4c18-9237-67a39c7dc7bf",
+          "e134d01e-940a-4441-aab9-e60d729367a1",
+          "b0a33406-8cd8-4691-88f5-a878be38bd16"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "d7467b34-4fd3-4331-b837-5cf8004d0d06",
+          "50032380-978a-48c3-8e31-988f4b5058c5",
+          "e134d01e-940a-4441-aab9-e60d729367a1",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "d7467b34-4fd3-4331-b837-5cf8004d0d06",
+          "50032380-978a-48c3-8e31-988f4b5058c5",
+          "e134d01e-940a-4441-aab9-e60d729367a1",
+          "7cb2b602-528a-4c18-9237-67a39c7dc7bf",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "50032380-978a-48c3-8e31-988f4b5058c5",
+          "d7467b34-4fd3-4331-b837-5cf8004d0d06",
+          "b0a33406-8cd8-4691-88f5-a878be38bd16",
+          "e134d01e-940a-4441-aab9-e60d729367a1",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      }
+    },
+    {
+      "id": "q006",
+      "question": "在词法分析器的核心算法流程中，如何处理数字和小数点以验证浮点数格式？",
+      "relevant": [
+        "50032380-978a-48c3-8e31-988f4b5058c5"
+      ],
+      "serverMs": 17828,
+      "wallMs": 17846,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "50032380-978a-48c3-8e31-988f4b5058c5",
+          "e91e8d78-8836-4d71-8699-e80530d49aab"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "50032380-978a-48c3-8e31-988f4b5058c5",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "e134d01e-940a-4441-aab9-e60d729367a1",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "e91e8d78-8836-4d71-8699-e80530d49aab"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "50032380-978a-48c3-8e31-988f4b5058c5",
+          "e91e8d78-8836-4d71-8699-e80530d49aab",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "e134d01e-940a-4441-aab9-e60d729367a1",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "50032380-978a-48c3-8e31-988f4b5058c5",
+          "e91e8d78-8836-4d71-8699-e80530d49aab",
+          "e134d01e-940a-4441-aab9-e60d729367a1",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q007",
+      "question": "在词法分析过程中，遇到运算符或界符时，如何识别对应的单词？",
+      "relevant": [
+        "e91e8d78-8836-4d71-8699-e80530d49aab"
+      ],
+      "serverMs": 15561,
+      "wallMs": 15578,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "e91e8d78-8836-4d71-8699-e80530d49aab",
+          "e134d01e-940a-4441-aab9-e60d729367a1",
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "50032380-978a-48c3-8e31-988f4b5058c5"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "keywordRecall": {
+        "ranked": [
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "e91e8d78-8836-4d71-8699-e80530d49aab",
+          "e134d01e-940a-4441-aab9-e60d729367a1",
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "50032380-978a-48c3-8e31-988f4b5058c5"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "rrfMerged": {
+        "ranked": [
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "e91e8d78-8836-4d71-8699-e80530d49aab",
+          "e134d01e-940a-4441-aab9-e60d729367a1",
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "50032380-978a-48c3-8e31-988f4b5058c5"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "reranked": {
+        "ranked": [
+          "50032380-978a-48c3-8e31-988f4b5058c5",
+          "e91e8d78-8836-4d71-8699-e80530d49aab",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "e134d01e-940a-4441-aab9-e60d729367a1"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      }
+    },
+    {
+      "id": "q008",
+      "question": "在词法分析输出中，哪个单词标识复合语句的开始？",
+      "relevant": [
+        "b0a33406-8cd8-4691-88f5-a878be38bd16"
+      ],
+      "serverMs": 17139,
+      "wallMs": 17152,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "cc88b64a-8df8-4c9d-96c4-529d267d33ae",
+          "e134d01e-940a-4441-aab9-e60d729367a1",
+          "b0a33406-8cd8-4691-88f5-a878be38bd16",
+          "e91e8d78-8836-4d71-8699-e80530d49aab",
+          "081453b5-a6c9-4136-a585-d348982cb75f"
+        ],
+        "recall": 1.0,
+        "mrr": 0.3333,
+        "ndcg": 0.5
+      },
+      "keywordRecall": {
+        "ranked": [
+          "cc88b64a-8df8-4c9d-96c4-529d267d33ae",
+          "b0a33406-8cd8-4691-88f5-a878be38bd16",
+          "e91e8d78-8836-4d71-8699-e80530d49aab",
+          "e134d01e-940a-4441-aab9-e60d729367a1",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "rrfMerged": {
+        "ranked": [
+          "cc88b64a-8df8-4c9d-96c4-529d267d33ae",
+          "b0a33406-8cd8-4691-88f5-a878be38bd16",
+          "e134d01e-940a-4441-aab9-e60d729367a1",
+          "e91e8d78-8836-4d71-8699-e80530d49aab",
+          "081453b5-a6c9-4136-a585-d348982cb75f"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "reranked": {
+        "ranked": [
+          "b0a33406-8cd8-4691-88f5-a878be38bd16",
+          "cc88b64a-8df8-4c9d-96c4-529d267d33ae",
+          "081453b5-a6c9-4136-a585-d348982cb75f",
+          "e134d01e-940a-4441-aab9-e60d729367a1",
+          "e91e8d78-8836-4d71-8699-e80530d49aab"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q009",
+      "question": "如何识别输入中的非法字符、不完整浮点数以及浮点数中多个小数点的错误？",
+      "relevant": [
+        "cc88b64a-8df8-4c9d-96c4-529d267d33ae"
+      ],
+      "serverMs": 25061,
+      "wallMs": 25076,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "cc88b64a-8df8-4c9d-96c4-529d267d33ae",
+          "85ae9c35-01d0-47ba-a727-d6fd04a2cfd0"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "cc88b64a-8df8-4c9d-96c4-529d267d33ae",
+          "85ae9c35-01d0-47ba-a727-d6fd04a2cfd0",
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "50032380-978a-48c3-8e31-988f4b5058c5",
+          "e134d01e-940a-4441-aab9-e60d729367a1"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "cc88b64a-8df8-4c9d-96c4-529d267d33ae",
+          "85ae9c35-01d0-47ba-a727-d6fd04a2cfd0",
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "50032380-978a-48c3-8e31-988f4b5058c5",
+          "e134d01e-940a-4441-aab9-e60d729367a1"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "cc88b64a-8df8-4c9d-96c4-529d267d33ae",
+          "e134d01e-940a-4441-aab9-e60d729367a1",
+          "85ae9c35-01d0-47ba-a727-d6fd04a2cfd0",
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "50032380-978a-48c3-8e31-988f4b5058c5"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q010",
+      "question": "在词法分析过程中，遇到无法识别的字符会触发什么类型的错误？",
+      "relevant": [
+        "e134d01e-940a-4441-aab9-e60d729367a1"
+      ],
+      "serverMs": 13111,
+      "wallMs": 13139,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "e91e8d78-8836-4d71-8699-e80530d49aab",
+          "e134d01e-940a-4441-aab9-e60d729367a1",
+          "cc88b64a-8df8-4c9d-96c4-529d267d33ae",
+          "50032380-978a-48c3-8e31-988f4b5058c5"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "keywordRecall": {
+        "ranked": [
+          "e134d01e-940a-4441-aab9-e60d729367a1",
+          "cc88b64a-8df8-4c9d-96c4-529d267d33ae",
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "e91e8d78-8836-4d71-8699-e80530d49aab"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "e134d01e-940a-4441-aab9-e60d729367a1",
+          "cc88b64a-8df8-4c9d-96c4-529d267d33ae",
+          "e91e8d78-8836-4d71-8699-e80530d49aab",
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "50032380-978a-48c3-8e31-988f4b5058c5"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "e134d01e-940a-4441-aab9-e60d729367a1",
+          "cc88b64a-8df8-4c9d-96c4-529d267d33ae",
+          "e91e8d78-8836-4d71-8699-e80530d49aab",
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "50032380-978a-48c3-8e31-988f4b5058c5"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q011",
+      "question": "在SLR(1)分析表中，状态0遇到ID时会触发什么动作？",
+      "relevant": [
+        "081453b5-a6c9-4136-a585-d348982cb75f"
+      ],
+      "serverMs": 14322,
+      "wallMs": 14377,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
+          "081453b5-a6c9-4136-a585-d348982cb75f",
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "210dd53c-340c-4ea7-90bc-2feb4c48c3f8",
+          "2f9f4d50-5c01-473a-9588-d2b265346a84"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "keywordRecall": {
+        "ranked": [
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
+          "081453b5-a6c9-4136-a585-d348982cb75f",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "9db85b9a-a415-4e5a-b30d-df591f52f860"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "rrfMerged": {
+        "ranked": [
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
+          "081453b5-a6c9-4136-a585-d348982cb75f",
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
+          "210dd53c-340c-4ea7-90bc-2feb4c48c3f8"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "reranked": {
+        "ranked": [
+          "081453b5-a6c9-4136-a585-d348982cb75f",
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
+          "2f9f4d50-5c01-473a-9588-d2b265346a84",
+          "210dd53c-340c-4ea7-90bc-2feb4c48c3f8",
+          "9db85b9a-a415-4e5a-b30d-df591f52f860"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q012",
+      "question": "factor对应的规则编号是多少？",
+      "relevant": [
+        "031f3432-5055-4ff7-9b87-06559b979a8b"
+      ],
+      "serverMs": 9765,
+      "wallMs": 9782,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "6c0fb065-c911-4951-92b9-230f054d5c52",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "7cb2b602-528a-4c18-9237-67a39c7dc7bf",
+          "ea40260b-afe8-481c-a199-a0ce31892984",
+          "fa5e7370-fe1f-4450-9dd9-56a8054de209"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "6c0fb065-c911-4951-92b9-230f054d5c52",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "7cb2b602-528a-4c18-9237-67a39c7dc7bf",
+          "ea40260b-afe8-481c-a199-a0ce31892984",
+          "fa5e7370-fe1f-4450-9dd9-56a8054de209"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "reranked": {
+        "ranked": [
+          "7cb2b602-528a-4c18-9237-67a39c7dc7bf",
+          "6c0fb065-c911-4951-92b9-230f054d5c52",
+          "fa5e7370-fe1f-4450-9dd9-56a8054de209",
+          "ea40260b-afe8-481c-a199-a0ce31892984",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      }
+    },
+    {
+      "id": "q013",
+      "question": "EQ、NE、GT、GE这些符号对应的规则是什么？",
+      "relevant": [
+        "067c6946-3e53-4b58-a044-52a878d3e79b"
+      ],
+      "serverMs": 10014,
+      "wallMs": 10044,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "ecada256-d521-4284-a261-c3b8088368c9",
+          "067c6946-3e53-4b58-a044-52a878d3e79b"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "keywordRecall": {
+        "ranked": [
+          "50032380-978a-48c3-8e31-988f4b5058c5",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "d7467b34-4fd3-4331-b837-5cf8004d0d06",
+          "85ae9c35-01d0-47ba-a727-d6fd04a2cfd0",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "ecada256-d521-4284-a261-c3b8088368c9",
+          "50032380-978a-48c3-8e31-988f4b5058c5",
+          "067c6946-3e53-4b58-a044-52a878d3e79b",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "d7467b34-4fd3-4331-b837-5cf8004d0d06"
+        ],
+        "recall": 1.0,
+        "mrr": 0.3333,
+        "ndcg": 0.5
+      },
+      "reranked": {
+        "ranked": [
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "067c6946-3e53-4b58-a044-52a878d3e79b",
+          "ecada256-d521-4284-a261-c3b8088368c9",
+          "85ae9c35-01d0-47ba-a727-d6fd04a2cfd0",
+          "50032380-978a-48c3-8e31-988f4b5058c5"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      }
+    },
+    {
+      "id": "q014",
+      "question": "在状态16中，ID、LPAREN和UCON对应的factor编号是什么？",
+      "relevant": [
+        "578f060a-d655-4614-bf3c-53feb10b27a5"
+      ],
+      "serverMs": 10419,
+      "wallMs": 10434,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "578f060a-d655-4614-bf3c-53feb10b27a5",
+          "081453b5-a6c9-4136-a585-d348982cb75f"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "081453b5-a6c9-4136-a585-d348982cb75f",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
+          "e134d01e-940a-4441-aab9-e60d729367a1",
+          "b0a33406-8cd8-4691-88f5-a878be38bd16"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "081453b5-a6c9-4136-a585-d348982cb75f",
+          "578f060a-d655-4614-bf3c-53feb10b27a5",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
+          "e134d01e-940a-4441-aab9-e60d729367a1"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "reranked": {
+        "ranked": [
+          "578f060a-d655-4614-bf3c-53feb10b27a5",
+          "081453b5-a6c9-4136-a585-d348982cb75f",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
+          "b0a33406-8cd8-4691-88f5-a878be38bd16"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q015",
+      "question": "在提供的资料中，RPAREN符号的编号在行2和行37中分别是什么？",
+      "relevant": [
+        "82e565cc-3b52-4589-8968-a19d57f67208"
+      ],
+      "serverMs": 13769,
+      "wallMs": 13786,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "82e565cc-3b52-4589-8968-a19d57f67208"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "ea40260b-afe8-481c-a199-a0ce31892984",
+          "a917a1e2-81d8-43ef-945c-fb4bb817dd35",
+          "5cce6c92-9e45-461a-8e1e-94b910368c47",
+          "9db85b9a-a415-4e5a-b30d-df591f52f860"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "82e565cc-3b52-4589-8968-a19d57f67208",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "ea40260b-afe8-481c-a199-a0ce31892984",
+          "a917a1e2-81d8-43ef-945c-fb4bb817dd35",
+          "5cce6c92-9e45-461a-8e1e-94b910368c47"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "82e565cc-3b52-4589-8968-a19d57f67208",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "a917a1e2-81d8-43ef-945c-fb4bb817dd35",
+          "ea40260b-afe8-481c-a199-a0ce31892984"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q016",
+      "question": "EQ对应的编号是什么？",
+      "relevant": [
+        "ecada256-d521-4284-a261-c3b8088368c9"
+      ],
+      "serverMs": 8673,
+      "wallMs": 8687,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "ea40260b-afe8-481c-a199-a0ce31892984",
+          "a917a1e2-81d8-43ef-945c-fb4bb817dd35",
+          "5cce6c92-9e45-461a-8e1e-94b910368c47",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "34460ea6-b3ab-4854-ae3a-6fe7d0d65b1d"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "ea40260b-afe8-481c-a199-a0ce31892984",
+          "a917a1e2-81d8-43ef-945c-fb4bb817dd35",
+          "5cce6c92-9e45-461a-8e1e-94b910368c47",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "34460ea6-b3ab-4854-ae3a-6fe7d0d65b1d"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "reranked": {
+        "ranked": [
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "34460ea6-b3ab-4854-ae3a-6fe7d0d65b1d",
+          "a917a1e2-81d8-43ef-945c-fb4bb817dd35",
+          "5cce6c92-9e45-461a-8e1e-94b910368c47",
+          "ea40260b-afe8-481c-a199-a0ce31892984"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      }
+    },
+    {
+      "id": "q017",
+      "question": "在状态53遇到ID时，应执行什么动作？",
+      "relevant": [
+        "210dd53c-340c-4ea7-90bc-2feb4c48c3f8"
+      ],
+      "serverMs": 13204,
+      "wallMs": 13219,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
+          "210dd53c-340c-4ea7-90bc-2feb4c48c3f8",
+          "6123160c-0691-4b26-92f8-a05791b9321e"
+        ],
+        "recall": 1.0,
+        "mrr": 0.25,
+        "ndcg": 0.4307
+      },
+      "rrfMerged": {
+        "ranked": [
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
+          "210dd53c-340c-4ea7-90bc-2feb4c48c3f8",
+          "6123160c-0691-4b26-92f8-a05791b9321e"
+        ],
+        "recall": 1.0,
+        "mrr": 0.25,
+        "ndcg": 0.4307
+      },
+      "reranked": {
+        "ranked": [
+          "210dd53c-340c-4ea7-90bc-2feb4c48c3f8",
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "6123160c-0691-4b26-92f8-a05791b9321e"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q018",
+      "question": "在语法分析过程中，规约r26对应的是哪个文法规则？",
+      "relevant": [
+        "7cb2b602-528a-4c18-9237-67a39c7dc7bf"
+      ],
+      "serverMs": 16248,
+      "wallMs": 16264,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "7cb2b602-528a-4c18-9237-67a39c7dc7bf",
+          "210dd53c-340c-4ea7-90bc-2feb4c48c3f8"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "6c0fb065-c911-4951-92b9-230f054d5c52",
+          "7cb2b602-528a-4c18-9237-67a39c7dc7bf",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "081453b5-a6c9-4136-a585-d348982cb75f",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "rrfMerged": {
+        "ranked": [
+          "7cb2b602-528a-4c18-9237-67a39c7dc7bf",
+          "6c0fb065-c911-4951-92b9-230f054d5c52",
+          "210dd53c-340c-4ea7-90bc-2feb4c48c3f8",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "081453b5-a6c9-4136-a585-d348982cb75f"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "7cb2b602-528a-4c18-9237-67a39c7dc7bf",
+          "210dd53c-340c-4ea7-90bc-2feb4c48c3f8",
+          "081453b5-a6c9-4136-a585-d348982cb75f",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
+          "6c0fb065-c911-4951-92b9-230f054d5c52"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q019",
+      "question": "当SLR(1)分析表中的Action类型为'a'时，其value字段表示什么？",
+      "relevant": [
+        "3d989a70-4e89-4837-ac33-dabef418303c"
+      ],
+      "serverMs": 15776,
+      "wallMs": 15812,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
+          "3d989a70-4e89-4837-ac33-dabef418303c",
+          "7d85e11e-7814-4f89-9162-fad7aa7b0904"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "keywordRecall": {
+        "ranked": [
+          "3d989a70-4e89-4837-ac33-dabef418303c",
+          "7d85e11e-7814-4f89-9162-fad7aa7b0904",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
+          "2f9f4d50-5c01-473a-9588-d2b265346a84",
+          "6c0fb065-c911-4951-92b9-230f054d5c52"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "3d989a70-4e89-4837-ac33-dabef418303c",
+          "7d85e11e-7814-4f89-9162-fad7aa7b0904",
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
+          "2f9f4d50-5c01-473a-9588-d2b265346a84"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "3d989a70-4e89-4837-ac33-dabef418303c",
+          "2f9f4d50-5c01-473a-9588-d2b265346a84",
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
+          "7d85e11e-7814-4f89-9162-fad7aa7b0904",
+          "6c0fb065-c911-4951-92b9-230f054d5c52"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q020",
+      "question": "语法树节点栈的作用是什么？",
+      "relevant": [
+        "13307b93-adce-45f4-a82e-ef50b539a800"
+      ],
+      "serverMs": 7944,
+      "wallMs": 7959,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "13307b93-adce-45f4-a82e-ef50b539a800",
+          "4762b00b-01a9-4573-9b8a-c9cf1ae7987a",
+          "7d85e11e-7814-4f89-9162-fad7aa7b0904"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "4762b00b-01a9-4573-9b8a-c9cf1ae7987a",
+          "13307b93-adce-45f4-a82e-ef50b539a800",
+          "7d85e11e-7814-4f89-9162-fad7aa7b0904",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "rrfMerged": {
+        "ranked": [
+          "13307b93-adce-45f4-a82e-ef50b539a800",
+          "4762b00b-01a9-4573-9b8a-c9cf1ae7987a",
+          "7d85e11e-7814-4f89-9162-fad7aa7b0904",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "13307b93-adce-45f4-a82e-ef50b539a800",
+          "4762b00b-01a9-4573-9b8a-c9cf1ae7987a",
+          "7d85e11e-7814-4f89-9162-fad7aa7b0904",
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q021",
+      "question": "在状态0遇到ID或IF时，解析器会执行什么操作？",
+      "relevant": [
+        "2f9f4d50-5c01-473a-9588-d2b265346a84"
+      ],
+      "serverMs": 14517,
+      "wallMs": 14534,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "081453b5-a6c9-4136-a585-d348982cb75f"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
+          "2f9f4d50-5c01-473a-9588-d2b265346a84",
+          "6c0fb065-c911-4951-92b9-230f054d5c52"
+        ],
+        "recall": 1.0,
+        "mrr": 0.25,
+        "ndcg": 0.4307
+      },
+      "rrfMerged": {
+        "ranked": [
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "081453b5-a6c9-4136-a585-d348982cb75f",
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
+          "2f9f4d50-5c01-473a-9588-d2b265346a84"
+        ],
+        "recall": 1.0,
+        "mrr": 0.2,
+        "ndcg": 0.3869
+      },
+      "reranked": {
+        "ranked": [
+          "081453b5-a6c9-4136-a585-d348982cb75f",
+          "2f9f4d50-5c01-473a-9588-d2b265346a84",
+          "9db85b9a-a415-4e5a-b30d-df591f52f860",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      }
+    },
+    {
+      "id": "q022",
+      "question": "generateSyntaxTree方法如何利用nodeStack构建语法树？",
+      "relevant": [
+        "7d85e11e-7814-4f89-9162-fad7aa7b0904"
+      ],
+      "serverMs": 11108,
+      "wallMs": 11144,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "4762b00b-01a9-4573-9b8a-c9cf1ae7987a",
+          "7d85e11e-7814-4f89-9162-fad7aa7b0904",
+          "13307b93-adce-45f4-a82e-ef50b539a800"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "keywordRecall": {
+        "ranked": [
+          "4762b00b-01a9-4573-9b8a-c9cf1ae7987a",
+          "7d85e11e-7814-4f89-9162-fad7aa7b0904",
+          "13307b93-adce-45f4-a82e-ef50b539a800",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
+          "2f9f4d50-5c01-473a-9588-d2b265346a84"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "rrfMerged": {
+        "ranked": [
+          "4762b00b-01a9-4573-9b8a-c9cf1ae7987a",
+          "7d85e11e-7814-4f89-9162-fad7aa7b0904",
+          "13307b93-adce-45f4-a82e-ef50b539a800",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
+          "2f9f4d50-5c01-473a-9588-d2b265346a84"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "reranked": {
+        "ranked": [
+          "7d85e11e-7814-4f89-9162-fad7aa7b0904",
+          "13307b93-adce-45f4-a82e-ef50b539a800",
+          "4762b00b-01a9-4573-9b8a-c9cf1ae7987a",
+          "2f9f4d50-5c01-473a-9588-d2b265346a84",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q023",
+      "question": "状态栈包含哪些关键数据结构？",
+      "relevant": [
+        "4762b00b-01a9-4573-9b8a-c9cf1ae7987a"
+      ],
+      "serverMs": 11319,
+      "wallMs": 11333,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "3d989a70-4e89-4837-ac33-dabef418303c",
+          "7d85e11e-7814-4f89-9162-fad7aa7b0904",
+          "4762b00b-01a9-4573-9b8a-c9cf1ae7987a",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e"
+        ],
+        "recall": 1.0,
+        "mrr": 0.3333,
+        "ndcg": 0.5
+      },
+      "rrfMerged": {
+        "ranked": [
+          "3d989a70-4e89-4837-ac33-dabef418303c",
+          "7d85e11e-7814-4f89-9162-fad7aa7b0904",
+          "4762b00b-01a9-4573-9b8a-c9cf1ae7987a",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680",
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e"
+        ],
+        "recall": 1.0,
+        "mrr": 0.3333,
+        "ndcg": 0.5
+      },
+      "reranked": {
+        "ranked": [
+          "4762b00b-01a9-4573-9b8a-c9cf1ae7987a",
+          "7d85e11e-7814-4f89-9162-fad7aa7b0904",
+          "3d989a70-4e89-4837-ac33-dabef418303c",
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q024",
+      "question": "在SLR(1)语法分析中，输入\"a = 10;\"的处理动作是什么？",
+      "relevant": [
+        "d92e1878-e1ad-45df-9e33-75e31ac2ee8e"
+      ],
+      "serverMs": 12698,
+      "wallMs": 12714,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
+          "3d989a70-4e89-4837-ac33-dabef418303c",
+          "210dd53c-340c-4ea7-90bc-2feb4c48c3f8",
+          "7d85e11e-7814-4f89-9162-fad7aa7b0904",
+          "081453b5-a6c9-4136-a585-d348982cb75f"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
+          "081453b5-a6c9-4136-a585-d348982cb75f",
+          "e91e8d78-8836-4d71-8699-e80530d49aab",
+          "cc88b64a-8df8-4c9d-96c4-529d267d33ae"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
+          "081453b5-a6c9-4136-a585-d348982cb75f",
+          "3d989a70-4e89-4837-ac33-dabef418303c",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
+          "210dd53c-340c-4ea7-90bc-2feb4c48c3f8"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "d92e1878-e1ad-45df-9e33-75e31ac2ee8e",
+          "210dd53c-340c-4ea7-90bc-2feb4c48c3f8",
+          "081453b5-a6c9-4136-a585-d348982cb75f",
+          "e91e8d78-8836-4d71-8699-e80530d49aab",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q025",
+      "question": "根据文法设计，程序符号表如何继承语句列表的符号表？",
+      "relevant": [
+        "38cb7d7e-c906-4984-9ca1-1af30b45181b"
+      ],
+      "serverMs": 15484,
+      "wallMs": 15501,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "d41f7fde-dbd9-46ca-a3ff-8260e46ba7ae",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
+          "100493f0-3275-4897-b031-cb62be96f21a"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "keywordRecall": {
+        "ranked": [
+          "7d85e11e-7814-4f89-9162-fad7aa7b0904",
+          "d41f7fde-dbd9-46ca-a3ff-8260e46ba7ae",
+          "fa5e7370-fe1f-4450-9dd9-56a8054de209",
+          "5cce6c92-9e45-461a-8e1e-94b910368c47",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b"
+        ],
+        "recall": 1.0,
+        "mrr": 0.2,
+        "ndcg": 0.3869
+      },
+      "rrfMerged": {
+        "ranked": [
+          "d41f7fde-dbd9-46ca-a3ff-8260e46ba7ae",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
+          "7d85e11e-7814-4f89-9162-fad7aa7b0904",
+          "100493f0-3275-4897-b031-cb62be96f21a",
+          "fa5e7370-fe1f-4450-9dd9-56a8054de209"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "reranked": {
+        "ranked": [
+          "d41f7fde-dbd9-46ca-a3ff-8260e46ba7ae",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
+          "100493f0-3275-4897-b031-cb62be96f21a",
+          "7d85e11e-7814-4f89-9162-fad7aa7b0904",
+          "fa5e7370-fe1f-4450-9dd9-56a8054de209"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      }
+    },
+    {
+      "id": "q026",
+      "question": "在赋值语句的语义处理中，类型不匹配时如何触发错误检测？",
+      "relevant": [
+        "d41f7fde-dbd9-46ca-a3ff-8260e46ba7ae"
+      ],
+      "serverMs": 15954,
+      "wallMs": 15990,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "d41f7fde-dbd9-46ca-a3ff-8260e46ba7ae"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
+          "d41f7fde-dbd9-46ca-a3ff-8260e46ba7ae",
+          "e134d01e-940a-4441-aab9-e60d729367a1",
+          "6c0fb065-c911-4951-92b9-230f054d5c52"
+        ],
+        "recall": 1.0,
+        "mrr": 0.3333,
+        "ndcg": 0.5
+      },
+      "rrfMerged": {
+        "ranked": [
+          "d41f7fde-dbd9-46ca-a3ff-8260e46ba7ae",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
+          "e134d01e-940a-4441-aab9-e60d729367a1",
+          "6c0fb065-c911-4951-92b9-230f054d5c52"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "d41f7fde-dbd9-46ca-a3ff-8260e46ba7ae",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "e134d01e-940a-4441-aab9-e60d729367a1",
+          "6c0fb065-c911-4951-92b9-230f054d5c52"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q027",
+      "question": "在处理加法表达式时，生成的四元式中的操作符、第一个操作数、第二个操作数和结果分别是什么？",
+      "relevant": [
+        "fb0334b5-f338-4167-8840-6ef1890a853d"
+      ],
+      "serverMs": 15194,
+      "wallMs": 15209,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "fb0334b5-f338-4167-8840-6ef1890a853d",
+          "d41f7fde-dbd9-46ca-a3ff-8260e46ba7ae"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "100493f0-3275-4897-b031-cb62be96f21a",
+          "fb0334b5-f338-4167-8840-6ef1890a853d",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "482403e9-4e38-43c8-8b7a-23bbd5108b61",
+          "e134d01e-940a-4441-aab9-e60d729367a1"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "rrfMerged": {
+        "ranked": [
+          "fb0334b5-f338-4167-8840-6ef1890a853d",
+          "100493f0-3275-4897-b031-cb62be96f21a",
+          "d41f7fde-dbd9-46ca-a3ff-8260e46ba7ae",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "482403e9-4e38-43c8-8b7a-23bbd5108b61"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "fb0334b5-f338-4167-8840-6ef1890a853d",
+          "d41f7fde-dbd9-46ca-a3ff-8260e46ba7ae",
+          "100493f0-3275-4897-b031-cb62be96f21a",
+          "482403e9-4e38-43c8-8b7a-23bbd5108b61",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q028",
+      "question": "如何设计语义变量和语义函数来处理四元式结构中的操作符和符号表项的类型检查？",
+      "relevant": [
+        "100493f0-3275-4897-b031-cb62be96f21a"
+      ],
+      "serverMs": 17102,
+      "wallMs": 17132,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "100493f0-3275-4897-b031-cb62be96f21a",
+          "d41f7fde-dbd9-46ca-a3ff-8260e46ba7ae",
+          "fb0334b5-f338-4167-8840-6ef1890a853d",
+          "8cf84796-18ad-4027-957e-d19b975f3ce7",
+          "482403e9-4e38-43c8-8b7a-23bbd5108b61"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "100493f0-3275-4897-b031-cb62be96f21a",
+          "d41f7fde-dbd9-46ca-a3ff-8260e46ba7ae",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
+          "fb0334b5-f338-4167-8840-6ef1890a853d",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "100493f0-3275-4897-b031-cb62be96f21a",
+          "d41f7fde-dbd9-46ca-a3ff-8260e46ba7ae",
+          "fb0334b5-f338-4167-8840-6ef1890a853d",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
+          "8cf84796-18ad-4027-957e-d19b975f3ce7"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "fb0334b5-f338-4167-8840-6ef1890a853d",
+          "100493f0-3275-4897-b031-cb62be96f21a",
+          "d41f7fde-dbd9-46ca-a3ff-8260e46ba7ae",
+          "482403e9-4e38-43c8-8b7a-23bbd5108b61",
+          "8cf84796-18ad-4027-957e-d19b975f3ce7"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      }
+    },
+    {
+      "id": "q029",
+      "question": "扫描器方法如何读取下一个单词？",
+      "relevant": [
+        "8cf84796-18ad-4027-957e-d19b975f3ce7"
+      ],
+      "serverMs": 12419,
+      "wallMs": 12460,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "e91e8d78-8836-4d71-8699-e80530d49aab"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "8cf84796-18ad-4027-957e-d19b975f3ce7",
+          "482403e9-4e38-43c8-8b7a-23bbd5108b61",
+          "e91e8d78-8836-4d71-8699-e80530d49aab",
+          "50032380-978a-48c3-8e31-988f4b5058c5",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "e91e8d78-8836-4d71-8699-e80530d49aab",
+          "8cf84796-18ad-4027-957e-d19b975f3ce7",
+          "482403e9-4e38-43c8-8b7a-23bbd5108b61",
+          "50032380-978a-48c3-8e31-988f4b5058c5",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "reranked": {
+        "ranked": [
+          "e91e8d78-8836-4d71-8699-e80530d49aab",
+          "482403e9-4e38-43c8-8b7a-23bbd5108b61",
+          "8cf84796-18ad-4027-957e-d19b975f3ce7",
+          "50032380-978a-48c3-8e31-988f4b5058c5",
+          "7ea0bc21-9591-48b5-82e3-fafde9eaa680"
+        ],
+        "recall": 1.0,
+        "mrr": 0.3333,
+        "ndcg": 0.5
+      }
+    },
+    {
+      "id": "q030",
+      "question": "在语义分析过程中，回填链管理结构如何协助四元式的生成与优化？",
+      "relevant": [
+        "482403e9-4e38-43c8-8b7a-23bbd5108b61"
+      ],
+      "serverMs": 15337,
+      "wallMs": 15354,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "482403e9-4e38-43c8-8b7a-23bbd5108b61",
+          "8cf84796-18ad-4027-957e-d19b975f3ce7"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "8cf84796-18ad-4027-957e-d19b975f3ce7",
+          "482403e9-4e38-43c8-8b7a-23bbd5108b61",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
+          "d41f7fde-dbd9-46ca-a3ff-8260e46ba7ae"
+        ],
+        "recall": 1.0,
+        "mrr": 0.3333,
+        "ndcg": 0.5
+      },
+      "rrfMerged": {
+        "ranked": [
+          "482403e9-4e38-43c8-8b7a-23bbd5108b61",
+          "8cf84796-18ad-4027-957e-d19b975f3ce7",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
+          "d41f7fde-dbd9-46ca-a3ff-8260e46ba7ae"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "482403e9-4e38-43c8-8b7a-23bbd5108b61",
+          "8cf84796-18ad-4027-957e-d19b975f3ce7",
+          "d41f7fde-dbd9-46ca-a3ff-8260e46ba7ae",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q031",
+      "question": "如何利用回填函数和布尔表达式分析实现条件语句的语义处理？",
+      "relevant": [
+        "15760d57-468c-4f45-82b2-2b87749c548f"
+      ],
+      "serverMs": 10887,
+      "wallMs": 10902,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "15760d57-468c-4f45-82b2-2b87749c548f",
+          "482403e9-4e38-43c8-8b7a-23bbd5108b61",
+          "8cf84796-18ad-4027-957e-d19b975f3ce7",
+          "eebacf29-db8c-43a5-8c60-89765c631f72",
+          "d41f7fde-dbd9-46ca-a3ff-8260e46ba7ae"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "482403e9-4e38-43c8-8b7a-23bbd5108b61",
+          "15760d57-468c-4f45-82b2-2b87749c548f",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "a2a2ee50-e9c9-46a6-ac6b-4a6e9d08b729",
+          "8cf84796-18ad-4027-957e-d19b975f3ce7"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "rrfMerged": {
+        "ranked": [
+          "15760d57-468c-4f45-82b2-2b87749c548f",
+          "482403e9-4e38-43c8-8b7a-23bbd5108b61",
+          "8cf84796-18ad-4027-957e-d19b975f3ce7",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "eebacf29-db8c-43a5-8c60-89765c631f72"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "15760d57-468c-4f45-82b2-2b87749c548f",
+          "482403e9-4e38-43c8-8b7a-23bbd5108b61",
+          "8cf84796-18ad-4027-957e-d19b975f3ce7",
+          "d41f7fde-dbd9-46ca-a3ff-8260e46ba7ae",
+          "eebacf29-db8c-43a5-8c60-89765c631f72"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q032",
+      "question": "分析以下输入的语义分析结果：a + b * c if (a < b) then c = 1 else c = 0 x = y + 3.14 * z",
+      "relevant": [
+        "eebacf29-db8c-43a5-8c60-89765c631f72"
+      ],
+      "serverMs": 13819,
+      "wallMs": 13833,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "eebacf29-db8c-43a5-8c60-89765c631f72",
+          "b0a33406-8cd8-4691-88f5-a878be38bd16",
+          "15760d57-468c-4f45-82b2-2b87749c548f"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "eebacf29-db8c-43a5-8c60-89765c631f72",
+          "b0a33406-8cd8-4691-88f5-a878be38bd16",
+          "cc88b64a-8df8-4c9d-96c4-529d267d33ae",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
+          "e91e8d78-8836-4d71-8699-e80530d49aab"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "eebacf29-db8c-43a5-8c60-89765c631f72",
+          "b0a33406-8cd8-4691-88f5-a878be38bd16",
+          "15760d57-468c-4f45-82b2-2b87749c548f",
+          "cc88b64a-8df8-4c9d-96c4-529d267d33ae",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "eebacf29-db8c-43a5-8c60-89765c631f72",
+          "b0a33406-8cd8-4691-88f5-a878be38bd16",
+          "e91e8d78-8836-4d71-8699-e80530d49aab",
+          "38cb7d7e-c906-4984-9ca1-1af30b45181b",
+          "15760d57-468c-4f45-82b2-2b87749c548f"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q033",
+      "question": "当前编译器存在哪些明显的不足？",
+      "relevant": [
+        "c0d11804-4cae-44f4-91d9-b8162a1fe70c"
+      ],
+      "serverMs": 10650,
+      "wallMs": 10665,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "6c0fb065-c911-4951-92b9-230f054d5c52",
+          "2f10cbbe-2d3e-49be-bac3-2b944b7364ed",
+          "bee97d7d-b35e-44d3-aae7-b4a314ba8e9d",
+          "32956d54-04e8-4a46-b21d-32ac919877a4"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "6c0fb065-c911-4951-92b9-230f054d5c52",
+          "2f10cbbe-2d3e-49be-bac3-2b944b7364ed",
+          "bee97d7d-b35e-44d3-aae7-b4a314ba8e9d",
+          "32956d54-04e8-4a46-b21d-32ac919877a4"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "6c0fb065-c911-4951-92b9-230f054d5c52",
+          "2f10cbbe-2d3e-49be-bac3-2b944b7364ed",
+          "32956d54-04e8-4a46-b21d-32ac919877a4",
+          "bee97d7d-b35e-44d3-aae7-b4a314ba8e9d"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q034",
+      "question": "在编译原理实验中，语义分析模块存在哪些功能上的不足？",
+      "relevant": [
+        "6c0fb065-c911-4951-92b9-230f054d5c52"
+      ],
+      "serverMs": 9237,
+      "wallMs": 9261,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "6c0fb065-c911-4951-92b9-230f054d5c52",
+          "8cf84796-18ad-4027-957e-d19b975f3ce7",
+          "d41f7fde-dbd9-46ca-a3ff-8260e46ba7ae",
+          "eebacf29-db8c-43a5-8c60-89765c631f72"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "keywordRecall": {
+        "ranked": [
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "6c0fb065-c911-4951-92b9-230f054d5c52",
+          "f5a12fd4-e96c-4aee-ad2b-ef0cb20cedd0",
+          "876d7c03-f017-45cd-9120-b030b90c1214",
+          "e134d01e-940a-4441-aab9-e60d729367a1"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "rrfMerged": {
+        "ranked": [
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "6c0fb065-c911-4951-92b9-230f054d5c52",
+          "8cf84796-18ad-4027-957e-d19b975f3ce7",
+          "f5a12fd4-e96c-4aee-ad2b-ef0cb20cedd0",
+          "d41f7fde-dbd9-46ca-a3ff-8260e46ba7ae"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "reranked": {
+        "ranked": [
+          "6c0fb065-c911-4951-92b9-230f054d5c52",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c",
+          "d41f7fde-dbd9-46ca-a3ff-8260e46ba7ae",
+          "8cf84796-18ad-4027-957e-d19b975f3ce7",
+          "eebacf29-db8c-43a5-8c60-89765c631f72"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q035",
+      "question": "这些图片分别展示了什么内容？",
+      "relevant": [
+        "fd7258e6-9c45-4768-b67d-b25669b36a35"
+      ],
+      "serverMs": 10342,
+      "wallMs": 10363,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "fd7258e6-9c45-4768-b67d-b25669b36a35"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "f5a12fd4-e96c-4aee-ad2b-ef0cb20cedd0",
+          "18a2a7b1-c53f-410e-8722-e18f71bf048c",
+          "ea40260b-afe8-481c-a199-a0ce31892984",
+          "909e2868-1990-43bd-a1e7-70f426728d66",
+          "deee072b-4f48-44b8-9635-0dc479393ee1"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "fd7258e6-9c45-4768-b67d-b25669b36a35",
+          "f5a12fd4-e96c-4aee-ad2b-ef0cb20cedd0",
+          "18a2a7b1-c53f-410e-8722-e18f71bf048c",
+          "ea40260b-afe8-481c-a199-a0ce31892984",
+          "909e2868-1990-43bd-a1e7-70f426728d66"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "fd7258e6-9c45-4768-b67d-b25669b36a35",
+          "f5a12fd4-e96c-4aee-ad2b-ef0cb20cedd0",
+          "18a2a7b1-c53f-410e-8722-e18f71bf048c",
+          "ea40260b-afe8-481c-a199-a0ce31892984",
+          "909e2868-1990-43bd-a1e7-70f426728d66"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q036",
+      "question": "根据表结构和实验步骤，如何使用SQL DDL语句正确创建包含主键、外键约束的region、nation、supplier和part四个表？",
+      "relevant": [
+        "5cce6c92-9e45-461a-8e1e-94b910368c47"
+      ],
+      "serverMs": 14263,
+      "wallMs": 14287,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "5cce6c92-9e45-461a-8e1e-94b910368c47",
+          "32956d54-04e8-4a46-b21d-32ac919877a4",
+          "34460ea6-b3ab-4854-ae3a-6fe7d0d65b1d"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "5cce6c92-9e45-461a-8e1e-94b910368c47",
+          "876d7c03-f017-45cd-9120-b030b90c1214",
+          "c15f9e87-712c-4525-aeab-de971095ae65",
+          "0482f811-600d-4fae-8969-c5e6ec30a588",
+          "34460ea6-b3ab-4854-ae3a-6fe7d0d65b1d"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "5cce6c92-9e45-461a-8e1e-94b910368c47",
+          "34460ea6-b3ab-4854-ae3a-6fe7d0d65b1d",
+          "32956d54-04e8-4a46-b21d-32ac919877a4",
+          "876d7c03-f017-45cd-9120-b030b90c1214",
+          "c15f9e87-712c-4525-aeab-de971095ae65"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "5cce6c92-9e45-461a-8e1e-94b910368c47",
+          "34460ea6-b3ab-4854-ae3a-6fe7d0d65b1d",
+          "32956d54-04e8-4a46-b21d-32ac919877a4",
+          "c15f9e87-712c-4525-aeab-de971095ae65",
+          "0482f811-600d-4fae-8969-c5e6ec30a588"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q037",
+      "question": "零件供应联系表（partsupp）的主键由哪两个字段联合作为？",
+      "relevant": [
+        "34460ea6-b3ab-4854-ae3a-6fe7d0d65b1d"
+      ],
+      "serverMs": 15078,
+      "wallMs": 15091,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "34460ea6-b3ab-4854-ae3a-6fe7d0d65b1d"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "34460ea6-b3ab-4854-ae3a-6fe7d0d65b1d",
+          "c15f9e87-712c-4525-aeab-de971095ae65",
+          "876d7c03-f017-45cd-9120-b030b90c1214",
+          "efc3cacd-2b60-4b06-b08f-32cf6a46a1f8",
+          "5cce6c92-9e45-461a-8e1e-94b910368c47"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "34460ea6-b3ab-4854-ae3a-6fe7d0d65b1d",
+          "c15f9e87-712c-4525-aeab-de971095ae65",
+          "876d7c03-f017-45cd-9120-b030b90c1214",
+          "efc3cacd-2b60-4b06-b08f-32cf6a46a1f8",
+          "5cce6c92-9e45-461a-8e1e-94b910368c47"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "34460ea6-b3ab-4854-ae3a-6fe7d0d65b1d",
+          "c15f9e87-712c-4525-aeab-de971095ae65",
+          "efc3cacd-2b60-4b06-b08f-32cf6a46a1f8",
+          "5cce6c92-9e45-461a-8e1e-94b910368c47",
+          "876d7c03-f017-45cd-9120-b030b90c1214"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q038",
+      "question": "订单明细表中的orderkey字段参照的是哪个表的主键？",
+      "relevant": [
+        "efc3cacd-2b60-4b06-b08f-32cf6a46a1f8"
+      ],
+      "serverMs": 13333,
+      "wallMs": 13359,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "c15f9e87-712c-4525-aeab-de971095ae65",
+          "efc3cacd-2b60-4b06-b08f-32cf6a46a1f8",
+          "34460ea6-b3ab-4854-ae3a-6fe7d0d65b1d",
+          "bee97d7d-b35e-44d3-aae7-b4a314ba8e9d"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "keywordRecall": {
+        "ranked": [
+          "c15f9e87-712c-4525-aeab-de971095ae65",
+          "efc3cacd-2b60-4b06-b08f-32cf6a46a1f8",
+          "32956d54-04e8-4a46-b21d-32ac919877a4",
+          "876d7c03-f017-45cd-9120-b030b90c1214",
+          "2f10cbbe-2d3e-49be-bac3-2b944b7364ed"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "rrfMerged": {
+        "ranked": [
+          "c15f9e87-712c-4525-aeab-de971095ae65",
+          "efc3cacd-2b60-4b06-b08f-32cf6a46a1f8",
+          "34460ea6-b3ab-4854-ae3a-6fe7d0d65b1d",
+          "32956d54-04e8-4a46-b21d-32ac919877a4",
+          "bee97d7d-b35e-44d3-aae7-b4a314ba8e9d"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "reranked": {
+        "ranked": [
+          "c15f9e87-712c-4525-aeab-de971095ae65",
+          "efc3cacd-2b60-4b06-b08f-32cf6a46a1f8",
+          "32956d54-04e8-4a46-b21d-32ac919877a4",
+          "34460ea6-b3ab-4854-ae3a-6fe7d0d65b1d",
+          "2f10cbbe-2d3e-49be-bac3-2b944b7364ed"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      }
+    },
+    {
+      "id": "q039",
+      "question": "订单明细表的主键由哪两个字段联合作用？",
+      "relevant": [
+        "c15f9e87-712c-4525-aeab-de971095ae65"
+      ],
+      "serverMs": 14183,
+      "wallMs": 14214,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "c15f9e87-712c-4525-aeab-de971095ae65",
+          "efc3cacd-2b60-4b06-b08f-32cf6a46a1f8"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "c15f9e87-712c-4525-aeab-de971095ae65",
+          "efc3cacd-2b60-4b06-b08f-32cf6a46a1f8",
+          "876d7c03-f017-45cd-9120-b030b90c1214",
+          "2f10cbbe-2d3e-49be-bac3-2b944b7364ed",
+          "32956d54-04e8-4a46-b21d-32ac919877a4"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "c15f9e87-712c-4525-aeab-de971095ae65",
+          "efc3cacd-2b60-4b06-b08f-32cf6a46a1f8",
+          "876d7c03-f017-45cd-9120-b030b90c1214",
+          "2f10cbbe-2d3e-49be-bac3-2b944b7364ed",
+          "32956d54-04e8-4a46-b21d-32ac919877a4"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "c15f9e87-712c-4525-aeab-de971095ae65",
+          "efc3cacd-2b60-4b06-b08f-32cf6a46a1f8",
+          "32956d54-04e8-4a46-b21d-32ac919877a4",
+          "2f10cbbe-2d3e-49be-bac3-2b944b7364ed",
+          "876d7c03-f017-45cd-9120-b030b90c1214"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q040",
+      "question": "如何为orders表的订单日期字段创建一个按降序排列的索引Dindex？",
+      "relevant": [
+        "fa5e7370-fe1f-4450-9dd9-56a8054de209"
+      ],
+      "serverMs": 14704,
+      "wallMs": 14731,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "fa5e7370-fe1f-4450-9dd9-56a8054de209",
+          "c15f9e87-712c-4525-aeab-de971095ae65"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "c15f9e87-712c-4525-aeab-de971095ae65",
+          "fa5e7370-fe1f-4450-9dd9-56a8054de209",
+          "efc3cacd-2b60-4b06-b08f-32cf6a46a1f8",
+          "2f10cbbe-2d3e-49be-bac3-2b944b7364ed",
+          "32956d54-04e8-4a46-b21d-32ac919877a4"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "rrfMerged": {
+        "ranked": [
+          "fa5e7370-fe1f-4450-9dd9-56a8054de209",
+          "c15f9e87-712c-4525-aeab-de971095ae65",
+          "efc3cacd-2b60-4b06-b08f-32cf6a46a1f8",
+          "2f10cbbe-2d3e-49be-bac3-2b944b7364ed",
+          "32956d54-04e8-4a46-b21d-32ac919877a4"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "fa5e7370-fe1f-4450-9dd9-56a8054de209",
+          "c15f9e87-712c-4525-aeab-de971095ae65",
+          "efc3cacd-2b60-4b06-b08f-32cf6a46a1f8",
+          "2f10cbbe-2d3e-49be-bac3-2b944b7364ed",
+          "32956d54-04e8-4a46-b21d-32ac919877a4"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q041",
+      "question": "查询2024年销售总金额超过100万元的零件信息，显示零件编号、零件名称、品牌、制造厂、销售总金额。",
+      "relevant": [
+        "a917a1e2-81d8-43ef-945c-fb4bb817dd35"
+      ],
+      "serverMs": 17872,
+      "wallMs": 17887,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "a917a1e2-81d8-43ef-945c-fb4bb817dd35"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "a917a1e2-81d8-43ef-945c-fb4bb817dd35",
+          "fa5e7370-fe1f-4450-9dd9-56a8054de209",
+          "ea40260b-afe8-481c-a199-a0ce31892984",
+          "18a2a7b1-c53f-410e-8722-e18f71bf048c",
+          "34460ea6-b3ab-4854-ae3a-6fe7d0d65b1d"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "a917a1e2-81d8-43ef-945c-fb4bb817dd35",
+          "fa5e7370-fe1f-4450-9dd9-56a8054de209",
+          "ea40260b-afe8-481c-a199-a0ce31892984",
+          "18a2a7b1-c53f-410e-8722-e18f71bf048c",
+          "34460ea6-b3ab-4854-ae3a-6fe7d0d65b1d"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "a917a1e2-81d8-43ef-945c-fb4bb817dd35",
+          "fa5e7370-fe1f-4450-9dd9-56a8054de209",
+          "34460ea6-b3ab-4854-ae3a-6fe7d0d65b1d",
+          "ea40260b-afe8-481c-a199-a0ce31892984",
+          "18a2a7b1-c53f-410e-8722-e18f71bf048c"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q042",
+      "question": "如何编写SQL语句将每个顾客编号、购物总数量、购物总价插入到顾客统计表（cusshopping）中？",
+      "relevant": [
+        "909e2868-1990-43bd-a1e7-70f426728d66"
+      ],
+      "serverMs": 12764,
+      "wallMs": 12793,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "fa5e7370-fe1f-4450-9dd9-56a8054de209",
+          "a917a1e2-81d8-43ef-945c-fb4bb817dd35"
+        ],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "909e2868-1990-43bd-a1e7-70f426728d66",
+          "a917a1e2-81d8-43ef-945c-fb4bb817dd35",
+          "fa5e7370-fe1f-4450-9dd9-56a8054de209",
+          "ea40260b-afe8-481c-a199-a0ce31892984",
+          "18a2a7b1-c53f-410e-8722-e18f71bf048c"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "fa5e7370-fe1f-4450-9dd9-56a8054de209",
+          "a917a1e2-81d8-43ef-945c-fb4bb817dd35",
+          "909e2868-1990-43bd-a1e7-70f426728d66",
+          "ea40260b-afe8-481c-a199-a0ce31892984",
+          "18a2a7b1-c53f-410e-8722-e18f71bf048c"
+        ],
+        "recall": 1.0,
+        "mrr": 0.3333,
+        "ndcg": 0.5
+      },
+      "reranked": {
+        "ranked": [
+          "909e2868-1990-43bd-a1e7-70f426728d66",
+          "ea40260b-afe8-481c-a199-a0ce31892984",
+          "a917a1e2-81d8-43ef-945c-fb4bb817dd35",
+          "fa5e7370-fe1f-4450-9dd9-56a8054de209",
+          "18a2a7b1-c53f-410e-8722-e18f71bf048c"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q043",
+      "question": "使用 with check option 创建的视图 Viewpart3 对\"河北钢铁集团有限公司\"供应商供应的零件进行增删改操作时，与普通视图 Viewpart2 的更新结果有何不同？",
+      "relevant": [
+        "ea40260b-afe8-481c-a199-a0ce31892984"
+      ],
+      "serverMs": 19540,
+      "wallMs": 19556,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "ea40260b-afe8-481c-a199-a0ce31892984",
+          "18a2a7b1-c53f-410e-8722-e18f71bf048c",
+          "909e2868-1990-43bd-a1e7-70f426728d66"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "ea40260b-afe8-481c-a199-a0ce31892984",
+          "909e2868-1990-43bd-a1e7-70f426728d66",
+          "18a2a7b1-c53f-410e-8722-e18f71bf048c",
+          "a917a1e2-81d8-43ef-945c-fb4bb817dd35",
+          "6123160c-0691-4b26-92f8-a05791b9321e"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "ea40260b-afe8-481c-a199-a0ce31892984",
+          "18a2a7b1-c53f-410e-8722-e18f71bf048c",
+          "909e2868-1990-43bd-a1e7-70f426728d66",
+          "a917a1e2-81d8-43ef-945c-fb4bb817dd35",
+          "6123160c-0691-4b26-92f8-a05791b9321e"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "ea40260b-afe8-481c-a199-a0ce31892984",
+          "909e2868-1990-43bd-a1e7-70f426728d66",
+          "18a2a7b1-c53f-410e-8722-e18f71bf048c",
+          "6123160c-0691-4b26-92f8-a05791b9321e",
+          "a917a1e2-81d8-43ef-945c-fb4bb817dd35"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q044",
+      "question": "如何在Viewcust2的基础上创建Viewcust3？",
+      "relevant": [
+        "18a2a7b1-c53f-410e-8722-e18f71bf048c"
+      ],
+      "serverMs": 11361,
+      "wallMs": 11414,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [],
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "18a2a7b1-c53f-410e-8722-e18f71bf048c",
+          "ea40260b-afe8-481c-a199-a0ce31892984",
+          "6c0fb065-c911-4951-92b9-230f054d5c52",
+          "5cce6c92-9e45-461a-8e1e-94b910368c47",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "18a2a7b1-c53f-410e-8722-e18f71bf048c",
+          "ea40260b-afe8-481c-a199-a0ce31892984",
+          "6c0fb065-c911-4951-92b9-230f054d5c52",
+          "5cce6c92-9e45-461a-8e1e-94b910368c47",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "ea40260b-afe8-481c-a199-a0ce31892984",
+          "18a2a7b1-c53f-410e-8722-e18f71bf048c",
+          "5cce6c92-9e45-461a-8e1e-94b910368c47",
+          "6c0fb065-c911-4951-92b9-230f054d5c52",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      }
+    },
+    {
+      "id": "q045",
+      "question": "如何在创建表时和创建表后分别定义实体完整性？",
+      "relevant": [
+        "0482f811-600d-4fae-8969-c5e6ec30a588"
+      ],
+      "serverMs": 11584,
+      "wallMs": 11593,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "32956d54-04e8-4a46-b21d-32ac919877a4",
+          "0482f811-600d-4fae-8969-c5e6ec30a588"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "keywordRecall": {
+        "ranked": [
+          "0482f811-600d-4fae-8969-c5e6ec30a588",
+          "32956d54-04e8-4a46-b21d-32ac919877a4",
+          "18a2a7b1-c53f-410e-8722-e18f71bf048c",
+          "a2a2ee50-e9c9-46a6-ac6b-4a6e9d08b729",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "32956d54-04e8-4a46-b21d-32ac919877a4",
+          "0482f811-600d-4fae-8969-c5e6ec30a588",
+          "18a2a7b1-c53f-410e-8722-e18f71bf048c",
+          "a2a2ee50-e9c9-46a6-ac6b-4a6e9d08b729",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "reranked": {
+        "ranked": [
+          "0482f811-600d-4fae-8969-c5e6ec30a588",
+          "32956d54-04e8-4a46-b21d-32ac919877a4",
+          "a2a2ee50-e9c9-46a6-ac6b-4a6e9d08b729",
+          "18a2a7b1-c53f-410e-8722-e18f71bf048c",
+          "c0d11804-4cae-44f4-91d9-b8162a1fe70c"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q046",
+      "question": "如何定义国家表(nation1)的主码和唯一性约束？",
+      "relevant": [
+        "32956d54-04e8-4a46-b21d-32ac919877a4"
+      ],
+      "serverMs": 11719,
+      "wallMs": 11744,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "32956d54-04e8-4a46-b21d-32ac919877a4",
+          "34460ea6-b3ab-4854-ae3a-6fe7d0d65b1d"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "32956d54-04e8-4a46-b21d-32ac919877a4",
+          "0482f811-600d-4fae-8969-c5e6ec30a588",
+          "5cce6c92-9e45-461a-8e1e-94b910368c47",
+          "34460ea6-b3ab-4854-ae3a-6fe7d0d65b1d",
+          "efc3cacd-2b60-4b06-b08f-32cf6a46a1f8"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "32956d54-04e8-4a46-b21d-32ac919877a4",
+          "34460ea6-b3ab-4854-ae3a-6fe7d0d65b1d",
+          "0482f811-600d-4fae-8969-c5e6ec30a588",
+          "5cce6c92-9e45-461a-8e1e-94b910368c47",
+          "efc3cacd-2b60-4b06-b08f-32cf6a46a1f8"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "32956d54-04e8-4a46-b21d-32ac919877a4",
+          "0482f811-600d-4fae-8969-c5e6ec30a588",
+          "5cce6c92-9e45-461a-8e1e-94b910368c47",
+          "34460ea6-b3ab-4854-ae3a-6fe7d0d65b1d",
+          "efc3cacd-2b60-4b06-b08f-32cf6a46a1f8"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q047",
+      "question": "定义存储过程proc6，根据输入年份和阈值，使用游标更新符合条件的客户备注为'SVIP'",
+      "relevant": [
+        "bee97d7d-b35e-44d3-aae7-b4a314ba8e9d"
+      ],
+      "serverMs": 19835,
+      "wallMs": 19843,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "bee97d7d-b35e-44d3-aae7-b4a314ba8e9d"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "bee97d7d-b35e-44d3-aae7-b4a314ba8e9d",
+          "c5d237db-ab6b-4cf5-8050-517da8ad02cf",
+          "1934bf37-9c18-4bdd-b166-a9da41c8b9ca",
+          "fa5e7370-fe1f-4450-9dd9-56a8054de209",
+          "2f10cbbe-2d3e-49be-bac3-2b944b7364ed"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "bee97d7d-b35e-44d3-aae7-b4a314ba8e9d",
+          "c5d237db-ab6b-4cf5-8050-517da8ad02cf",
+          "1934bf37-9c18-4bdd-b166-a9da41c8b9ca",
+          "fa5e7370-fe1f-4450-9dd9-56a8054de209",
+          "2f10cbbe-2d3e-49be-bac3-2b944b7364ed"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "bee97d7d-b35e-44d3-aae7-b4a314ba8e9d",
+          "2f10cbbe-2d3e-49be-bac3-2b944b7364ed",
+          "fa5e7370-fe1f-4450-9dd9-56a8054de209",
+          "c5d237db-ab6b-4cf5-8050-517da8ad02cf",
+          "1934bf37-9c18-4bdd-b166-a9da41c8b9ca"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q048",
+      "question": "在Lineitem表上设计一个BEFORE UPDATE触发器，当修改订单明细中的数量（quantity）时，如何确保检查供应表PartSupp中对应零件的可用数量availqty是否足够？",
+      "relevant": [
+        "2f10cbbe-2d3e-49be-bac3-2b944b7364ed"
+      ],
+      "serverMs": 18383,
+      "wallMs": 18417,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "2f10cbbe-2d3e-49be-bac3-2b944b7364ed",
+          "876d7c03-f017-45cd-9120-b030b90c1214",
+          "bee97d7d-b35e-44d3-aae7-b4a314ba8e9d",
+          "c15f9e87-712c-4525-aeab-de971095ae65"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "2f10cbbe-2d3e-49be-bac3-2b944b7364ed",
+          "876d7c03-f017-45cd-9120-b030b90c1214",
+          "909e2868-1990-43bd-a1e7-70f426728d66",
+          "bee97d7d-b35e-44d3-aae7-b4a314ba8e9d",
+          "c15f9e87-712c-4525-aeab-de971095ae65"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "2f10cbbe-2d3e-49be-bac3-2b944b7364ed",
+          "876d7c03-f017-45cd-9120-b030b90c1214",
+          "bee97d7d-b35e-44d3-aae7-b4a314ba8e9d",
+          "c15f9e87-712c-4525-aeab-de971095ae65",
+          "909e2868-1990-43bd-a1e7-70f426728d66"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "2f10cbbe-2d3e-49be-bac3-2b944b7364ed",
+          "876d7c03-f017-45cd-9120-b030b90c1214",
+          "c15f9e87-712c-4525-aeab-de971095ae65",
+          "bee97d7d-b35e-44d3-aae7-b4a314ba8e9d",
+          "909e2868-1990-43bd-a1e7-70f426728d66"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q049",
+      "question": "如何验证在订单明细表上定义的BEFORE INSERT和BEFORE DELETE触发器是否能够正确执行其功能？",
+      "relevant": [
+        "876d7c03-f017-45cd-9120-b030b90c1214"
+      ],
+      "serverMs": 8923,
+      "wallMs": 8957,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "2f10cbbe-2d3e-49be-bac3-2b944b7364ed",
+          "876d7c03-f017-45cd-9120-b030b90c1214"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "keywordRecall": {
+        "ranked": [
+          "2f10cbbe-2d3e-49be-bac3-2b944b7364ed",
+          "bee97d7d-b35e-44d3-aae7-b4a314ba8e9d",
+          "876d7c03-f017-45cd-9120-b030b90c1214",
+          "909e2868-1990-43bd-a1e7-70f426728d66",
+          "32956d54-04e8-4a46-b21d-32ac919877a4"
+        ],
+        "recall": 1.0,
+        "mrr": 0.3333,
+        "ndcg": 0.5
+      },
+      "rrfMerged": {
+        "ranked": [
+          "2f10cbbe-2d3e-49be-bac3-2b944b7364ed",
+          "876d7c03-f017-45cd-9120-b030b90c1214",
+          "bee97d7d-b35e-44d3-aae7-b4a314ba8e9d",
+          "909e2868-1990-43bd-a1e7-70f426728d66",
+          "32956d54-04e8-4a46-b21d-32ac919877a4"
+        ],
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309
+      },
+      "reranked": {
+        "ranked": [
+          "876d7c03-f017-45cd-9120-b030b90c1214",
+          "2f10cbbe-2d3e-49be-bac3-2b944b7364ed",
+          "bee97d7d-b35e-44d3-aae7-b4a314ba8e9d",
+          "32956d54-04e8-4a46-b21d-32ac919877a4",
+          "909e2868-1990-43bd-a1e7-70f426728d66"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    },
+    {
+      "id": "q050",
+      "question": "在仓储货物配送管理系统设计中，如何通过数据库设计与SQL语句实现用户管理、车辆管理及员工管理功能，并满足实体完整性、参照完整性和用户自定义完整性要求？",
+      "relevant": [
+        "a2a2ee50-e9c9-46a6-ac6b-4a6e9d08b729"
+      ],
+      "serverMs": 17318,
+      "wallMs": 17327,
+      "rerankStatus": "success",
+      "rrfK": 60,
+      "vectorRecall": {
+        "ranked": [
+          "a2a2ee50-e9c9-46a6-ac6b-4a6e9d08b729",
+          "66a097d8-e8f0-4c39-90eb-5b4dee180afd",
+          "0482f811-600d-4fae-8969-c5e6ec30a588",
+          "18a2a7b1-c53f-410e-8722-e18f71bf048c",
+          "ff56bb28-9320-4cc8-aac8-2ff3348116cb"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "keywordRecall": {
+        "ranked": [
+          "a2a2ee50-e9c9-46a6-ac6b-4a6e9d08b729",
+          "66a097d8-e8f0-4c39-90eb-5b4dee180afd",
+          "0482f811-600d-4fae-8969-c5e6ec30a588",
+          "ab34d2bd-5838-4e97-a753-137b8d5c4778",
+          "deee072b-4f48-44b8-9635-0dc479393ee1"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "rrfMerged": {
+        "ranked": [
+          "a2a2ee50-e9c9-46a6-ac6b-4a6e9d08b729",
+          "66a097d8-e8f0-4c39-90eb-5b4dee180afd",
+          "0482f811-600d-4fae-8969-c5e6ec30a588",
+          "18a2a7b1-c53f-410e-8722-e18f71bf048c",
+          "ab34d2bd-5838-4e97-a753-137b8d5c4778"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      },
+      "reranked": {
+        "ranked": [
+          "a2a2ee50-e9c9-46a6-ac6b-4a6e9d08b729",
+          "66a097d8-e8f0-4c39-90eb-5b4dee180afd",
+          "0482f811-600d-4fae-8969-c5e6ec30a588",
+          "ff56bb28-9320-4cc8-aac8-2ff3348116cb",
+          "ab34d2bd-5838-4e97-a753-137b8d5c4778"
+        ],
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0
+      }
+    }
+  ],
+  "rerankStatus": {
+    "success": 50,
+    "disabled": 0,
+    "degraded": 0,
+    "missing": 0
+  },
+  "latency": {
+    "p50ServerMs": 13794.0,
+    "p95ServerMs": 19019.35,
+    "p50WallMs": 13809.5,
+    "p95WallMs": 19043.449999999997
+  }
+}

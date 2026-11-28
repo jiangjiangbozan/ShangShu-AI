@@ -2,6 +2,9 @@
 # 开发环境配置（dev profile）
 # ====================================================================
 spring:
+  # 本地密钥从被 .gitignore 忽略的 application-secret.yml 导入（文件缺失时静默跳过）
+  config:
+    import: optional:classpath:application-secret.yml
   # ============ 自动装配 exclude 清单 ============
   # 说明：OpenAiEmbeddingAutoConfiguration 的排除已上移到共享配置 application.yml（所有环境生效）。
   # 项目仅用 Ollama embedding（nomic-embed-text）做 RAG 向量化；排除 OpenAI embedding 后
@@ -283,6 +286,9 @@ elasticsearch:
 rag:
   query-rewrite:
     enabled: true
+    # 主改写模型：按 sys_model_config 动态取用（需在模型表配置 api_key）；默认百炼 qwen3.8-max
+    model-id: ${RAG_QUERY_REWRITE_MODEL_ID:qwen3.8-max-0902}
+    # 历史字段，改写模型实际由 model-id 决定
     model: deepseek
     fallback-model: ollama-qwen25
     timeout-ms: 3000
@@ -297,16 +303,41 @@ rag:
     # knowledge_graph = 知识图谱召回（实体匹配 + 多跳关系扩展，擅长关系型问句，add-3rd-4th-retrieval）
     # 注：解析时会把连字符归一化为下划线，knowledge-graph 与 knowledge_graph 等价
     retrieval-methods: semantic,fulltext,parent,knowledge_graph
+  # 向量化模型（P1 双后端）
+  # provider=ollama 用本地 nomic-embed-text（768 维，离线免费）；
+  # provider=dashscope 用百炼 qwen3.7-text-embedding-flash（OpenAI 兼容端点，dimensions 可控 768/512/256）。
+  # 切换后端会改变向量空间，必须重嵌入全部分片，否则检索失效。
+  embedding:
+    # dev 默认走百炼；回退本地离线向量化只需设 RAG_EMBEDDING_PROVIDER=ollama（切回后必须重新入库/重嵌入）
+    provider: ${RAG_EMBEDDING_PROVIDER:dashscope}
+    base-url: ${RAG_EMBEDDING_BASE_URL:https://dashscope.aliyuncs.com}
+    # 密钥不落盘：环境变量优先，其次取应用 secret 文件里的 dashscope.api-key
+    api-key: ${RAG_EMBEDDING_API_KEY:${DASHSCOPE_API_KEY:${dashscope.api-key:}}}
+    model: ${RAG_EMBEDDING_MODEL:qwen3.7-text-embedding-flash}
+    # 与现有 ES dense_vector 映射保持一致，改维度需重建索引
+    dimensions: ${RAG_EMBEDDING_DIMENSIONS:768}
+    timeout-ms: ${RAG_EMBEDDING_TIMEOUT_MS:15000}
   # 混合检索精排（add-3rd-4th-retrieval，对齐 Dify rerank_model 配置化思路）
-  # 基于 HTTP 兼容 /rerank 接口（SiliconFlow / Jina / Cohere 协议），关闭或未配置时降级返回 RRF 原序
+  # protocol=openai 走 {base-url}/rerank（SiliconFlow / Jina / Cohere 协议）；
+  # protocol=dashscope 走百炼原生 {base-url}/api/v1/services/rerank/text-rerank/text-rerank
+  # 关闭或未配置时降级返回 RRF 原序
   rerank:
-    enabled: ${RAG_RERANK_ENABLED:false}
-    base-url: ${RAG_RERANK_BASE_URL:}
-    api-key: ${RAG_RERANK_API_KEY:}
-    model: ${RAG_RERANK_MODEL:bge-reranker-v2-m3}
+    # 常开：本机已接通百炼 rerank，回退 RRF 原序时设 RAG_RERANK_ENABLED=false
+    enabled: ${RAG_RERANK_ENABLED:true}
+    # 默认百炼原生协议；SiliconFlow / Jina / Cohere 可切回 openai
+    protocol: ${RAG_RERANK_PROTOCOL:dashscope}
+    base-url: ${RAG_RERANK_BASE_URL:https://dashscope.aliyuncs.com}
+    # 密钥不落盘：环境变量优先，其次取应用 secret 文件里的 dashscope.api-key
+    api-key: ${RAG_RERANK_API_KEY:${DASHSCOPE_API_KEY:${dashscope.api-key:}}}
+    model: ${RAG_RERANK_MODEL:qwen3.7-text-rerank}
     top-n: 5
     candidate-n: 10
-    timeout-ms: 3000
+    # 单条候选截断长度，控制请求体大小与计费 token；实测 800 字与 1200 字判别效果相当
+    # 单次 10 候选：1200 字约 7,710 token，800 字约 5,150 token，省 33%
+    max-candidate-chars: ${RAG_RERANK_MAX_CANDIDATE_CHARS:800}
+    # 百炼 rerank 自定义排序指令，留空用官方默认 QA 检索语义
+    instruct: ${RAG_RERANK_INSTRUCT:}
+    timeout-ms: ${RAG_RERANK_TIMEOUT_MS:8000}
   # 父文档召回配置（add-3rd-4th-retrieval）
   parent-doc:
     enabled: true
@@ -381,8 +412,10 @@ agent:
 cs:
   # 意图识别置信度阈值，低于此值触发澄清或兜底
   intent-confidence-threshold: 0.6
-  # KB 命中阈值，top1 score 高于此值跳过 LLM 直接返回
-  kb-hit-threshold: 0.85
+  # KB 命中阈值，top1 rerank 相关性分数高于此值可跳过 LLM 直接返回
+  # 0.4 依据 rerank 判别力标定（三组 215 题次实测）：0.5 会丢掉约 25% 的正例，
+  # 0.4 保留 80~84% 正例、负例误放仅 2~3%（详见 docs/platform/testing/rerank-calibration-report.md）
+  kb-hit-threshold: ${CS_KB_HIT_THRESHOLD:0.4}
   # 单次会话最大澄清轮数，超出强制 fallback
   clarify-max-rounds: 3
   # 默认兜底意图

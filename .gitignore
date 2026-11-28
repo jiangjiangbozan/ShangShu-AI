@@ -28,6 +28,9 @@
 /docs/platform/*
 !/docs/platform/architecture.md
 !/docs/platform/deployment.md
+# 测试与评测文档对外可见（评测结论是项目能力的一部分）
+!/docs/platform/testing/
+!/docs/platform/testing/*.md
 
 # ---------------------------------------------------------------------
 # 环境变量与密钥（绝不提交）
@@ -41,6 +44,13 @@
 *.yml.local
 *.yaml.local
 secrets/
+# dev profile 通过 spring.config.import 引入的本地密钥文件
+**/application-secret.yml
+
+# 批次 B 第三方文档语料：可由 dev/rag-corpus/download_corpus_b.py 一键复现，不重复入库
+dev/rag-corpus/batch-b/
+# 批次 C 中文文档语料：可由 dev/rag-corpus/fetch_k8s_zh.py 一键复现，不重复入库
+dev/rag-corpus/batch-c/
 *.pem
 *.key
 !test/*.pem.nopkcs8

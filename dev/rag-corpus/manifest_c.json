@@ -1,0 +1,1608 @@
+{
+  "records": [
+    {
+      "order": 1,
+      "file": "01-concepts-windows-intro.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/windows/intro/",
+      "title": "Kubernetes 中的 Windows 容器",
+      "chars": 9020,
+      "cn_chars": 3649
+    },
+    {
+      "order": 2,
+      "file": "02-concepts-containers-cri.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/containers/cri/",
+      "title": "容器运行时接口（CRI）",
+      "chars": 1606,
+      "cn_chars": 626
+    },
+    {
+      "order": 3,
+      "file": "03-concepts-workloads-pods.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/",
+      "title": "Pod",
+      "chars": 10116,
+      "cn_chars": 4689
+    },
+    {
+      "order": 4,
+      "file": "04-concepts-storage-volumes.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/storage/volumes/",
+      "title": "卷",
+      "chars": 26425,
+      "cn_chars": 4015
+    },
+    {
+      "order": 5,
+      "file": "05-concepts-overview-kubectl.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/overview/kubectl/",
+      "title": "kubectl 命令行工具",
+      "chars": 2031,
+      "cn_chars": 973
+    },
+    {
+      "order": 6,
+      "file": "06-concepts-containers-images.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/containers/images/",
+      "title": "镜像",
+      "chars": 11281,
+      "cn_chars": 5331
+    },
+    {
+      "order": 7,
+      "file": "07-concepts-architecture-nodes.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/architecture/nodes/",
+      "title": "节点",
+      "chars": 5301,
+      "cn_chars": 2921
+    },
+    {
+      "order": 8,
+      "file": "08-concepts-policy-limit-range.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/policy/limit-range/",
+      "title": "限制范围（LimitRange）",
+      "chars": 3308,
+      "cn_chars": 1398
+    },
+    {
+      "order": 9,
+      "file": "09-concepts-windows-user-guide.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/windows/user-guide/",
+      "title": "在 Kubernetes 中运行 Windows 容器的指南",
+      "chars": 7067,
+      "cn_chars": 1903
+    },
+    {
+      "order": 10,
+      "file": "10-concepts-architecture-leases.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/architecture/leases/",
+      "title": "租约（Lease）",
+      "chars": 3507,
+      "cn_chars": 948
+    },
+    {
+      "order": 12,
+      "file": "12-concepts-policy-pid-limiting.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/policy/pid-limiting/",
+      "title": "进程 ID 约束与预留",
+      "chars": 2266,
+      "cn_chars": 1345
+    },
+    {
+      "order": 13,
+      "file": "13-concepts-architecture-cgroups.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/architecture/cgroups/",
+      "title": "关于 CGroup v2",
+      "chars": 2962,
+      "cn_chars": 1168
+    },
+    {
+      "order": 14,
+      "file": "14-concepts-configuration-secret.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/configuration/secret/",
+      "title": "Secret",
+      "chars": 18652,
+      "cn_chars": 4352
+    },
+    {
+      "order": 15,
+      "file": "15-concepts-workloads-management.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/workloads/management/",
+      "title": "管理工作负载",
+      "chars": 8340,
+      "cn_chars": 2370
+    },
+    {
+      "order": 16,
+      "file": "16-concepts-workloads-autoscaling.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/workloads/autoscaling/",
+      "title": "自动扩缩工作负载",
+      "chars": 2642,
+      "cn_chars": 1199
+    },
+    {
+      "order": 18,
+      "file": "18-concepts-policy-resource-quotas.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/policy/resource-quotas/",
+      "title": "资源配额",
+      "chars": 16586,
+      "cn_chars": 4008
+    },
+    {
+      "order": 19,
+      "file": "19-concepts-security-multi-tenancy.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/security/multi-tenancy/",
+      "title": "多租户",
+      "chars": 9827,
+      "cn_chars": 7112
+    },
+    {
+      "order": 20,
+      "file": "20-concepts-storage-storage-limits.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/storage/storage-limits/",
+      "title": "特定于节点的卷数限制",
+      "chars": 2727,
+      "cn_chars": 912
+    },
+    {
+      "order": 21,
+      "file": "21-concepts-workloads-podgroup-api.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/workloads/podgroup-api/",
+      "title": "PodGroup API",
+      "chars": 4854,
+      "cn_chars": 1190
+    },
+    {
+      "order": 22,
+      "file": "22-concepts-workloads-workload-api.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/workloads/workload-api/",
+      "title": "Workload API",
+      "chars": 2722,
+      "cn_chars": 845
+    },
+    {
+      "order": 23,
+      "file": "23-concepts-architecture-controller.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/architecture/controller/",
+      "title": "控制器",
+      "chars": 2531,
+      "cn_chars": 1591
+    },
+    {
+      "order": 24,
+      "file": "24-concepts-configuration-configmap.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/configuration/configmap/",
+      "title": "ConfigMap",
+      "chars": 6858,
+      "cn_chars": 2435
+    },
+    {
+      "order": 25,
+      "file": "25-concepts-overview-kubernetes-api.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/overview/kubernetes-api/",
+      "title": "Kubernetes API",
+      "chars": 6537,
+      "cn_chars": 2384
+    },
+    {
+      "order": 27,
+      "file": "27-concepts-storage-storage-classes.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/storage/storage-classes/",
+      "title": "存储类（StorageClass）",
+      "chars": 11866,
+      "cn_chars": 3341
+    },
+    {
+      "order": 29,
+      "file": "29-concepts-containers-runtime-class.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/containers/runtime-class/",
+      "title": "容器运行时类（Runtime Class）",
+      "chars": 2979,
+      "cn_chars": 1061
+    },
+    {
+      "order": 30,
+      "file": "30-concepts-storage-storage-capacity.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/storage/storage-capacity/",
+      "title": "存储容量",
+      "chars": 1721,
+      "cn_chars": 977
+    },
+    {
+      "order": 31,
+      "file": "31-concepts-storage-volume-snapshots.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/storage/volume-snapshots/",
+      "title": "卷快照",
+      "chars": 5788,
+      "cn_chars": 1918
+    },
+    {
+      "order": 33,
+      "file": "33-concepts-security-service-accounts.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/security/service-accounts/",
+      "title": "服务账号",
+      "chars": 7173,
+      "cn_chars": 3472
+    },
+    {
+      "order": 35,
+      "file": "35-concepts-storage-ephemeral-storage.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/storage/ephemeral-storage/",
+      "title": "本地临时存储",
+      "chars": 4908,
+      "cn_chars": 2400
+    },
+    {
+      "order": 36,
+      "file": "36-concepts-storage-ephemeral-volumes.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/storage/ephemeral-volumes/",
+      "title": "临时卷",
+      "chars": 4424,
+      "cn_chars": 2055
+    },
+    {
+      "order": 37,
+      "file": "37-concepts-storage-projected-volumes.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/storage/projected-volumes/",
+      "title": "投射卷",
+      "chars": 7510,
+      "cn_chars": 2107
+    },
+    {
+      "order": 38,
+      "file": "38-concepts-cluster-administration-dra.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/cluster-administration/dra/",
+      "title": "集群管理员使用动态资源分配的良好实践",
+      "chars": 4541,
+      "cn_chars": 1821
+    },
+    {
+      "order": 39,
+      "file": "39-concepts-extend-kubernetes-operator.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/extend-kubernetes/operator/",
+      "title": "Operator 模式",
+      "chars": 2730,
+      "cn_chars": 1302
+    },
+    {
+      "order": 40,
+      "file": "40-concepts-storage-persistent-volumes.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes/",
+      "title": "持久卷",
+      "chars": 23922,
+      "cn_chars": 4037
+    },
+    {
+      "order": 41,
+      "file": "41-concepts-security-controlling-access.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/security/controlling-access/",
+      "title": "Kubernetes API 访问控制",
+      "chars": 2768,
+      "cn_chars": 1447
+    },
+    {
+      "order": 42,
+      "file": "42-concepts-security-security-checklist.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/security/security-checklist/",
+      "title": "安全检查清单",
+      "chars": 7387,
+      "cn_chars": 4238
+    },
+    {
+      "order": 43,
+      "file": "43-concepts-services-networking-gateway.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/services-networking/gateway/",
+      "title": "Gateway API",
+      "chars": 4977,
+      "cn_chars": 1970
+    },
+    {
+      "order": 44,
+      "file": "44-concepts-services-networking-ingress.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/services-networking/ingress/",
+      "title": "Ingress",
+      "chars": 15042,
+      "cn_chars": 3373
+    },
+    {
+      "order": 45,
+      "file": "45-concepts-services-networking-service.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/services-networking/service/",
+      "title": "服务（Service）",
+      "chars": 21924,
+      "cn_chars": 4701
+    },
+    {
+      "order": 47,
+      "file": "47-concepts-security-rbac-good-practices.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/security/rbac-good-practices/",
+      "title": "基于角色的访问控制良好实践",
+      "chars": 4425,
+      "cn_chars": 2612
+    },
+    {
+      "order": 48,
+      "file": "48-concepts-storage-dynamic-provisioning.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/storage/dynamic-provisioning/",
+      "title": "动态卷制备",
+      "chars": 2193,
+      "cn_chars": 901
+    },
+    {
+      "order": 49,
+      "file": "49-concepts-architecture-cloud-controller.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/architecture/cloud-controller/",
+      "title": "云控制器管理器",
+      "chars": 3286,
+      "cn_chars": 1478
+    },
+    {
+      "order": 50,
+      "file": "50-concepts-cluster-administration-addons.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/cluster-administration/addons/",
+      "title": "安装扩展（Addon）",
+      "chars": 3058,
+      "cn_chars": 1404
+    },
+    {
+      "order": 51,
+      "file": "51-concepts-overview-working-with-objects.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/",
+      "title": "Kubernetes 对象",
+      "chars": 3818,
+      "cn_chars": 1606
+    },
+    {
+      "order": 52,
+      "file": "52-concepts-policy-node-resource-managers.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/policy/node-resource-managers/",
+      "title": "节点资源管理器",
+      "chars": 6721,
+      "cn_chars": 2921
+    },
+    {
+      "order": 54,
+      "file": "54-concepts-cluster-administration-logging.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/cluster-administration/logging/",
+      "title": "日志架构",
+      "chars": 9443,
+      "cn_chars": 3570
+    },
+    {
+      "order": 56,
+      "file": "56-concepts-security-cloud-native-security.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/security/cloud-native-security/",
+      "title": "云原生安全和 Kubernetes",
+      "chars": 3117,
+      "cn_chars": 2092
+    },
+    {
+      "order": 57,
+      "file": "57-concepts-services-networking-dual-stack.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/services-networking/dual-stack/",
+      "title": "IPv4/IPv6 双协议栈",
+      "chars": 6693,
+      "cn_chars": 1704
+    },
+    {
+      "order": 58,
+      "file": "58-concepts-architecture-garbage-collection.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/architecture/garbage-collection/",
+      "title": "垃圾收集",
+      "chars": 4091,
+      "cn_chars": 2335
+    },
+    {
+      "order": 60,
+      "file": "60-concepts-security-pod-security-admission.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/security/pod-security-admission/",
+      "title": "Pod 安全性准入",
+      "chars": 3011,
+      "cn_chars": 1405
+    },
+    {
+      "order": 61,
+      "file": "61-concepts-security-pod-security-standards.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/security/pod-security-standards/",
+      "title": "Pod 安全性标准",
+      "chars": 10372,
+      "cn_chars": 2685
+    },
+    {
+      "order": 62,
+      "file": "62-concepts-security-secrets-good-practices.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/security/secrets-good-practices/",
+      "title": "Kubernetes Secret 良好实践",
+      "chars": 2363,
+      "cn_chars": 1387
+    },
+    {
+      "order": 63,
+      "file": "63-concepts-storage-volume-snapshot-classes.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/storage/volume-snapshot-classes/",
+      "title": "卷快照类",
+      "chars": 1981,
+      "cn_chars": 611
+    },
+    {
+      "order": 64,
+      "file": "64-concepts-workloads-compositepodgroup-api.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/workloads/compositepodgroup-api/",
+      "title": "CompositePodGroup API",
+      "chars": 3874,
+      "cn_chars": 750
+    },
+    {
+      "order": 65,
+      "file": "65-concepts-architecture-mixed-version-proxy.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/architecture/mixed-version-proxy/",
+      "title": "混合版本代理",
+      "chars": 3067,
+      "cn_chars": 1420
+    },
+    {
+      "order": 67,
+      "file": "67-concepts-scheduling-eviction-api-eviction.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/api-eviction/",
+      "title": "API 发起的驱逐",
+      "chars": 2225,
+      "cn_chars": 907
+    },
+    {
+      "order": 68,
+      "file": "68-concepts-scheduling-eviction-pod-overhead.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/pod-overhead/",
+      "title": "Pod 开销",
+      "chars": 3832,
+      "cn_chars": 1159
+    },
+    {
+      "order": 69,
+      "file": "69-concepts-security-api-server-bypass-risks.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/security/api-server-bypass-risks/",
+      "title": "Kubernetes API 服务器旁路风险",
+      "chars": 3266,
+      "cn_chars": 1932
+    },
+    {
+      "order": 71,
+      "file": "71-concepts-cluster-administration-networking.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/cluster-administration/networking/",
+      "title": "集群网络系统",
+      "chars": 1766,
+      "cn_chars": 836
+    },
+    {
+      "order": 72,
+      "file": "72-concepts-storage-volume-attributes-classes.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/storage/volume-attributes-classes/",
+      "title": "卷属性类",
+      "chars": 2753,
+      "cn_chars": 730
+    },
+    {
+      "order": 73,
+      "file": "73-concepts-cluster-administration-system-logs.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/cluster-administration/system-logs/",
+      "title": "系统日志",
+      "chars": 6912,
+      "cn_chars": 2220
+    },
+    {
+      "order": 74,
+      "file": "74-concepts-scheduling-eviction-kube-scheduler.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/kube-scheduler/",
+      "title": "Kubernetes 调度器",
+      "chars": 1803,
+      "cn_chars": 1023
+    },
+    {
+      "order": 76,
+      "file": "76-concepts-cluster-administration-flow-control.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/cluster-administration/flow-control/",
+      "title": "API 优先级和公平性",
+      "chars": 17674,
+      "cn_chars": 6058
+    },
+    {
+      "order": 77,
+      "file": "77-concepts-scheduling-eviction-assign-pod-node.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/",
+      "title": "将 Pod 指派给节点",
+      "chars": 16430,
+      "cn_chars": 4082
+    },
+    {
+      "order": 78,
+      "file": "78-concepts-scheduling-eviction-gang-scheduling.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/gang-scheduling/",
+      "title": "编组调度（Gang Scheduling）",
+      "chars": 3327,
+      "cn_chars": 1323
+    },
+    {
+      "order": 79,
+      "file": "79-concepts-services-networking-dns-pod-service.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/services-networking/dns-pod-service/",
+      "title": "Service 与 Pod 的 DNS",
+      "chars": 8137,
+      "cn_chars": 2447
+    },
+    {
+      "order": 80,
+      "file": "80-concepts-services-networking-endpoint-slices.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/services-networking/endpoint-slices/",
+      "title": "EndpointSlice",
+      "chars": 4651,
+      "cn_chars": 1853
+    },
+    {
+      "order": 81,
+      "file": "81-concepts-cluster-administration-node-shutdown.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/cluster-administration/node-shutdown/",
+      "title": "节点关闭",
+      "chars": 6082,
+      "cn_chars": 2735
+    },
+    {
+      "order": 82,
+      "file": "82-concepts-cluster-administration-observability.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/cluster-administration/observability/",
+      "title": "可观测性",
+      "chars": 4562,
+      "cn_chars": 2120
+    },
+    {
+      "order": 83,
+      "file": "83-concepts-cluster-administration-system-traces.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/cluster-administration/system-traces/",
+      "title": "追踪 Kubernetes 系统组件",
+      "chars": 3092,
+      "cn_chars": 1085
+    },
+    {
+      "order": 84,
+      "file": "84-concepts-containers-container-lifecycle-hooks.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/containers/container-lifecycle-hooks/",
+      "title": "容器生命周期回调",
+      "chars": 3991,
+      "cn_chars": 1466
+    },
+    {
+      "order": 85,
+      "file": "85-concepts-services-networking-network-policies.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/services-networking/network-policies/",
+      "title": "网络策略",
+      "chars": 10896,
+      "cn_chars": 4529
+    },
+    {
+      "order": 88,
+      "file": "88-tasks-debug-debug-cluster.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/debug/debug-cluster/",
+      "title": "集群故障排查",
+      "chars": 8858,
+      "cn_chars": 1428
+    },
+    {
+      "order": 89,
+      "file": "89-tasks-job-pod-failure-policy.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/job/pod-failure-policy/",
+      "title": "使用 Pod 失效策略处理可重试和不可重试的 Pod 失效",
+      "chars": 7838,
+      "cn_chars": 1701
+    },
+    {
+      "order": 94,
+      "file": "94-tasks-manage-gpus-scheduling-gpus.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/manage-gpus/scheduling-gpus/",
+      "title": "调度 GPU",
+      "chars": 2560,
+      "cn_chars": 973
+    },
+    {
+      "order": 95,
+      "file": "95-tasks-network-validate-dual-stack.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/network/validate-dual-stack/",
+      "title": "验证 IPv4/IPv6 双协议栈",
+      "chars": 5843,
+      "cn_chars": 832
+    },
+    {
+      "order": 96,
+      "file": "96-tasks-tools-install-kubectl-linux.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/tools/install-kubectl-linux/",
+      "title": "在 Linux 系统中安装并设置 kubectl",
+      "chars": 9935,
+      "cn_chars": 2176
+    },
+    {
+      "order": 97,
+      "file": "97-tasks-tools-install-kubectl-macos.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/tools/install-kubectl-macos/",
+      "title": "在 macOS 系统上安装和设置 kubectl",
+      "chars": 7714,
+      "cn_chars": 2051
+    },
+    {
+      "order": 98,
+      "file": "98-tasks-administer-cluster-namespaces.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/namespaces/",
+      "title": "通过名字空间共享集群",
+      "chars": 5618,
+      "cn_chars": 1981
+    },
+    {
+      "order": 99,
+      "file": "99-tasks-manage-daemon-pods-some-nodes.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/manage-daemon/pods-some-nodes/",
+      "title": "仅在某些节点上运行 Pod",
+      "chars": 1710,
+      "cn_chars": 423
+    },
+    {
+      "order": 100,
+      "file": "100-tasks-run-application-configure-pdb.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/run-application/configure-pdb/",
+      "title": "为应用程序设置干扰预算（Disruption Budget）",
+      "chars": 6326,
+      "cn_chars": 2519
+    },
+    {
+      "order": 101,
+      "file": "101-tasks-tls-managing-tls-in-a-cluster.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/tls/managing-tls-in-a-cluster/",
+      "title": "管理集群中的 TLS 认证",
+      "chars": 7219,
+      "cn_chars": 1812
+    },
+    {
+      "order": 102,
+      "file": "102-tasks-tools-install-kubectl-windows.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/tools/install-kubectl-windows/",
+      "title": "在 Windows 上安装 kubectl",
+      "chars": 4339,
+      "cn_chars": 1420
+    },
+    {
+      "order": 103,
+      "file": "103-tasks-extend-kubectl-kubectl-plugins.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/extend-kubectl/kubectl-plugins/",
+      "title": "用插件扩展 kubectl",
+      "chars": 6859,
+      "cn_chars": 2501
+    },
+    {
+      "order": 104,
+      "file": "104-tasks-administer-cluster-certificates.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/certificates/",
+      "title": "手动生成证书",
+      "chars": 5203,
+      "cn_chars": 832
+    },
+    {
+      "order": 105,
+      "file": "105-tasks-administer-cluster-decrypt-data.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/decrypt-data/",
+      "title": "解密已静态加密的机密数据",
+      "chars": 2787,
+      "cn_chars": 1281
+    },
+    {
+      "order": 106,
+      "file": "106-tasks-administer-cluster-encrypt-data.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/encrypt-data/",
+      "title": "静态加密机密数据",
+      "chars": 12006,
+      "cn_chars": 5140
+    },
+    {
+      "order": 107,
+      "file": "107-tasks-administer-cluster-kms-provider.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kms-provider/",
+      "title": "使用 KMS 驱动进行数据加密",
+      "chars": 8952,
+      "cn_chars": 3647
+    },
+    {
+      "order": 108,
+      "file": "108-tasks-administer-cluster-nodelocaldns.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/nodelocaldns/",
+      "title": "在 Kubernetes 集群中使用 NodeLocal DNSCache",
+      "chars": 4421,
+      "cn_chars": 1491
+    },
+    {
+      "order": 109,
+      "file": "109-tasks-manage-daemon-create-daemon-set.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/manage-daemon/create-daemon-set/",
+      "title": "构建一个基本的 DaemonSet",
+      "chars": 2158,
+      "cn_chars": 516
+    },
+    {
+      "order": 110,
+      "file": "110-tasks-manage-daemon-update-daemon-set.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/manage-daemon/update-daemon-set/",
+      "title": "对 DaemonSet 执行滚动更新",
+      "chars": 5102,
+      "cn_chars": 1091
+    },
+    {
+      "order": 111,
+      "file": "111-tasks-administer-cluster-hardening-dra.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/hardening-dra/",
+      "title": "在集群中强化动态资源分配（DRA）",
+      "chars": 2521,
+      "cn_chars": 705
+    },
+    {
+      "order": 112,
+      "file": "112-tasks-administer-cluster-ip-masq-agent.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/ip-masq-agent/",
+      "title": "IP Masquerade Agent 用户指南",
+      "chars": 4668,
+      "cn_chars": 1261
+    },
+    {
+      "order": 113,
+      "file": "113-tasks-network-extend-service-ip-ranges.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/network/extend-service-ip-ranges/",
+      "title": "扩展 Service IP 范围",
+      "chars": 6804,
+      "cn_chars": 1069
+    },
+    {
+      "order": 114,
+      "file": "114-tasks-run-application-scale-deployment.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/run-application/scale-deployment/",
+      "title": "手动水平扩缩 Deployment",
+      "chars": 3625,
+      "cn_chars": 1023
+    },
+    {
+      "order": 115,
+      "file": "115-tasks-tls-certificate-issue-client-csr.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/tls/certificate-issue-client-csr/",
+      "title": "使用 CertificateSigningRequest 为 Kubernetes API 客户端颁发证书",
+      "chars": 6224,
+      "cn_chars": 961
+    },
+    {
+      "order": 116,
+      "file": "116-tasks-administer-cluster-memory-manager.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/memory-manager/",
+      "title": "控制节点上的内存管理策略",
+      "chars": 7072,
+      "cn_chars": 2356
+    },
+    {
+      "order": 117,
+      "file": "117-tasks-administer-cluster-sysctl-cluster.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/sysctl-cluster/",
+      "title": "在 Kubernetes 集群中使用 sysctl",
+      "chars": 6623,
+      "cn_chars": 2304
+    },
+    {
+      "order": 118,
+      "file": "118-tasks-job-parallel-processing-expansion.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/job/parallel-processing-expansion/",
+      "title": "使用展开的方式进行并行处理",
+      "chars": 5242,
+      "cn_chars": 1636
+    },
+    {
+      "order": 119,
+      "file": "119-tasks-manage-daemon-rollback-daemon-set.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/manage-daemon/rollback-daemon-set/",
+      "title": "对 DaemonSet 执行回滚",
+      "chars": 2605,
+      "cn_chars": 695
+    },
+    {
+      "order": 120,
+      "file": "120-tasks-administer-cluster-cluster-upgrade.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/cluster-upgrade/",
+      "title": "升级集群",
+      "chars": 1822,
+      "cn_chars": 880
+    },
+    {
+      "order": 121,
+      "file": "121-tasks-configure-pod-container-static-pod.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/configure-pod-container/static-pod/",
+      "title": "创建静态 Pod",
+      "chars": 5082,
+      "cn_chars": 1415
+    },
+    {
+      "order": 123,
+      "file": "123-tasks-job-automated-tasks-with-cron-jobs.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/job/automated-tasks-with-cron-jobs/",
+      "title": "使用 CronJob 运行自动化任务",
+      "chars": 2269,
+      "cn_chars": 529
+    },
+    {
+      "order": 124,
+      "file": "124-tasks-run-application-scale-stateful-set.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/run-application/scale-stateful-set/",
+      "title": "扩缩 StatefulSet",
+      "chars": 1598,
+      "cn_chars": 609
+    },
+    {
+      "order": 126,
+      "file": "126-tasks-administer-cluster-quota-api-object.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/quota-api-object/",
+      "title": "配置 API 对象配额",
+      "chars": 3299,
+      "cn_chars": 614
+    },
+    {
+      "order": 127,
+      "file": "127-tasks-administer-cluster-topology-manager.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/topology-manager/",
+      "title": "控制节点上的拓扑管理策略",
+      "chars": 7516,
+      "cn_chars": 3567
+    },
+    {
+      "order": 128,
+      "file": "128-tasks-run-application-access-api-from-pod.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/run-application/access-api-from-pod/",
+      "title": "从 Pod 中访问 Kubernetes API",
+      "chars": 2387,
+      "cn_chars": 851
+    },
+    {
+      "order": 129,
+      "file": "129-tasks-run-application-delete-stateful-set.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/run-application/delete-stateful-set/",
+      "title": "删除 StatefulSet",
+      "chars": 1646,
+      "cn_chars": 486
+    },
+    {
+      "order": 130,
+      "file": "130-tasks-administer-cluster-kubelet-in-userns.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubelet-in-userns/",
+      "title": "以非 root 用户身份运行 Kubernetes 节点组件",
+      "chars": 6327,
+      "cn_chars": 2016
+    },
+    {
+      "order": 131,
+      "file": "131-tasks-administer-cluster-safely-drain-node.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/safely-drain-node/",
+      "title": "安全地清空一个节点",
+      "chars": 2497,
+      "cn_chars": 1269
+    },
+    {
+      "order": 132,
+      "file": "132-tasks-extend-kubernetes-setup-konnectivity.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/extend-kubernetes/setup-konnectivity/",
+      "title": "设置 Konnectivity 服务",
+      "chars": 6633,
+      "cn_chars": 733
+    },
+    {
+      "order": 133,
+      "file": "133-tasks-administer-cluster-access-cluster-api.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/access-cluster-api/",
+      "title": "使用 Kubernetes API 访问集群",
+      "chars": 7357,
+      "cn_chars": 1399
+    },
+    {
+      "order": 135,
+      "file": "135-tasks-administer-cluster-securing-a-cluster.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/securing-a-cluster/",
+      "title": "保护集群",
+      "chars": 5888,
+      "cn_chars": 3734
+    },
+    {
+      "order": 136,
+      "file": "136-tasks-configure-pod-container-image-volumes.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/configure-pod-container/image-volumes/",
+      "title": "Pod 使用镜像卷",
+      "chars": 1916,
+      "cn_chars": 440
+    },
+    {
+      "order": 137,
+      "file": "137-tasks-job-job-with-pod-to-pod-communication.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/job/job-with-pod-to-pod-communication/",
+      "title": "带 Pod 间通信的 Job",
+      "chars": 2884,
+      "cn_chars": 808
+    },
+    {
+      "order": 138,
+      "file": "138-tasks-manage-hugepages-scheduling-hugepages.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/manage-hugepages/scheduling-hugepages/",
+      "title": "管理巨页（HugePage）",
+      "chars": 2510,
+      "cn_chars": 600
+    },
+    {
+      "order": 139,
+      "file": "139-tasks-network-customize-hosts-file-for-pods.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/network/customize-hosts-file-for-pods/",
+      "title": "使用 HostAliases 向 Pod /etc/hosts 文件添加条目",
+      "chars": 2619,
+      "cn_chars": 519
+    },
+    {
+      "order": 140,
+      "file": "140-tasks-administer-cluster-kubelet-config-file.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/",
+      "title": "通过配置文件设置 kubelet 参数",
+      "chars": 5802,
+      "cn_chars": 1360
+    },
+    {
+      "order": 141,
+      "file": "141-tasks-configure-pod-container-configure-gmsa.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/configure-pod-container/configure-gmsa/",
+      "title": "为 Windows Pod 和容器配置 GMSA",
+      "chars": 6946,
+      "cn_chars": 2039
+    },
+    {
+      "order": 142,
+      "file": "142-tasks-job-indexed-parallel-processing-static.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/job/indexed-parallel-processing-static/",
+      "title": "使用索引作业完成静态工作分配下的并行处理",
+      "chars": 5198,
+      "cn_chars": 1159
+    },
+    {
+      "order": 143,
+      "file": "143-tasks-tls-manual-rotation-of-ca-certificates.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/tls/manual-rotation-of-ca-certificates/",
+      "title": "手动轮换 CA 证书",
+      "chars": 4874,
+      "cn_chars": 1544
+    },
+    {
+      "order": 144,
+      "file": "144-tasks-configure-pod-container-user-namespaces.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/configure-pod-container/user-namespaces/",
+      "title": "为 Pod 配置 user 名字空间",
+      "chars": 2391,
+      "cn_chars": 911
+    },
+    {
+      "order": 145,
+      "file": "145-tasks-extend-kubernetes-http-proxy-access-api.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tasks/extend-kubernetes/http-proxy-access-api/",
+      "title": "使用 HTTP 代理访问 Kubernetes API",
+      "chars": 1677,
+      "cn_chars": 318
+    },
+    {
+      "order": 159,
+      "file": "159-concepts-cluster-administration-system-metrics.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/cluster-administration/system-metrics/",
+      "title": "Kubernetes 系统组件指标",
+      "chars": 7401,
+      "cn_chars": 2741
+    },
+    {
+      "order": 161,
+      "file": "161-concepts-resource-management-resource-managers.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/resource-management/resource-managers/",
+      "title": "资源管理器",
+      "chars": 7452,
+      "cn_chars": 3092
+    },
+    {
+      "order": 162,
+      "file": "162-concepts-services-networking-windows-networking.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/services-networking/windows-networking/",
+      "title": "Windows 网络",
+      "chars": 5224,
+      "cn_chars": 1918
+    },
+    {
+      "order": 163,
+      "file": "163-concepts-cluster-administration-node-autoscaling.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/cluster-administration/node-autoscaling/",
+      "title": "Node 自动扩缩容",
+      "chars": 5322,
+      "cn_chars": 2585
+    },
+    {
+      "order": 164,
+      "file": "164-concepts-scheduling-eviction-podgroup-scheduling.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/podgroup-scheduling/",
+      "title": "PodGroup 调度",
+      "chars": 3947,
+      "cn_chars": 1829
+    },
+    {
+      "order": 165,
+      "file": "165-concepts-security-application-security-checklist.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/security/application-security-checklist/",
+      "title": "应用安全检查清单",
+      "chars": 2433,
+      "cn_chars": 1389
+    },
+    {
+      "order": 166,
+      "file": "166-concepts-services-networking-ingress-controllers.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/services-networking/ingress-controllers/",
+      "title": "Ingress 控制器",
+      "chars": 3240,
+      "cn_chars": 1163
+    },
+    {
+      "order": 167,
+      "file": "167-concepts-scheduling-eviction-resource-bin-packing.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/resource-bin-packing/",
+      "title": "资源装箱",
+      "chars": 4816,
+      "cn_chars": 1059
+    },
+    {
+      "order": 168,
+      "file": "168-concepts-scheduling-eviction-scheduling-framework.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/scheduling-framework/",
+      "title": "调度框架",
+      "chars": 4883,
+      "cn_chars": 2407
+    },
+    {
+      "order": 169,
+      "file": "169-concepts-scheduling-eviction-taint-and-toleration.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/",
+      "title": "污点和容忍度",
+      "chars": 9204,
+      "cn_chars": 3893
+    },
+    {
+      "order": 170,
+      "file": "170-concepts-cluster-administration-kube-state-metrics.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/cluster-administration/kube-state-metrics/",
+      "title": "Kubernetes 对象状态的指标",
+      "chars": 1530,
+      "cn_chars": 568
+    },
+    {
+      "order": 171,
+      "file": "171-concepts-configuration-manage-resources-containers.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/configuration/manage-resources-containers/",
+      "title": "为 Pod 和容器管理资源",
+      "chars": 16866,
+      "cn_chars": 5068
+    },
+    {
+      "order": 172,
+      "file": "172-concepts-configuration-windows-resource-management.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/configuration/windows-resource-management/",
+      "title": "Windows 节点的资源管理",
+      "chars": 1599,
+      "cn_chars": 778
+    },
+    {
+      "order": 173,
+      "file": "173-concepts-scheduling-eviction-scheduler-perf-tuning.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/scheduler-perf-tuning/",
+      "title": "调度器性能调优",
+      "chars": 3627,
+      "cn_chars": 1882
+    },
+    {
+      "order": 174,
+      "file": "174-concepts-services-networking-cluster-ip-allocation.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/services-networking/cluster-ip-allocation/",
+      "title": "Service ClusterIP 分配",
+      "chars": 2425,
+      "cn_chars": 755
+    },
+    {
+      "order": 175,
+      "file": "175-concepts-scheduling-eviction-node-declared-features.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/node-declared-features/",
+      "title": "节点声明式特性",
+      "chars": 1679,
+      "cn_chars": 609
+    },
+    {
+      "order": 176,
+      "file": "176-concepts-scheduling-eviction-node-pressure-eviction.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/",
+      "title": "节点压力驱逐",
+      "chars": 11158,
+      "cn_chars": 4910
+    },
+    {
+      "order": 177,
+      "file": "177-concepts-security-linux-kernel-security-constraints.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/security/linux-kernel-security-constraints/",
+      "title": "针对 Pod 和容器的 Linux 内核安全约束",
+      "chars": 5260,
+      "cn_chars": 3003
+    },
+    {
+      "order": 179,
+      "file": "179-concepts-services-networking-topology-aware-routing.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/services-networking/topology-aware-routing/",
+      "title": "拓扑感知路由",
+      "chars": 3549,
+      "cn_chars": 1923
+    },
+    {
+      "order": 180,
+      "file": "180-concepts-storage-volume-populators-and-data-sources.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/storage/volume-populators-and-data-sources/",
+      "title": "卷填充器（Populator）与数据源",
+      "chars": 3422,
+      "cn_chars": 1251
+    },
+    {
+      "order": 181,
+      "file": "181-concepts-scheduling-eviction-pod-priority-preemption.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/",
+      "title": "Pod 优先级和抢占",
+      "chars": 10633,
+      "cn_chars": 4797
+    },
+    {
+      "order": 183,
+      "file": "183-concepts-scheduling-eviction-pod-scheduling-readiness.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/pod-scheduling-readiness/",
+      "title": "Pod 调度就绪态",
+      "chars": 2718,
+      "cn_chars": 797
+    },
+    {
+      "order": 184,
+      "file": "184-concepts-architecture-control-plane-node-communication.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/architecture/control-plane-node-communication/",
+      "title": "节点与控制面之间的通信",
+      "chars": 2410,
+      "cn_chars": 1303
+    },
+    {
+      "order": 185,
+      "file": "185-concepts-cluster-administration-swap-memory-management.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/cluster-administration/swap-memory-management/",
+      "title": "交换内存管理",
+      "chars": 8578,
+      "cn_chars": 4092
+    },
+    {
+      "order": 186,
+      "file": "186-concepts-scheduling-eviction-topology-aware-scheduling.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/topology-aware-scheduling/",
+      "title": "拓扑感知的工作负载调度",
+      "chars": 3013,
+      "cn_chars": 1080
+    },
+    {
+      "order": 187,
+      "file": "187-concepts-scheduling-eviction-workload-aware-preemption.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/workload-aware-preemption/",
+      "title": "工作负载感知的抢占",
+      "chars": 3075,
+      "cn_chars": 1335
+    },
+    {
+      "order": 188,
+      "file": "188-concepts-resource-management-dynamic-resource-allocation.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/resource-management/dynamic-resource-allocation/",
+      "title": "动态资源分配",
+      "chars": 2326,
+      "cn_chars": 1054
+    },
+    {
+      "order": 189,
+      "file": "189-concepts-resource-management-pod-level-resource-managers.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/resource-management/pod-level-resource-managers/",
+      "title": "Pod 级资源管理器",
+      "chars": 8091,
+      "cn_chars": 2921
+    },
+    {
+      "order": 191,
+      "file": "191-concepts-scheduling-eviction-topology-spread-constraints.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/",
+      "title": "Pod 拓扑分布约束",
+      "chars": 15307,
+      "cn_chars": 3225
+    },
+    {
+      "order": 192,
+      "file": "192-concepts-configuration-organize-cluster-access-kubeconfig.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/",
+      "title": "使用 kubeconfig 文件组织集群访问",
+      "chars": 2926,
+      "cn_chars": 1399
+    },
+    {
+      "order": 193,
+      "file": "193-concepts-cluster-administration-coordinated-leader-election.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/cluster-administration/coordinated-leader-election/",
+      "title": "协调领导者选举",
+      "chars": 2424,
+      "cn_chars": 1054
+    },
+    {
+      "order": 194,
+      "file": "194-concepts-cluster-administration-admission-webhooks-good-practices.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/cluster-administration/admission-webhooks-good-practices/",
+      "title": "Admission Webhook 良好实践",
+      "chars": 11400,
+      "cn_chars": 6219
+    },
+    {
+      "order": 195,
+      "file": "195-concepts-workloads-pods-probes.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/probes/",
+      "title": "存活、就绪和启动探针",
+      "chars": 10022,
+      "cn_chars": 3984
+    },
+    {
+      "order": 196,
+      "file": "196-concepts-workloads-pods-pod-qos.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/pod-qos/",
+      "title": "Pod QoS 类",
+      "chars": 5303,
+      "cn_chars": 2038
+    },
+    {
+      "order": 197,
+      "file": "197-concepts-workloads-controllers-job.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/job/",
+      "title": "Job",
+      "chars": 32750,
+      "cn_chars": 2927
+    },
+    {
+      "order": 198,
+      "file": "198-concepts-workloads-pods-disruptions.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/disruptions/",
+      "title": "干扰（Disruptions）",
+      "chars": 5894,
+      "cn_chars": 2962
+    },
+    {
+      "order": 200,
+      "file": "200-concepts-workloads-pods-downward-api.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/downward-api/",
+      "title": "Downward API",
+      "chars": 2743,
+      "cn_chars": 1010
+    },
+    {
+      "order": 201,
+      "file": "201-concepts-workloads-pods-pod-hostname.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/pod-hostname/",
+      "title": "Pod 主机名",
+      "chars": 2831,
+      "cn_chars": 787
+    },
+    {
+      "order": 202,
+      "file": "202-concepts-workloads-pods-pod-condition.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/pod-condition/",
+      "title": "Pod 状况",
+      "chars": 6812,
+      "cn_chars": 2050
+    },
+    {
+      "order": 203,
+      "file": "203-concepts-workloads-pods-pod-lifecycle.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/",
+      "title": "Pod 的生命周期",
+      "chars": 23806,
+      "cn_chars": 5024
+    },
+    {
+      "order": 204,
+      "file": "204-concepts-workloads-pods-init-containers.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/init-containers/",
+      "title": "Init 容器",
+      "chars": 7582,
+      "cn_chars": 2507
+    },
+    {
+      "order": 205,
+      "file": "205-concepts-workloads-pods-user-namespaces.md",
+      "url": "https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/user-namespaces/",
+      "title": "用户命名空间",
+      "chars": 7408,
+      "cn_chars": 3146
+    },
+    {
+      "order": 206,
+      "file": "206-tutorials-security-seccomp.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/security/seccomp/",
+      "title": "使用 seccomp 限制容器的系统调用",
+      "chars": 13505,
+      "cn_chars": 2555
+    },
+    {
+      "order": 207,
+      "file": "207-tutorials-security-apparmor.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/security/apparmor/",
+      "title": "使用 AppArmor 限制容器对资源的访问",
+      "chars": 6616,
+      "cn_chars": 1598
+    },
+    {
+      "order": 208,
+      "file": "208-tutorials-services-source-ip.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/services/source-ip/",
+      "title": "使用源 IP",
+      "chars": 7069,
+      "cn_chars": 1826
+    },
+    {
+      "order": 209,
+      "file": "209-tutorials-security-ns-level-pss.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/security/ns-level-pss/",
+      "title": "在名字空间级别应用 Pod 安全标准",
+      "chars": 3238,
+      "cn_chars": 621
+    },
+    {
+      "order": 214,
+      "file": "214-tutorials-security-cluster-level-pss.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/security/cluster-level-pss/",
+      "title": "在集群级别应用 Pod 安全标准",
+      "chars": 8428,
+      "cn_chars": 1020
+    },
+    {
+      "order": 216,
+      "file": "216-tutorials-stateful-application-cassandra.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/stateful-application/cassandra/",
+      "title": "示例：使用 StatefulSet 部署 Cassandra",
+      "chars": 7160,
+      "cn_chars": 1248
+    },
+    {
+      "order": 217,
+      "file": "217-tutorials-stateful-application-zookeeper.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/stateful-application/zookeeper/",
+      "title": "运行 ZooKeeper，一个分布式协调系统",
+      "chars": 32048,
+      "cn_chars": 1844
+    },
+    {
+      "order": 218,
+      "file": "218-tutorials-stateless-application-guestbook.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/stateless-application/guestbook/",
+      "title": "示例：使用 Redis 部署 PHP 留言板应用",
+      "chars": 9914,
+      "cn_chars": 1647
+    },
+    {
+      "order": 220,
+      "file": "220-tutorials-cluster-management-install-use-dra.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/cluster-management/install-use-dra/",
+      "title": "安装驱动并使用 DRA 来分配设备",
+      "chars": 12559,
+      "cn_chars": 2267
+    },
+    {
+      "order": 221,
+      "file": "221-tutorials-configuration-pod-sidecar-containers.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/configuration/pod-sidecar-containers/",
+      "title": "使用边车（Sidecar）容器",
+      "chars": 4253,
+      "cn_chars": 2217
+    },
+    {
+      "order": 222,
+      "file": "222-tutorials-cluster-management-admission-policies.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/cluster-management/admission-policies/",
+      "title": "探索验证与变更准入策略",
+      "chars": 9644,
+      "cn_chars": 2581
+    },
+    {
+      "order": 223,
+      "file": "223-tutorials-cluster-management-kubelet-standalone.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/cluster-management/kubelet-standalone/",
+      "title": "以独立模式运行 kubelet",
+      "chars": 6813,
+      "cn_chars": 1878
+    },
+    {
+      "order": 224,
+      "file": "224-tutorials-services-connect-applications-service.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/services/connect-applications-service/",
+      "title": "使用 Service 连接到应用",
+      "chars": 12408,
+      "cn_chars": 2240
+    },
+    {
+      "order": 225,
+      "file": "225-tutorials-stateful-application-basic-stateful-set.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/stateful-application/basic-stateful-set/",
+      "title": "StatefulSet 基础",
+      "chars": 30293,
+      "cn_chars": 2256
+    },
+    {
+      "order": 226,
+      "file": "226-tutorials-stateless-application-canary-deployment.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/stateless-application/canary-deployment/",
+      "title": "使用金丝雀部署发布版本",
+      "chars": 9519,
+      "cn_chars": 2234
+    },
+    {
+      "order": 227,
+      "file": "227-tutorials-cluster-management-provision-swap-memory.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/cluster-management/provision-swap-memory/",
+      "title": "在 Kubernetes 节点上配置交换内存",
+      "chars": 2358,
+      "cn_chars": 909
+    },
+    {
+      "order": 228,
+      "file": "228-tutorials-cluster-management-namespaces-walkthrough.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/cluster-management/namespaces-walkthrough/",
+      "title": "名字空间演练",
+      "chars": 6024,
+      "cn_chars": 1231
+    },
+    {
+      "order": 229,
+      "file": "229-tutorials-services-pods-and-endpoint-termination-flow.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/services/pods-and-endpoint-termination-flow/",
+      "title": "探索 Pod 及其端点的终止行为",
+      "chars": 4302,
+      "cn_chars": 811
+    },
+    {
+      "order": 230,
+      "file": "230-tutorials-configuration-configure-redis-using-configmap.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/configuration/configure-redis-using-configmap/",
+      "title": "使用 ConfigMap 来配置 Redis",
+      "chars": 4171,
+      "cn_chars": 682
+    },
+    {
+      "order": 231,
+      "file": "231-tutorials-stateless-application-expose-external-ip-address.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/stateless-application/expose-external-ip-address/",
+      "title": "公开外部 IP 地址以访问集群中的应用",
+      "chars": 3615,
+      "cn_chars": 565
+    },
+    {
+      "order": 232,
+      "file": "232-tutorials-configuration-configure-persistent-volume-storage.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/configuration/configure-persistent-volume-storage/",
+      "title": "配置 Pod 以使用 PersistentVolume 作为存储",
+      "chars": 9066,
+      "cn_chars": 1855
+    },
+    {
+      "order": 233,
+      "file": "233-tutorials-cluster-management-use-pod-level-resource-managers.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/cluster-management/use-pod-level-resource-managers/",
+      "title": "使用 Pod 级资源与 kubelet 资源管理器",
+      "chars": 9311,
+      "cn_chars": 2187
+    },
+    {
+      "order": 234,
+      "file": "234-tutorials-configuration-updating-configuration-via-a-configmap.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/configuration/updating-configuration-via-a-configmap/",
+      "title": "通过 ConfigMap 更新配置",
+      "chars": 19432,
+      "cn_chars": 1990
+    },
+    {
+      "order": 235,
+      "file": "235-tutorials-stateful-application-mysql-wordpress-persistent-volume.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/",
+      "title": "示例：使用持久卷部署 WordPress 和 MySQL",
+      "chars": 6747,
+      "cn_chars": 1286
+    },
+    {
+      "order": 236,
+      "file": "236-tutorials-kubernetes-basics-scale-scale-intro.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/kubernetes-basics/scale/scale-intro/",
+      "title": "运行多实例的应用",
+      "chars": 4009,
+      "cn_chars": 1266
+    },
+    {
+      "order": 237,
+      "file": "237-tutorials-kubernetes-basics-expose-expose-intro.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/kubernetes-basics/expose/expose-intro/",
+      "title": "使用 Service 公开你的应用",
+      "chars": 4713,
+      "cn_chars": 1737
+    },
+    {
+      "order": 238,
+      "file": "238-tutorials-kubernetes-basics-update-update-intro.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/kubernetes-basics/update/update-intro/",
+      "title": "执行滚动更新",
+      "chars": 3267,
+      "cn_chars": 1229
+    },
+    {
+      "order": 239,
+      "file": "239-tutorials-kubernetes-basics-explore-explore-intro.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/kubernetes-basics/explore/explore-intro/",
+      "title": "查看 Pod 和节点",
+      "chars": 3292,
+      "cn_chars": 1553
+    },
+    {
+      "order": 240,
+      "file": "240-tutorials-kubernetes-basics-deploy-app-deploy-intro.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/",
+      "title": "使用 kubectl 创建 Deployment",
+      "chars": 3514,
+      "cn_chars": 1523
+    },
+    {
+      "order": 241,
+      "file": "241-tutorials-kubernetes-basics-create-cluster-cluster-intro.md",
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/",
+      "title": "使用 Minikube 创建集群",
+      "chars": 1789,
+      "cn_chars": 920
+    }
+  ],
+  "failed": [
+    {
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/kubernetes-basics/scale/",
+      "reason": "太短(219字)"
+    },
+    {
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/kubernetes-basics/expose/",
+      "reason": "太短(231字)"
+    },
+    {
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/kubernetes-basics/update/",
+      "reason": "太短(217字)"
+    },
+    {
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/kubernetes-basics/explore/",
+      "reason": "太短(221字)"
+    },
+    {
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/kubernetes-basics/deploy-app/",
+      "reason": "太短(233字)"
+    },
+    {
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/kubernetes-basics/create-cluster/",
+      "reason": "太短(265字)"
+    },
+    {
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/",
+      "reason": "太短(848字)"
+    },
+    {
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/security/",
+      "reason": "太短(411字)"
+    },
+    {
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/services/",
+      "reason": "太短(254字)"
+    },
+    {
+      "url": "https://kubernetes.io/zh-cn/docs/tutorials/configuration/",
+      "reason": "太短(299字)"
+    }
+  ],
+  "total_chars": 1263874,
+  "total_cn": 382905
+}

@@ -31,9 +31,10 @@ brings multi-model access, enterprise knowledge-base RAG, visual Agent workflows
 observability and security governance into one deployable, extensible and operable system.
 
 - **Spring AI native**: model access, embeddings and vector stores all go through Spring AI
-  abstractions, so no vendor is locked in
-- **Complete RAG pipeline**: QueryRewrite → hybrid vector + keyword recall → RRF fusion → Rerank →
-  Parent Document → knowledge-graph extraction
+  abstractions; the embedding backend can be switched by configuration between local Ollama and Bailian
+- **Complete RAG pipeline**: QueryRewrite → semantic / keyword / parent-document / knowledge-graph
+  four-path recall → RRF fusion → Bailian Rerank → cited sources (50-question eval: Recall@5 0.940,
+  94% hit rate)
 - **Extensible workflow engine**: 20 node executors, DAG topology execution, variable context,
   conditional branches and real-time SSE push
 - **Production ready out of the box**: Flyway migrations, JWT + RBAC + CSRF + XSS security stack,
@@ -46,7 +47,7 @@ observability and security governance into one deployable, extensible and operab
 | Module                     | Capability                                                                                                        |
 | -------------------------- | ----------------------------------------------------------------------------------------------------------------- |
 | **Multi-model management** | Unified access to DeepSeek / Qwen / Ollama, dynamic loading, connectivity tests, routing and fallback             |
-| **Knowledge base RAG**     | Document parsing and chunking, hybrid recall, RRF, Rerank, feedback loop, Redis hit cache                         |
+| **Knowledge base RAG**     | Document parsing and chunking, four-path recall, RRF, Bailian Rerank, feedback loop, Redis hit cache              |
 | **Agent**                  | Dual-strategy engine (ReAct / Function Calling), tool registry and invocation, execution trace                    |
 | **Visual workflow**        | 20 node types, Dify-style editor, canvas / minimap / custom edges, SSE runtime push                               |
 | **Customer service**       | Intent recognition, slot filling, clarification templates, state-machine dialogue, knowledge-base fallback        |
@@ -140,12 +141,25 @@ npm run dev
 >   ② switch the port: `MYSQL_HOST_PORT=3307 docker compose up -d`, and start the backend with
 >   `MYSQL_PORT=3307`.
 
-> **Extra dependency for RAG**: embeddings default to Ollama `nomic-embed-text`, so install Ollama
-> locally and pull the model:
+> **Extra dependency for RAG**: embeddings default to Bailian `qwen3.7-text-embedding-flash`
+> (OpenAI-compatible endpoint, 768 dims), so an API key is required:
 >
 > ```bash
-> ollama pull nomic-embed-text
+> # option 1: environment variable
+> export DASHSCOPE_API_KEY=sk-xxx
+>
+> # option 2: local secret file (git-ignored, never committed)
+> # api/src/main/resources/application-secret.yml
+> # dashscope:
+> #   api-key: sk-xxx
 > ```
+>
+> For a fully offline setup, switch back to local Ollama with `RAG_EMBEDDING_PROVIDER=ollama` and
+> `ollama pull nomic-embed-text`. Both produce 768 dims; after switching you must re-embed all
+> chunks via `dev/rag-eval/reembed.py`, otherwise semantic retrieval breaks.
+>
+> Rerank also runs on Bailian and is enabled by default; disabling it or a failed call falls back to
+> the RRF order automatically.
 >
 > This step is only required for RAG retrieval and knowledge-base vectorization. Testing Chat / Agent
 > / Workflow does not need it.

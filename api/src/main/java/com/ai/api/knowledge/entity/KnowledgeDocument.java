@@ -26,6 +26,15 @@ public class KnowledgeDocument {
   private String status;
   private String errorMessage;
 
+  /** 文档摘要（qwen3.8-max 离线生成，批量语料增强产出） */
+  private String summary;
+
+  /** 关键词，逗号分隔 */
+  private String keywords;
+
+  /** 问答对 JSON（[{q,a},...]） */
+  private String qaJson;
+
   @TableField(fill = com.baomidou.mybatisplus.annotation.FieldFill.INSERT)
   private String creator;
 

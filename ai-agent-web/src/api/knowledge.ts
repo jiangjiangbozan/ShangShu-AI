@@ -34,6 +34,9 @@ export interface KnowledgeDocumentResp {
   chunkCount: number
   status: 'pending' | 'parsing' | 'vectorizing' | 'completed' | 'failed'
   errorMessage: string | null
+  summary?: string | null
+  keywords?: string | null
+  qaJson?: string | null
   createTime: string
   updateTime: string
 }
