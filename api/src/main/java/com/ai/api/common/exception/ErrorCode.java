@@ -54,6 +54,8 @@ public enum ErrorCode {
   MODEL_PING_FAILED("320", "模型调用失败"),
   MODEL_NOT_ENABLED("331", "模型未启用"),
   MODEL_API_KEY_MISSING("332", "模型 API Key 未配置"),
+  MODEL_TRANSLATE_DISABLED("333", "翻译功能未启用"),
+  MODEL_TRANSLATE_FAILED("321", "翻译调用失败"),
 
   // ============ chat 对话（4-4xx） ============
   SESSION_NOT_FOUND("401", "会话不存在"),

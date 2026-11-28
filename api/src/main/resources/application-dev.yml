@@ -360,6 +360,17 @@ rag:
     low-hit-cron: "0 30 3 * * ?"
 
 # ====================================================================
+# 跨语言翻译（qwen-mt-uni）：消息翻译、文档双语摘要、跨语言检索共用
+# 走百炼 OpenAI 兼容端点，请求体需携带 input.source_texts（见 TranslationService）
+# 关闭或未配置密钥时端点返回 333，调用方按原文展示
+# ====================================================================
+translation:
+  enabled: ${TRANSLATION_ENABLED:true}
+  base-url: ${TRANSLATION_BASE_URL:https://dashscope.aliyuncs.com/compatible-mode/v1}
+  api-key: ${TRANSLATION_API_KEY:${DASHSCOPE_API_KEY:${dashscope.api-key:}}}
+  model: ${TRANSLATION_MODEL:qwen-mt-uni}
+
+# ====================================================================
 # ES 索引性能与容量优化（add-p3-rag-feedback-ops）
 # ====================================================================
 es:

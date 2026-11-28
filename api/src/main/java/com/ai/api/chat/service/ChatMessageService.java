@@ -32,6 +32,18 @@ public class ChatMessageService {
   }
 
   /**
+   * 按 ID 查询单条消息。
+   *
+   * <p>翻译端点先取消息内容，再用会话归属校验拦截越权访问。
+   *
+   * @param messageId 消息 ID
+   * @return 消息实体，不存在时返回 null
+   */
+  public ChatMessage getMessage(Long messageId) {
+    return messageId == null ? null : messageMapper.selectById(messageId);
+  }
+
+  /**
    * 保存消息。
    *
    * @param message 消息实体
