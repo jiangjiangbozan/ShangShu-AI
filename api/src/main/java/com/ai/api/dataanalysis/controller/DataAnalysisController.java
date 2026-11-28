@@ -10,6 +10,7 @@ import com.ai.api.dataanalysis.service.Nl2SqlService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,23 +31,26 @@ public class DataAnalysisController {
   private final Nl2SqlService nl2SqlService;
   private final DataSchemaCatalog schemaCatalog;
 
-  @Operation(summary = "获取可分析的数据表清单")
-  @GetMapping("/schema")
-  public Result<DataSchemaResponseDTO> schema() {
-    DataSchemaResponseDTO dto = new DataSchemaResponseDTO();
-    dto.setTables(schemaCatalog.listTables());
-    return Result.success(dto);
-  }
-
   @Operation(summary = "自然语言问数（NL2SQL）")
   @PostMapping("/ask")
+  @PreAuthorize("hasAuthority('data:analysis:ask')")
   public Result<DataAskResponseDTO> ask(@RequestBody DataAskRequestDTO request) {
     return Result.success(nl2SqlService.ask(request));
   }
 
   @Operation(summary = "基于问数结果生成 Markdown 分析报告")
   @PostMapping("/report")
+  @PreAuthorize("hasAuthority('data:analysis:report')")
   public Result<String> report(@RequestBody DataReportRequestDTO request) {
     return Result.success(nl2SqlService.report(request));
+  }
+
+  @Operation(summary = "获取可分析的数据表清单")
+  @GetMapping("/schema")
+  @PreAuthorize("hasAuthority('data:analysis:schema')")
+  public Result<DataSchemaResponseDTO> schema() {
+    DataSchemaResponseDTO dto = new DataSchemaResponseDTO();
+    dto.setTables(schemaCatalog.listTables());
+    return Result.success(dto);
   }
 }

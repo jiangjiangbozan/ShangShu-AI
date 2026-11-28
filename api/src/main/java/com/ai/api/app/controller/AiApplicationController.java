@@ -1,16 +1,27 @@
 package com.ai.api.app.controller;
 
+import com.ai.api.app.dto.AiApplicationControllerDTO;
 import com.ai.api.app.entity.AiApplication;
 import com.ai.api.app.service.AiApplicationService;
 import com.ai.api.audit.annotation.OperationLog;
+import com.ai.api.common.exception.BusinessException;
+import com.ai.api.common.exception.ErrorCode;
 import com.ai.api.common.result.Result;
+import com.ai.api.identity.security.AuthUserDetails;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
+import org.springframework.http.codec.ServerSentEvent;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +31,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 /**
  * AI 应用发布 Controller（V20261121）。
@@ -34,6 +48,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class AiApplicationController {
+
+  private static final ObjectMapper JSON = new ObjectMapper();
 
   private final AiApplicationService service;
 
@@ -78,12 +94,68 @@ public class AiApplicationController {
    */
   @PostMapping("/api/v1/apps/{id}/publish")
   @OperationLog(module = "ai-app", action = "publish")
-  public Result<Map<String, String>> publish(@PathVariable Long id) {
+  public Result<AiApplicationControllerDTO.PublishResponse> publish(@PathVariable Long id) {
     String apiKey = service.publish(id);
-    Map<String, String> result = new HashMap<>();
-    result.put("apiKey", apiKey);
-    result.put("message", "密钥仅展示一次，请妥善保存");
-    return Result.success(result);
+    String publicCode = service.get(id).getPublicCode();
+    return Result.success(
+        AiApplicationControllerDTO.PublishResponse.builder()
+            .apiKey(apiKey)
+            .message("密钥仅展示一次；扫码入口请使用 publicCode，不要使用 apiKey")
+            .publicCode(publicCode)
+            .build());
+  }
+
+  // ============ 扫码公开入口（publicCode 来自二维码，不暴露 apiKey） ============
+
+  /**
+   * 列出当前身份可见的已发布应用，用于小程序“应用”首页。
+   *
+   * <p>匿名访问只返回 PUBLIC 应用；登录用户额外可见 AUTHENTICATED 应用；角色策略由 SQL 按角色过滤。
+   */
+  @GetMapping("/api/v1/app/public")
+  public Result<AiApplicationControllerDTO.PublicListResponse> listPublic() {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    Set<String> roles = currentRoles(auth);
+    java.util.List<AiApplicationControllerDTO.PublicAppResponse> apps =
+        service.listPublished(roles).stream().map(this::toPublicAppResponse).toList();
+    return Result.success(
+        AiApplicationControllerDTO.PublicListResponse.builder().apps(apps).build());
+  }
+
+  /** 获取扫码目标应用的公开配置，用于进入应用前展示名称、类型与访问策略。 */
+  @GetMapping("/api/v1/app/public/{publicCode}")
+  public Result<AiApplicationControllerDTO.PublicAppResponse> publicApp(
+      @PathVariable String publicCode) {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    AiApplication app = resolvePublicApp(publicCode, auth);
+    return Result.success(toPublicAppResponse(app));
+  }
+
+  /** 公开应用同步聊天入口，供不支持 SSE 的轻量客户端使用。 */
+  @PostMapping("/api/v1/app/public/{publicCode}/chat")
+  public Result<AiApplicationControllerDTO.PublicChatResponse> publicChat(
+      @PathVariable String publicCode,
+      @jakarta.validation.Valid @RequestBody AiApplicationControllerDTO.PublicChatRequest req) {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    AiApplication app = resolvePublicApp(publicCode, auth);
+    String reply = service.chat(app, req.getMessage(), req.getHistory());
+    return Result.success(
+        AiApplicationControllerDTO.PublicChatResponse.builder().reply(reply).build());
+  }
+
+  /** 公开应用 SSE 聊天入口，事件协议为 message / done / error。 */
+  @PostMapping(
+      value = "/api/v1/app/public/{publicCode}/stream",
+      produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+  public Flux<org.springframework.http.codec.ServerSentEvent<String>> publicStream(
+      @PathVariable String publicCode,
+      @jakarta.validation.Valid @RequestBody AiApplicationControllerDTO.PublicStreamRequest req) {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    AiApplication app = resolvePublicApp(publicCode, auth);
+    return Mono.fromCallable(() -> service.chat(app, req.getMessage(), req.getHistory()))
+        .subscribeOn(Schedulers.boundedElastic())
+        .flatMapMany(reply -> Flux.just(messageEvent(reply), doneEvent()))
+        .onErrorResume(error -> Flux.just(errorEvent(error)));
   }
 
   // ============ 对外统一调用入口（**不需要 JWT**，SecurityConfig 需加白名单） ============
@@ -145,5 +217,89 @@ public class AiApplicationController {
     response.put("choices", java.util.List.of(choice));
     response.put("usage", Map.of("prompt_tokens", 0, "completion_tokens", 0, "total_tokens", 0));
     return response;
+  }
+
+  /** 从 JWT 认证主体提取角色编码；匿名访问返回空集合。 */
+  private Set<String> currentRoles(Authentication auth) {
+    if (auth != null
+        && auth.getPrincipal() instanceof AuthUserDetails details
+        && details.roles() != null) {
+      return details.roles();
+    }
+    return Set.of();
+  }
+
+  /** 构造 SSE 完成事件。 */
+  private ServerSentEvent<String> doneEvent() {
+    return ServerSentEvent.<String>builder().event("done").data("[DONE]").build();
+  }
+
+  /** 构造 SSE 错误事件；只返回简短错误文案，不暴露堆栈。 */
+  private ServerSentEvent<String> errorEvent(Throwable error) {
+    String message = error.getMessage() == null ? "应用调用失败" : error.getMessage();
+    return ServerSentEvent.<String>builder()
+        .event("error")
+        .data(toJson(Map.of("error", message)))
+        .build();
+  }
+
+  /** 构造 SSE 消息事件，data 使用 JSON 以支持多行回答。 */
+  private ServerSentEvent<String> messageEvent(String reply) {
+    return ServerSentEvent.<String>builder()
+        .event("message")
+        .data(toJson(Map.of("content", reply)))
+        .build();
+  }
+
+  /**
+   * 校验扫码目标应用存在且当前身份满足访问策略。
+   *
+   * <p>权限校验在 Controller 完成，Service 只负责返回领域数据。
+   */
+  private AiApplication resolvePublicApp(String publicCode, Authentication auth) {
+    AiApplication app = service.findByPublicCode(publicCode);
+    if (app == null) {
+      throw new BusinessException(ErrorCode.COMMON_NOT_FOUND, "应用不存在或未发布");
+    }
+    String policy =
+        app.getAccessPolicy() == null
+            ? AiApplicationService.ACCESS_POLICY_AUTHENTICATED
+            : app.getAccessPolicy();
+    return switch (policy) {
+      case AiApplicationService.ACCESS_POLICY_PUBLIC -> app;
+      case AiApplicationService.ACCESS_POLICY_AUTHENTICATED -> {
+        if (!(auth != null && auth.getPrincipal() instanceof AuthUserDetails)) {
+          throw new BusinessException(ErrorCode.AUTH_FORBIDDEN, "请先登录后再使用该应用");
+        }
+        yield app;
+      }
+      case AiApplicationService.ACCESS_POLICY_ROLE_BASED -> {
+        if (app.getRequiredRole() == null || !currentRoles(auth).contains(app.getRequiredRole())) {
+          throw new BusinessException(ErrorCode.AUTH_FORBIDDEN, "当前角色无权访问该应用");
+        }
+        yield app;
+      }
+      default -> throw new BusinessException(ErrorCode.COMMON_BAD_PARAM, "未知应用访问策略");
+    };
+  }
+
+  /** 序列化 SSE data，避免手工拼接 JSON。 */
+  private String toJson(Map<String, String> data) {
+    try {
+      return JSON.writeValueAsString(data);
+    } catch (JsonProcessingException error) {
+      throw new IllegalStateException("SSE 事件序列化失败", error);
+    }
+  }
+
+  /** 领域实体转公开响应，排除 apiKeyHash 与内部配置。 */
+  private AiApplicationControllerDTO.PublicAppResponse toPublicAppResponse(AiApplication app) {
+    return AiApplicationControllerDTO.PublicAppResponse.builder()
+        .accessPolicy(app.getAccessPolicy())
+        .appType(app.getType())
+        .description(app.getDescription())
+        .name(app.getName())
+        .publicCode(app.getPublicCode())
+        .build();
   }
 }

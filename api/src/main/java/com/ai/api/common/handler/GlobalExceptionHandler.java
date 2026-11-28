@@ -1,5 +1,6 @@
 package com.ai.api.common.handler;
 
+import com.ai.api.common.exception.BadRequestException;
 import com.ai.api.common.exception.BusinessException;
 import com.ai.api.common.result.Result;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 /**
  * 全局异常处理
@@ -35,6 +37,24 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 public class GlobalExceptionHandler {
 
   /**
+   * 处理边界校验失败（mobile-p0）：以 HTTP 400 返回，而不是落到 500 兜底。
+   *
+   * @param ex 异常
+   * @param request 请求
+   * @return ResponseEntity
+   */
+  @ExceptionHandler(BadRequestException.class)
+  public ResponseEntity<Result<Void>> handleBadRequestException(
+      BadRequestException ex, HttpServletRequest request) {
+    log.warn(
+        "[handleBadRequestException][uri({}) message({})]",
+        request.getRequestURI(),
+        ex.getMessage());
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        .body(Result.fail(BadRequestException.BAD_REQUEST_CODE, ex.getMessage()));
+  }
+
+  /**
    * 处理业务异常。
    *
    * @param ex 异常
@@ -49,6 +69,24 @@ public class GlobalExceptionHandler {
         ex.getCode(),
         ex.getMessage());
     return Result.fail(ex.getCode(), ex.getMessage());
+  }
+
+  /**
+   * 处理 Spring Multipart 文件大小超限（mobile-p0）：与自校验保持一致的 400 语义。
+   *
+   * @param ex 异常
+   * @param request 请求
+   * @return ResponseEntity
+   */
+  @ExceptionHandler(MaxUploadSizeExceededException.class)
+  public ResponseEntity<Result<Void>> handleMaxUploadSizeExceededException(
+      MaxUploadSizeExceededException ex, HttpServletRequest request) {
+    log.warn(
+        "[handleMaxUploadSizeExceededException][uri({}) message({})]",
+        request.getRequestURI(),
+        ex.getMessage());
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        .body(Result.fail(BadRequestException.BAD_REQUEST_CODE, "上传文件大小超出限制"));
   }
 
   /**

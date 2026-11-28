@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,6 +60,8 @@ public class CustomerServiceController {
    * @param req 用户消息
    */
   @PostMapping
+  // 面向终端用户的客服入口：只要求已认证，避免普通用户因缺少角色而无法咨询
+  @PreAuthorize("isAuthenticated()")
   public Result<Map<String, Object>> chat(
       @RequestParam(required = false, defaultValue = "0") Long runtimeId,
       @RequestParam(required = false) Long sessionId,

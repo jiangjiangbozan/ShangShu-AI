@@ -30,6 +30,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
@@ -45,6 +46,19 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class AiApplicationService {
+
+  /** 公开入口策略：登录用户可用。 */
+  public static final String ACCESS_POLICY_AUTHENTICATED = "AUTHENTICATED";
+
+  /** 公开入口策略：匿名可用。 */
+  public static final String ACCESS_POLICY_PUBLIC = "PUBLIC";
+
+  /** 公开入口策略：指定角色可用。 */
+  public static final String ACCESS_POLICY_ROLE_BASED = "ROLE_BASED";
+
+  private static final String DEFAULT_ACCESS_POLICY = ACCESS_POLICY_AUTHENTICATED;
+  private static final int PUBLIC_CODE_BYTES = 12;
+  private static final int PUBLIC_CODE_RETRY_LIMIT = 8;
 
   private final AiApplicationMapper mapper;
   private final AgentContextManager agentContextManager;
@@ -75,6 +89,10 @@ public class AiApplicationService {
   public AiApplication create(AiApplication app, String username) {
     app.setCreator(username);
     if (app.getEnabled() == null) app.setEnabled(true);
+    if (app.getAccessPolicy() == null) app.setAccessPolicy(DEFAULT_ACCESS_POLICY);
+    if (app.getPublicCode() == null || app.getPublicCode().isBlank()) {
+      app.setPublicCode(generatePublicCode());
+    }
     mapper.insert(app);
     return app;
   }
@@ -85,10 +103,14 @@ public class AiApplicationService {
     if (existing == null) {
       throw new BusinessException(COMMON_NOT_FOUND, "AI 应用不存在");
     }
-    existing.setName(update.getName());
-    existing.setDescription(update.getDescription());
+    existing.setAccessPolicy(update.getAccessPolicy());
     existing.setConfigJson(update.getConfigJson());
+    existing.setDescription(update.getDescription());
     existing.setEnabled(update.getEnabled());
+    existing.setName(update.getName());
+    existing.setPublicCode(update.getPublicCode());
+    existing.setRequiredRole(update.getRequiredRole());
+    existing.setType(update.getType());
     mapper.updateById(existing);
     return existing;
   }
@@ -116,6 +138,10 @@ public class AiApplicationService {
     String hash = sha256Hex(rawKey);
     app.setApiKeyHash(hash);
     app.setEnabled(true);
+    if (app.getPublicCode() == null || app.getPublicCode().isBlank()) {
+      app.setPublicCode(generatePublicCode());
+    }
+    if (app.getAccessPolicy() == null) app.setAccessPolicy(DEFAULT_ACCESS_POLICY);
     mapper.updateById(app);
     log.info("[AiApplicationService][publish] appId={}, hashPrefix={}", id, hash.substring(0, 8));
     return rawKey;
@@ -134,6 +160,67 @@ public class AiApplicationService {
       return null;
     }
     return app;
+  }
+
+  /**
+   * 按公开标识查询已发布应用；公开入口只认 publicCode，不接触 apiKey。
+   *
+   * @param publicCode 二维码/小程序 scene 携带的非敏感标识
+   * @return 已发布且启用的应用，否则 null
+   */
+  public AiApplication findByPublicCode(String publicCode) {
+    if (publicCode == null || publicCode.isBlank()) {
+      return null;
+    }
+    AiApplication app =
+        mapper.selectOne(
+            new LambdaQueryWrapper<AiApplication>()
+                .eq(AiApplication::getPublicCode, publicCode)
+                .eq(AiApplication::getEnabled, true)
+                .isNotNull(AiApplication::getApiKeyHash));
+    if (app != null && app.getAccessPolicy() == null) {
+      app.setAccessPolicy(DEFAULT_ACCESS_POLICY);
+    }
+    return app;
+  }
+
+  /**
+   * 查询当前身份可见的已发布应用：通用策略直接放行，角色策略按数据库字段下推过滤。
+   *
+   * @param roles 当前用户角色编码，匿名访问时为空集合
+   * @return 可见应用列表
+   */
+  public List<AiApplication> listPublished(Set<String> roles) {
+    return mapper.selectList(
+        new LambdaQueryWrapper<AiApplication>()
+            .eq(AiApplication::getEnabled, true)
+            .isNotNull(AiApplication::getApiKeyHash)
+            .and(
+                wrapper -> {
+                  wrapper.in(
+                      AiApplication::getAccessPolicy,
+                      List.of(ACCESS_POLICY_PUBLIC, ACCESS_POLICY_AUTHENTICATED));
+                  if (roles != null && !roles.isEmpty()) {
+                    wrapper.or().in(AiApplication::getRequiredRole, roles);
+                  }
+                }));
+  }
+
+  /** 生成全局唯一的公开标识；冲突时按固定次数重试，避免把唯一约束异常暴露给调用方。 */
+  private String generatePublicCode() {
+    for (int attempt = 0; attempt < PUBLIC_CODE_RETRY_LIMIT; attempt++) {
+      String candidate =
+          Base64.getUrlEncoder()
+              .withoutPadding()
+              .encodeToString(generateRandomBytes(PUBLIC_CODE_BYTES));
+      Long count =
+          mapper.selectCount(
+              new LambdaQueryWrapper<AiApplication>().eq(AiApplication::getPublicCode, candidate));
+      if (count != null && count == 0L) {
+        return candidate;
+      }
+    }
+    throw new BusinessException(COMMON_BAD_PARAM, "无法生成唯一公开标识，请稍后重试");
   }
 
   // ============ 对外统一调用入口 ============

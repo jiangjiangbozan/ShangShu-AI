@@ -15,19 +15,28 @@ import lombok.EqualsAndHashCode;
 @TableName("ai_application")
 public class AiApplication extends BaseDO {
 
-  private String name;
-
-  /** chat | rag | agent | workflow */
-  private String type;
-
-  /** 类型特定配置 JSON：modelId, kbId, workflowId, systemPrompt 等 */
-  private String configJson;
+  /** 扫码入口访问策略：PUBLIC / AUTHENTICATED / ROLE_BASED */
+  private String accessPolicy;
 
   /** SHA256(appKey)，运行时以 hash 查库；未发布时为 null */
   private String apiKeyHash;
+
+  /** 类型特定配置 JSON：modelId, kbId, workflowId, systemPrompt 等 */
+  private String configJson;
 
   private String description;
 
   /** 是否启用 */
   private Boolean enabled;
+
+  private String name;
+
+  /** 扫码入口使用的非敏感公开标识，二维码只携带此值 */
+  private String publicCode;
+
+  /** ROLE_BASED 策略要求的角色编码 */
+  private String requiredRole;
+
+  /** chat | rag | agent | workflow */
+  private String type;
 }

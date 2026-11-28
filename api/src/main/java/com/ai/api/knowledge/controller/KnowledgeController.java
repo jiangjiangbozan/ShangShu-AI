@@ -1,6 +1,8 @@
 package com.ai.api.knowledge.controller;
 
 import com.ai.api.audit.annotation.OperationLog;
+import com.ai.api.common.exception.BusinessException;
+import com.ai.api.common.exception.ErrorCode;
 import com.ai.api.common.result.Result;
 import com.ai.api.identity.security.AuthUserDetails;
 import com.ai.api.knowledge.entity.KnowledgeBase;
@@ -10,6 +12,7 @@ import com.ai.api.knowledge.feedback.ChunkFeedbackService;
 import com.ai.api.knowledge.service.KnowledgeBaseService;
 import com.ai.api.knowledge.service.KnowledgeBaseService.BatchUploadResult;
 import com.ai.api.knowledge.service.RagRetrievalService;
+import com.ai.api.knowledge.validation.FileUploadValidator;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +20,7 @@ import java.util.Map;
 import lombok.Data;
 import org.springframework.ai.document.Document;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,17 +44,20 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/api/v1/knowledge")
 public class KnowledgeController {
 
+  private final ChunkFeedbackService chunkFeedbackService;
+  private final FileUploadValidator fileUploadValidator;
   private final KnowledgeBaseService knowledgeBaseService;
   private final RagRetrievalService ragRetrievalService;
-  private final ChunkFeedbackService chunkFeedbackService;
 
   public KnowledgeController(
+      ChunkFeedbackService chunkFeedbackService,
+      FileUploadValidator fileUploadValidator,
       KnowledgeBaseService knowledgeBaseService,
-      RagRetrievalService ragRetrievalService,
-      ChunkFeedbackService chunkFeedbackService) {
+      RagRetrievalService ragRetrievalService) {
+    this.chunkFeedbackService = chunkFeedbackService;
+    this.fileUploadValidator = fileUploadValidator;
     this.knowledgeBaseService = knowledgeBaseService;
     this.ragRetrievalService = ragRetrievalService;
-    this.chunkFeedbackService = chunkFeedbackService;
   }
 
   @Data
@@ -71,10 +78,10 @@ public class KnowledgeController {
    * <p>POST /api/knowledge
    */
   @PostMapping
+  @PreAuthorize("isAuthenticated()")
   @OperationLog(module = "knowledge", action = "create-kb")
   public Result<KnowledgeBase> create(@RequestBody CreateReq req) {
-    // TODO: 从 SecurityContext 获取当前用户 ID，此处先用占位 1L
-    Long userId = 1L;
+    Long userId = getCurrentUserId();
     KnowledgeBase kb = knowledgeBaseService.createKnowledgeBase(req.name, req.description, userId);
     return Result.success(kb);
   }
@@ -87,7 +94,7 @@ public class KnowledgeController {
   @GetMapping
   public Result<List<KnowledgeBase>> list(
       @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "20") int size) {
-    Long userId = 1L;
+    Long userId = getCurrentUserId();
     return Result.success(knowledgeBaseService.listKnowledgeBases(userId, page, size).getRecords());
   }
 
@@ -97,9 +104,11 @@ public class KnowledgeController {
    * <p>POST /api/knowledge/{kbId}/upload
    */
   @PostMapping("/{kbId}/upload")
+  @PreAuthorize("isAuthenticated()")
   @OperationLog(module = "knowledge", action = "upload")
   public Result<KnowledgeDocument> upload(
       @PathVariable Long kbId, @RequestParam("file") MultipartFile file) throws IOException {
+    fileUploadValidator.validate(file);
     return Result.success(knowledgeBaseService.uploadAndProcess(kbId, file));
   }
 
@@ -111,14 +120,13 @@ public class KnowledgeController {
    * <p>POST /api/v1/knowledge/{kbId}/batch-upload
    */
   @PostMapping("/{kbId}/batch-upload")
+  @PreAuthorize("isAuthenticated()")
   @ResponseStatus(HttpStatus.OK)
   @OperationLog(module = "knowledge", action = "batch-upload")
   public Result<List<BatchUploadResult>> batchUpload(
       @PathVariable Long kbId, @RequestParam("files") List<MultipartFile> files)
       throws IOException {
-    if (files == null || files.isEmpty()) {
-      throw new IllegalArgumentException("文件列表不能为空");
-    }
+    fileUploadValidator.validateAll(files);
     return Result.success(knowledgeBaseService.batchUploadAndProcess(kbId, files));
   }
 
@@ -210,6 +218,7 @@ public class KnowledgeController {
    * <p>PUT /api/v1/knowledge/chunks/{id}
    */
   @PutMapping("/chunks/{id}")
+  @PreAuthorize("isAuthenticated()")
   @OperationLog(module = "knowledge", action = "update-chunk")
   public Result<KnowledgeChunk> updateChunk(
       @PathVariable Long id, @RequestBody UpdateChunkReq req) {
@@ -227,6 +236,7 @@ public class KnowledgeController {
    * <p>DELETE /api/v1/knowledge/documents/{id}
    */
   @DeleteMapping("/documents/{id}")
+  @PreAuthorize("isAuthenticated()")
   @OperationLog(module = "knowledge", action = "delete-document")
   public Result<Void> deleteDocument(@PathVariable Long id) {
     knowledgeBaseService.deleteDocument(id);
@@ -239,6 +249,7 @@ public class KnowledgeController {
    * <p>POST /api/v1/knowledge/documents/{id}/reprocess
    */
   @PostMapping("/documents/{id}/reprocess")
+  @PreAuthorize("isAuthenticated()")
   @OperationLog(module = "knowledge", action = "reprocess-document")
   public Result<KnowledgeDocument> reprocessDocument(@PathVariable Long id) throws IOException {
     return Result.success(knowledgeBaseService.reprocessDocument(id));
@@ -252,6 +263,7 @@ public class KnowledgeController {
    * <p>命中计数 -3（下限 0），通过 chunk_feedback_log 唯一索引保证幂等； 定时任务定期重新处理这些 chunk。
    */
   @PostMapping("/chunks/{id}/dislike")
+  @PreAuthorize("isAuthenticated()")
   public Result<Void> dislikeChunk(@PathVariable Long id) {
     chunkFeedbackService.dislike(id, getCurrentUserId());
     return Result.success(null);
@@ -262,6 +274,6 @@ public class KnowledgeController {
     if (auth != null && auth.getPrincipal() instanceof AuthUserDetails details) {
       return details.userId();
     }
-    return 0L;
+    throw new BusinessException(ErrorCode.AUTH_UNAUTHORIZED);
   }
 }

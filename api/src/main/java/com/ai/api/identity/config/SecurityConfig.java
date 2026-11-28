@@ -115,6 +115,7 @@ public class SecurityConfig {
                         "/api/v1/auth/password/**",
                         "/api/v1/auth/oauth/**",
                         "/api/v1/auth/wechat-mini/**",
+                        "/api/v1/app/public/**", // 扫码公开入口，由 Controller 按 accessPolicy 校验
                         "/api/v1/app/*/chat", // AI 应用对外 OpenAI 兼容入口，用 API Key 鉴权
                         "/actuator/**", // 为了检查服务健康
                         "/swagger-ui/**",
