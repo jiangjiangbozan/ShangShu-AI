@@ -22,6 +22,12 @@ export default defineConfig({
         target: 'http://localhost:8080',
         changeOrigin: true,
       },
+      // WebSocket 代理（实时同传 /ws/live-translate）
+      '/ws': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        ws: true,
+      },
       // Actuator 监控端点代理
       '/actuator': {
         target: 'http://localhost:8080',

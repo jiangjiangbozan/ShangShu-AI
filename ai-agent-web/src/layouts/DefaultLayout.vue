@@ -64,6 +64,7 @@ import {
   Grid,
   Files,
   Promotion,
+  Microphone,
 } from '@element-plus/icons-vue'
 import { useAuthStore } from '@/stores/auth'
 import { useTheme } from '@/composables/useTheme'
@@ -134,6 +135,7 @@ const menuGroups = shallowRef<MenuGroup[]>([
     children: [
       { index: '/dashboard', title: '平台仪表盘', icon: markRaw(DataBoard) },
       { index: '/chat-search', title: '全局搜索', icon: markRaw(Search) },
+      { index: '/live-translate', title: '实时同传', icon: markRaw(Microphone) },
       { index: '/profile', title: '个人中心', icon: markRaw(UserFilled) },
     ],
   },

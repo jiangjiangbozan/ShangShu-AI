@@ -371,6 +371,22 @@ translation:
   model: ${TRANSLATION_MODEL:qwen-mt-uni}
 
 # ====================================================================
+# 实时同传（qwen3.8-livetranslate-flash-realtime，add-live-translate）
+# WebSocket 端点 /ws/live-translate?token=<accessToken>&lang=en&mode=text|audio
+# 服务端代理连上游 wss://.../api-ws/v1/realtime，API Key 不下发客户端
+# 音频格式：PCM 16kHz 16bit 单声道，建议 100ms/片 Base64 上行
+# ====================================================================
+livetranslate:
+  enabled: ${LIVETRANSLATE_ENABLED:true}
+  base-url: ${LIVETRANSLATE_BASE_URL:wss://dashscope.aliyuncs.com/api-ws/v1/realtime}
+  model: ${LIVETRANSLATE_MODEL:qwen3.8-livetranslate-flash-realtime}
+  api-key: ${LIVETRANSLATE_API_KEY:${DASHSCOPE_API_KEY:${dashscope.api-key:}}}
+  target-lang: ${LIVETRANSLATE_TARGET_LANG:en}
+  max-audio-bytes: ${LIVETRANSLATE_MAX_AUDIO_BYTES:131072}
+  max-session-minutes: ${LIVETRANSLATE_MAX_SESSION_MINUTES:30}
+  max-idle-seconds: ${LIVETRANSLATE_MAX_IDLE_SECONDS:120}
+
+# ====================================================================
 # ES 索引性能与容量优化（add-p3-rag-feedback-ops）
 # ====================================================================
 es:

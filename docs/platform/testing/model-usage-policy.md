@@ -75,7 +75,7 @@
 | 模型 | 落点 | 说明 |
 |---|---|---|
 | `qwen-mt-uni` | 新增 `TranslationService`；`RagService` 检索前查询翻译与检索后结果回译；文档入库双语摘要；会话消息一键翻译 | 单次翻译 100–300 token，1M 可支撑数千次，适合跨语言检索与双语评测 |
-| `qwen3.8-livetranslate-flash-realtime` | 新增实时同传 WebSocket 端点；Android 录音流上行；小程序实时字幕 | 流式音频输入，按音频时长计费，先做单路压测再放量 |
+| `qwen3.8-livetranslate-flash-realtime` | `POST /ws/live-translate` 同传 WS 端点（已实现）；Android 实时同传页（Profile 入口，麦克风 16k PCM 100ms/片上行）；Web `/live-translate` 演示页（AudioWorklet 重采样） | 2026-11-28 E2E 实测：20.3s 中文音频 → 中译英字幕，308 tokens（约 7 token/秒输入音频）。会话配置由服务端代管，客户端不接触 API Key；小程序实时字幕待做 |
 
 `qwen3.8-max-0902` 余额降至 29.3 万，仅保留聊天 / Agent / QueryRewrite 与功能验收，禁止用于批量评测题、语料生成等批量内容生产。
 

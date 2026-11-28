@@ -17,6 +17,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Key
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Psychology
 import androidx.compose.material.icons.filled.TheaterComedy
@@ -73,6 +74,7 @@ fun ProfileScreen(
     onNavigateToMemory: () -> Unit = {},
     onNavigateToCharacters: () -> Unit = {},
     onNavigateToSkillMarket: () -> Unit = {},
+    onNavigateToLiveTranslate: () -> Unit = {},
 ) {
     val authState by viewModel.authState.collectAsStateWithLifecycle()
     val uiState by profileViewModel.uiState.collectAsStateWithLifecycle()
@@ -331,6 +333,44 @@ fun ProfileScreen(
                             Text("技能市场", fontWeight = FontWeight.SemiBold, fontSize = 16.sp)
                             Text(
                                 "浏览和管理 AI 技能插件",
+                                fontSize = 12.sp,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        }
+                    }
+                    Icon(
+                        Icons.Default.Person,
+                        contentDescription = null,
+                        Modifier.size(20.dp),
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+            }
+
+            Spacer(Modifier.height(12.dp))
+
+            // 实时同传
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = onNavigateToLiveTranslate,
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth().padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            Icons.Default.Mic,
+                            contentDescription = null,
+                            Modifier.size(24.dp),
+                            tint = MaterialTheme.colorScheme.primary,
+                        )
+                        Spacer(Modifier.width(12.dp))
+                        Column {
+                            Text("实时同传", fontWeight = FontWeight.SemiBold, fontSize = 16.sp)
+                            Text(
+                                "说话即出双语字幕（麦克风实时翻译）",
                                 fontSize = 12.sp,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                             )

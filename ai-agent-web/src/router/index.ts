@@ -91,6 +91,12 @@ const router = createRouter({
           meta: { title: '知识库 RAG' },
         },
         {
+          path: 'live-translate',
+          name: 'live-translate',
+          component: () => import('@/views/live/LiveTranslateView.vue'),
+          meta: { title: '实时同传' },
+        },
+        {
           path: 'rag/feedback',
           name: 'rag-feedback',
           component: () => import('@/views/rag/FeedbackLogsView.vue'),

@@ -47,6 +47,7 @@ import com.example.aiagent.ui.dataanalysis.DataAnalysisScreen
 import com.example.aiagent.ui.memory.MemoryScreen
 import com.example.aiagent.ui.character.CharacterScreen
 import com.example.aiagent.ui.skillmarket.SkillMarketScreen
+import com.example.aiagent.ui.livetranslate.LiveTranslateScreen
 import com.example.aiagent.ui.profile.ProfileScreen
 import com.example.aiagent.ui.screens.PlaceholderScreen
 
@@ -194,6 +195,7 @@ fun MainShell(
                     onNavigateToMemory = { navController.navigate(Screen.Memory.route) },
                     onNavigateToCharacters = { navController.navigate(Screen.Characters.route) },
                     onNavigateToSkillMarket = { navController.navigate(Screen.SkillMarket.route) },
+                    onNavigateToLiveTranslate = { navController.navigate(Screen.LiveTranslate.route) },
                 )
             }
             composable(Screen.Memory.route) {
@@ -204,6 +206,9 @@ fun MainShell(
             }
             composable(Screen.SkillMarket.route) {
                 SkillMarketScreen(onNavigateBack = { navController.popBackStack() })
+            }
+            composable(Screen.LiveTranslate.route) {
+                LiveTranslateScreen(onBack = { navController.popBackStack() })
             }
         }
     }
