@@ -15,6 +15,7 @@ import { ref, watch, onUnmounted, computed } from 'vue'
 import { useChatStore } from '@/stores/chat'
 import { parseMarkdown } from '@/composables/useMarkdown'
 import type { MessageResp } from '@/types/chat'
+import { translateMessage } from '@/api/translate'
 
 /** 节流间隔（毫秒）：流式期间每 150ms 最多重解析一次 Markdown */
 const RENDER_THROTTLE_MS = 150
@@ -145,6 +146,34 @@ function safeHost(url: string): string {
   }
 }
 
+/** 译文（点「译」后写入） */
+const translated = ref('')
+/** 翻译请求进行中 */
+const translating = ref(false)
+
+/** 翻译当前消息：已译过直接提示，失败给出明确错误 */
+async function translateContent(): Promise<void> {
+  if (translated.value) {
+    uni.showToast({ title: '已翻译', icon: 'none' })
+    return
+  }
+  if (translating.value || isThinking.value || isGenerating.value) return
+  translating.value = true
+  try {
+    const resp = await translateMessage(props.message.messageId)
+    translated.value = resp.translated
+  } catch (e) {
+    uni.showToast({ title: (e as Error)?.message || '翻译失败', icon: 'none' })
+  } finally {
+    translating.value = false
+  }
+}
+
+/** 收起译文 */
+function hideTranslation(): void {
+  translated.value = ''
+}
+
 /** 复制消息内容 */
 function copyContent() {
   uni.setClipboardData({
@@ -193,10 +222,17 @@ function copyContent() {
         </view>
       </view>
 
+      <!-- 译文（跨语言翻译结果，点「收起」可隐藏） -->
+      <view v-if="translated" class="bubble-translation">
+        <text class="bubble-translation__text">{{ translated }}</text>
+        <text class="bubble-translation__hide" @tap="hideTranslation">收起</text>
+      </view>
+
       <!-- 底部操作 -->
       <view class="bubble-footer">
         <text v-if="message.latencyMs" class="bubble-latency">{{ message.latencyMs }}ms</text>
         <text class="bubble-copy" @tap="copyContent">复制</text>
+        <text class="bubble-copy" @tap="translateContent">{{ translating ? '翻译中' : '译' }}</text>
       </view>
     </view>
   </view>
@@ -336,6 +372,28 @@ function copyContent() {
 .bubble-latency {
   font-size: 20rpx;
   color: $text-tertiary;
+}
+
+.bubble-translation {
+  margin-top: 8rpx;
+  padding: $space-2;
+  background-color: $bg-subtle;
+  border-radius: $radius-sm;
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.bubble-translation__text {
+  font-size: $font-size-sm;
+  color: $text-secondary;
+  line-height: 1.5;
+}
+
+.bubble-translation__hide {
+  font-size: 20rpx;
+  color: $color-primary;
+  align-self: flex-end;
 }
 
 .bubble-copy {
