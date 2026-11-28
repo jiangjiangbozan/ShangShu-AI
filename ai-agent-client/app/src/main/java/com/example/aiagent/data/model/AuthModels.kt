@@ -30,11 +30,13 @@ data class RefreshReq(
 /** 当前用户信息（GET /users/me） */
 @Serializable
 data class UserInfo(
+    val email: String = "",
+    val lastLoginAt: String? = null,
+    val permissions: List<String> = emptyList(),
+    val roles: List<String> = emptyList(),
+    val status: Int = 0,
     val userId: Long = 0,
     val username: String = "",
-    val email: String = "",
-    val status: Int = 0,
-    val lastLoginAt: String? = null,
 )
 
 /** 登录 / 刷新接口返回数据 */

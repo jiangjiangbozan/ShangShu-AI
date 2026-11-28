@@ -10,6 +10,7 @@ import com.example.aiagent.data.model.CreateKnowledgeBaseReq
 import com.example.aiagent.data.model.KnowledgeBaseResp
 import com.example.aiagent.data.model.KnowledgeDocumentDetailResp
 import com.example.aiagent.data.model.KnowledgeDocumentResp
+import com.example.aiagent.data.model.KnowledgeUploadFile
 import com.example.aiagent.data.model.SearchReq
 import com.example.aiagent.data.repository.KnowledgeRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -140,6 +141,20 @@ class KnowledgeViewModel(
                 }
                 .onFailure { e ->
                     _uiState.update { it.copy(loading = false, error = e.toUserMessage()) }
+                }
+        }
+    }
+
+    fun uploadDocument(kbId: Long, file: KnowledgeUploadFile) {
+        viewModelScope.launch {
+            _uiState.update { it.copy(uploading = true, error = null) }
+            runCatching { repository.uploadDocument(kbId, file) }
+                .onSuccess {
+                    _uiState.update { it.copy(uploading = false) }
+                    loadDocuments(kbId)
+                }
+                .onFailure { e ->
+                    _uiState.update { it.copy(uploading = false, error = e.toUserMessage()) }
                 }
         }
     }

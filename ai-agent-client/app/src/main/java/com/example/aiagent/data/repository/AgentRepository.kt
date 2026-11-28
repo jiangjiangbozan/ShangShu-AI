@@ -3,6 +3,7 @@ package com.example.aiagent.data.repository
 import com.example.aiagent.core.network.NetworkModule
 import com.example.aiagent.core.network.safeApiCall
 import com.example.aiagent.data.model.AgentRuntimeResp
+import com.example.aiagent.data.model.AgentTaskPageResp
 import com.example.aiagent.data.model.AgentTraceResp
 import com.example.aiagent.data.model.SkillDefinitionResp
 import com.example.aiagent.data.model.TraceMetricsResp
@@ -30,6 +31,12 @@ class AgentRepository(
     suspend fun cancelRuntime(id: Long) { safeApiCall<Unit> { api.cancelRuntime(id) } }
 
     suspend fun getRuntime(id: Long): AgentRuntimeResp = safeApiCall { api.getRuntime(id) }
+
+    suspend fun listTasks(
+        page: Int,
+        size: Int,
+        status: String? = null,
+    ): AgentTaskPageResp = safeApiCall { api.listTasks(page, size, status) }
 
     // ============ Skills ============
 

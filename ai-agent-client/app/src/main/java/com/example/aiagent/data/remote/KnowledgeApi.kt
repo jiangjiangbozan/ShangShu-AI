@@ -6,10 +6,13 @@ import com.example.aiagent.data.model.KnowledgeBaseResp
 import com.example.aiagent.data.model.KnowledgeDocumentDetailResp
 import com.example.aiagent.data.model.KnowledgeDocumentResp
 import com.example.aiagent.data.model.SearchReq
+import okhttp3.MultipartBody
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -43,6 +46,14 @@ interface KnowledgeApi {
     /** 查询文档详情（含前 5 个分片预览） */
     @GET("knowledge/documents/{id}")
     suspend fun getDocumentDetail(@Path("id") id: Long): ApiResult<KnowledgeDocumentDetailResp>
+
+    /** 上传文档到指定知识库 */
+    @Multipart
+    @POST("knowledge/{kbId}/upload")
+    suspend fun uploadDocument(
+        @Path("kbId") kbId: Long,
+        @Part file: MultipartBody.Part,
+    ): ApiResult<KnowledgeDocumentResp>
 
     /** 删除文档 */
     @DELETE("knowledge/documents/{id}")

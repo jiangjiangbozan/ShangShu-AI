@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -29,7 +30,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -37,7 +37,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -50,6 +49,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.aiagent.data.model.AgentRuntimeResp
+import com.example.aiagent.data.model.AgentTaskResp
 import com.example.aiagent.data.model.AgentTraceResp
 import com.example.aiagent.data.model.SkillDefinitionResp
 import com.example.aiagent.data.model.TraceMetricsResp
@@ -62,6 +62,7 @@ fun AgentScreen(
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
 
+    LaunchedEffect(Unit) { viewModel.loadTasks() }
     LaunchedEffect(state.error) {
         state.error?.let { snackbarHostState.showSnackbar(it); viewModel.clearError() }
     }
@@ -71,48 +72,94 @@ fun AgentScreen(
             Text("任务 Agent", style = MaterialTheme.typography.headlineSmall)
 
             PrimaryTabRow(selectedTabIndex = state.selectedTab) {
-                Tab(selected = state.selectedTab == 0, onClick = { viewModel.selectTab(0) },
-                    text = { Text("Runtime") })
-                Tab(selected = state.selectedTab == 1, onClick = { viewModel.selectTab(1) },
+                Tab(selected = state.selectedTab == AgentViewModel.TAB_RUNTIME,
+                    onClick = { viewModel.selectTab(AgentViewModel.TAB_RUNTIME) },
+                    text = { Text("任务") })
+                Tab(selected = state.selectedTab == AgentViewModel.TAB_SKILLS,
+                    onClick = { viewModel.selectTab(AgentViewModel.TAB_SKILLS) },
                     text = { Text("Skills") })
-                Tab(selected = state.selectedTab == 2, onClick = { viewModel.selectTab(2) },
-                    text = { Text("Trace") })
+                Tab(selected = state.selectedTab == AgentViewModel.TAB_TRACE,
+                    onClick = { viewModel.selectTab(AgentViewModel.TAB_TRACE) },
+                    text = { Text("执行日志") })
             }
 
             when (state.selectedTab) {
-                0 -> RuntimePanel(state, viewModel)
-                1 -> SkillsPanel(state)
-                2 -> TracePanel(state, viewModel)
+                AgentViewModel.TAB_RUNTIME -> TaskPanel(state, viewModel)
+                AgentViewModel.TAB_SKILLS -> SkillsPanel(state)
+                AgentViewModel.TAB_TRACE -> TracePanel(state, viewModel)
+                else -> Unit
             }
         }
     }
 }
 
 @Composable
-private fun RuntimePanel(state: AgentUiState, viewModel: AgentViewModel) {
+private fun TaskPanel(state: AgentUiState, viewModel: AgentViewModel) {
     Column(modifier = Modifier.padding(top = 16.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            OutlinedTextField(
-                value = state.runtimeIdInput?.toString() ?: "",
-                onValueChange = { viewModel.setRuntimeIdInput(it.toLongOrNull()) },
-                label = { Text("Runtime ID") },
-                modifier = Modifier.weight(1f),
-                singleLine = true,
-            )
+            Button(onClick = { viewModel.createRuntime() }) { Text("新建任务") }
             Spacer(Modifier.width(8.dp))
-            OutlinedButton(onClick = { viewModel.loadRuntime() }) { Text("加载") }
-            TextButton(onClick = { viewModel.createRuntime() }) { Text("创建") }
+            OutlinedButton(onClick = { viewModel.loadTasks() }) { Text("刷新") }
         }
-        Spacer(Modifier.height(16.dp))
-
+        TaskFilterRow(state, viewModel)
         if (state.loading) {
             Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                 CircularProgressIndicator()
             }
         }
+        if (state.tasks.isEmpty()) {
+            Text("暂无任务，点击“新建任务”开始", color = MaterialTheme.colorScheme.onSurfaceVariant)
+        } else {
+            LazyColumn(modifier = Modifier.weight(1f)) {
+                items(state.tasks, key = { it.runtimeId }) { task ->
+                    TaskCard(task, state.selectedRuntimeId == task.runtimeId) {
+                        viewModel.selectTask(task)
+                    }
+                }
+            }
+        }
+        state.runtime?.let { RuntimeCard(it, viewModel) }
+    }
+}
 
-        state.runtime?.let { runtime ->
-            RuntimeCard(runtime, viewModel)
+@Composable
+private fun TaskFilterRow(state: AgentUiState, viewModel: AgentViewModel) {
+    val filters = listOf(
+        "" to "全部",
+        "pending" to "等待中",
+        "running" to "运行中",
+        "paused" to "已暂停",
+        "done" to "已完成",
+        "failed" to "失败",
+        "cancelled" to "已取消",
+    )
+    LazyRow(
+        modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        items(filters) { (status, label) ->
+            OutlinedButton(onClick = { viewModel.filterTasks(status) }) { Text(label) }
+        }
+    }
+}
+
+@Composable
+private fun TaskCard(task: AgentTaskResp, selected: Boolean, onClick: () -> Unit) {
+    Card(
+        onClick = onClick,
+        modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = if (selected) MaterialTheme.colorScheme.primaryContainer
+            else MaterialTheme.colorScheme.surfaceVariant,
+        ),
+    ) {
+        Column(modifier = Modifier.padding(12.dp)) {
+            Text("任务 #${task.runtimeId}", fontWeight = FontWeight.SemiBold)
+            Text("状态: ${statusLabel(task.status)}", fontSize = 13.sp)
+            Text("当前步骤: ${task.nextStepIndex}", fontSize = 12.sp)
+            task.errorMessage?.let {
+                Text("错误: $it", fontSize = 12.sp, color = MaterialTheme.colorScheme.error)
+            }
         }
     }
 }
@@ -126,7 +173,7 @@ private fun RuntimeCard(runtime: AgentRuntimeResp, viewModel: AgentViewModel) {
         ),
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Text("Runtime #${runtime.id}", fontWeight = FontWeight.Bold)
+            Text("任务 #${runtime.id}", fontWeight = FontWeight.Bold)
             Text("状态: ${statusLabel(runtime.status)}", fontSize = 14.sp)
             runtime.finalAnswer?.let {
                 Text("回答: $it", fontSize = 13.sp, modifier = Modifier.padding(top = 4.dp))
@@ -196,7 +243,7 @@ private fun TracePanel(state: AgentUiState, viewModel: AgentViewModel) {
         Spacer(Modifier.height(8.dp))
         Button(
             onClick = {
-                state.runtimeIdInput?.let { id ->
+                state.selectedRuntimeId?.let { id ->
                     viewModel.loadTrace(id)
                     viewModel.loadTraceMetrics(id)
                 }
@@ -204,12 +251,12 @@ private fun TracePanel(state: AgentUiState, viewModel: AgentViewModel) {
             modifier = Modifier.fillMaxWidth(),
         ) {
             Icon(Icons.Default.Timeline, contentDescription = null, Modifier.size(16.dp))
-            Spacer(Modifier.width(4.dp)); Text("加载 Trace")
+            Spacer(Modifier.width(4.dp)); Text("刷新执行日志")
         }
         Spacer(Modifier.height(8.dp))
         if (state.traces.isEmpty()) {
             Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text("请输入 Runtime ID 并加载 Trace", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text("请先在任务页选择一个任务", color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         } else {
             // 步骤类型统计

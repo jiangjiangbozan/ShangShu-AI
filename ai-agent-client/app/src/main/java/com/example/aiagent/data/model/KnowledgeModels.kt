@@ -2,6 +2,13 @@ package com.example.aiagent.data.model
 
 import kotlinx.serialization.Serializable
 
+/** 待上传文档：由系统文件选择器读取后交给 Repository 构造 multipart。 */
+data class KnowledgeUploadFile(
+    val bytes: ByteArray,
+    val mimeType: String,
+    val name: String,
+)
+
 /** 知识库文档响应 */
 @Serializable
 data class KnowledgeDocumentResp(

@@ -2,6 +2,7 @@ package com.example.aiagent.data.remote
 
 import com.example.aiagent.core.network.ApiResult
 import com.example.aiagent.data.model.AgentRuntimeResp
+import com.example.aiagent.data.model.AgentTaskPageResp
 import com.example.aiagent.data.model.AgentTraceResp
 import com.example.aiagent.data.model.SkillDefinitionResp
 import com.example.aiagent.data.model.TraceMetricsResp
@@ -44,6 +45,14 @@ interface AgentApi {
     /** 查询 runtime 详情 */
     @GET("agent/runtime/{id}")
     suspend fun getRuntime(@Path("id") id: Long): ApiResult<AgentRuntimeResp>
+
+    /** 分页查询当前用户的任务 */
+    @GET("agent/tasks")
+    suspend fun listTasks(
+        @Query("page") page: Int = DEFAULT_TASK_PAGE,
+        @Query("size") size: Int = DEFAULT_TASK_PAGE_SIZE,
+        @Query("status") status: String? = null,
+    ): ApiResult<AgentTaskPageResp>
 
     // ============ Skills ============
 
@@ -104,4 +113,9 @@ interface AgentApi {
     /** 查询子任务 trace */
     @GET("agent/trace/parent/{parentStepId}")
     suspend fun listChildTraces(@Path("parentStepId") parentStepId: Long): ApiResult<List<AgentTraceResp>>
+
+    companion object {
+        const val DEFAULT_TASK_PAGE = 1
+        const val DEFAULT_TASK_PAGE_SIZE = 20
+    }
 }

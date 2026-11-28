@@ -89,7 +89,11 @@ private const val PREFETCH_THRESHOLD = 3
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ChatScreen(viewModel: ChatViewModel) {
+fun ChatScreen(
+    viewModel: ChatViewModel,
+    externalText: String? = null,
+    onExternalTextConsumed: () -> Unit = {},
+) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
@@ -257,6 +261,8 @@ fun ChatScreen(viewModel: ChatViewModel) {
                     onSend = { viewModel.sendMessage(it) },
                     onStop = { viewModel.stopStreaming() },
                     onToggleWebSearch = { viewModel.toggleWebSearch() },
+                    externalText = externalText,
+                    onExternalTextConsumed = onExternalTextConsumed,
                 )
             }
         }
@@ -809,12 +815,22 @@ private fun MessageInput(
     onSend: (String) -> Unit,
     onStop: () -> Unit,
     onToggleWebSearch: () -> Unit,
+    externalText: String? = null,
+    onExternalTextConsumed: () -> Unit = {},
 ) {
     var text by rememberSaveable(sessionId) { mutableStateOf(draft) }
 
     // 当草稿从外部加载/变化时同步到本地 text
     LaunchedEffect(sessionId, draft) {
         if (draft != text) text = draft
+    }
+
+    LaunchedEffect(externalText) {
+        if (!externalText.isNullOrBlank()) {
+            text = externalText
+            sessionId?.let { onDraftChange(externalText) }
+            onExternalTextConsumed()
+        }
     }
 
     Column(modifier = Modifier.fillMaxWidth()) {

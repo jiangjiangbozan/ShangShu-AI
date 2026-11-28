@@ -20,6 +20,28 @@ data class AgentRuntimeResp(
     val updateTime: String = "",
 )
 
+/** 用户任务分页响应 */
+@Serializable
+data class AgentTaskPageResp(
+    val list: List<AgentTaskResp> = emptyList(),
+    val total: Long = 0,
+)
+
+/** 用户任务列表项 */
+@Serializable
+data class AgentTaskResp(
+    val agentConfigId: Long? = null,
+    val createTime: String = "",
+    val errorMessage: String? = null,
+    val modelId: String? = null,
+    val nextStepIndex: Int = 0,
+    val runtimeId: Long = 0,
+    val sessionId: Long? = null,
+    val status: String = "",
+    val strategy: String? = null,
+    val updateTime: String = "",
+)
+
 /** Skill 元数据响应 */
 @Serializable
 data class SkillDefinitionResp(

@@ -1,5 +1,10 @@
 package com.example.aiagent.ui.knowledge
 
+import android.content.Context
+import android.net.Uri
+import android.provider.OpenableColumns
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -42,6 +47,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -49,6 +55,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.aiagent.data.model.KnowledgeBaseResp
 import com.example.aiagent.data.model.KnowledgeDocumentResp
+import com.example.aiagent.data.model.KnowledgeUploadFile
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -57,6 +64,13 @@ fun KnowledgeScreen(
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
+    val context = LocalContext.current
+    val filePicker = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+        if (uri == null) return@rememberLauncherForActivityResult
+        val kbId = state.selectedKb?.id ?: return@rememberLauncherForActivityResult
+        val file = readUploadFile(context, uri) ?: return@rememberLauncherForActivityResult
+        viewModel.uploadDocument(kbId, file)
+    }
 
     LaunchedEffect(state.error) {
         state.error?.let { snackbarHostState.showSnackbar(it); viewModel.clearError() }
@@ -107,7 +121,19 @@ fun KnowledgeScreen(
             // 文档列表
             state.selectedKb?.let { kb ->
                 Spacer(Modifier.height(8.dp))
-                Text("文档列表 (${kb.name})", fontWeight = FontWeight.SemiBold)
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text("文档列表 (${kb.name})", fontWeight = FontWeight.SemiBold)
+                    Spacer(Modifier.width(8.dp))
+                    OutlinedButton(
+                        onClick = { filePicker.launch(ALL_FILES_MIME) },
+                        enabled = !state.uploading,
+                    ) {
+                        Text(if (state.uploading) "上传中..." else "上传文档")
+                    }
+                }
+                if (state.uploading) {
+                    LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+                }
                 Spacer(Modifier.height(4.dp))
                 if (state.documents.isEmpty()) {
                     Text("暂无文档", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -289,6 +315,27 @@ private fun DocumentCard(
             }
         }
     }
+}
+
+private const val ALL_FILES_MIME = "*/*"
+private const val DEFAULT_FILE_NAME = "document"
+private const val DEFAULT_MIME_TYPE = "application/octet-stream"
+
+private fun queryDisplayName(context: Context, uri: Uri): String {
+    val projection = arrayOf(OpenableColumns.DISPLAY_NAME)
+    return context.contentResolver.query(uri, projection, null, null, null)?.use { cursor ->
+        val column = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+        if (column >= 0 && cursor.moveToFirst()) cursor.getString(column) else DEFAULT_FILE_NAME
+    } ?: DEFAULT_FILE_NAME
+}
+
+private fun readUploadFile(context: Context, uri: Uri): KnowledgeUploadFile? {
+    val bytes = context.contentResolver.openInputStream(uri)?.use { it.readBytes() } ?: return null
+    return KnowledgeUploadFile(
+        bytes = bytes,
+        mimeType = context.contentResolver.getType(uri) ?: DEFAULT_MIME_TYPE,
+        name = queryDisplayName(context, uri),
+    )
 }
 
 private fun statusLabel(status: String): String = when (status) {

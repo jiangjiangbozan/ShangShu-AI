@@ -1,8 +1,58 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
 }
+
+// local.properties 不入库，用于存放环境地址与正式签名密钥；CI 通过同名环境变量覆盖
+val localProperties = Properties().apply {
+    val file = rootProject.file("local.properties")
+    if (file.exists()) {
+        file.inputStream().use { load(it) }
+    }
+}
+
+/**
+ * 读取构建配置，优先级：Gradle 属性 > local.properties > 环境变量。
+ * - propertyName：Gradle 属性或 local.properties 中的键名
+ * - environmentName：CI 使用的环境变量名
+ */
+val buildSetting: (String, String) -> String? = { propertyName, environmentName ->
+    providers.gradleProperty(propertyName).orNull
+        ?: localProperties.getProperty(propertyName)
+        ?: System.getenv(environmentName)
+}
+
+// 环境决定默认后端地址；prod/test 地址不写死在仓库，且 prod 强制 HTTPS
+val appEnvironment = (buildSetting("APP_ENVIRONMENT", "APP_ENV") ?: "dev").lowercase()
+val environmentBaseUrls = mapOf(
+    "dev" to "http://10.143.187.138:8080/api/v1",
+    "prod" to "",
+    "test" to "",
+)
+val defaultBaseUrl = environmentBaseUrls[appEnvironment]
+    ?: throw GradleException("未知环境 $appEnvironment，仅支持 dev/test/prod")
+val apiBaseUrl = buildSetting("API_BASE_URL", "API_BASE_URL")?.takeIf { it.isNotBlank() } ?: defaultBaseUrl
+if (apiBaseUrl.isBlank()) {
+    throw GradleException("$appEnvironment 环境必须通过 -PAPI_BASE_URL 或 API_BASE_URL 环境变量提供后端地址")
+}
+if (appEnvironment == "prod" && !apiBaseUrl.startsWith("https://", ignoreCase = true)) {
+    throw GradleException("prod 环境禁止明文 HTTP，API_BASE_URL 必须使用 HTTPS")
+}
+
+// 正式签名密钥只从环境变量或本地属性读取，任何口令都不写入仓库
+val releaseStoreFilePath = buildSetting("RELEASE_STORE_FILE", "RELEASE_STORE_FILE")
+val releaseStorePassword = buildSetting("RELEASE_STORE_PASSWORD", "RELEASE_STORE_PASSWORD")
+val releaseKeyAlias = buildSetting("RELEASE_KEY_ALIAS", "RELEASE_KEY_ALIAS")
+val releaseKeyPassword = buildSetting("RELEASE_KEY_PASSWORD", "RELEASE_KEY_PASSWORD")
+val hasReleaseSigning = listOf(
+    releaseStoreFilePath,
+    releaseStorePassword,
+    releaseKeyAlias,
+    releaseKeyPassword,
+).all { !it.isNullOrBlank() }
 
 android {
     namespace = "com.example.aiagent"
@@ -19,22 +69,39 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        // 后端基础地址：
-        //  - Android 模拟器：用宿主机局域网 IP（此环境实测 App UID 访问 10.0.2.2 网关别名会被
-        //    模拟器网络栈按 UID 静默丢弃，走外部路径反而正常）。IP 变化时用 ipconfig 查 IPv4 地址，
-        //    当前宿主机 以太网 IP = 10.143.187.138（WSL 网卡 192.168.64.1 作备选）
-        //  - 真机（USB + adb reverse）http://127.0.0.1:8080，需先执行 adb reverse tcp:8080 tcp:8080
-        //  - 真机（同一局域网 WiFi）与模拟器相同，使用宿主机局域网 IP
-        buildConfigField("String", "API_BASE_URL", "\"http://10.143.187.138:8080/api/v1\"")
+        buildConfigField("String", "API_BASE_URL", "\"$apiBaseUrl\"")
+        buildConfigField("String", "APP_ENVIRONMENT", "\"$appEnvironment\"")
+        // 由 buildTypes 覆盖：debug 才允许明文 HTTP 与开发 IP 例外
+        manifestPlaceholders["usesCleartextTraffic"] = "false"
+        manifestPlaceholders["networkSecurityConfig"] = "@xml/network_security_config"
+    }
+
+    signingConfigs {
+        create("release") {
+            if (hasReleaseSigning) {
+                storeFile = rootProject.file(releaseStoreFilePath!!)
+                storePassword = releaseStorePassword
+                keyAlias = releaseKeyAlias
+                keyPassword = releaseKeyPassword
+            }
+        }
     }
 
     buildTypes {
+        debug {
+            // 开发包保留局域网 HTTP 后端访问，release 不继承这些例外
+            manifestPlaceholders["usesCleartextTraffic"] = "true"
+            manifestPlaceholders["networkSecurityConfig"] = "@xml/network_security_config_debug"
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            if (hasReleaseSigning) {
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
     }
     compileOptions {
@@ -61,6 +128,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.datastore.preferences)
+    // Keystore 支撑的加密存储：保护 token/CSRF/用户信息，避免明文落盘
+    implementation(libs.androidx.security.crypto)
 
     // Network & Serialization
     implementation(libs.retrofit)

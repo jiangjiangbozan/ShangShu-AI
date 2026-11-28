@@ -30,6 +30,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.aiagent.core.storage.AuthState
+import com.example.aiagent.core.storage.SharedContentManager
+import com.example.aiagent.data.model.UserInfo
 import com.example.aiagent.ui.auth.AuthViewModel
 import com.example.aiagent.ui.auth.LoginScreen
 import com.example.aiagent.ui.auth.RegisterScreen
@@ -48,29 +50,51 @@ import com.example.aiagent.ui.skillmarket.SkillMarketScreen
 import com.example.aiagent.ui.profile.ProfileScreen
 import com.example.aiagent.ui.screens.PlaceholderScreen
 
+private const val CS_PERMISSION = "cs:session:list"
+private const val DATA_ANALYSIS_PERMISSION = "data:analysis:schema"
+private const val SUPER_ADMIN_ROLE = "SUPER_ADMIN"
+
 private data class BottomTab(
-    val route: String,
-    val label: String,
     val icon: ImageVector,
+    val label: String,
+    val route: String,
 )
 
 private val bottomTabs = listOf(
-    BottomTab(Screen.Chat.route, "对话", Icons.AutoMirrored.Filled.Chat),
-    BottomTab(Screen.Agent.route, "Agent", Icons.Filled.SmartToy),
-    BottomTab(Screen.Knowledge.route, "知识库", Icons.Filled.Folder),
-    BottomTab(Screen.Service.route, "客服", Icons.Filled.SupportAgent),
-    BottomTab(Screen.Profile.route, "我的", Icons.Filled.Person),
+    BottomTab(Icons.AutoMirrored.Filled.Chat, "对话", Screen.Chat.route),
+    BottomTab(Icons.Filled.SmartToy, "任务", Screen.Agent.route),
+    BottomTab(Icons.Filled.Folder, "知识库", Screen.Knowledge.route),
+    BottomTab(Icons.Filled.SupportAgent, "客服", Screen.Service.route),
+    BottomTab(Icons.Filled.Person, "我的", Screen.Profile.route),
 )
+
+private fun canAccessCustomerService(userInfo: UserInfo?): Boolean =
+    userInfo?.permissions?.contains(CS_PERMISSION) == true ||
+        userInfo?.roles?.contains(SUPER_ADMIN_ROLE) == true
+
+private fun canAccessDataAnalysis(userInfo: UserInfo?): Boolean =
+    userInfo?.permissions?.contains(DATA_ANALYSIS_PERMISSION) == true ||
+        userInfo?.roles?.contains(SUPER_ADMIN_ROLE) == true
+
+private fun visibleTabs(userInfo: UserInfo?): List<BottomTab> =
+    bottomTabs.filter { tab ->
+        tab.route != Screen.Service.route || canAccessCustomerService(userInfo)
+    }
 
 @Composable
 fun AppRoot(
     authViewModel: AuthViewModel = viewModel(factory = AuthViewModel.factory()),
 ) {
     val authState by authViewModel.authState.collectAsStateWithLifecycle()
+    val sharedText by SharedContentManager.text.collectAsStateWithLifecycle()
     when (authState) {
         AuthState.Loading -> LoadingScreen()
         AuthState.LoggedOut -> AuthGraph(authViewModel)
-        is AuthState.LoggedIn -> MainShell()
+        is AuthState.LoggedIn -> MainShell(
+            userInfo = (authState as AuthState.LoggedIn).user,
+            sharedText = sharedText,
+            onSharedTextConsumed = SharedContentManager::consume,
+        )
     }
 }
 
@@ -101,7 +125,11 @@ private fun AuthGraph(viewModel: AuthViewModel) {
 }
 
 @Composable
-fun MainShell() {
+fun MainShell(
+    userInfo: UserInfo?,
+    sharedText: String? = null,
+    onSharedTextConsumed: () -> Unit = {},
+) {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = backStackEntry?.destination
@@ -109,7 +137,7 @@ fun MainShell() {
     Scaffold(
         bottomBar = {
             NavigationBar {
-                bottomTabs.forEach { tab ->
+                visibleTabs(userInfo).forEach { tab ->
                     val selected = currentDestination?.hierarchy
                         ?.any { it.route == tab.route } == true
                     NavigationBarItem(
@@ -139,7 +167,11 @@ fun MainShell() {
         ) {
             composable(Screen.Chat.route) {
                 val viewModel: ChatViewModel = viewModel(factory = ChatViewModel.factory())
-                ChatScreen(viewModel = viewModel)
+                ChatScreen(
+                    viewModel = viewModel,
+                    externalText = sharedText,
+                    onExternalTextConsumed = onSharedTextConsumed,
+                )
             }
             composable(Screen.Agent.route) {
                 AgentScreen()
@@ -148,10 +180,12 @@ fun MainShell() {
                 KnowledgeScreen()
             }
             composable(Screen.Service.route) {
-                CustomerServiceScreen()
+                if (canAccessCustomerService(userInfo)) CustomerServiceScreen()
+                else PlaceholderScreen("无权限访问", "当前账号没有客服工作台权限")
             }
             composable(Screen.Analysis.route) {
-                DataAnalysisScreen()
+                if (canAccessDataAnalysis(userInfo)) DataAnalysisScreen()
+                else PlaceholderScreen("无权限访问", "当前账号没有数据分析权限")
             }
             composable(Screen.Profile.route) {
                 val viewModel: AuthViewModel = viewModel(factory = AuthViewModel.factory())

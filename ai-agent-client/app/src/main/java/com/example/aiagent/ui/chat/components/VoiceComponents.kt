@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.media.MediaPlayer
 import android.media.MediaRecorder
+import android.media.PlaybackParams
 import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -15,6 +16,7 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -42,6 +44,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -55,6 +58,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -68,8 +72,11 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileOutputStream
 
+private val PLAYBACK_SPEEDS = floatArrayOf(1.0f, 1.25f, 1.5f)
+private const val DEFAULT_PLAYBACK_SPEED_INDEX = 0
+
 /**
- * 语音录制按钮 - 按住说话，松开结束
+ * 语音录制按钮 - 按住说话，松开转写；手指移出取消录音。
  */
 @Composable
 fun VoiceRecordButton(
@@ -126,6 +133,15 @@ fun VoiceRecordButton(
         } else {
             onError("需要麦克风权限才能使用语音功能")
         }
+    }
+
+    fun cancelRecording() {
+        recorder?.stop()
+        recorder?.release()
+        recorder = null
+        isRecording = false
+        recordingFile?.delete()
+        recordingFile = null
     }
 
     fun stopRecordingAndTranscribe() {
@@ -208,31 +224,33 @@ fun VoiceRecordButton(
             Spacer(Modifier.width(8.dp))
             Text("识别中...", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
         } else {
-            IconButton(
-                onClick = {
-                    val hasPermission = ContextCompat.checkSelfPermission(
-                        context, Manifest.permission.RECORD_AUDIO
-                    ) == PackageManager.PERMISSION_GRANTED
-
-                    if (hasPermission) {
-                        if (isRecording) {
-                            stopRecordingAndTranscribe()
-                        } else {
-                            startRecording()
-                        }
-                    } else {
-                        permissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
-                    }
-                },
+            Box(
                 modifier = Modifier
                     .size(48.dp)
                     .scale(pulseScale)
                     .clip(CircleShape)
-                    .background(bgColor),
+                    .background(bgColor)
+                    .pointerInput(isRecording) {
+                        detectTapGestures(
+                            onPress = {
+                                val hasPermission = ContextCompat.checkSelfPermission(
+                                    context, Manifest.permission.RECORD_AUDIO
+                                ) == PackageManager.PERMISSION_GRANTED
+                                if (!hasPermission) {
+                                    permissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
+                                    return@detectTapGestures
+                                }
+                                startRecording()
+                                val released = tryAwaitRelease()
+                                if (released) stopRecordingAndTranscribe() else cancelRecording()
+                            },
+                        )
+                    },
+                contentAlignment = Alignment.Center,
             ) {
                 Icon(
                     imageVector = if (isRecording) Icons.Default.Stop else Icons.Default.Mic,
-                    contentDescription = if (isRecording) "停止录音" else "按住说话",
+                    contentDescription = if (isRecording) "松开转写" else "按住说话",
                     tint = Color.White,
                     modifier = Modifier.size(24.dp),
                 )
@@ -263,9 +281,10 @@ fun VoicePlayButton(
     val scope = rememberCoroutineScope()
     val repository = remember { VoiceRepository() }
 
-    var isPlaying by remember { mutableStateOf(false) }
     var isLoading by remember { mutableStateOf(false) }
+    var isPlaying by remember { mutableStateOf(false) }
     var mediaPlayer: MediaPlayer? by remember { mutableStateOf(null) }
+    var speedIndex by remember { mutableStateOf(DEFAULT_PLAYBACK_SPEED_INDEX) }
 
     DisposableEffect(Unit) {
         onDispose {
@@ -273,57 +292,68 @@ fun VoicePlayButton(
         }
     }
 
-    IconButton(
-        onClick = {
-            if (isPlaying) {
-                mediaPlayer?.stop()
-                mediaPlayer?.release()
-                mediaPlayer = null
-                isPlaying = false
-            } else {
-                isLoading = true
-                scope.launch {
-                    try {
-                        val audioBytes = withContext(Dispatchers.IO) {
-                            repository.textToSpeech(text)
-                        }
-                        val tempFile = File(context.cacheDir, "tts_${System.currentTimeMillis()}.mp3")
-                        FileOutputStream(tempFile).use { it.write(audioBytes) }
-
-                        mediaPlayer = MediaPlayer().apply {
-                            setDataSource(tempFile.absolutePath)
-                            prepare()
-                            setOnCompletionListener {
-                                it.release()
-                                mediaPlayer = null
-                                isPlaying = false
-                                tempFile.delete()
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        IconButton(
+            onClick = {
+                if (isPlaying) {
+                    mediaPlayer?.stop()
+                    mediaPlayer?.release()
+                    mediaPlayer = null
+                    isPlaying = false
+                } else {
+                    isLoading = true
+                    scope.launch {
+                        try {
+                            val audioBytes = withContext(Dispatchers.IO) {
+                                repository.textToSpeech(text)
                             }
-                            start()
+                            val tempFile = File(context.cacheDir, "tts_${System.currentTimeMillis()}.mp3")
+                            FileOutputStream(tempFile).use { it.write(audioBytes) }
+
+                            mediaPlayer = MediaPlayer().apply {
+                                setDataSource(tempFile.absolutePath)
+                                prepare()
+                                playbackParams = PlaybackParams().setSpeed(PLAYBACK_SPEEDS[speedIndex])
+                                setOnCompletionListener {
+                                    it.release()
+                                    mediaPlayer = null
+                                    isPlaying = false
+                                    tempFile.delete()
+                                }
+                                start()
+                            }
+                            isPlaying = true
+                            isLoading = false
+                        } catch (e: Exception) {
+                            isLoading = false
                         }
-                        isPlaying = true
-                        isLoading = false
-                    } catch (e: Exception) {
-                        isLoading = false
                     }
                 }
+            },
+            modifier = modifier.size(32.dp),
+        ) {
+            if (isLoading) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(20.dp),
+                    strokeWidth = 2.dp,
+                )
+            } else {
+                Icon(
+                    imageVector = if (isPlaying) Icons.Default.Stop else Icons.AutoMirrored.Filled.VolumeUp,
+                    contentDescription = if (isPlaying) "停止播放" else "语音播报",
+                    tint = if (isPlaying) MaterialTheme.colorScheme.primary
+                           else MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.size(18.dp),
+                )
             }
-        },
-        modifier = modifier.size(32.dp),
-    ) {
-        if (isLoading) {
-            CircularProgressIndicator(
-                modifier = Modifier.size(20.dp),
-                strokeWidth = 2.dp,
-            )
-        } else {
-            Icon(
-                imageVector = if (isPlaying) Icons.Default.Stop else Icons.AutoMirrored.Filled.VolumeUp,
-                contentDescription = if (isPlaying) "停止播放" else "语音播报",
-                tint = if (isPlaying) MaterialTheme.colorScheme.primary
-                       else MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.size(18.dp),
-            )
+        }
+        TextButton(
+            onClick = {
+                speedIndex = (speedIndex + 1) % PLAYBACK_SPEEDS.size
+                mediaPlayer?.playbackParams = PlaybackParams().setSpeed(PLAYBACK_SPEEDS[speedIndex])
+            },
+        ) {
+            Text("${PLAYBACK_SPEEDS[speedIndex]}x", fontSize = 11.sp)
         }
     }
 }
