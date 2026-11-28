@@ -12,11 +12,13 @@
 
 ## 二、当前已授权的模型
 
-| 模型 | 允许用途 | 额度（2026-11-27 末轮） |
+| 模型 | 允许用途 | 额度（2026-11-28） |
 |---|---|---|
 | `qwen3.7-text-embedding-flash` | 知识库切片向量化、向量重嵌入 | **0，已用尽；用户明令禁止调用** |
 | `qwen3.7-text-rerank` | 检索精排、评测链路 rerank 阶段、**判别力标定实验** | **0，已用尽；同样禁止调用** |
-| `qwen3.8-max-0902` | 生成 RAG 评测题；**QueryRewrite 查询改写**（替代本地 Ollama） | 约 91–97 万 / 1M |
+| `qwen3.8-max-0902` | 聊天与 Agent 主模型；QueryRewrite 查询改写；RAG 评测题生成 | **29.3 万 / 1M（仅够验收，禁止批量内容生产）** |
+| `qwen3.8-livetranslate-flash-realtime` | 实时语音同传、对话流式字幕（音频 → 目标语言文本） | 1M / 1M |
+| `qwen-mt-uni` | 跨语言检索的查询/结果翻译、文档双语摘要、会话消息翻译 | 1M / 1M |
 
 ## 三、额度禁用期作业规则（2026-11-27 起）
 
@@ -65,3 +67,15 @@
 | `dev/rag-eval/rerank_calibration.py` | **仅 qwen3.7-text-rerank** | 判别力/阈值标定（不触发 embedding） |
 | `dev/rag-eval/analyze_rerank_calib.py` | 无（纯本地计算） | 标定数据分析 |
 | `dev/rag-eval/build_dataset_kb5.py` | `--model` 参数决定，默认需人工确认 | 评测题生成 |
+
+## 七、跨语言与实时同传模型落点（2026-11-28）
+
+新增授权两个模型，额度均为 1M，仍遵守「先登记、后调用」：未落到本文档用途之外的调用一律视为越权。
+
+| 模型 | 落点 | 说明 |
+|---|---|---|
+| `qwen-mt-uni` | 新增 `TranslationService`；`RagService` 检索前查询翻译与检索后结果回译；文档入库双语摘要；会话消息一键翻译 | 单次翻译 100–300 token，1M 可支撑数千次，适合跨语言检索与双语评测 |
+| `qwen3.8-livetranslate-flash-realtime` | 新增实时同传 WebSocket 端点；Android 录音流上行；小程序实时字幕 | 流式音频输入，按音频时长计费，先做单路压测再放量 |
+
+`qwen3.8-max-0902` 余额降至 29.3 万，仅保留聊天 / Agent / QueryRewrite 与功能验收，禁止用于批量评测题、语料生成等批量内容生产。
+
