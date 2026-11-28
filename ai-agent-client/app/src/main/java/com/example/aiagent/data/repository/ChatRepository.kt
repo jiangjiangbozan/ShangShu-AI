@@ -13,8 +13,11 @@ import com.example.aiagent.data.model.MessageResp
 import com.example.aiagent.data.model.SendMessageReq
 import com.example.aiagent.data.model.SessionResp
 import com.example.aiagent.data.model.TokenStatsResp
+import com.example.aiagent.data.model.TranslateReq
+import com.example.aiagent.data.model.TranslateResp
 import com.example.aiagent.data.remote.ChatApi
 import com.example.aiagent.data.remote.KnowledgeApi
+import com.example.aiagent.data.remote.TranslateApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -41,7 +44,17 @@ sealed interface StreamEvent {
 class ChatRepository(
     private val api: ChatApi = NetworkModule.api(),
     private val knowledgeApi: KnowledgeApi = NetworkModule.api(),
+    private val translateApi: TranslateApi = NetworkModule.api(),
 ) {
+
+    /**
+     * 翻译单条消息：服务端按语种推断目标语言（中文→English，其余→Chinese）。
+     *
+     * @param messageId 消息 ID
+     * @param targetLang 目标语言，留空自动推断
+     */
+    suspend fun translateMessage(messageId: Long, targetLang: String? = null): TranslateResp =
+        safeApiCall { translateApi.translateMessage(messageId, TranslateReq(targetLang)) }
 
     private val jsonMediaType = "application/json; charset=utf-8".toMediaType()
 

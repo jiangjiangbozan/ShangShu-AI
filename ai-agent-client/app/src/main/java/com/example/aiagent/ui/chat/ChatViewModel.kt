@@ -79,6 +79,10 @@ data class ChatUiState(
     val currentModelId: String? = null,
     /** 模型选择器显示状态 */
     val showModelSelector: Boolean = false,
+    /** 消息译文（messageId → 译文，跨语言翻译结果） */
+    val translations: Map<Long, String> = emptyMap(),
+    /** 正在翻译的消息 ID（按钮展示进度用） */
+    val translatingMessageIds: Set<Long> = emptySet(),
 )
 
 class ChatViewModel(
@@ -491,6 +495,36 @@ class ChatViewModel(
         // 更新缓存
         _uiState.value.currentSessionId?.let { sid ->
             messageCache[sid] = _uiState.value.messages
+        }
+    }
+
+    // ============ 跨语言翻译（qwen-mt-uni） ============
+
+    /** 翻译单条消息：结果写入 translations 缓存，已翻译或请求中的消息不重复发起。 */
+    fun translateMessage(messageId: Long) {
+        if (messageId <= 0L) return
+        val state = _uiState.value
+        if (state.translations.containsKey(messageId)) return
+        if (state.translatingMessageIds.contains(messageId)) return
+        viewModelScope.launch {
+            _uiState.update { it.copy(translatingMessageIds = it.translatingMessageIds + messageId) }
+            runCatching { repository.translateMessage(messageId) }
+                .onSuccess { resp ->
+                    _uiState.update {
+                        it.copy(
+                            translations = it.translations + (messageId to resp.translated),
+                            translatingMessageIds = it.translatingMessageIds - messageId,
+                        )
+                    }
+                }
+                .onFailure { e ->
+                    _uiState.update {
+                        it.copy(
+                            translatingMessageIds = it.translatingMessageIds - messageId,
+                            error = e.message ?: "翻译失败",
+                        )
+                    }
+                }
         }
     }
 

@@ -11,6 +11,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Translate
 import androidx.compose.material.icons.automirrored.filled.Reply
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -28,6 +29,7 @@ data class MessageActions(
     val onQuote: () -> Unit = {},
     val onRegenerate: () -> Unit = {},
     val onDelete: () -> Unit = {},
+    val onTranslate: () -> Unit = {},
 )
 
 /**
@@ -58,6 +60,19 @@ fun MessageActionBar(
             Icon(
                 Icons.Filled.ContentCopy,
                 contentDescription = "复制",
+                modifier = Modifier.size(16.dp),
+                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+
+        // 翻译按钮：跨语言互译（中文↔英文由服务端按语种推断）
+        IconButton(
+            onClick = actions.onTranslate,
+            modifier = Modifier.size(28.dp),
+        ) {
+            Icon(
+                Icons.Filled.Translate,
+                contentDescription = "翻译",
                 modifier = Modifier.size(16.dp),
                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
             )

@@ -242,6 +242,9 @@ fun ChatScreen(
                         onQuote = { content -> viewModel.setQuoteContent(content) },
                         onRegenerate = { viewModel.regenerateLastMessage() },
                         onDelete = { msg -> viewModel.deleteMessage(msg) },
+                        translations = uiState.translations,
+                        translatingMessageIds = uiState.translatingMessageIds,
+                        onTranslate = { messageId -> viewModel.translateMessage(messageId) },
                     )
                 }
                 // 引用预览
@@ -492,6 +495,9 @@ private fun MessageListPane(
     onQuote: ((String) -> Unit)? = null,
     onRegenerate: (() -> Unit)? = null,
     onDelete: ((MessageResp) -> Unit)? = null,
+    translations: Map<Long, String> = emptyMap(),
+    translatingMessageIds: Set<Long> = emptySet(),
+    onTranslate: ((Long) -> Unit)? = null,
 ) {
     val listState = rememberLazyListState()
     val totalItems = messages.size + (if (isStreaming) 1 else 0)
@@ -572,6 +578,9 @@ private fun MessageListPane(
                     onQuote = onQuote,
                     onRegenerate = onRegenerate,
                     onDelete = { onDelete?.invoke(msg) },
+                    translated = translations[msg.messageId],
+                    translating = translatingMessageIds.contains(msg.messageId),
+                    onTranslate = onTranslate,
                 )
             }
             if (isStreaming) {
@@ -621,6 +630,9 @@ private fun MessageBubble(
     onQuote: ((String) -> Unit)? = null,
     onRegenerate: (() -> Unit)? = null,
     onDelete: (() -> Unit)? = null,
+    translated: String? = null,
+    translating: Boolean = false,
+    onTranslate: ((Long) -> Unit)? = null,
 ) {
     val isUser = msg.isUser
     Column(
@@ -674,6 +686,31 @@ private fun MessageBubble(
             }
         }
 
+        // 译文卡片（点「译」后显示在原文气泡下方；翻译中显示进度）
+        if (!translated.isNullOrBlank()) {
+            Surface(
+                shape = RoundedCornerShape(10.dp),
+                color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.55f),
+                modifier = Modifier
+                    .widthIn(max = 300.dp)
+                    .padding(top = 4.dp),
+            ) {
+                Text(
+                    text = translated,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+                )
+            }
+        } else if (translating) {
+            Text(
+                text = "翻译中…",
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(top = 2.dp),
+            )
+        }
+
         // 消息操作栏（借鉴 Operit 的消息操作设计）
         com.example.aiagent.ui.chat.components.MessageActionBar(
             message = msg,
@@ -682,6 +719,7 @@ private fun MessageBubble(
                 onQuote = { onQuote?.invoke(msg.content) },
                 onRegenerate = { onRegenerate?.invoke() },
                 onDelete = { onDelete?.invoke() },
+                onTranslate = { onTranslate?.invoke(msg.messageId) },
             ),
             modifier = Modifier.padding(top = 4.dp),
         )
